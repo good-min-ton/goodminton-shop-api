@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: goodminton-shop-api   
+  datasource:
+    url: 
+    username: 
+    password: 
+    driver-class-name:
+  jpa:
+    hibernate:
+      ddl-auto: none
