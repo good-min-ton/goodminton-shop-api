@@ -55,7 +55,7 @@ public class Order {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "email", columnDefinition = "TEXT")
+    @Column(name = "note", columnDefinition = "TEXT")
     private String note;
 
     @Enumerated(EnumType.STRING)
