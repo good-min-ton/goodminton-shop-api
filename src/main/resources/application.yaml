@@ -2,7 +2,7 @@ spring:
   application:
     name: goodminton-shop-api   
   datasource:
-    url: jdbc:postgresql://localhost:5433/goodminton
+    url: jdbc:postgresql://localhost:5433/goodminton?stringtype=unspecified
     username: admin
     password: postgresql123
     driver-class-name: org.postgresql.Driver
