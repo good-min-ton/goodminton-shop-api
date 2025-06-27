@@ -29,6 +29,9 @@ public class Account {
     @Column(name = "account_id")
     private Integer accountId;
 
+    @Column(name = "full_name", length = 50)
+    private String fullName;
+
     @Column(name = "phone", length = 20, unique = true)
     private String phone;
 
