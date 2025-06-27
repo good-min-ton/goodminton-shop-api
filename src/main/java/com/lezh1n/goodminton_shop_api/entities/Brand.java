@@ -23,6 +23,6 @@ public class Brand {
     @Column(name = "brand_id")
     private Integer brandId;
 
-    @Column(name = "brand_name", nullable = false)
+    @Column(name = "brand_name", length = 100, nullable = false)
     private String brandName;
 }

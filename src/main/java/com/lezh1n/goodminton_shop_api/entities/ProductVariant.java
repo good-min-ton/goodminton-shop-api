@@ -32,13 +32,13 @@ public class ProductVariant {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(name = "version")
+    @Column(name = "version", length = 50)
     private String version;
 
-    @Column(name = "color")
+    @Column(name = "color", length = 50)
     private String color; 
 
-    @Column(name = "size")
+    @Column(name = "size", length = 50)
     private String size;
 
     @Column(name = "price")

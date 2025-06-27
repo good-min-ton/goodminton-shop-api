@@ -29,16 +29,16 @@ public class Product {
     @Column(name = "brand_id", nullable = false)
     private Integer brandId;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "thumbnail_url", nullable = false)
+    @Column(name = "thumbnail_url", length = 255, nullable = false)
     private String thumbnailUrl;
 
-    @Column(name = "video_url")
+    @Column(name = "video_url", length = 255)
     private String videoUrl;
 
     @Column(name = "create_at", nullable = false)

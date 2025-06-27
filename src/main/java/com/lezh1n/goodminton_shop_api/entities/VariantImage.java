@@ -32,7 +32,7 @@ public class VariantImage {
     @JoinColumn(name = "variant_id", nullable = false)
     private ProductVariant variant;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url", length = 255, nullable = false)
     private String imageUrl;
 
     @Column(name = "sort_order")

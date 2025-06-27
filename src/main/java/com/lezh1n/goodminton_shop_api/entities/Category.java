@@ -16,15 +16,15 @@ public class Category {
     @Column(name = "category_id")
     private Integer categoryId;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", length = 255)
     private String imageUrl;
 
-    @Column(name = "video_url")
+    @Column(name = "video_url", length = 255)
     private String videoUrl;
 }

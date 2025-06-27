@@ -52,7 +52,7 @@ public class Payment {
     @Column(name = "paid_at")
     private LocalDateTime paidAt;
 
-    @Column(name = "transaction_code")
+    @Column(name = "transaction_code", length = 100)
     private String transactionCode;
 
     @Column(name = "create_at", nullable = false)

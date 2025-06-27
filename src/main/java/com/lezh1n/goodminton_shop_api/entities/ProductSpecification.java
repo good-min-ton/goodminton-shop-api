@@ -29,9 +29,9 @@ public class ProductSpecification {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "value", nullable = false)
+    @Column(name = "value", length = 255, nullable = false)
     private String value;
 }

@@ -29,13 +29,13 @@ public class Account {
     @Column(name = "account_id")
     private Integer accountId;
 
-    @Column(name = "phone", unique = true)
+    @Column(name = "phone", length = 20, unique = true)
     private String phone;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", length = 50, nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
