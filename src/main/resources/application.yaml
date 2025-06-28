@@ -32,9 +32,9 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: 
-          secret-key:
-            access-token:
-              expiration: 600000 
-            refresh-token:
-              expiration: 604800000 
+          issuer-uri: goodminton
+          secret-key: ${JWT_SECRET}
+          access-token:
+            expiration: 600000 
+          refresh-token:
+            expiration: 604800000 
