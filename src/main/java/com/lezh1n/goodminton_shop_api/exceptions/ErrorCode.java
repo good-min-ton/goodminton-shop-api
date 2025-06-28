@@ -9,9 +9,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
     // Authentications & Authorizations(1000 - 1100)
-    EMAIL_EXISTED(1000, "Email đã được sử dụng", HttpStatus.BAD_REQUEST),
-    PHONE_EXISTED(1001, "Số điện thoại đã được sử dụng", HttpStatus.BAD_REQUEST),
-    AUTH_UNAUTHORIZED(1002, "Unauthorized", HttpStatus.UNAUTHORIZED),
+    EMAIL_EXISTED(1001, "Email đã được sử dụng", HttpStatus.BAD_REQUEST),
+    PHONE_EXISTED(1002, "Số điện thoại đã được sử dụng", HttpStatus.BAD_REQUEST),
+    AUTH_UNAUTHORIZED(1003, "Unauthorized", HttpStatus.UNAUTHORIZED),
     // Account (1101 - 1200)
 
     // Data errors
