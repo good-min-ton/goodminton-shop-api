@@ -5,4 +5,6 @@ import com.lezh1n.goodminton_shop_api.dto.response.AccountResponse;
 
 public interface AuthService {
     AccountResponse register(CreateAccountRequest request);
+
+    
 }
