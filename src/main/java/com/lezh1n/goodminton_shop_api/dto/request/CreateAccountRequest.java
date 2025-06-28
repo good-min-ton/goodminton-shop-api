@@ -1,14 +1,8 @@
 package com.lezh1n.goodminton_shop_api.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter
 public class CreateAccountRequest {
     private String fullName;
     private String email;
