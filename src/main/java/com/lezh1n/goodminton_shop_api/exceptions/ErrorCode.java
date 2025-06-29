@@ -9,10 +9,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
     // Authentications & Authorizations(1000 - 1100)
-    EMAIL_EXISTED(1001, "Email đã được sử dụng", HttpStatus.BAD_REQUEST),
-    PHONE_EXISTED(1002, "Số điện thoại đã được sử dụng", HttpStatus.BAD_REQUEST),
+    AUTH_EMAIL_EXISTED(1001, "Email đã được sử dụng", HttpStatus.BAD_REQUEST),
+    AUTH_PHONE_EXISTED(1002, "Số điện thoại đã được sử dụng", HttpStatus.BAD_REQUEST),
     AUTH_INVALID_CREDENTIALS(1003, "Thông tin đăng nhập không hợp lệ", HttpStatus.BAD_REQUEST),
     AUTH_UNAUTHORIZED(1004, "Unauthorized", HttpStatus.UNAUTHORIZED),
+    AUTH_INVALID_TOKEN(1005, "Invalid token", HttpStatus.BAD_REQUEST),
 
     // Jwt & Security(1101 - 1200)
     JWT_GENERATION_ERROR(1501, "Jwt generation failed", HttpStatus.INTERNAL_SERVER_ERROR),

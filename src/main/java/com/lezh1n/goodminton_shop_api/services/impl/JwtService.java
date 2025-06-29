@@ -14,7 +14,9 @@ import com.lezh1n.goodminton_shop_api.services.TokenService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 
@@ -46,6 +48,70 @@ public class JwtService {
 
     public String generateRefreshToken(Account account) {
         return generateToken(account, refreshTokenExpiration, "refresh_token");
+    }
+
+    public String extractFullName(String token) {
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(token);
+            return signedJWT.getJWTClaimsSet().getSubject();
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.AUTH_INVALID_TOKEN);
+        }
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(token);
+            JWSVerifier verifier = new MACVerifier(secretKey.getBytes());
+            boolean verified = signedJWT.verify(verifier);
+            if (!verified) {
+                return false;
+            }
+            Date expireTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+            if (!expireTime.after(new Date())) {
+                return false;
+            }
+            String issuer = signedJWT.getJWTClaimsSet().getIssuer();
+            return issuer.equals(tokenIssuer);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isRefreshToken(String token) {
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(token);
+            String tokenType = signedJWT.getJWTClaimsSet().getStringClaim("token_type");
+            return "refresh_token".equals(tokenType);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isTokenExpired(String token) {
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(token);
+            Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
+            return expiration.before(new Date());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public long getTokenExpiryDuration(String token) {
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(token);
+            Date expiration = signedJWT.getJWTClaimsSet().getExpirationTime();
+            Date now = new Date();
+            return Math.max(0, expiration.getTime() - now.getTime());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public void blacklistToken(String token) {
+        long expiryTime = getTokenExpiryDuration(token);
+        tokenService.addToBlacklist(token, expiryTime);
     }
 
     private String generateToken(Account account, long expiration, String tokenType) {
