@@ -50,7 +50,7 @@ public class JwtService {
         return generateToken(account, refreshTokenExpiration, "refresh_token");
     }
 
-    public String extractFullName(String token) {
+    public String extractEmail(String token) {
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
             return signedJWT.getJWTClaimsSet().getSubject();
@@ -117,7 +117,7 @@ public class JwtService {
     private String generateToken(Account account, long expiration, String tokenType) {
         try {
             JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                    .subject(account.getFullName())
+                    .subject(account.getEmail())
                     .issuer(tokenIssuer)
                     .issueTime(new Date(
                             Instant.now().plus(expiration, ChronoUnit.MILLIS).toEpochMilli()))
