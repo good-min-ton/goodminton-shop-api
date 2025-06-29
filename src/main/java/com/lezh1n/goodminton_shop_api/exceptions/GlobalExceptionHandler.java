@@ -2,7 +2,10 @@ package com.lezh1n.goodminton_shop_api.exceptions;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,7 +36,7 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
-    @ExceptionHandler(value = AuthorizationDeniedException.class)
+    @ExceptionHandler(AuthorizationDeniedException.class)
     ResponseEntity<ApiResponse<Void>> handlingAuthorizationDeniedException(AuthorizationDeniedException exception) {
         ErrorCode errorCode = ErrorCode.AUTH_UNAUTHORIZED;
         return ResponseEntity
@@ -44,7 +47,7 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
-    @ExceptionHandler(value = HttpMessageNotReadableException.class)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiResponse<Void>> handleJsonParseException(HttpMessageNotReadableException exception) {
         ErrorCode errorCode = ErrorCode.ENUM_INVALID_VALUE;
         return ResponseEntity
@@ -55,7 +58,7 @@ public class GlobalExceptionHandler {
                         .build());
     }
 
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     ResponseEntity<ApiResponse<Void>> handlingValidation(MethodArgumentNotValidException exception) {
         ErrorCode errorCode = ErrorCode.SYSTEM_UNKNOWN_ERROR;
 
@@ -75,5 +78,15 @@ public class GlobalExceptionHandler {
         apiResponse.setMessage(errorCode.getMessage());
 
         return ResponseEntity.badRequest().body(apiResponse);
+    }
+
+    @ExceptionHandler({ BadCredentialsException.class, UsernameNotFoundException.class,
+            InternalAuthenticationServiceException.class })
+    public ResponseEntity<ApiResponse<Void>> handleAuthenticationException(Exception ex) {
+        return ResponseEntity.status(ErrorCode.AUTH_INVALID_CREDENTIALS.getStatus())
+                .body(ApiResponse.<Void>builder()
+                        .code(ErrorCode.AUTH_INVALID_CREDENTIALS.getCode())
+                        .message(ErrorCode.AUTH_INVALID_CREDENTIALS.getMessage())
+                        .build());
     }
 }

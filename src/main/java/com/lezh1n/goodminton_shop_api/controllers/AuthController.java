@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lezh1n.goodminton_shop_api.dto.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dto.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dto.request.LoginRequest;
 import com.lezh1n.goodminton_shop_api.dto.response.AccountResponse;
+import com.lezh1n.goodminton_shop_api.dto.response.AuthenticationResponse;
 import com.lezh1n.goodminton_shop_api.services.AuthService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,13 @@ public class AuthController {
     public ApiResponse<AccountResponse> register(@RequestBody CreateAccountRequest request) {
         return ApiResponse.<AccountResponse>builder()
                 .result(authService.register(request))
+                .build();
+    }
+
+    @PostMapping("/login")
+    public ApiResponse<AuthenticationResponse> login(@RequestBody LoginRequest request) {
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(authService.login(request))
                 .build();
     }
 }
