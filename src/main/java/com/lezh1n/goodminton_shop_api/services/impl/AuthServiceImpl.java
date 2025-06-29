@@ -4,6 +4,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dto.request.CreateAccountRequest;
@@ -28,6 +29,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public AccountResponse register(CreateAccountRequest request) {
@@ -42,6 +44,7 @@ public class AuthServiceImpl implements AuthService {
 
         Account account = accountMapper.toAccount(request);
         account.setRole(UserRole.CUSTOMER);
+        account.setPassword(passwordEncoder.encode(request.getPassword()));
         return accountMapper.toAccountResponse(accountRepository.save(account));
     }
 

@@ -18,7 +18,6 @@ public class AccountMapper {
                 .fullName(request.getFullName())
                 .email(request.getEmail())
                 .phone(request.getPhone())
-                .password(request.getPassword())
                 .status(AccountStatus.ACTIVE)
                 .build();
     }
