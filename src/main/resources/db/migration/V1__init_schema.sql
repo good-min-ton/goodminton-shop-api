@@ -10,9 +10,10 @@ CREATE TYPE payment_status AS ENUM ('PENDING', 'PAID', 'FAILED');
 -- Tables
 CREATE TABLE account (
     account_id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
     phone VARCHAR(20) UNIQUE,
-    email VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     role user_role NOT NULL,
     status account_status NOT NULL
 );

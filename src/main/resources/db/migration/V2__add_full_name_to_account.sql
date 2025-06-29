@@ -1,2 +1,0 @@
-ALTER TABLE account
-ADD COLUMN full_name VARCHAR(50) NOT NULL;
