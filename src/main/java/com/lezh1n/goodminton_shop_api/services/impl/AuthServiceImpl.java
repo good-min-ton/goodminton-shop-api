@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dto.request.CreateAccountRequest;
 import com.lezh1n.goodminton_shop_api.dto.request.LoginRequest;
+import com.lezh1n.goodminton_shop_api.dto.request.RefreshTokenRequest;
 import com.lezh1n.goodminton_shop_api.dto.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.dto.response.AuthenticationResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
@@ -68,6 +69,31 @@ public class AuthServiceImpl implements AuthService {
         } catch (BadCredentialsException e) {
             throw new AppException(ErrorCode.AUTH_INVALID_CREDENTIALS);
         }
+    }
+
+    @Override
+    public AuthenticationResponse refreshToken(RefreshTokenRequest request) {
+        String refreshToken = request.getRefreshToken();
+
+        if (!jwtService.isRefreshToken(refreshToken)) {
+            throw new AppException(ErrorCode.JWT_INVALID_TOKEN);
+        }
+
+        if (jwtService.isTokenExpired(refreshToken)) {
+            throw new AppException(ErrorCode.JWT_EXPIRED_TOKEN);
+        }
+
+        String email = jwtService.extractEmail(refreshToken);
+
+        Account account = accountRepository.findByEmail(email)
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+
+        String newAccessToken = jwtService.generateAccessToken(account);
+
+        return AuthenticationResponse.builder()
+                .accessToken(newAccessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
 }

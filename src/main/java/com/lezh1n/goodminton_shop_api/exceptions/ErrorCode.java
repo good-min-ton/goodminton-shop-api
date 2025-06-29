@@ -13,13 +13,14 @@ public enum ErrorCode {
     AUTH_PHONE_EXISTED(1002, "Số điện thoại đã được sử dụng", HttpStatus.BAD_REQUEST),
     AUTH_INVALID_CREDENTIALS(1003, "Thông tin đăng nhập không hợp lệ", HttpStatus.BAD_REQUEST),
     AUTH_UNAUTHORIZED(1004, "Unauthorized", HttpStatus.UNAUTHORIZED),
-    AUTH_INVALID_TOKEN(1005, "Invalid token", HttpStatus.BAD_REQUEST),
-
+    
     // Jwt & Security(1101 - 1200)
-    JWT_GENERATION_ERROR(1501, "Jwt generation failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    JWT_GENERATION_ERROR(1101, "Jwt generation failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    JWT_INVALID_TOKEN(1102, "Invalid token", HttpStatus.BAD_REQUEST),
+    JWT_EXPIRED_TOKEN(1103, "Token is expired", HttpStatus.BAD_REQUEST),
 
     // Account (1201 - 1300)
-    USER_NOT_FOUND(3001, "User not found", HttpStatus.NOT_FOUND),
+    ACCOUNT_NOT_FOUND(3001, "User not found", HttpStatus.NOT_FOUND),
 
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),

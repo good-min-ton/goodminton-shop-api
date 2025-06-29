@@ -55,7 +55,7 @@ public class JwtService {
             SignedJWT signedJWT = SignedJWT.parse(token);
             return signedJWT.getJWTClaimsSet().getSubject();
         } catch (Exception e) {
-            throw new AppException(ErrorCode.AUTH_INVALID_TOKEN);
+            throw new AppException(ErrorCode.JWT_INVALID_TOKEN);
         }
     }
 

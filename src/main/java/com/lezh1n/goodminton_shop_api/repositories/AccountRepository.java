@@ -18,4 +18,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query("SELECT a FROM Account a WHERE a.email = :identifier OR a.phone = :identifier")
     Optional<Account> findByEmailOrPhone(@Param("identifier") String identifier);
+
+    Optional<Account> findByEmail(String email);
 }

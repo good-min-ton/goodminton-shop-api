@@ -42,7 +42,7 @@ public class Account implements UserDetails {
     @Column(name = "phone", length = 20, unique = true)
     private String phone;
 
-    @Column(name = "email", length = 100, nullable = false)
+    @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
 
     @Column(name = "password", length = 255, nullable = false)
