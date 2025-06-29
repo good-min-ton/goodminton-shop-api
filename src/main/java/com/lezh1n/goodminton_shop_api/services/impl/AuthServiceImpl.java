@@ -1,9 +1,15 @@
 package com.lezh1n.goodminton_shop_api.services.impl;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dto.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dto.request.LoginRequest;
 import com.lezh1n.goodminton_shop_api.dto.response.AccountResponse;
+import com.lezh1n.goodminton_shop_api.dto.response.AuthenticationResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
@@ -18,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class AuthServiceImpl implements AuthService {
 
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
 
@@ -25,16 +33,38 @@ public class AuthServiceImpl implements AuthService {
     public AccountResponse register(CreateAccountRequest request) {
 
         if (accountRepository.existsByEmail(request.getEmail())) {
-            throw new AppException(ErrorCode.EMAIL_EXISTED);
+            throw new AppException(ErrorCode.AUTH_EMAIL_EXISTED);
         }
 
         if (accountRepository.existsByPhone(request.getPhone())) {
-            throw new AppException(ErrorCode.PHONE_EXISTED);
+            throw new AppException(ErrorCode.AUTH_PHONE_EXISTED);
         }
 
         Account account = accountMapper.toAccount(request);
         account.setRole(UserRole.CUSTOMER);
         return accountMapper.toAccountResponse(accountRepository.save(account));
+    }
+
+    @Override
+    public AuthenticationResponse login(LoginRequest request) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getIdentifier(),
+                            request.getPassword()));
+
+            Account account = (Account) authentication.getPrincipal();
+
+            String accessToken = jwtService.generateAccessToken(account);
+            String refreshToken = jwtService.generateRefreshToken(account);
+
+            return AuthenticationResponse.builder()
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
+                    .build();
+        } catch (BadCredentialsException e) {
+            throw new AppException(ErrorCode.AUTH_INVALID_CREDENTIALS);
+        }
     }
 
 }
