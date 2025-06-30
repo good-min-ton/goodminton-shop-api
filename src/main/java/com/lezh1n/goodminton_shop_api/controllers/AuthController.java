@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lezh1n.goodminton_shop_api.dto.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dto.request.CreateAccountRequest;
 import com.lezh1n.goodminton_shop_api.dto.request.LoginRequest;
+import com.lezh1n.goodminton_shop_api.dto.request.LogoutRequest;
 import com.lezh1n.goodminton_shop_api.dto.request.RefreshTokenRequest;
 import com.lezh1n.goodminton_shop_api.dto.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.dto.response.AuthenticationResponse;
@@ -39,6 +40,14 @@ public class AuthController {
     public ApiResponse<AuthenticationResponse> refreshToken(@RequestBody RefreshTokenRequest request) {
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(authService.refreshToken(request))
+                .build();
+    }
+
+    @PostMapping("/logout")
+    public ApiResponse<String> refreshToken(@RequestBody LogoutRequest request) {
+        authService.logout(request);
+        return ApiResponse.<String>builder()
+                .result("Logout successfully")
                 .build();
     }
 }

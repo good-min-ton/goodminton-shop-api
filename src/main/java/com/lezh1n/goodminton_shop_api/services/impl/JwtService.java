@@ -119,7 +119,8 @@ public class JwtService {
             JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                     .subject(account.getEmail())
                     .issuer(tokenIssuer)
-                    .issueTime(new Date(
+                    .issueTime(new Date())
+                    .expirationTime(new Date(
                             Instant.now().plus(expiration, ChronoUnit.MILLIS).toEpochMilli()))
                     .claim("role", account.getRole())
                     .claim("token_type", tokenType)

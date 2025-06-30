@@ -18,6 +18,7 @@ public enum ErrorCode {
     JWT_GENERATION_ERROR(1101, "Jwt generation failed", HttpStatus.INTERNAL_SERVER_ERROR),
     JWT_INVALID_TOKEN(1102, "Invalid token", HttpStatus.BAD_REQUEST),
     JWT_EXPIRED_TOKEN(1103, "Token is expired", HttpStatus.BAD_REQUEST),
+    JWT_TOKEN_BLACKLISTED(1104, "Token has been blacklisted", HttpStatus.BAD_REQUEST),
 
     // Account (1201 - 1300)
     ACCOUNT_NOT_FOUND(3001, "User not found", HttpStatus.NOT_FOUND),
