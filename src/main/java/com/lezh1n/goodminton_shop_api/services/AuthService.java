@@ -6,9 +6,10 @@ import com.lezh1n.goodminton_shop_api.dtos.request.LogoutRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.RefreshTokenRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.AuthenticationResponse;
+import com.lezh1n.goodminton_shop_api.enums.UserRole;
 
 public interface AuthService {
-    AccountResponse register(CreateAccountRequest request);
+    AccountResponse register(CreateAccountRequest request, UserRole role);
 
     AuthenticationResponse login(LoginRequest request);
 

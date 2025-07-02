@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
     private final TokenService tokenService;
 
     @Override
-    public AccountResponse register(CreateAccountRequest request) {
+    public AccountResponse register(CreateAccountRequest request, UserRole role) {
 
         if (accountRepository.existsByEmail(request.getEmail())) {
             throw new AppException(ErrorCode.AUTH_EMAIL_EXISTED);
@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         Account account = accountMapper.toAccount(request);
-        account.setRole(UserRole.CUSTOMER);
+        account.setRole(role);
         account.setPassword(passwordEncoder.encode(request.getPassword()));
         return accountMapper.toAccountResponse(accountRepository.save(account));
     }

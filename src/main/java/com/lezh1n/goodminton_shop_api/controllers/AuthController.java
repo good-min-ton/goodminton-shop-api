@@ -13,6 +13,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.LogoutRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.RefreshTokenRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.AuthenticationResponse;
+import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.services.AuthService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class AuthController {
     @PostMapping("/register")
     public ApiResponse<AccountResponse> register(@RequestBody CreateAccountRequest request) {
         return ApiResponse.<AccountResponse>builder()
-                .result(authService.register(request))
+                .result(authService.register(request, UserRole.CUSTOMER))
                 .build();
     }
 
