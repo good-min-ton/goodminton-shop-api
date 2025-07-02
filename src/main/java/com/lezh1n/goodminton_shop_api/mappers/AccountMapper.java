@@ -2,8 +2,8 @@ package com.lezh1n.goodminton_shop_api.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.lezh1n.goodminton_shop_api.dto.request.CreateAccountRequest;
-import com.lezh1n.goodminton_shop_api.dto.response.AccountResponse;
+import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.enums.AccountStatus;
 

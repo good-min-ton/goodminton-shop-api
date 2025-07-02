@@ -11,7 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.lezh1n.goodminton_shop_api.dto.ApiResponse;
+import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

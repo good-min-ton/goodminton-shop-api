@@ -1,4 +1,4 @@
-package com.lezh1n.goodminton_shop_api.dto.request;
+package com.lezh1n.goodminton_shop_api.dtos.request;
 
 import lombok.Getter;
 

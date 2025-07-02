@@ -1,4 +1,4 @@
-package com.lezh1n.goodminton_shop_api.dto.response;
+package com.lezh1n.goodminton_shop_api.dtos.response;
 
 import com.lezh1n.goodminton_shop_api.enums.AccountStatus;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;

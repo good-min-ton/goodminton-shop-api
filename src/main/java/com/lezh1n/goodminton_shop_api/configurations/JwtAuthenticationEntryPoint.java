@@ -7,7 +7,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lezh1n.goodminton_shop_api.dto.ApiResponse;
+import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 
 import jakarta.servlet.ServletException;

@@ -8,12 +8,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.lezh1n.goodminton_shop_api.dto.request.CreateAccountRequest;
-import com.lezh1n.goodminton_shop_api.dto.request.LoginRequest;
-import com.lezh1n.goodminton_shop_api.dto.request.LogoutRequest;
-import com.lezh1n.goodminton_shop_api.dto.request.RefreshTokenRequest;
-import com.lezh1n.goodminton_shop_api.dto.response.AccountResponse;
-import com.lezh1n.goodminton_shop_api.dto.response.AuthenticationResponse;
+import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.LoginRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.LogoutRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.RefreshTokenRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.AuthenticationResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;

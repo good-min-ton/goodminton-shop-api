@@ -1,4 +1,4 @@
-package com.lezh1n.goodminton_shop_api.dto;
+package com.lezh1n.goodminton_shop_api.dtos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
