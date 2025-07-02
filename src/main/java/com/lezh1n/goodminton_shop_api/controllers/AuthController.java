@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lezh1n.goodminton_shop_api.dto.ApiResponse;
-import com.lezh1n.goodminton_shop_api.dto.request.CreateAccountRequest;
-import com.lezh1n.goodminton_shop_api.dto.request.LoginRequest;
-import com.lezh1n.goodminton_shop_api.dto.request.LogoutRequest;
-import com.lezh1n.goodminton_shop_api.dto.request.RefreshTokenRequest;
-import com.lezh1n.goodminton_shop_api.dto.response.AccountResponse;
-import com.lezh1n.goodminton_shop_api.dto.response.AuthenticationResponse;
+import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
+import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.LoginRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.LogoutRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.RefreshTokenRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.AuthenticationResponse;
 import com.lezh1n.goodminton_shop_api.services.AuthService;
 
 import lombok.RequiredArgsConstructor;
