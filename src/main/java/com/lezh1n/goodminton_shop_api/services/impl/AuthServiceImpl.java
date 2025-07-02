@@ -4,6 +4,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -125,6 +126,19 @@ public class AuthServiceImpl implements AuthService {
         } catch (Exception e) {
             log.error("Logout error: {}", e.getMessage());
         }
+    }
+
+    @Override
+    public AccountResponse getMyInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AppException(ErrorCode.AUTH_UNAUTHENTICATED);
+        }
+
+        Account account = (Account) authentication.getPrincipal();
+
+        return accountMapper.toAccountResponse(account);
     }
 
 }

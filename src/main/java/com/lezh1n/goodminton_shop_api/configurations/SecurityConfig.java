@@ -1,7 +1,5 @@
 package com.lezh1n.goodminton_shop_api.configurations;
 
-import java.util.Collections;
-
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +12,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -40,6 +36,7 @@ public class SecurityConfig {
 
     private final JwtBlacklistFilter jwtBlacklistFilter;
     private final CustomUserDetailsService userDetailsService;
+    private final CustomJwtAuthenticationConverter customConverter;
 
     @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}")
     private String jwtSecret;
@@ -76,7 +73,8 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt
                                 .decoder(jwtDecoder())
-                                .jwtAuthenticationConverter(jwtAuthenticationConverter())));
+                                .jwtAuthenticationConverter(customConverter))
+                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
         return http.build();
     }
 
@@ -96,18 +94,5 @@ public class SecurityConfig {
                 new SecretKeySpec(jwtSecret.getBytes(), "HS512"))
                 .macAlgorithm(MacAlgorithm.HS512)
                 .build();
-    }
-
-    @Bean
-    JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-        converter.setJwtGrantedAuthoritiesConverter(jwt -> {
-            String role = jwt.getClaim("role");
-            log.info("JWT role: " + role);
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
-            log.info("Created authority: " + authority);
-            return role != null ? Collections.singletonList(authority) : Collections.emptyList();
-        });
-        return converter;
     }
 }

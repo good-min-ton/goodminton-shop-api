@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 @Builder
 public class AccountResponse {
-    private Integer accountId;
     private String fullName;
     private String email;
     private String phone;

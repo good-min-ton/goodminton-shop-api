@@ -1,5 +1,6 @@
 package com.lezh1n.goodminton_shop_api.controllers;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,13 @@ public class AuthController {
         authService.logout(request);
         return ApiResponse.<String>builder()
                 .result("Logout successfully")
+                .build();
+    }
+
+    @GetMapping("/my-info")
+    public ApiResponse<AccountResponse> getMyInfo() {
+        return ApiResponse.<AccountResponse>builder()
+                .result(authService.getMyInfo())
                 .build();
     }
 }

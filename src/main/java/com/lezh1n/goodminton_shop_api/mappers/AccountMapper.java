@@ -27,7 +27,6 @@ public class AccountMapper {
             return null;
         }
         return AccountResponse.builder()
-                .accountId(account.getAccountId())
                 .fullName(account.getFullName())
                 .email(account.getEmail())
                 .phone(account.getPhone())
