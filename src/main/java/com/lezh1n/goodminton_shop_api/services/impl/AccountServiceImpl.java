@@ -22,7 +22,6 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
-
     @Override
     public AccountResponse getAccountById(Integer id) {
         Account account = accountRepository.findById(id)
@@ -40,5 +39,4 @@ public class AccountServiceImpl implements AccountService {
 
         return accountPage.map(accountMapper::toAccountResponse);
     }
-
 }

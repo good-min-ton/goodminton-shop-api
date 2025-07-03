@@ -24,6 +24,9 @@ public enum ErrorCode {
     // Account (1201 - 1300)
     ACCOUNT_NOT_FOUND(1201, "User not found", HttpStatus.NOT_FOUND),
 
+    // Store (1301 - 1400)
+    STORE_NOT_FOUND(1301, "Store not found", HttpStatus.NOT_FOUND),
+
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),
 
