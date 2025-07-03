@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.mappers;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
@@ -19,6 +21,7 @@ public class AccountMapper {
                 .email(request.getEmail())
                 .phone(request.getPhone())
                 .status(AccountStatus.ACTIVE)
+                .createAt(LocalDateTime.now())
                 .build();
     }
 
@@ -32,6 +35,7 @@ public class AccountMapper {
                 .phone(account.getPhone())
                 .password(account.getPassword())
                 .role(account.getRole())
+                .createAt(account.getCreateAt())
                 .status(account.getStatus())
                 .build();
     }
