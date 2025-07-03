@@ -20,6 +20,7 @@ CREATE TABLE
         email VARCHAR(100) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         role user_role NOT NULL,
+        create_at TIMESTAMP NOT NULL,
         status account_status NOT NULL
     );
 

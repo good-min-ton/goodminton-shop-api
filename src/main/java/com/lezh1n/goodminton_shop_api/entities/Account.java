@@ -1,5 +1,6 @@
 package com.lezh1n.goodminton_shop_api.entities;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -51,6 +52,9 @@ public class Account implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role;
+
+    @Column(name = "create_at", nullable = false)
+    private LocalDateTime createAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)

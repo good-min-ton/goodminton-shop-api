@@ -7,10 +7,11 @@ BEGIN
         INSERT INTO account (full_name, phone, email, password, role, status)
         VALUES (
             'Super Admin',
-            '0999999999',
-            'admin@goodminton.com',
-            '$2a$10$5bCEzE7L.LcrZp/CcnFY5Ov7LkP9Qpi8nWB7z8DqINh2tYOG4cKu6', -- bcrypt: Admin@123
+            '0123456789',
+            'goodmintonadm@gmail.com',
+            '$2a$10$S0mZF2LQ2MfNxbJyX58tmuJhUe0LIcvIq8mTxzh8BAoa8g4QabY2S', -- bcrypt: Admin@123
             'SUPER_ADMIN',
+            CURRENT_TIMESTAMP,
             'ACTIVE'
         );
     END IF;
