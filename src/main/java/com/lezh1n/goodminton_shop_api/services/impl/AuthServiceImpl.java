@@ -1,5 +1,6 @@
 package com.lezh1n.goodminton_shop_api.services.impl;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -129,6 +130,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public AccountResponse getMyInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

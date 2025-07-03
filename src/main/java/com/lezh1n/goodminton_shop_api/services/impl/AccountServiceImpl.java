@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
@@ -22,7 +23,9 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
+
     @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public AccountResponse getAccountById(Integer id) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
@@ -30,6 +33,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public Page<AccountResponse> getAllAccounts(int page, int size, String sortBy, String sortDir) {
         Sort sort = Sort.by(sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
 

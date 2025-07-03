@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.services.impl;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateStoreRequest;
@@ -26,6 +27,7 @@ public class StoreServiceImpl implements StoreService {
     private final StoreMapper storeMapper;
 
     @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public StoreResponse createStore(CreateStoreRequest request) {
         Store store = storeMapper.toStore(request);
 

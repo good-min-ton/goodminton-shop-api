@@ -37,8 +37,8 @@ public class AccountController {
     public ApiResponse<Page<AccountResponse>> getAllAccounts(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "fullName") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDir) {
+            @RequestParam(defaultValue = "createAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDir) {
 
         Page<AccountResponse> accountPage = accountService.getAllAccounts(page, size, sortBy, sortDir);
         return ApiResponse.<Page<AccountResponse>>builder()
@@ -47,7 +47,7 @@ public class AccountController {
     }
 
     @PostMapping("/store-admin")
-    public ApiResponse<AccountResponse> register(@RequestBody CreateAccountRequest request) {
+    public ApiResponse<AccountResponse> createStoreAdmin(@RequestBody CreateAccountRequest request) {
         return ApiResponse.<AccountResponse>builder()
                 .result(authService.register(request, UserRole.STORE_ADMIN))
                 .build();
