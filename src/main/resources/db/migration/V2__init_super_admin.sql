@@ -4,7 +4,7 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM account WHERE email = 'admin@goodminton.com'
     ) THEN
-        INSERT INTO account (full_name, phone, email, password, role, status)
+        INSERT INTO account (full_name, phone, email, password, role, create_at, status)
         VALUES (
             'Super Admin',
             '0123456789',
