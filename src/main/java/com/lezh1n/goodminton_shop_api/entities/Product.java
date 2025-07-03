@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,5 +44,5 @@ public class Product {
     private String videoUrl;
 
     @Column(name = "create_at", nullable = false)
-    private String createAt;
+    private LocalDateTime createAt;
 }
