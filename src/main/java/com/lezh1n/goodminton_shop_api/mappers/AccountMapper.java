@@ -30,10 +30,10 @@ public class AccountMapper {
             return null;
         }
         return AccountResponse.builder()
+                .accountId(account.getAccountId())
                 .fullName(account.getFullName())
                 .email(account.getEmail())
                 .phone(account.getPhone())
-                .password(account.getPassword())
                 .role(account.getRole())
                 .createAt(account.getCreateAt())
                 .status(account.getStatus())

@@ -8,8 +8,14 @@ import com.lezh1n.goodminton_shop_api.dtos.request.CreateStoreRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.StoreResponse;
 import com.lezh1n.goodminton_shop_api.entities.Store;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class StoreMapper {
+
+    private final AccountMapper accountMapper;
+
     public Store toStore(CreateStoreRequest request) {
         return Store.builder()
                 .name(request.getName())
@@ -30,7 +36,7 @@ public class StoreMapper {
                 .longitude(store.getLongitude())
                 .latitude(store.getLatitude())
                 .createAt(store.getCreateAt())
-                .admin(store.getAdmin())
+                .admin(accountMapper.toAccountResponse(store.getAdmin()))
                 .build();
     }
 }

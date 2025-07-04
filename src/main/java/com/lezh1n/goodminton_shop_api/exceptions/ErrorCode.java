@@ -26,9 +26,10 @@ public enum ErrorCode {
 
     // Store (1301 - 1400)
     STORE_NOT_FOUND(1301, "Store not found", HttpStatus.NOT_FOUND),
-    STORE_ASSIGN_NON_ADMIN_ACCOUNT(1302, "Cannot can only assign store admin account to a store",
+    STORE_ASSIGN_NON_ADMIN_ACCOUNT(1302, "You can only assign store admin account to a store",
             HttpStatus.BAD_REQUEST),
     STORE_ADMIN_ASSIGNED(1303, "Admin has been assigned with another store", HttpStatus.BAD_REQUEST),
+    STORE_ADMIN_ID_REQUIRED(1304, "Store admin id required", HttpStatus.BAD_REQUEST),
 
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),

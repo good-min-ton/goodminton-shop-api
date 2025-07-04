@@ -32,14 +32,19 @@ public class StoreServiceImpl implements StoreService {
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public StoreResponse createStore(CreateStoreRequest request) {
+        if (request.getAdminId() == null) {
+            throw new AppException(ErrorCode.STORE_ADMIN_ID_REQUIRED); 
+        }
         Store store = storeMapper.toStore(request);
 
         Account account = accountRepository.findById(request.getAdminId())
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
 
+        checkValidAdminAccount(account.getAccountId());
+
         store.setAdmin(account);
 
-        return storeMapper.toStoreResponse(store);
+        return storeMapper.toStoreResponse(storeRepository.save(store));
     }
 
     @Override
@@ -62,6 +67,18 @@ public class StoreServiceImpl implements StoreService {
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public StoreResponse updateStoreAdmin(Integer storeId, Integer adminId) {
+
+        Store store = storeRepository.findById(storeId).orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
+        Account admin = accountRepository.findById(adminId)
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+
+        checkValidAdminAccount(adminId);
+        store.setAdmin(admin);
+
+        return storeMapper.toStoreResponse(storeRepository.save(store));
+    }
+
+    private void checkValidAdminAccount(Integer adminId) {
         if (!accountRepository.isStoreAdminAccount(adminId)) {
             throw new AppException(ErrorCode.STORE_ASSIGN_NON_ADMIN_ACCOUNT);
         }
@@ -69,13 +86,5 @@ public class StoreServiceImpl implements StoreService {
         if (storeRepository.isAdminAssigned(adminId)) {
             throw new AppException(ErrorCode.STORE_ADMIN_ASSIGNED);
         }
-
-        Store store = storeRepository.findById(storeId).orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
-        Account admin = accountRepository.findById(adminId)
-                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
-
-        store.setAdmin(admin);
-
-        return storeMapper.toStoreResponse(store);
     }
 }
