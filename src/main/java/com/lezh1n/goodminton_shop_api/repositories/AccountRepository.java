@@ -1,5 +1,6 @@
 package com.lezh1n.goodminton_shop_api.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,10 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<Account> findByEmailOrPhone(@Param("identifier") String identifier);
 
     Optional<Account> findByEmail(String email);
+
+    @Query(value = "SELECT EXISTS (SELECT 1 FROM account WHERE admin_id = :id AND role = 'STORE_ADMIN')", nativeQuery = true)
+    boolean isStoreAdminAccount(@Param("account_id") Integer accountId);
+
+    @Query(value = "SELECT * FROM account a WHERE a.role = 'STORE_ADMIN' AND a.account_id NOT IN (SELECT s.admin_id FROM store s)", nativeQuery = true)
+    List<Account> findAdminsNotAssigned();
 }

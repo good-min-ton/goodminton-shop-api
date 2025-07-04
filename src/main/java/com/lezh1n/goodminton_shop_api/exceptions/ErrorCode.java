@@ -14,7 +14,7 @@ public enum ErrorCode {
     AUTH_INVALID_CREDENTIALS(1003, "Thông tin đăng nhập không hợp lệ", HttpStatus.BAD_REQUEST),
     AUTH_UNAUTHORIZED(1004, "Unauthorized", HttpStatus.UNAUTHORIZED),
     AUTH_UNAUTHENTICATED(1005, "Unauthenticated", HttpStatus.UNAUTHORIZED),
-    
+
     // Jwt & Security(1101 - 1200)
     JWT_GENERATION_ERROR(1101, "Jwt generation failed", HttpStatus.INTERNAL_SERVER_ERROR),
     JWT_INVALID_TOKEN(1102, "Invalid token", HttpStatus.BAD_REQUEST),
@@ -26,6 +26,9 @@ public enum ErrorCode {
 
     // Store (1301 - 1400)
     STORE_NOT_FOUND(1301, "Store not found", HttpStatus.NOT_FOUND),
+    STORE_ASSIGN_NON_ADMIN_ACCOUNT(1302, "Cannot can only assign store admin account to a store",
+            HttpStatus.BAD_REQUEST),
+    STORE_ADMIN_ASSIGNED(1303, "Admin has been assigned with another store", HttpStatus.BAD_REQUEST),
 
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),
