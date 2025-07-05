@@ -16,6 +16,7 @@ import com.lezh1n.goodminton_shop_api.dtos.response.AuthenticationResponse;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.services.AuthService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,7 +26,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ApiResponse<AccountResponse> register(@RequestBody CreateAccountRequest request) {
+    public ApiResponse<AccountResponse> register(@Valid @RequestBody CreateAccountRequest request) {
         return ApiResponse.<AccountResponse>builder()
                 .result(authService.register(request, UserRole.CUSTOMER))
                 .build();

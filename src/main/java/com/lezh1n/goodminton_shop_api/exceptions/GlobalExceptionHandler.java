@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.exceptions;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = RuntimeException.class)
     ResponseEntity<ApiResponse<Void>> handlingRuntimeException(RuntimeException exception) {
@@ -69,7 +74,8 @@ public class GlobalExceptionHandler {
                 try {
                     errorCode = ErrorCode.valueOf(enumKey);
                 } catch (IllegalArgumentException e) {
-                    throw new AppException(errorCode);
+                    log.warn("Unknown error code: {}", enumKey);
+                    errorCode = ErrorCode.SYSTEM_UNKNOWN_ERROR;
                 }
             }
         }

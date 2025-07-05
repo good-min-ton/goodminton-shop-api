@@ -37,7 +37,7 @@ public class Account implements UserDetails {
     @Column(name = "account_id")
     private Integer accountId;
 
-    @Column(name = "full_name", length = 100)
+    @Column(name = "full_name", length = 100, nullable = false)
     private String fullName;
 
     @Column(name = "phone", length = 20, unique = true)
