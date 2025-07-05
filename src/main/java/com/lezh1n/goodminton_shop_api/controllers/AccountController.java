@@ -52,4 +52,11 @@ public class AccountController {
                 .result(authService.register(request, UserRole.STORE_ADMIN))
                 .build();
     }
+
+    @GetMapping("/my-info")
+    public ApiResponse<AccountResponse> getMyInfo() {
+        return ApiResponse.<AccountResponse>builder()
+                .result(accountService.getMyInfo())
+                .build();
+    }
 }

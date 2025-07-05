@@ -5,8 +5,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
@@ -42,5 +45,31 @@ public class AccountServiceImpl implements AccountService {
         Page<Account> accountPage = accountRepository.findAll(pageable);
 
         return accountPage.map(accountMapper::toAccountResponse);
+    }
+
+    @Override
+    @PreAuthorize("isAuthenticated()")
+    public AccountResponse getMyInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AppException(ErrorCode.AUTH_UNAUTHENTICATED);
+        }
+
+        Account account = (Account) authentication.getPrincipal();
+
+        return accountMapper.toAccountResponse(account);
+    }
+
+    @Override
+    @PreAuthorize("isAuthenticated()")
+    public AccountResponse updateProfile(Integer accountId, UpdateProfileRequest request) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+
+        account.setFullName(request.getFullName());
+        account.setPhone(request.getPhone());
+
+        return accountMapper.toAccountResponse(accountRepository.save(account));
     }
 }
