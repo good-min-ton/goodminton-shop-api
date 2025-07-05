@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.services.AccountService;
@@ -57,6 +59,13 @@ public class AccountController {
     public ApiResponse<AccountResponse> getMyInfo() {
         return ApiResponse.<AccountResponse>builder()
                 .result(accountService.getMyInfo())
+                .build();
+    }
+
+    @PutMapping("/my-info")
+    public ApiResponse<AccountResponse> updateProfile(@RequestBody UpdateProfileRequest request) {
+        return ApiResponse.<AccountResponse>builder()
+                .result(accountService.updateProfile(request))
                 .build();
     }
 }

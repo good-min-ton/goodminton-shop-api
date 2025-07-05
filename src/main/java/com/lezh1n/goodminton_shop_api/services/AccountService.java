@@ -12,5 +12,5 @@ public interface AccountService {
 
     AccountResponse getMyInfo();
 
-    AccountResponse updateProfile(Integer accountId, UpdateProfileRequest request);
+    AccountResponse updateProfile(UpdateProfileRequest request);
 }

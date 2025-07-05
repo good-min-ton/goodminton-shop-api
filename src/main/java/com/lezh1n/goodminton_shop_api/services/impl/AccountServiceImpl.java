@@ -50,26 +50,29 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @PreAuthorize("isAuthenticated()")
     public AccountResponse getMyInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new AppException(ErrorCode.AUTH_UNAUTHENTICATED);
-        }
-
-        Account account = (Account) authentication.getPrincipal();
+        Account account = getCurrentAuthentication();
 
         return accountMapper.toAccountResponse(account);
     }
 
     @Override
     @PreAuthorize("isAuthenticated()")
-    public AccountResponse updateProfile(Integer accountId, UpdateProfileRequest request) {
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+    public AccountResponse updateProfile(UpdateProfileRequest request) {
+        Account account = getCurrentAuthentication();
 
         account.setFullName(request.getFullName());
         account.setPhone(request.getPhone());
 
         return accountMapper.toAccountResponse(accountRepository.save(account));
+    }
+
+    private Account getCurrentAuthentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new AppException(ErrorCode.AUTH_UNAUTHENTICATED);
+        }
+
+        return (Account) authentication.getPrincipal();
     }
 }
