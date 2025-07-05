@@ -35,6 +35,10 @@ public enum ErrorCode {
             HttpStatus.BAD_REQUEST),
     STORE_ADMIN_ASSIGNED(1303, "Admin has been assigned with another store", HttpStatus.BAD_REQUEST),
     STORE_ADMIN_ID_REQUIRED(1304, "Store admin id required", HttpStatus.BAD_REQUEST),
+    STORE_NAME_BLANK(1305, "Tên chi nhánh không được để trống", HttpStatus.BAD_REQUEST),
+    STORE_ADDRESS_BLANK(1306, "Địa chỉ của chi nhánh không được để trống", HttpStatus.BAD_REQUEST),
+    STORE_LOCATION_INFO_BLANK(1307, "Thông tin vị trí của chi nhánh không được để trống", HttpStatus.BAD_REQUEST),
+    STORE_ADMIN_BLANK(1308, "Admin id của chi nhánh không được để trống", HttpStatus.BAD_REQUEST),
 
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),
