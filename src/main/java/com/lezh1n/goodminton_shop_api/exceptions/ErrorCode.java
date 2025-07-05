@@ -18,6 +18,7 @@ public enum ErrorCode {
     AUTH_INVALID_PASSWORD(1007, "Mật khẩu phải có ít nhất 8 ký tự", HttpStatus.BAD_REQUEST),
     AUTH_FULLNAME_BLANK(1008, "Họ tên không được để trống", HttpStatus.BAD_REQUEST),
     AUTH_EMAIL_BLANK(1009, "Email không được để trống", HttpStatus.BAD_REQUEST),
+    AUTH_INVALID_EMAIL(1010, "Email không đúng định dạng", HttpStatus.BAD_REQUEST),
 
     // Jwt & Security(1101 - 1200)
     JWT_GENERATION_ERROR(1101, "Jwt generation failed", HttpStatus.INTERNAL_SERVER_ERROR),

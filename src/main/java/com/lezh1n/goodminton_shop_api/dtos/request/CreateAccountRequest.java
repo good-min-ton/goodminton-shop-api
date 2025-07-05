@@ -12,7 +12,7 @@ public class CreateAccountRequest {
     private String fullName;
 
     @NotBlank(message = "AUTH_EMAIL_BLANK")
-    @Email
+    @Email(message = "AUTH_INVALID_EMAIL")
     private String email;
 
     @Size(min = 10, max = 12, message = "AUTH_INVALID_PHONE")
