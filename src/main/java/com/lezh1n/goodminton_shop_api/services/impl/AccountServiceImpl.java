@@ -7,8 +7,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.lezh1n.goodminton_shop_api.dtos.request.ChangePasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
@@ -26,6 +28,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
@@ -64,6 +67,24 @@ public class AccountServiceImpl implements AccountService {
         account.setPhone(request.getPhone());
 
         return accountMapper.toAccountResponse(accountRepository.save(account));
+    }
+
+    @Override
+    @PreAuthorize("isAuthenticated()")
+    public void changePassword(ChangePasswordRequest request) {
+        Account account = getCurrentAuthentication();
+
+        if (!request.getConfirmPassword().equals(request.getNewPassword())) {
+            throw new AppException(ErrorCode.ACCOUNT_CONFIRM_PASSWORD_NOT_MATCH);
+        }
+
+        if (!passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
+            throw new AppException(ErrorCode.ACCOUNT_OLD_PASSWORD_NOT_MATCH);
+        }
+
+        account.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        accountRepository.save(account);
     }
 
     private Account getCurrentAuthentication() {

@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.controllers;
 
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
+import com.lezh1n.goodminton_shop_api.dtos.request.ChangePasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
@@ -66,6 +68,14 @@ public class AccountController {
     public ApiResponse<AccountResponse> updateProfile(@RequestBody UpdateProfileRequest request) {
         return ApiResponse.<AccountResponse>builder()
                 .result(accountService.updateProfile(request))
+                .build();
+    }
+
+    @PatchMapping("/change-password")
+    public ApiResponse<String> changePassword(@RequestBody ChangePasswordRequest request) {
+        accountService.changePassword(request);
+        return ApiResponse.<String>builder()
+                .result("Mật khẩu đã được thay đổi thành công")
                 .build();
     }
 }

@@ -28,6 +28,8 @@ public enum ErrorCode {
 
     // Account (1201 - 1300)
     ACCOUNT_NOT_FOUND(1201, "User not found", HttpStatus.NOT_FOUND),
+    ACCOUNT_CONFIRM_PASSWORD_NOT_MATCH(1202, "Mật khẩu xác nhận không trùng khớp", HttpStatus.BAD_REQUEST),
+    ACCOUNT_OLD_PASSWORD_NOT_MATCH(1203, "Mật khẩu cũ không chính xác", HttpStatus.BAD_REQUEST),
 
     // Store (1301 - 1400)
     STORE_NOT_FOUND(1301, "Store not found", HttpStatus.NOT_FOUND),
