@@ -20,6 +20,7 @@ import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.services.AccountService;
 import com.lezh1n.goodminton_shop_api.services.AuthService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -51,7 +52,7 @@ public class AccountController {
     }
 
     @PostMapping("/store-admin")
-    public ApiResponse<AccountResponse> createStoreAdmin(@RequestBody CreateAccountRequest request) {
+    public ApiResponse<AccountResponse> createStoreAdmin(@Valid @RequestBody CreateAccountRequest request) {
         return ApiResponse.<AccountResponse>builder()
                 .result(authService.register(request, UserRole.STORE_ADMIN))
                 .build();
@@ -65,14 +66,14 @@ public class AccountController {
     }
 
     @PutMapping("/my-info")
-    public ApiResponse<AccountResponse> updateProfile(@RequestBody UpdateProfileRequest request) {
+    public ApiResponse<AccountResponse> updateProfile(@Valid @RequestBody UpdateProfileRequest request) {
         return ApiResponse.<AccountResponse>builder()
                 .result(accountService.updateProfile(request))
                 .build();
     }
 
     @PatchMapping("/change-password")
-    public ApiResponse<String> changePassword(@RequestBody ChangePasswordRequest request) {
+    public ApiResponse<String> changePassword(@Valid @RequestBody ChangePasswordRequest request) {
         accountService.changePassword(request);
         return ApiResponse.<String>builder()
                 .result("Mật khẩu đã được thay đổi thành công")

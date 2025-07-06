@@ -16,6 +16,7 @@ import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.StoreResponse;
 import com.lezh1n.goodminton_shop_api.services.StoreService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,7 +27,7 @@ public class StoreController {
     private final StoreService storeService;
 
     @PostMapping
-    public ApiResponse<StoreResponse> createStore(@RequestBody CreateStoreRequest request) {
+    public ApiResponse<StoreResponse> createStore(@Valid @RequestBody CreateStoreRequest request) {
         return ApiResponse.<StoreResponse>builder()
                 .result(storeService.createStore(request))
                 .build();
