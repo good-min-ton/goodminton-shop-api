@@ -74,12 +74,12 @@ public class AccountServiceImpl implements AccountService {
     public void changePassword(ChangePasswordRequest request) {
         Account account = getCurrentAuthentication();
 
-        if (!request.getConfirmPassword().equals(request.getNewPassword())) {
-            throw new AppException(ErrorCode.ACCOUNT_CONFIRM_PASSWORD_NOT_MATCH);
-        }
-
         if (!passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
             throw new AppException(ErrorCode.ACCOUNT_OLD_PASSWORD_NOT_MATCH);
+        }
+
+        if (passwordEncoder.matches(request.getNewPassword(), account.getPassword())) {
+            throw new AppException(ErrorCode.ACCOUNT_NEW_PASSWORD_SAME_AS_OLD);
         }
 
         account.setPassword(passwordEncoder.encode(request.getNewPassword()));

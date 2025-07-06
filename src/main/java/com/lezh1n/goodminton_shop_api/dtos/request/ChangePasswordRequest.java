@@ -10,6 +10,4 @@ public class ChangePasswordRequest {
 
     @Size(min = 8, message = "AUTH_INVALID_PASSWORD")
     private String newPassword;
-    
-    private String confirmPassword;
 }
