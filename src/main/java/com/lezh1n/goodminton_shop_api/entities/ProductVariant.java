@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ProductVariant {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "variant_id")
@@ -32,14 +32,17 @@ public class ProductVariant {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(name = "version", length = 50)
-    private String version;
+    @ManyToOne
+    @Column(name = "version_id")
+    private Version version;
 
-    @Column(name = "color", length = 50)
-    private String color; 
+    @ManyToOne
+    @Column(name = "color_id")
+    private Color color;
 
-    @Column(name = "size", length = 50)
-    private String size;
+    @ManyToOne
+    @Column(name = "size_id")
+    private Size size;
 
     @Column(name = "price")
     private BigDecimal price;

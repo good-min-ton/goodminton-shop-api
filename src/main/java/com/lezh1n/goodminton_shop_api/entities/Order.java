@@ -45,7 +45,7 @@ public class Order {
 
     @Column(name = "name", length = 100)
     private String name;
-    
+
     @Column(name = "phone", length = 20)
     private String phone;
 
