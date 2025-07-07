@@ -11,6 +11,8 @@ CREATE TYPE payment_method AS ENUM ('COD', 'BANKING', 'VNPAY');
 
 CREATE TYPE payment_status AS ENUM ('PENDING', 'PAID', 'FAILED');
 
+CREATE TYPE size_type AS ENUM ('RACKET', 'NON_RACKET');
+
 -- Tables
 CREATE TABLE
     account (
@@ -40,9 +42,7 @@ CREATE TABLE
     category (
         category_id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
-        description TEXT NOT NULL,
-        image_url VARCHAR(255),
-        video_url VARCHAR(255)
+        description TEXT NOT NULL
     );
 
 CREATE TABLE
@@ -67,10 +67,29 @@ CREATE TABLE
     product_variant (
         variant_id SERIAL PRIMARY KEY,
         product_id INTEGER NOT NULL REFERENCES product (product_id),
-        version VARCHAR(50),
-        color VARCHAR(50),
-        size VARCHAR(50),
+        version_id INTEGER REFERENCES version (version_id),
+        color_id INTEGER REFERENCES color (color_id),
+        size_id INTEGER REFERENCES size (size_id),
         price DECIMAL(10, 2)
+    );
+
+CREATE TABLE
+    version (
+        version_id SERIAL PRIMARY KEY,
+        name VARCHAR(100) UNIQUE NOT NULL
+    );
+
+CREATE TABLE
+    color (
+        color_id SERIAL PRIMARY KEY,
+        name VARCHAR(50) UNIQUE NOT NULL
+    );
+
+CREATE TABLE
+    size (
+        size_id SERIAL PRIMARY KEY,
+        name VARCHAR(50) UNIQUE NOT NULL,
+        type size_type NOT NULL
     );
 
 CREATE TABLE
