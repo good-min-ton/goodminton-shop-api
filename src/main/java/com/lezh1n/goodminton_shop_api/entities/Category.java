@@ -21,10 +21,4 @@ public class Category {
 
     @Column(name = "description", nullable = false)
     private String description;
-
-    @Column(name = "image_url", length = 255)
-    private String imageUrl;
-
-    @Column(name = "video_url", length = 255)
-    private String videoUrl;
 }

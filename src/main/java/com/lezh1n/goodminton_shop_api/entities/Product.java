@@ -40,9 +40,6 @@ public class Product {
     @Column(name = "thumbnail_url", length = 255, nullable = false)
     private String thumbnailUrl;
 
-    @Column(name = "video_url", length = 255)
-    private String videoUrl;
-
     @Column(name = "create_at", nullable = false)
     private LocalDateTime createAt;
 }
