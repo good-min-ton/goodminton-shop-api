@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/category")
+@RequestMapping("api/categories")
 @RequiredArgsConstructor
 public class CategoryController {
 
@@ -52,6 +53,14 @@ public class CategoryController {
             @Valid @RequestBody CategoryRequest request) {
         return ApiResponse.<CategoryResponse>builder()
                 .result(categoryService.updateCategory(categoryId, request))
+                .build();
+    }
+
+    @DeleteMapping("/{categoryId}")
+    public ApiResponse<String> deleteCategory(@PathVariable Integer categoryId) {
+        categoryService.deleteCategory(categoryId);
+        return ApiResponse.<String>builder()
+                .result("Đã xoá thành công danh mục")
                 .build();
     }
 }
