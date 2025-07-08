@@ -33,15 +33,15 @@ public class ProductVariant {
     private Product product;
 
     @ManyToOne
-    @Column(name = "version_id")
+    @JoinColumn(name = "version_id")
     private Version version;
 
     @ManyToOne
-    @Column(name = "color_id")
+    @JoinColumn(name = "color_id")
     private Color color;
 
     @ManyToOne
-    @Column(name = "size_id")
+    @JoinColumn(name = "size_id")
     private Size size;
 
     @Column(name = "price")
