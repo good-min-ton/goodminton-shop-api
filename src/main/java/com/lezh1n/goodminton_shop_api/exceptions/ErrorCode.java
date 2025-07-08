@@ -49,6 +49,12 @@ public enum ErrorCode {
     CATEGORY_NOT_FOUND(1403, "Category not found", HttpStatus.BAD_REQUEST),
     CATEGORY_PRODUCT_EXISTED(1404, "Danh mục hiện đang chứa có sản phẩm", HttpStatus.BAD_REQUEST),
 
+    // Product (1501 - 1600)
+
+    // Brand (1601 - 1700)
+    BRAND_NAME_BLANK(1601, "Tên thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
+    BRAND_NOT_FOUND(1602, "Không tìm thấy thương hiệu", HttpStatus.BAD_REQUEST),
+
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),
 
