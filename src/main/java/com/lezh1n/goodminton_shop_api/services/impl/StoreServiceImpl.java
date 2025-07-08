@@ -15,6 +15,7 @@ import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.AccountMapper;
 import com.lezh1n.goodminton_shop_api.mappers.StoreMapper;
 import com.lezh1n.goodminton_shop_api.repositories.AccountRepository;
+import com.lezh1n.goodminton_shop_api.repositories.InventoryRepository;
 import com.lezh1n.goodminton_shop_api.repositories.StoreRepository;
 import com.lezh1n.goodminton_shop_api.services.StoreService;
 
@@ -26,6 +27,7 @@ public class StoreServiceImpl implements StoreService {
 
     private final AccountRepository accountRepository;
     private final StoreRepository storeRepository;
+    private final InventoryRepository inventoryRepository;
     private final AccountMapper accountMapper;
     private final StoreMapper storeMapper;
 
@@ -33,7 +35,7 @@ public class StoreServiceImpl implements StoreService {
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public StoreResponse createStore(CreateStoreRequest request) {
         if (request.getAdminId() == null) {
-            throw new AppException(ErrorCode.STORE_ADMIN_ID_REQUIRED); 
+            throw new AppException(ErrorCode.STORE_ADMIN_ID_REQUIRED);
         }
         Store store = storeMapper.toStore(request);
 
@@ -76,6 +78,18 @@ public class StoreServiceImpl implements StoreService {
         store.setAdmin(admin);
 
         return storeMapper.toStoreResponse(storeRepository.save(store));
+    }
+
+    @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public void deleteStore(Integer storeId) {
+        Store store = storeRepository.findById(storeId).orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
+
+        if (inventoryRepository.existsByStoreId(storeId)) {
+            throw new AppException(ErrorCode.STORE_INVENTORY_EXISTED);
+        }
+
+        storeRepository.delete(store);
     }
 
     private void checkValidAdminAccount(Integer adminId) {

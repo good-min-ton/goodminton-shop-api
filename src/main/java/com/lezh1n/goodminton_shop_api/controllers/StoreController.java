@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,14 @@ public class StoreController {
     public ApiResponse<StoreResponse> updateStoreAdmin(@PathVariable Integer storeId, @PathVariable Integer adminId) {
         return ApiResponse.<StoreResponse>builder()
                 .result(storeService.updateStoreAdmin(storeId, adminId))
+                .build();
+    }
+
+    @DeleteMapping("/{storeId}")
+    public ApiResponse<String> deleteStore(@PathVariable Integer storeId) {
+        storeService.deleteStore(storeId);
+        return ApiResponse.<String>builder()
+                .result("Xoá cửa hàng thành công")
                 .build();
     }
 }

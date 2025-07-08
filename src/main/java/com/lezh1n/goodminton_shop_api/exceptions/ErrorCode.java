@@ -41,6 +41,7 @@ public enum ErrorCode {
     STORE_ADDRESS_BLANK(1306, "Địa chỉ của chi nhánh không được để trống", HttpStatus.BAD_REQUEST),
     STORE_LOCATION_INFO_BLANK(1307, "Thông tin vị trí của chi nhánh không được để trống", HttpStatus.BAD_REQUEST),
     STORE_ADMIN_BLANK(1308, "Admin id của chi nhánh không được để trống", HttpStatus.BAD_REQUEST),
+    STORE_INVENTORY_EXISTED(1309, "Cửa hàng vẫn tồn tại kho sản phẩm", HttpStatus.BAD_REQUEST),
 
     // Category (1401 - 1500)
     CATEGORY_NAME_REQUIRED(1401, "Tên danh mục không được để trống", HttpStatus.BAD_REQUEST),

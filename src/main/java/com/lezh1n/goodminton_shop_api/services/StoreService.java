@@ -16,4 +16,6 @@ public interface StoreService {
     List<AccountResponse> getAllAdminsAvalable();
 
     StoreResponse updateStoreAdmin(Integer storeId, Integer adminId);
+
+    void deleteStore(Integer storeId);
 }
