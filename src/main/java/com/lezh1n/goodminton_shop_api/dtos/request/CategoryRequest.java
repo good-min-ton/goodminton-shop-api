@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
-public class CreateCategoryRequest {
+public class CategoryRequest {
 
     @NotBlank(message = "CATEGORY_NAME_REQUIRED")
     private String name;

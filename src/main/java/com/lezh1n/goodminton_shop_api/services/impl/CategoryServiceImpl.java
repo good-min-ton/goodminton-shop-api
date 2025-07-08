@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.lezh1n.goodminton_shop_api.dtos.request.CreateCategoryRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.CategoryRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.CategoryResponse;
 import com.lezh1n.goodminton_shop_api.entities.Category;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public CategoryResponse createCategory(CreateCategoryRequest request) {
+    public CategoryResponse createCategory(CategoryRequest request) {
 
         Category category = categoryMapper.toCategory(request);
 
@@ -42,6 +42,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryResponse> getAllCategories() {
         return categoryRepository.findAll().stream().map(categoryMapper::toCategoryResponse).toList();
+    }
+
+    @Override
+    public CategoryResponse updateCategory(Integer categoryId, CategoryRequest request) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+
+        category.setName(request.getName());
+        category.setDescription(request.getDescription());
+
+        return categoryMapper.toCategoryResponse(categoryRepository.save(category));
     }
 
 }
