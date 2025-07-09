@@ -64,6 +64,10 @@ public enum ErrorCode {
     SIZE_TYPE_BLANK(1802, "Loại size không được để trống", HttpStatus.BAD_REQUEST),
     SIZE_NOT_FOUND(1803, "Size không tồn tại", HttpStatus.BAD_REQUEST),
 
+    // Color (1901 - 2000)
+    COLOR_NAME_BLANK(1901, "Tên màu không được để trống", HttpStatus.BAD_REQUEST),
+    COLOR_NOT_FOUND(1902, "Không tìm thấy màu", HttpStatus.BAD_REQUEST),
+
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),
 
