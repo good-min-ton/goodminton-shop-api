@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("api/versions")
 @RequiredArgsConstructor
-public class VersionRepository {
+public class VersionController {
 
     private final VersionService versionService;
 
