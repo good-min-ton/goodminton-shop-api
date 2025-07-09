@@ -14,6 +14,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.BrandRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.BrandResponse;
 import com.lezh1n.goodminton_shop_api.services.BrandService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,7 +25,7 @@ public class BrandController {
     private final BrandService brandService;
 
     @PostMapping
-    public ApiResponse<BrandResponse> createBrand(@RequestBody BrandRequest request) {
+    public ApiResponse<BrandResponse> createBrand(@Valid @RequestBody BrandRequest request) {
         return ApiResponse.<BrandResponse>builder()
                 .result(brandService.createBrand(request))
                 .build();
@@ -45,7 +46,7 @@ public class BrandController {
     }
 
     @PutMapping("/{brandId}")
-    public ApiResponse<BrandResponse> updateBrand(@PathVariable Integer brandId, @RequestBody BrandRequest request) {
+    public ApiResponse<BrandResponse> updateBrand(@PathVariable Integer brandId, @Valid @RequestBody BrandRequest request) {
         return ApiResponse.<BrandResponse>builder()
                 .result(brandService.updateBrand(brandId, request))
                 .build();

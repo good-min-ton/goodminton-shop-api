@@ -15,6 +15,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.SizeRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.SizeResponse;
 import com.lezh1n.goodminton_shop_api.services.SizeService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,7 +26,7 @@ public class SizeController {
     private final SizeService sizeService;
 
     @PostMapping
-    public ApiResponse<SizeResponse> createSize(SizeRequest request) {
+    public ApiResponse<SizeResponse> createSize(@Valid @RequestBody SizeRequest request) {
         return ApiResponse.<SizeResponse>builder()
                 .result(sizeService.createSize(request))
                 .build();
@@ -46,7 +47,7 @@ public class SizeController {
     }
 
     @PutMapping("/{sizeId}")
-    public ApiResponse<SizeResponse> updateSize(@PathVariable Integer sizeId, @RequestBody SizeRequest request) {
+    public ApiResponse<SizeResponse> updateSize(@PathVariable Integer sizeId, @Valid @RequestBody SizeRequest request) {
         return ApiResponse.<SizeResponse>builder()
                 .result(sizeService.updateSize(sizeId, request))
                 .build();

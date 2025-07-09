@@ -15,6 +15,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ColorRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ColorResponse;
 import com.lezh1n.goodminton_shop_api.services.ColorService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,7 +26,7 @@ public class ColorController {
     private final ColorService colorService;
 
     @PostMapping
-    public ApiResponse<ColorResponse> createColor(ColorRequest request) {
+    public ApiResponse<ColorResponse> createColor(@Valid @RequestBody ColorRequest request) {
         return ApiResponse.<ColorResponse>builder()
                 .result(colorService.createColor(request))
                 .build();
@@ -46,7 +47,7 @@ public class ColorController {
     }
 
     @PutMapping("/{colorId}")
-    public ApiResponse<ColorResponse> updateColor(@PathVariable Integer colorId, @RequestBody ColorRequest request) {
+    public ApiResponse<ColorResponse> updateColor(@PathVariable Integer colorId, @Valid @RequestBody ColorRequest request) {
         return ApiResponse.<ColorResponse>builder()
                 .result(colorService.updateColor(colorId, request))
                 .build();

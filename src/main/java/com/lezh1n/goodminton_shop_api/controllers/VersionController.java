@@ -15,6 +15,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.VersionRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.VersionResponse;
 import com.lezh1n.goodminton_shop_api.services.VersionService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -25,7 +26,7 @@ public class VersionController {
     private final VersionService versionService;
 
     @PostMapping
-    public ApiResponse<VersionResponse> createVersion(@RequestBody VersionRequest request) {
+    public ApiResponse<VersionResponse> createVersion(@Valid @RequestBody VersionRequest request) {
         return ApiResponse.<VersionResponse>builder()
                 .result(versionService.createVersion(request))
                 .build();
@@ -48,7 +49,7 @@ public class VersionController {
     @PutMapping("/{versionId}")
     public ApiResponse<VersionResponse> updateVersion(
             @PathVariable Integer versionId,
-            @RequestBody VersionRequest request) {
+            @Valid @RequestBody VersionRequest request) {
         return ApiResponse.<VersionResponse>builder()
                 .result(versionService.updateVersion(versionId, request))
                 .build();
