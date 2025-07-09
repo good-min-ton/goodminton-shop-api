@@ -55,9 +55,14 @@ public enum ErrorCode {
     BRAND_NAME_BLANK(1601, "Tên thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
     BRAND_NOT_FOUND(1602, "Không tìm thấy thương hiệu", HttpStatus.BAD_REQUEST),
 
-    // Version(1701 - 1800)
+    // Version (1701 - 1800)
     VERSION_NAME_BLANK(1701, "Tên phiên bản không được để trống", HttpStatus.BAD_REQUEST),
     VERSION_NOT_FOUND(1702, "Không tìm thấy phiên bản", HttpStatus.BAD_REQUEST),
+
+    // Size (1801 - 1900)
+    SIZE_NAME_BLANK(1801, "Tên size không được để trống", HttpStatus.BAD_REQUEST),
+    SIZE_TYPE_BLANK(1802, "Loại size không được để trống", HttpStatus.BAD_REQUEST),
+    SIZE_NOT_FOUND(1803, "Size không tồn tại", HttpStatus.BAD_REQUEST),
 
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),
