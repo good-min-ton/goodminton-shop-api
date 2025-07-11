@@ -31,7 +31,6 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
     public BrandResponse getBrandById(Integer brandId) {
         Brand brand = brandRepository.findById(brandId).orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
 
@@ -39,7 +38,6 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
     public List<BrandResponse> getAllBrands() {
         return brandRepository.findAll().stream().map(brandMapper::toBrandResponse).toList();
     }

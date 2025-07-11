@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.services.impl;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.SizeRequest;
@@ -23,6 +24,7 @@ public class SizeServiceImpl implements SizeService {
     private final SizeMapper sizeMapper;
 
     @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public SizeResponse createSize(SizeRequest request) {
 
         Size size = sizeMapper.toSize(request);
@@ -43,6 +45,7 @@ public class SizeServiceImpl implements SizeService {
     }
 
     @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public SizeResponse updateSize(Integer sizeId, SizeRequest request) {
         Size size = sizeRepository.findById(sizeId).orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
 

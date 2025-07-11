@@ -47,7 +47,8 @@ public class ColorController {
     }
 
     @PutMapping("/{colorId}")
-    public ApiResponse<ColorResponse> updateColor(@PathVariable Integer colorId, @Valid @RequestBody ColorRequest request) {
+    public ApiResponse<ColorResponse> updateColor(@PathVariable Integer colorId,
+            @Valid @RequestBody ColorRequest request) {
         return ApiResponse.<ColorResponse>builder()
                 .result(colorService.updateColor(colorId, request))
                 .build();

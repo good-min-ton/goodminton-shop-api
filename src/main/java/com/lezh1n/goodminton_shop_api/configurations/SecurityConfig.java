@@ -5,6 +5,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -38,6 +39,15 @@ public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final CustomJwtAuthenticationConverter customConverter;
 
+    private static final String[] PUBLIC_ENDPOINTS = {
+            "/api/stores", "/api/stores/{storeId}",
+            "/api/categories", "/api/categories/{categoryId}",
+            "/api/brands", "/api/brands/{brandId}",
+            "/api/versions", "/api/versions/{versionId}",
+            "/api/sizes", "/api/sizes/{sizeId}",
+            "api/colors", "api/colors/{colorId}"
+    };
+
     @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}")
     private String jwtSecret;
 
@@ -68,6 +78,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtBlacklistFilter, UsernamePasswordAuthenticationFilter.class)
                 .oauth2ResourceServer(oauth2 -> oauth2

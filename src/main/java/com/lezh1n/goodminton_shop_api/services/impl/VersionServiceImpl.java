@@ -33,7 +33,6 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
     public VersionResponse getVersionById(Integer versionId) {
         Version version = versionRepository.findById(versionId)
                 .orElseThrow(() -> new AppException(ErrorCode.VERSION_NOT_FOUND));
@@ -42,7 +41,6 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
     public List<VersionResponse> getAllVersions() {
         return versionRepository.findAll().stream().map(versionMapper::toVersionResponse).toList();
     }

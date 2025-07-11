@@ -35,7 +35,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
     public CategoryResponse getCategoryById(Integer categoryId) {
 
         Category category = categoryRepository.findById(categoryId)
@@ -45,7 +44,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
     public List<CategoryResponse> getAllCategories() {
         return categoryRepository.findAll().stream().map(categoryMapper::toCategoryResponse).toList();
     }

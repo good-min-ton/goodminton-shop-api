@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.services.impl;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ColorRequest;
@@ -23,6 +24,7 @@ public class ColorServiceImpl implements ColorService {
     private final ColorMapper colorMapper;
 
     @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ColorResponse createColor(ColorRequest request) {
         Color color = colorMapper.toColor(request);
 
@@ -42,6 +44,7 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ColorResponse updateColor(Integer colorId, ColorRequest request) {
         Color color = colorRepository.findById(colorId).orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
 
