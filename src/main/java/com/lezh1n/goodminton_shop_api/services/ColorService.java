@@ -13,4 +13,6 @@ public interface ColorService {
     List<ColorResponse> getAllColors();
 
     ColorResponse updateColor(Integer colorId, ColorRequest request);
+
+    void deleteColor(Integer colorId);
 }

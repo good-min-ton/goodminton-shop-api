@@ -13,4 +13,6 @@ public interface VersionService {
     List<VersionResponse> getAllVersions();
 
     VersionResponse updateVersion(Integer versionId, VersionRequest request);
+
+    void deleteVersion(Integer versionId);
 }

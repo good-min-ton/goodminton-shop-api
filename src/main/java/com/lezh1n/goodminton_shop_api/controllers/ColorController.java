@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,10 +48,19 @@ public class ColorController {
     }
 
     @PutMapping("/{colorId}")
-    public ApiResponse<ColorResponse> updateColor(@PathVariable Integer colorId,
+    public ApiResponse<ColorResponse> updateColor(
+            @PathVariable Integer colorId,
             @Valid @RequestBody ColorRequest request) {
         return ApiResponse.<ColorResponse>builder()
                 .result(colorService.updateColor(colorId, request))
+                .build();
+    }
+
+    @DeleteMapping("/{colorId}")
+    public ApiResponse<String> deleteColor(@PathVariable Integer colorId) {
+        colorService.deleteColor(colorId);
+        return ApiResponse.<String>builder()
+                .result("Xoá màu thành công")
                 .build();
     }
 }

@@ -54,19 +54,24 @@ public enum ErrorCode {
     // Brand (1601 - 1700)
     BRAND_NAME_BLANK(1601, "Tên thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
     BRAND_NOT_FOUND(1602, "Không tìm thấy thương hiệu", HttpStatus.BAD_REQUEST),
+    BRAND_PRODUCT_EXISTED(1603, "Vui lòng xoá hết sản phẩm thuộc thương hiệu này", HttpStatus.BAD_REQUEST),
 
     // Version (1701 - 1800)
     VERSION_NAME_BLANK(1701, "Tên phiên bản không được để trống", HttpStatus.BAD_REQUEST),
     VERSION_NOT_FOUND(1702, "Không tìm thấy phiên bản", HttpStatus.BAD_REQUEST),
+    VERSION_VARIANT_EXISTED(1703, "Vui lòng xoá hết các product variant chứa phiên bản hiện tại",
+            HttpStatus.BAD_REQUEST),
 
     // Size (1801 - 1900)
     SIZE_NAME_BLANK(1801, "Tên size không được để trống", HttpStatus.BAD_REQUEST),
     SIZE_TYPE_BLANK(1802, "Loại size không được để trống", HttpStatus.BAD_REQUEST),
     SIZE_NOT_FOUND(1803, "Size không tồn tại", HttpStatus.BAD_REQUEST),
+    SIZE_VARIANT_EXISTED(1804, "Vui lòng xoá hết các product variant chứa size hiện tại", HttpStatus.BAD_REQUEST),
 
     // Color (1901 - 2000)
     COLOR_NAME_BLANK(1901, "Tên màu không được để trống", HttpStatus.BAD_REQUEST),
     COLOR_NOT_FOUND(1902, "Không tìm thấy màu", HttpStatus.BAD_REQUEST),
+    COLOR_VARIANT_EXISTED(1903, "Vui lòng xoá hết các product variant chứa màu hiện tại", HttpStatus.BAD_REQUEST),
 
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),

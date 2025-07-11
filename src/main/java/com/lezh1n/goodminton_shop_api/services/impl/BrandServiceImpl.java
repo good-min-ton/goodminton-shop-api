@@ -12,6 +12,7 @@ import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.BrandMapper;
 import com.lezh1n.goodminton_shop_api.repositories.BrandRepository;
+import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.services.BrandService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class BrandServiceImpl implements BrandService {
 
     private final BrandRepository brandRepository;
+    private final ProductRepository productRepository;
     private final BrandMapper brandMapper;
 
     @Override
@@ -50,6 +52,17 @@ public class BrandServiceImpl implements BrandService {
         brand.setBrandName(request.getBrandName());
 
         return brandMapper.toBrandResponse(brandRepository.save(brand));
+    }
+
+    @Override
+    public void deleteBrand(Integer brandId) {
+        Brand brand = brandRepository.findById(brandId).orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+
+        if (productRepository.existsByBrandId(brandId)) {
+            throw new AppException(ErrorCode.BRAND_PRODUCT_EXISTED);
+        }
+
+        brandRepository.delete(brand);
     }
 
 }

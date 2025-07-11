@@ -11,6 +11,7 @@ import com.lezh1n.goodminton_shop_api.entities.Version;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.VersionMapper;
+import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VersionRepository;
 import com.lezh1n.goodminton_shop_api.services.VersionService;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class VersionServiceImpl implements VersionService {
 
     private final VersionRepository versionRepository;
+    private final ProductVariantRepository productVariantRepository;
     private final VersionMapper versionMapper;
 
     @Override
@@ -54,6 +56,19 @@ public class VersionServiceImpl implements VersionService {
         version.setName(request.getName());
 
         return versionMapper.toVersionResponse(version);
+    }
+
+    @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public void deleteVersion(Integer versionId) {
+        Version version = versionRepository.findById(versionId)
+                .orElseThrow(() -> new AppException(ErrorCode.VERSION_NOT_FOUND));
+
+        if (productVariantRepository.existByVersionId(versionId)) {
+            throw new AppException(ErrorCode.VERSION_VARIANT_EXISTED);
+        }
+
+        versionRepository.delete(version);
     }
 
 }

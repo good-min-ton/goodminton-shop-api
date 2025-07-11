@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +53,14 @@ public class VersionController {
             @Valid @RequestBody VersionRequest request) {
         return ApiResponse.<VersionResponse>builder()
                 .result(versionService.updateVersion(versionId, request))
+                .build();
+    }
+
+    @DeleteMapping("/{versionId}")
+    public ApiResponse<String> deleteVersion(@PathVariable Integer versionId) {
+        versionService.deleteVersion(versionId);
+        return ApiResponse.<String>builder()
+                .result("Xoá phiên bản thành công")
                 .build();
     }
 }

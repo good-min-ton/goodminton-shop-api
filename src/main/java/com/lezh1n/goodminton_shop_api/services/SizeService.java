@@ -13,4 +13,6 @@ public interface SizeService {
     List<SizeResponse> getAllSizes();
 
     SizeResponse updateSize(Integer sizeId, SizeRequest request);
+
+    void deleteSize(Integer sizeId);
 }
