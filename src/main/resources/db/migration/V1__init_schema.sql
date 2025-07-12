@@ -11,7 +11,7 @@ CREATE TYPE payment_method AS ENUM ('COD', 'BANKING', 'VNPAY');
 
 CREATE TYPE payment_status AS ENUM ('PENDING', 'PAID', 'FAILED');
 
-CREATE TYPE size_type AS ENUM ('RACKET', 'NON_RACKET');
+CREATE TYPE size_type AS ENUM ('RACKET', 'COSTUME', 'FOOTWEAR');
 
 -- Tables
 CREATE TABLE
