@@ -22,9 +22,18 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Optional<Account> findByEmail(String email);
 
-    @Query(value = "SELECT EXISTS (SELECT 1 FROM account WHERE account_id = :accountId AND role = 'STORE_ADMIN')", nativeQuery = true)
+    @Query(value = """
+            SELECT EXISTS (SELECT 1
+                FROM account
+                WHERE account_id = :accountId
+                AND role = 'STORE_ADMIN')
+            """, nativeQuery = true)
     boolean isStoreAdminAccount(@Param("accountId") Integer accountId);
 
-    @Query(value = "SELECT * FROM account a WHERE a.role = 'STORE_ADMIN' AND a.account_id NOT IN (SELECT s.admin_id FROM store s)", nativeQuery = true)
+    @Query(value = """
+            SELECT * FROM account a
+            WHERE a.role = 'STORE_ADMIN'
+            AND a.account_id NOT IN (SELECT s.admin_id FROM store s)
+            """, nativeQuery = true)
     List<Account> findAdminsNotAssigned();
 }
