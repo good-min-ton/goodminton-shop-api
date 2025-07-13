@@ -50,6 +50,11 @@ public enum ErrorCode {
     CATEGORY_PRODUCT_EXISTED(1404, "Danh mục hiện đang chứa có sản phẩm", HttpStatus.BAD_REQUEST),
 
     // Product (1501 - 1600)
+    PRODUCT_NOT_FOUND(1501, "Sản phẩm không tồn tại", HttpStatus.BAD_REQUEST),
+    PRODUCT_CATEGORY_BLANK(1502, "Danh mục không được để trống", HttpStatus.BAD_REQUEST),
+    PRODUCT_BRAND_BLANK(1503, "Thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
+    PRODUCT_NAME_BLANK(1504, "Tên sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
+    PRODUCT_THUMBNAIL_BLANK(1505, "Vui lòng thêm ảnh sản phẩm", HttpStatus.BAD_REQUEST),
 
     // Brand (1601 - 1700)
     BRAND_NAME_BLANK(1601, "Tên thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
@@ -72,6 +77,14 @@ public enum ErrorCode {
     COLOR_NAME_BLANK(1901, "Tên màu không được để trống", HttpStatus.BAD_REQUEST),
     COLOR_NOT_FOUND(1902, "Không tìm thấy màu", HttpStatus.BAD_REQUEST),
     COLOR_VARIANT_EXISTED(1903, "Vui lòng xoá hết các product variant chứa màu hiện tại", HttpStatus.BAD_REQUEST),
+
+    // Product variant(2001 - 2100)
+    VARIANT_NOT_FOUND(2001, "Biến thể sản phẩm này không tồn tại", HttpStatus.BAD_REQUEST),
+    VARIANT_PRODUCT_BLANK(2002, "Sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
+    VARIANT_VERSION_BLANK(2003, "Phiên bản không được để trống", HttpStatus.BAD_REQUEST),
+    VARIANT_COLOR_BLANK(2004, "Màu sắc không được để trống", HttpStatus.BAD_REQUEST),
+    VARIANT_SIZE_BLANK(2005, "Size khong được để trống", HttpStatus.BAD_REQUEST),
+    VARIANT_PRICE_BLANK(2006, "Giá không được để trống", HttpStatus.BAD_REQUEST),
 
     // Data errors
     ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),
