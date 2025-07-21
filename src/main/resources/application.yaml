@@ -38,3 +38,8 @@ spring:
             expiration: 600000 
           refresh-token:
             expiration: 604800000 
+
+cloudinary:
+  cloud-name: ${CLOUDINARY_KEY_NAME}
+  api-key: ${CLOUDINARY_API_KEY}
+  api-secret: ${CLOUDINARY_API_SECRET}
