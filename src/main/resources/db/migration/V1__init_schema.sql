@@ -1,7 +1,6 @@
 -- ENUM types
 CREATE TYPE user_role AS ENUM ('SUPER_ADMIN', 'STORE_ADMIN', 'CUSTOMER');
 CREATE TYPE account_status AS ENUM ('ACTIVE', 'INACTIVE');
-CREATE TYPE product_status AS ENUM ('IN_STOCK', 'OUT_OF_STOCK');
 CREATE TYPE order_status AS ENUM ('NEW', 'PAID', 'SHIPPED', 'COMPLETED', 'CANCEL');
 CREATE TYPE payment_method AS ENUM ('COD', 'BANKING', 'VNPAY');
 CREATE TYPE payment_status AS ENUM ('PENDING', 'PAID', 'FAILED');
