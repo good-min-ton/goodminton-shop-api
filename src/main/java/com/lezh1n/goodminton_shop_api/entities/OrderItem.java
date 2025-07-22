@@ -33,8 +33,8 @@ public class OrderItem {
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "variant_id", nullable = false)
-    private ProductVariant variant;
+    @JoinColumn(name = "variant_size_id", nullable = false)
+    private VariantSize variantSizeId;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;

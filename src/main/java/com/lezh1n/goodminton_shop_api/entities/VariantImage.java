@@ -32,6 +32,9 @@ public class VariantImage {
     @JoinColumn(name = "variant_id", nullable = false)
     private ProductVariant variant;
 
+    @Column(name = "public_id", nullable = false)
+    private String publicId;
+
     @Column(name = "image_url", length = 255, nullable = false)
     private String imageUrl;
 

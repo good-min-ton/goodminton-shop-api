@@ -1,7 +1,5 @@
 package com.lezh1n.goodminton_shop_api.entities;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,11 +37,4 @@ public class ProductVariant {
     @ManyToOne
     @JoinColumn(name = "color_id")
     private Color color;
-
-    @ManyToOne
-    @JoinColumn(name = "size_id")
-    private Size size;
-
-    @Column(name = "price")
-    private BigDecimal price;
 }
