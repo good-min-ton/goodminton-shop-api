@@ -39,7 +39,7 @@ public class CloudinaryStorageImpl implements FileStorageService {
                 throw new AppException(ErrorCode.FILE_TYPE_NOT_SUPPORTED);
             }
 
-            String publicId = folderName + "_" + UUID.randomUUID().toString();
+            String publicId = UUID.randomUUID().toString();
 
             @SuppressWarnings("unchecked")
             Map<String, Object> params = ObjectUtils.asMap(
