@@ -16,8 +16,6 @@ public class ProductResponse {
     private String description;
     private String thumbnailUrl;
     private LocalDateTime createAt;
-    private List<String> version;
-    private List<String> color;
-    private List<String> size;
-
+    private List<ProductSpecificationResponse> specifications;
+    private List<ProductVariantResponse> variants;
 }

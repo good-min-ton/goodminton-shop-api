@@ -1,6 +1,6 @@
 package com.lezh1n.goodminton_shop_api.dtos.response;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +9,8 @@ import lombok.Data;
 @Builder
 public class ProductVariantResponse {
     private Integer variantId;
-    private ProductResponse product;
     private VersionResponse version;
     private ColorResponse color;
-    private SizeResponse size;
-    private BigDecimal price;
+    private List<VariantSizeResponse> sizes;
+    private List<VariantImageResponse> images;
 }
