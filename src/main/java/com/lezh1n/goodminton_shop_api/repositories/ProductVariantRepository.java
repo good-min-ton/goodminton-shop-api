@@ -18,9 +18,6 @@ public interface ProductVariantRepository extends JpaRepository<ProductVariant, 
     @Query(value = "SELECT EXISTS(SELECT 1 FROM product_variant WHERE color_id = :colorId)", nativeQuery = true)
     boolean existByColorId(@Param("colorId") Integer colorId);
 
-    @Query(value = "SELECT EXISTS(SELECT 1 FROM product_variant WHERE size_id = :sizeId)", nativeQuery = true)
-    boolean existBySizeId(@Param("sizeId") Integer sizeId);
-
     @Query(value = "SELECT * FROM product_variant WHERE product_id = :productId", nativeQuery = true)
     List<ProductVariant> findAllVariantsOfProduct(@Param("productId") Integer productId);
 
@@ -50,4 +47,6 @@ public interface ProductVariantRepository extends JpaRepository<ProductVariant, 
             AND pv.size_id IS NOT NULL
             """, nativeQuery = true)
     List<String> findAllSizesOfProduct(@Param("productId") Integer productId);
+
+    List<ProductVariant> findByProductId(Integer productId);
 }
