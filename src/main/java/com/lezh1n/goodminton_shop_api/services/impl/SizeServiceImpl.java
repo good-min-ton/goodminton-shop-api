@@ -11,8 +11,8 @@ import com.lezh1n.goodminton_shop_api.entities.Size;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.SizeMapper;
-import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
 import com.lezh1n.goodminton_shop_api.repositories.SizeRepository;
+import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
 import com.lezh1n.goodminton_shop_api.services.SizeService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class SizeServiceImpl implements SizeService {
 
     private final SizeRepository sizeRepository;
-    private final ProductVariantRepository productVariantRepository;
+    private final VariantSizeRepository variantSizeRepository;
     private final SizeMapper sizeMapper;
 
     @Override
@@ -62,7 +62,7 @@ public class SizeServiceImpl implements SizeService {
     public void deleteSize(Integer sizeId) {
         Size size = sizeRepository.findById(sizeId).orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
 
-        if (productVariantRepository.existBySizeId(sizeId)) {
+        if (variantSizeRepository.existBySizeId(sizeId)) {
             throw new AppException(ErrorCode.SIZE_VARIANT_EXISTED);
         }
 
