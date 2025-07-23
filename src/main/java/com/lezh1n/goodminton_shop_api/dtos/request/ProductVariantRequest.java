@@ -18,5 +18,5 @@ public class ProductVariantRequest {
     @NotEmpty(message = "VARIANT_SIZE_BLANK")
     private List<VariantSizeRequest> sizes;
 
-    private List<String> images;
+    private List<VariantImageRequest> images;
 }
