@@ -31,7 +31,7 @@ public class VariantSize {
 
     @ManyToOne
     @JoinColumn(name = "variant_id", nullable = false)
-    private ProductVariant productVariant;
+    private ProductVariant variant;
 
     @ManyToOne
     @JoinColumn(name = "size_id", nullable = false)

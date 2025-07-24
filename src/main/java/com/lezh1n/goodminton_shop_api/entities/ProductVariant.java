@@ -44,7 +44,7 @@ public class ProductVariant {
     @JoinColumn(name = "color_id")
     private Color color;
 
-    @OneToMany(mappedBy = "productVariant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "variant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Builder.Default
     private List<VariantSize> sizes = new ArrayList<>();
 
