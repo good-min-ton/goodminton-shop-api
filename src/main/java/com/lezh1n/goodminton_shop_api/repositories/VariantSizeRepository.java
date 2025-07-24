@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,4 +13,6 @@ import com.lezh1n.goodminton_shop_api.entities.VariantSize;
 public interface VariantSizeRepository extends JpaRepository<VariantSize, Integer> {
     @Query(value = "SELECT EXISTS(SELECT 1 FROM variant_size WHERE size_id = :sizeId)", nativeQuery = true)
     boolean existBySizeId(@Param("sizeId") Integer sizeId);
+
+    List<VariantSize> findByVariantId(Integer variantId);
 }
