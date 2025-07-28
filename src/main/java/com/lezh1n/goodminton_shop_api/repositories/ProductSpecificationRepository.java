@@ -9,5 +9,5 @@ import com.lezh1n.goodminton_shop_api.entities.ProductSpecification;
 
 @Repository
 public interface ProductSpecificationRepository extends JpaRepository<ProductSpecification, Integer> {
-    List<ProductSpecification> findByProductId(Integer productId);
+    List<ProductSpecification> findByProductProductId(Integer productId);
 }

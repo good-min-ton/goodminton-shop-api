@@ -9,5 +9,5 @@ import com.lezh1n.goodminton_shop_api.entities.VariantImage;
 
 @Repository
 public interface VariantImageRepository extends JpaRepository<VariantImage, Integer> {
-    List<VariantImage> findByVariantId(Integer variantId);
+    List<VariantImage> findByVariantVariantId(Integer variantId);
 }

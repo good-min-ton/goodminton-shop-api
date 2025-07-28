@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import com.lezh1n.goodminton_shop_api.entities.Product;
@@ -22,9 +23,10 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @EntityGraph(attributePaths = {
             "specifications",
             "variants",
-            "variants.sizes",
+            "variants.sizes.size",
             "variants.images",
             "variants.version",
             "variants.color" })
-    Optional<Product> findWithDetailsByProductId(Integer productId);
+    @NonNull
+    Optional<Product> findById(@NonNull Integer productId);
 }

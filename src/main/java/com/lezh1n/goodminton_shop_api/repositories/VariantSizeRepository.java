@@ -14,5 +14,5 @@ public interface VariantSizeRepository extends JpaRepository<VariantSize, Intege
     @Query(value = "SELECT EXISTS(SELECT 1 FROM variant_size WHERE size_id = :sizeId)", nativeQuery = true)
     boolean existBySizeId(@Param("sizeId") Integer sizeId);
 
-    List<VariantSize> findByVariantId(Integer variantId);
+    List<VariantSize> findByVariantVariantId(Integer variantId);
 }
