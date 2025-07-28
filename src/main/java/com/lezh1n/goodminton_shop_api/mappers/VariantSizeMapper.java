@@ -38,7 +38,7 @@ public class VariantSizeMapper {
                 .variantSizeId(variantSize.getVariantSizeId())
                 .size(sizeMapper.toSizeResponse(variantSize.getSize()))
                 .price(variantSize.getPrice())
-                .updatedAt(LocalDateTime.now())
+                .updatedAt(variantSize.getUpdatedAt())
                 .build();
     }
 }

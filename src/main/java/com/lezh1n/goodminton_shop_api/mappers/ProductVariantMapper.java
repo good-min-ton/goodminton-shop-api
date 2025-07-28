@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.entities.Color;
+import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
 import com.lezh1n.goodminton_shop_api.entities.Version;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
@@ -23,7 +24,7 @@ public class ProductVariantMapper {
     private final VersionMapper versionMapper;
     private final ColorMapper colorMapper;
     
-    public ProductVariant toProductVariant(ProductVariantRequest request) {
+    public ProductVariant toProductVariant(Product product, ProductVariantRequest request) {
         Version version = versionRepository.findById(request.getVersionId())
                 .orElseThrow(() -> new AppException(ErrorCode.VERSION_NOT_FOUND));
 
@@ -31,6 +32,7 @@ public class ProductVariantMapper {
                 .orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
 
         return ProductVariant.builder()
+                .product(product)
                 .version(version)
                 .color(color)
                 .build();
