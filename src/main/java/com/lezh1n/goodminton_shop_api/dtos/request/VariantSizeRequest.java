@@ -15,7 +15,4 @@ public class VariantSizeRequest {
     @NotNull(message = "VARIANT_PRICE_BLANK")
     @DecimalMin(value = "0.0", message = "VARIANT_PRICE_MUST_BE_POSITIVE")
     private BigDecimal price;
-
-    @NotNull(message = "VARIANT_QUANTITY_BLANK")
-    private Integer quantity;
 }
