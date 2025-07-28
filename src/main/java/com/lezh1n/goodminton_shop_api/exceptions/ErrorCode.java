@@ -55,6 +55,7 @@ public enum ErrorCode {
     PRODUCT_BRAND_BLANK(1503, "Thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
     PRODUCT_NAME_BLANK(1504, "Tên sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
     PRODUCT_THUMBNAIL_BLANK(1505, "Vui lòng thêm ảnh sản phẩm", HttpStatus.BAD_REQUEST),
+    PRODUCT_VARIANTS_REQUIRED(1506, "Vui lòng tạo variant cho sản phẩm", HttpStatus.BAD_REQUEST),
 
     // Brand (1601 - 1700)
     BRAND_NAME_BLANK(1601, "Tên thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
@@ -85,9 +86,24 @@ public enum ErrorCode {
     VARIANT_COLOR_BLANK(2004, "Màu sắc không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_SIZE_BLANK(2005, "Size khong được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_PRICE_BLANK(2006, "Giá không được để trống", HttpStatus.BAD_REQUEST),
+    VARIANT_PRICE_MUST_BE_POSITIVE(2007, "Giá tiền phải lớn hơn 0", HttpStatus.BAD_REQUEST),
+    VARIANT_QUANTITY_BLANK(2008, "Số lượng hàng không được để trống", HttpStatus.BAD_REQUEST),
+    VARIANT_LIST_SIZES_BLANK(2009, "Danh sách các size không được đê trống", HttpStatus.BAD_REQUEST),
+
+    // Product specification
+    SPEC_NAME_REQUIRED(2101, "Tên thông số không được để trống", HttpStatus.BAD_REQUEST),
+    SPEC_VALUE_REQUIRED(2102, "Giá trị của thông số không được đê trống", HttpStatus.BAD_REQUEST),
+
+    // Variant image
+    VARIANT_IMAGE_URL_REQUIRED(2201, "Link ảnh không được đê trống", HttpStatus.BAD_REQUEST),
+
+    // File errors
+    FILE_EMPTY(9701, "File ảnh không được để trống", HttpStatus.BAD_REQUEST),
+    FILE_TYPE_NOT_SUPPORTED(9702, "Loại file không được hỗ trợ", HttpStatus.BAD_REQUEST),
+    FILE_UPLOAD_FAILED(9703, "Có lỗi xảy ra khi upload file ảnh", HttpStatus.BAD_REQUEST),
 
     // Data errors
-    ENUM_INVALID_VALUE(9998, "Invalid enum value", HttpStatus.BAD_REQUEST),
+    ENUM_INVALID_VALUE(9800, "Invalid enum value", HttpStatus.BAD_REQUEST),
 
     // System errors (9900 - 9999)
     SYSTEM_UNKNOWN_ERROR(9998, "System unknow error", HttpStatus.INTERNAL_SERVER_ERROR),

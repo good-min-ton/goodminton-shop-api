@@ -116,12 +116,11 @@ public class AuthServiceImpl implements AuthService {
                 jwtService.blacklistToken(token);
             }
 
-            if (refreshToken != null && !refreshToken.isEmpty()) {
-                if (jwtService.isRefreshToken(refreshToken)) {
+            if (refreshToken != null && !refreshToken.isEmpty() && jwtService.isRefreshToken(refreshToken)) {
                     jwtService.blacklistToken(refreshToken);
                     log.info("Token blacklisted successfully");
                 }
-            }
+            
         } catch (Exception e) {
             log.error("Logout error: {}", e.getMessage());
         }

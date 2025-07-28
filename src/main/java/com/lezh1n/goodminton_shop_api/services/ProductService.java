@@ -1,9 +1,9 @@
 package com.lezh1n.goodminton_shop_api.services;
 
+import org.springframework.data.domain.Page;
+
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 
 public interface ProductService {
     // Product
@@ -11,12 +11,7 @@ public interface ProductService {
 
     ProductResponse getProductById(Integer id);
 
-    
+    Page<ProductResponse> getAllProducts(int page, int size, String sortBy, String sortDir);
 
-    // Product variant
-    ProductVariantResponse createProductVariant(Integer productId, ProductVariantRequest request);
-
-    ProductVariantResponse getProductVariantById(Integer productVariantId);
-
-    ProductVariantResponse updateProductVariant(Integer productVariantId, ProductVariantRequest request);
+    // Product Variant
 }
