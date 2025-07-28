@@ -1,6 +1,6 @@
 spring:
   application:
-    name: goodminton-shop-api   
+    name: goodminton-shop-api
 
   datasource:
     url: jdbc:postgresql://localhost:${POSTGRES_PORT}/goodminton?stringtype=unspecified
@@ -12,10 +12,11 @@ spring:
     hibernate:
       ddl-auto: none
     properties:
-      hibernate: 
+      hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-  
+    format-sql: true
+
   data:
     redis:
       host: ${REDIS_HOST}
@@ -24,7 +25,7 @@ spring:
   flyway:
     enabled: true
     locations:
-    - classpath:db/migration
+      - classpath:db/migration
     baseline-on-migrate: true
     baseline-version: 1
 
@@ -35,11 +36,20 @@ spring:
           issuer-uri: goodminton
           secret-key: ${JWT_SECRET}
           access-token:
-            expiration: 600000 
+            expiration: 600000
           refresh-token:
-            expiration: 604800000 
+            expiration: 604800000
 
 cloudinary:
-  cloud-name: ${CLOUDINARY_KEY_NAME}
+  cloud-name: ${CLOUDINARY_NAME}
   api-key: ${CLOUDINARY_API_KEY}
   api-secret: ${CLOUDINARY_API_SECRET}
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql: TRACE
