@@ -34,7 +34,7 @@ public class Inventory {
 
     @ManyToOne
     @JoinColumn(name = "variant_size_id", nullable = false)
-    private VariantSize variantSizeId;
+    private VariantSize variantSize;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;

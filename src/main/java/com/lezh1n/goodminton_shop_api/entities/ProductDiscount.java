@@ -30,8 +30,8 @@ public class ProductDiscount {
     private Integer discountId;
 
     @ManyToOne
-    @JoinColumn(name = "variant_id", nullable = false)
-    private ProductVariant variant;
+    @JoinColumn(name = "variant_size_id", nullable = false)
+    private VariantSize variantSize;
 
     @Column(name = "sale_price", nullable = false)
     private BigDecimal salePrice;

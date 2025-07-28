@@ -26,7 +26,7 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_item_id")
-    private String orderItemId;
+    private Integer orderItemId;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
@@ -34,7 +34,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "variant_size_id", nullable = false)
-    private VariantSize variantSizeId;
+    private VariantSize variantSize;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;

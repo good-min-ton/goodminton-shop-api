@@ -37,13 +37,13 @@ public class Account implements UserDetails {
     @Column(name = "account_id")
     private Integer accountId;
 
-    @Column(name = "full_name", length = 100, nullable = false)
+    @Column(name = "full_name", length = 50, nullable = false)
     private String fullName;
 
     @Column(name = "phone", length = 20, unique = true)
     private String phone;
 
-    @Column(name = "email", length = 100, nullable = false, unique = true)
+    @Column(name = "email", length = 50, nullable = false, unique = true)
     private String email;
 
     @Column(name = "password", length = 255, nullable = false)
