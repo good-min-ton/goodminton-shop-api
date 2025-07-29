@@ -51,5 +51,4 @@ public class ProductController {
                 .result(productPage)
                 .build();
     }
-
 }

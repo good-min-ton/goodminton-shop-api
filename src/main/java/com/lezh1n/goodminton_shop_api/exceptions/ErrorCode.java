@@ -89,6 +89,7 @@ public enum ErrorCode {
     VARIANT_PRICE_MUST_BE_POSITIVE(2007, "Giá tiền phải lớn hơn 0", HttpStatus.BAD_REQUEST),
     VARIANT_QUANTITY_BLANK(2008, "Số lượng hàng không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_LIST_SIZES_BLANK(2009, "Danh sách các size không được đê trống", HttpStatus.BAD_REQUEST),
+    VARIANT_NOT_BELONG_TO_PRODUCT(2010, "Variant không thuộc product", HttpStatus.BAD_REQUEST),
 
     // Product specification
     SPEC_NAME_REQUIRED(2101, "Tên thông số không được để trống", HttpStatus.BAD_REQUEST),

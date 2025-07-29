@@ -20,39 +20,53 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductMapper {
 
-    private final CategoryRepository categoryRepository;
-    private final BrandRepository brandRepository;
-    private final CategoryMapper categoryMapper;
-    private final BrandMapper brandMapper;
+	private final CategoryRepository categoryRepository;
+	private final BrandRepository brandRepository;
+	private final CategoryMapper categoryMapper;
+	private final BrandMapper brandMapper;
 
-    public Product toProduct(ProductRequest request) {
+	public Product toProduct(ProductRequest request) {
 
-        Category category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+		Category category = categoryRepository.findById(request.getCategoryId())
+				.orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
 
-        Brand brand = brandRepository.findById(request.getBrandId())
-                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+		Brand brand = brandRepository.findById(request.getBrandId())
+				.orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
 
-        return Product.builder()
-                .category(category)
-                .brand(brand)
-                .name(request.getName())
-                .description(request.getDescription())
-                .thumbnailUrl(request.getThumbnailUrl())
-                .createAt(LocalDateTime.now())
-                .build();
-    }
+		return Product.builder()
+				.category(category)
+				.brand(brand)
+				.name(request.getName())
+				.description(request.getDescription())
+				.thumbnailUrl(request.getThumbnailUrl())
+				.createAt(LocalDateTime.now())
+				.build();
+	}
 
-    public ProductResponse toProductResponse(Product product) {
+	public ProductResponse toProductResponse(Product product) {
 
-        return ProductResponse.builder()
-                .productId(product.getProductId())
-                .category(categoryMapper.toCategoryResponse(product.getCategory()))
-                .brand(brandMapper.toBrandResponse(product.getBrand()))
-                .name(product.getName())
-                .description(product.getDescription())
-                .thumbnailUrl(product.getThumbnailUrl())
-                .createAt(product.getCreateAt())
-                .build();
-    }
+		return ProductResponse.builder()
+				.productId(product.getProductId())
+				.category(categoryMapper.toCategoryResponse(product.getCategory()))
+				.brand(brandMapper.toBrandResponse(product.getBrand()))
+				.name(product.getName())
+				.description(product.getDescription())
+				.thumbnailUrl(product.getThumbnailUrl())
+				.createAt(product.getCreateAt())
+				.build();
+	}
+
+	public void updateProduct(Product product, ProductRequest request) {
+		Category category = categoryRepository.findById(request.getCategoryId())
+				.orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+
+		Brand brand = brandRepository.findById(request.getBrandId())
+				.orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+
+		product.setCategory(category);
+		product.setBrand(brand);
+		product.setName(request.getName());
+		product.setDescription(request.getDescription());
+		product.setThumbnailUrl(request.getThumbnailUrl());
+	}
 }

@@ -14,6 +14,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantImageRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantSizeRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductSpecification;
@@ -76,8 +77,9 @@ public class ProductServiceImpl implements ProductService {
 
         ProductResponse productResponse = productMapper.toProductResponse(product);
 
-        productResponse.setSpecifications(
-                product.getSpecifications().stream().map(productSpecificationMapper::toSpecificationResponse).toList());
+        productResponse.setSpecifications(product.getSpecifications().stream()
+                .map(productSpecificationMapper::toSpecificationResponse)
+                .toList());
 
         List<ProductVariantResponse> variantResponses = product.getVariants().stream()
                 .map(variant -> {
@@ -111,6 +113,34 @@ public class ProductServiceImpl implements ProductService {
                 .build());
     }
 
+    @Override
+    @Transactional
+    public ProductResponse updateProduct(Integer productId, ProductRequest request) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        productMapper.updateProduct(product, request);
+        updateSpecification(product, request.getSpecifications());
+        updateVariant(product, request.getVariants());
+        productRepository.save(product);
+
+        return getProductById(productId);
+    }
+
+    // Specifications CRUD
+    @Override
+    public ProductSpecificationResponse addSpecificationToProduct(Integer productId,
+            ProductSpecificationRequest request) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        ProductSpecification specification = productSpecificationMapper.toProductSpecification(product, request);
+        productSpecificationRepository.save(specification);
+
+        product.getSpecifications().add(specification);
+        return productSpecificationMapper.toSpecificationResponse(specification);
+    }
+
     // Variant CRUD
     @Override
     public ProductVariantResponse addVariantToProduct(Integer productId, ProductVariantRequest request) {
@@ -127,21 +157,27 @@ public class ProductServiceImpl implements ProductService {
         return productVariantMapper.toProductVariantResponse(variant);
     }
 
-    @Override
-    public ProductVariantResponse updateVariant(Integer variantId, ProductVariantRequest request) {
-
-    }
-
     /* -- Private methods-- */
-    // Product CRUD
-    private void createSpecifications(Product product, List<ProductSpecificationRequest> specs) {
-        List<ProductSpecification> specifications = specs.stream()
+    // Specifications
+    private void createSpecifications(Product product, List<ProductSpecificationRequest> requests) {
+        List<ProductSpecification> specifications = requests.stream()
                 .map(s -> productSpecificationMapper.toProductSpecification(product, s))
                 .toList();
         product.getSpecifications().addAll(specifications);
         productSpecificationRepository.saveAll(specifications);
     }
 
+    private void updateSpecification(Product product, List<ProductSpecificationRequest> requests) {
+        productSpecificationRepository.deleteAll(product.getSpecifications());
+        product.getSpecifications().clear();
+
+        List<ProductSpecification> specifications = requests.stream()
+                .map(s -> productSpecificationMapper.toProductSpecification(product, s))
+                .toList();
+        product.getSpecifications().addAll(specifications);
+    }
+
+    // Product variants
     private void createVariant(Product product, ProductVariantRequest request) {
         ProductVariant variant = productVariantMapper.toProductVariant(product, request);
         variant = productVariantRepository.save(variant);
@@ -151,6 +187,13 @@ public class ProductServiceImpl implements ProductService {
         createVariantImages(variant, request.getImages());
     }
 
+    private void updateVariant(Product product, List<ProductVariantRequest> requests) {
+        productVariantRepository.deleteAll(product.getVariants());
+        product.getVariants().clear();
+        requests.forEach(vr -> createVariant(product, vr));
+    }
+
+    // Variant sizes
     private void createVariantSizes(ProductVariant variant, List<VariantSizeRequest> requests) {
         List<VariantSize> sizes = requests.stream()
                 .map(s -> variantSizeMapper.toVariantSize(variant, s))
@@ -159,27 +202,12 @@ public class ProductServiceImpl implements ProductService {
         variantSizeRepository.saveAll(sizes);
     }
 
+    // Variant images
     private void createVariantImages(ProductVariant variant, List<VariantImageRequest> requests) {
         List<VariantImage> images = requests.stream()
                 .map(i -> variantImageMapper.toVariantImage(variant, i))
                 .toList();
         variant.getImages().addAll(images);
         variantImageRepository.saveAll(images);
-    }
-
-    // Variant CRUD
-    private void updateVariantSize(ProductVariant variant, List<VariantSizeRequest> requests) {
-        variantSizeRepository.deleteAll(variant.getSizes());
-        variant.getSizes().clear();
-
-        List<VariantSize> sizes = requests.stream()
-                .map(s -> variantSizeMapper.toVariantSize(variant, s))
-                .toList();
-        variantSizeRepository.saveAll(sizes);
-        variant.getSizes().addAll(sizes);
-    }
-
-    private void updateVariantImage(ProductVariant variant, List<VariantImageRequest> requests) {
-        
     }
 }
