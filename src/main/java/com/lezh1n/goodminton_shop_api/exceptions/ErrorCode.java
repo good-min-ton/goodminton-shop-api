@@ -82,18 +82,20 @@ public enum ErrorCode {
     // Product variant(2001 - 2100)
     VARIANT_NOT_FOUND(2001, "Biến thể sản phẩm này không tồn tại", HttpStatus.BAD_REQUEST),
     VARIANT_PRODUCT_BLANK(2002, "Sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
-    VARIANT_VERSION_BLANK(2003, "Phiên bản không được để trống", HttpStatus.BAD_REQUEST),
+    VARIANT_VERSION_BLANK(2003, "Bản thể không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_COLOR_BLANK(2004, "Màu sắc không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_SIZE_BLANK(2005, "Size khong được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_PRICE_BLANK(2006, "Giá không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_PRICE_MUST_BE_POSITIVE(2007, "Giá tiền phải lớn hơn 0", HttpStatus.BAD_REQUEST),
     VARIANT_QUANTITY_BLANK(2008, "Số lượng hàng không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_LIST_SIZES_BLANK(2009, "Danh sách các size không được đê trống", HttpStatus.BAD_REQUEST),
-    VARIANT_NOT_BELONG_TO_PRODUCT(2010, "Variant không thuộc product", HttpStatus.BAD_REQUEST),
+    VARIANT_NOT_BELONG_TO_PRODUCT(2010, "Bản thể truyền vào không thuộc danh sách bản thể của product", HttpStatus.BAD_REQUEST),
 
     // Product specification
-    SPEC_NAME_REQUIRED(2101, "Tên thông số không được để trống", HttpStatus.BAD_REQUEST),
-    SPEC_VALUE_REQUIRED(2102, "Giá trị của thông số không được đê trống", HttpStatus.BAD_REQUEST),
+    SPEC_NOT_FOUND(2101, "Không tìm thấy thông số này", HttpStatus.BAD_REQUEST),
+    SPEC_NAME_REQUIRED(2102, "Tên thông số không được để trống", HttpStatus.BAD_REQUEST),
+    SPEC_VALUE_REQUIRED(2103, "Giá trị của thông số không được đê trống", HttpStatus.BAD_REQUEST),
+	SPEC_NOT_BELONG_TO_PRODUCT(2104, "Thông số truyèn vào không danh sách thông số của sản phẩm", HttpStatus.BAD_REQUEST),
 
     // Variant image
     VARIANT_IMAGE_URL_REQUIRED(2201, "Link ảnh không được đê trống", HttpStatus.BAD_REQUEST),

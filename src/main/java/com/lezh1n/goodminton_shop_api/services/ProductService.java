@@ -19,9 +19,15 @@ public interface ProductService {
 
     ProductResponse updateProduct(Integer productId, ProductRequest request);
 
+    void deleteProduct(Integer productId);
+
     // Product Specification CRUD
     ProductSpecificationResponse addSpecificationToProduct(Integer productId, ProductSpecificationRequest request);
 
+    void deleteSpecification(Integer productId, Integer specId);
+
     // Product Variant CRUD
     ProductVariantResponse addVariantToProduct(Integer productId, ProductVariantRequest request);
+
+    void deleteVariant(Integer productId, Integer variantId);
 }

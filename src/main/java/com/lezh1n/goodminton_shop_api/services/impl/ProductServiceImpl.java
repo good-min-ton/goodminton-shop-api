@@ -60,13 +60,10 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductResponse createProduct(ProductRequest request) {
         Product product = productMapper.toProduct(request);
-
         Product savedProduct = productRepository.save(product);
-
         createSpecifications(savedProduct, request.getSpecifications());
-
         request.getVariants().forEach(variantReq -> createVariant(savedProduct, variantReq));
-
+        productRepository.save(product);
         return getProductById(savedProduct.getProductId());
     }
 
@@ -127,34 +124,78 @@ public class ProductServiceImpl implements ProductService {
         return getProductById(productId);
     }
 
+    @Override
+    @Transactional
+    public void deleteProduct(Integer productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        productRepository.delete(product);
+    }
+
     // Specifications CRUD
     @Override
+    @Transactional
     public ProductSpecificationResponse addSpecificationToProduct(Integer productId,
             ProductSpecificationRequest request) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
         ProductSpecification specification = productSpecificationMapper.toProductSpecification(product, request);
-        productSpecificationRepository.save(specification);
-
         product.getSpecifications().add(specification);
+        productRepository.save(product);
         return productSpecificationMapper.toSpecificationResponse(specification);
+    }
+
+    @Override
+    public void deleteSpecification(Integer productId, Integer specId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        ProductSpecification spec = productSpecificationRepository.findById(specId)
+                .orElseThrow(() -> new AppException(ErrorCode.SPEC_NOT_FOUND));
+
+        if (!product.getSpecifications().contains(spec)) {
+            throw new AppException(ErrorCode.SPEC_NOT_BELONG_TO_PRODUCT);
+        }
+
+        product.getSpecifications().remove(spec);
+        productSpecificationRepository.delete(spec);
+        productRepository.save(product);
     }
 
     // Variant CRUD
     @Override
+    @Transactional
     public ProductVariantResponse addVariantToProduct(Integer productId, ProductVariantRequest request) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
         ProductVariant variant = productVariantMapper.toProductVariant(product, request);
-        variant = productVariantRepository.save(variant);
-
         product.getVariants().add(variant);
         createVariantSizes(variant, request.getSizes());
         createVariantImages(variant, request.getImages());
+        productRepository.save(product);
 
         return productVariantMapper.toProductVariantResponse(variant);
+    }
+
+    @Override
+    @Transactional
+    public void deleteVariant(Integer productId, Integer variantId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        ProductVariant variant = productVariantRepository.findById(variantId)
+                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+
+        if (!product.getVariants().contains(variant)) {
+            throw new AppException(ErrorCode.VARIANT_NOT_BELONG_TO_PRODUCT);
+        }
+
+        product.getVariants().remove(variant);
+        productVariantRepository.delete(variant);
+        productRepository.save(product);
     }
 
     /* -- Private methods-- */
@@ -164,7 +205,7 @@ public class ProductServiceImpl implements ProductService {
                 .map(s -> productSpecificationMapper.toProductSpecification(product, s))
                 .toList();
         product.getSpecifications().addAll(specifications);
-        productSpecificationRepository.saveAll(specifications);
+        // productSpecificationRepository.saveAll(specifications);
     }
 
     private void updateSpecification(Product product, List<ProductSpecificationRequest> requests) {
@@ -180,7 +221,7 @@ public class ProductServiceImpl implements ProductService {
     // Product variants
     private void createVariant(Product product, ProductVariantRequest request) {
         ProductVariant variant = productVariantMapper.toProductVariant(product, request);
-        variant = productVariantRepository.save(variant);
+        // variant = productVariantRepository.save(variant);
 
         product.getVariants().add(variant);
         createVariantSizes(variant, request.getSizes());
@@ -199,7 +240,7 @@ public class ProductServiceImpl implements ProductService {
                 .map(s -> variantSizeMapper.toVariantSize(variant, s))
                 .toList();
         variant.getSizes().addAll(sizes);
-        variantSizeRepository.saveAll(sizes);
+        // variantSizeRepository.saveAll(sizes);
     }
 
     // Variant images
@@ -208,6 +249,6 @@ public class ProductServiceImpl implements ProductService {
                 .map(i -> variantImageMapper.toVariantImage(variant, i))
                 .toList();
         variant.getImages().addAll(images);
-        variantImageRepository.saveAll(images);
+        // variantImageRepository.saveAll(images);
     }
 }
