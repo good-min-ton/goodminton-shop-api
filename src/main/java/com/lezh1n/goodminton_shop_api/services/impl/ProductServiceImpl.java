@@ -53,6 +53,8 @@ public class ProductServiceImpl implements ProductService {
     private final VariantSizeMapper variantSizeMapper;
     private final VariantImageMapper variantImageMapper;
 
+    /* -- Public methods -- */
+    // Product CRUD
     @Override
     @Transactional
     public ProductResponse createProduct(ProductRequest request) {
@@ -109,7 +111,29 @@ public class ProductServiceImpl implements ProductService {
                 .build());
     }
 
-    // Private methods
+    // Variant CRUD
+    @Override
+    public ProductVariantResponse addVariantToProduct(Integer productId, ProductVariantRequest request) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        ProductVariant variant = productVariantMapper.toProductVariant(product, request);
+        variant = productVariantRepository.save(variant);
+
+        product.getVariants().add(variant);
+        createVariantSizes(variant, request.getSizes());
+        createVariantImages(variant, request.getImages());
+
+        return productVariantMapper.toProductVariantResponse(variant);
+    }
+
+    @Override
+    public ProductVariantResponse updateVariant(Integer variantId, ProductVariantRequest request) {
+
+    }
+
+    /* -- Private methods-- */
+    // Product CRUD
     private void createSpecifications(Product product, List<ProductSpecificationRequest> specs) {
         List<ProductSpecification> specifications = specs.stream()
                 .map(s -> productSpecificationMapper.toProductSpecification(product, s))
@@ -141,5 +165,21 @@ public class ProductServiceImpl implements ProductService {
                 .toList();
         variant.getImages().addAll(images);
         variantImageRepository.saveAll(images);
+    }
+
+    // Variant CRUD
+    private void updateVariantSize(ProductVariant variant, List<VariantSizeRequest> requests) {
+        variantSizeRepository.deleteAll(variant.getSizes());
+        variant.getSizes().clear();
+
+        List<VariantSize> sizes = requests.stream()
+                .map(s -> variantSizeMapper.toVariantSize(variant, s))
+                .toList();
+        variantSizeRepository.saveAll(sizes);
+        variant.getSizes().addAll(sizes);
+    }
+
+    private void updateVariantImage(ProductVariant variant, List<VariantImageRequest> requests) {
+        
     }
 }

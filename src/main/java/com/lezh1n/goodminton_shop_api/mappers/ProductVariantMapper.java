@@ -47,4 +47,15 @@ public class ProductVariantMapper {
                 .build();
     }
 
+    public void updateVariant(ProductVariant variant, ProductVariantRequest request) {
+        Version version = versionRepository.findById(request.getVersionId())
+                .orElseThrow(() -> new AppException(ErrorCode.VERSION_NOT_FOUND));
+
+        Color color = colorRepository.findById(request.getColorId())
+                .orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
+        
+        variant.setVersion(version);
+        variant.setColor(color);
+    }
+
 }
