@@ -45,7 +45,8 @@ public class SecurityConfig {
             "/api/brands", "/api/brands/{brandId}",
             "/api/versions", "/api/versions/{versionId}",
             "/api/sizes", "/api/sizes/{sizeId}",
-            "api/colors", "api/colors/{colorId}"
+            "api/colors", "api/colors/{colorId}",
+            "api/products", "api/products/{productId}" 
     };
 
     @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}")

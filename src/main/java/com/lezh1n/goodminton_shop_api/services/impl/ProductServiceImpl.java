@@ -31,23 +31,21 @@ import com.lezh1n.goodminton_shop_api.mappers.VariantSizeMapper;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
-import com.lezh1n.goodminton_shop_api.repositories.VariantImageRepository;
-import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductVariantRepository productVariantRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
-    private final VariantSizeRepository variantSizeRepository;
-    private final VariantImageRepository variantImageRepository;
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
@@ -205,12 +203,12 @@ public class ProductServiceImpl implements ProductService {
                 .map(s -> productSpecificationMapper.toProductSpecification(product, s))
                 .toList();
         product.getSpecifications().addAll(specifications);
-        // productSpecificationRepository.saveAll(specifications);
     }
 
     private void updateSpecification(Product product, List<ProductSpecificationRequest> requests) {
-        productSpecificationRepository.deleteAll(product.getSpecifications());
+        productSpecificationRepository.deleteByProductProductId(product.getProductId());
         product.getSpecifications().clear();
+        productSpecificationRepository.flush();
 
         List<ProductSpecification> specifications = requests.stream()
                 .map(s -> productSpecificationMapper.toProductSpecification(product, s))
@@ -221,7 +219,6 @@ public class ProductServiceImpl implements ProductService {
     // Product variants
     private void createVariant(Product product, ProductVariantRequest request) {
         ProductVariant variant = productVariantMapper.toProductVariant(product, request);
-        // variant = productVariantRepository.save(variant);
 
         product.getVariants().add(variant);
         createVariantSizes(variant, request.getSizes());
@@ -229,8 +226,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void updateVariant(Product product, List<ProductVariantRequest> requests) {
-        productVariantRepository.deleteAll(product.getVariants());
+        productVariantRepository.deleteByProductProductId(product.getProductId());
         product.getVariants().clear();
+        productVariantRepository.flush();
         requests.forEach(vr -> createVariant(product, vr));
     }
 
@@ -240,7 +238,6 @@ public class ProductServiceImpl implements ProductService {
                 .map(s -> variantSizeMapper.toVariantSize(variant, s))
                 .toList();
         variant.getSizes().addAll(sizes);
-        // variantSizeRepository.saveAll(sizes);
     }
 
     // Variant images
@@ -249,6 +246,5 @@ public class ProductServiceImpl implements ProductService {
                 .map(i -> variantImageMapper.toVariantImage(variant, i))
                 .toList();
         variant.getImages().addAll(images);
-        // variantImageRepository.saveAll(images);
     }
 }

@@ -15,4 +15,6 @@ public interface ProductVariantRepository extends JpaRepository<ProductVariant, 
 
     @Query(value = "SELECT EXISTS(SELECT 1 FROM product_variant WHERE color_id = :colorId)", nativeQuery = true)
     boolean existByColorId(@Param("colorId") Integer colorId);
+
+    void deleteByProductProductId(Integer productId);
 }
