@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
+
 public class ColorResponse {
     private Integer colorId;
     private String name;
