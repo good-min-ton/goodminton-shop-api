@@ -1,7 +1,11 @@
 package com.lezh1n.goodminton_shop_api.exceptions;
 
+import java.sql.SQLException;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
@@ -20,6 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = RuntimeException.class)
     ResponseEntity<ApiResponse<Void>> handlingRuntimeException(RuntimeException exception) {
+
+        // Check if it's a wrapped database exception
+        Throwable cause = exception.getCause();
+        if (cause instanceof DataIntegrityViolationException) {
+            return handlingDataIntegrityViolationException((DataIntegrityViolationException) cause);
+        }
+
         return ResponseEntity
                 .badRequest()
                 .body(ApiResponse.<Void>builder()
@@ -91,6 +102,77 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.<Void>builder()
                         .code(ErrorCode.AUTH_INVALID_CREDENTIALS.getCode())
                         .message(ErrorCode.AUTH_INVALID_CREDENTIALS.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler(value = DataIntegrityViolationException.class)
+    ResponseEntity<ApiResponse<Void>> handlingDataIntegrityViolationException(
+            DataIntegrityViolationException exception) {
+        log.error("Database constraint violation: ", exception);
+
+        String message = exception.getMessage();
+        ErrorCode errorCode = ErrorCode.DATABASE_CONSTRAINT_VIOLATION;
+
+        // Parse specific constraint violations
+        if (message != null) {
+            if (message.contains("uq_variant")) {
+                errorCode = ErrorCode.VARIANT_DUPLICATE_COMBINATION;
+            } else if (message.contains("variant_image_public_id_key")) {
+                errorCode = ErrorCode.VARIANT_IMAGE_PUBLIC_ID_DUPLICATE;
+            } else if (message.contains("duplicate key")) {
+                errorCode = ErrorCode.DATABASE_DUPLICATE_KEY;
+            } else if (message.contains("foreign key")) {
+                errorCode = ErrorCode.DATABASE_FOREIGN_KEY_VIOLATION;
+            } else if (message.contains("unique constraint")) {
+                errorCode = ErrorCode.DATABASE_UNIQUE_CONSTRAINT_VIOLATION;
+            }
+        }
+
+        return ResponseEntity
+                .status(errorCode.getStatus())
+                .body(ApiResponse.<Void>builder()
+                        .code(errorCode.getCode())
+                        .message(errorCode.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler(value = SQLException.class)
+    ResponseEntity<ApiResponse<Void>> handlingSQLException(SQLException exception) {
+        log.error("SQL Exception: ", exception);
+
+        ErrorCode errorCode = ErrorCode.DATABASE_CONSTRAINT_VIOLATION;
+
+        // Handle specific SQL error codes
+        String sqlState = exception.getSQLState();
+        if ("23505".equals(sqlState)) { // Unique constraint violation
+            errorCode = ErrorCode.DATABASE_UNIQUE_CONSTRAINT_VIOLATION;
+        } else if ("23503".equals(sqlState)) { // Foreign key constraint violation
+            errorCode = ErrorCode.DATABASE_FOREIGN_KEY_VIOLATION;
+        }
+
+        return ResponseEntity
+                .status(errorCode.getStatus())
+                .body(ApiResponse.<Void>builder()
+                        .code(errorCode.getCode())
+                        .message(errorCode.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler(value = JpaSystemException.class)
+    ResponseEntity<ApiResponse<Void>> handlingJpaSystemException(JpaSystemException exception) {
+        log.error("JPA System Exception: ", exception);
+
+        // Check if it's caused by a constraint violation
+        Throwable cause = exception.getCause();
+        if (cause instanceof DataIntegrityViolationException) {
+            return handlingDataIntegrityViolationException((DataIntegrityViolationException) cause);
+        }
+
+        return ResponseEntity
+                .status(ErrorCode.SYSTEM_INTERNAL_ERROR.getStatus())
+                .body(ApiResponse.<Void>builder()
+                        .code(ErrorCode.SYSTEM_INTERNAL_ERROR.getCode())
+                        .message(ErrorCode.SYSTEM_INTERNAL_ERROR.getMessage())
                         .build());
     }
 }

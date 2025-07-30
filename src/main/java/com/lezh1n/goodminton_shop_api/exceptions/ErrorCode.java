@@ -89,16 +89,27 @@ public enum ErrorCode {
     VARIANT_PRICE_MUST_BE_POSITIVE(2007, "Giá tiền phải lớn hơn 0", HttpStatus.BAD_REQUEST),
     VARIANT_QUANTITY_BLANK(2008, "Số lượng hàng không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_LIST_SIZES_BLANK(2009, "Danh sách các size không được đê trống", HttpStatus.BAD_REQUEST),
-    VARIANT_NOT_BELONG_TO_PRODUCT(2010, "Bản thể truyền vào không thuộc danh sách bản thể của product", HttpStatus.BAD_REQUEST),
+    VARIANT_NOT_BELONG_TO_PRODUCT(2010, "Bản thể truyền vào không thuộc danh sách bản thể của product",
+            HttpStatus.BAD_REQUEST),
+    VARIANT_DUPLICATE_COMBINATION(2011, "Tổ hợp phiên bản và màu sắc đã tồn tại cho sản phảm này", HttpStatus.CONFLICT),
 
     // Product specification
     SPEC_NOT_FOUND(2101, "Không tìm thấy thông số này", HttpStatus.BAD_REQUEST),
     SPEC_NAME_REQUIRED(2102, "Tên thông số không được để trống", HttpStatus.BAD_REQUEST),
     SPEC_VALUE_REQUIRED(2103, "Giá trị của thông số không được đê trống", HttpStatus.BAD_REQUEST),
-	SPEC_NOT_BELONG_TO_PRODUCT(2104, "Thông số truyèn vào không danh sách thông số của sản phẩm", HttpStatus.BAD_REQUEST),
+    SPEC_NOT_BELONG_TO_PRODUCT(2104, "Thông số truyèn vào không danh sách thông số của sản phẩm",
+            HttpStatus.BAD_REQUEST),
+    SPEC_DUPLICATE(2403, "Thông số đã tồn tại cho sản phẩm", HttpStatus.CONFLICT),
 
     // Variant image
     VARIANT_IMAGE_URL_REQUIRED(2201, "Link ảnh không được đê trống", HttpStatus.BAD_REQUEST),
+    VARIANT_IMAGE_PUBLIC_ID_DUPLICATE(2202, "Ảnh này đã đựợc truyề cho biến thể khác", HttpStatus.CONFLICT),
+
+    // Database constraint violations(9601 - 9700)
+    DATABASE_CONSTRAINT_VIOLATION(9601, "Vi phạm ràng buộc dữ liệu", HttpStatus.BAD_REQUEST),
+    DATABASE_DUPLICATE_KEY(9602, "Dữ liệu đã tồn tại trong hệ thống", HttpStatus.CONFLICT),
+    DATABASE_FOREIGN_KEY_VIOLATION(9603, "Vi phạm ràng buộc khóa ngoại", HttpStatus.BAD_REQUEST),
+    DATABASE_UNIQUE_CONSTRAINT_VIOLATION(9604, "Dữ liệu bị trùng lặp", HttpStatus.CONFLICT),
 
     // File errors
     FILE_EMPTY(9701, "File ảnh không được để trống", HttpStatus.BAD_REQUEST),
@@ -108,7 +119,7 @@ public enum ErrorCode {
     // Data errors
     ENUM_INVALID_VALUE(9800, "Invalid enum value", HttpStatus.BAD_REQUEST),
 
-    // System errors (9900 - 9999)
+    // System errors (9901 - 9999)
     SYSTEM_UNKNOWN_ERROR(9998, "System unknow error", HttpStatus.INTERNAL_SERVER_ERROR),
     SYSTEM_INTERNAL_ERROR(9999, "Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
 
