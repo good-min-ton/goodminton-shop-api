@@ -50,8 +50,8 @@ The Goodminton Shop API is a robust e-commerce backend system specifically desig
 src/
 ├── main/
 │   ├── java/com/lezh1n/goodminton_shop_api/
-│   │   ├── configurations/     # Security, Redis, Cloudinary configs
-│   │   ├── controllers/        # REST API endpoints
+│   │   ├── configurations/    # Security, Redis, Cloudinary configs
+│   │   ├── controllers/       # REST API endpoints
 │   │   ├── dtos/              # Request/Response DTOs
 │   │   │   ├── request/       # API request models
 │   │   │   └── response/      # API response models
