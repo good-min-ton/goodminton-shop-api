@@ -135,7 +135,7 @@ Create a .env file in the root directory:
 
 ```env
 # Database Configuration
-POSTGRES_PORT=5432
+POSTGRES_PORT=db_port
 POSTGRES_USERNAME=your_username
 POSTGRES_PASSWORD=your_password
 
