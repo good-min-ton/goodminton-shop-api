@@ -140,9 +140,11 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
         ProductSpecification specification = productSpecificationMapper.toProductSpecification(product, request);
-        product.getSpecifications().add(specification);
+        ProductSpecification savedSpecification = productSpecificationRepository.save(specification);
+        product.getSpecifications().add(savedSpecification);
         productRepository.save(product);
-        return productSpecificationMapper.toSpecificationResponse(specification);
+        log.info("Specification ID: ", specification.getSpecId());
+        return productSpecificationMapper.toSpecificationResponse(savedSpecification);
     }
 
     @Override
@@ -171,11 +173,14 @@ public class ProductServiceImpl implements ProductService {
 
         ProductVariant variant = productVariantMapper.toProductVariant(product, request);
         product.getVariants().add(variant);
-        createVariantSizes(variant, request.getSizes());
-        createVariantImages(variant, request.getImages());
-        productRepository.save(product);
+        ProductVariant savedVariant = productVariantRepository.save(variant);
 
-        return productVariantMapper.toProductVariantResponse(variant);
+        createVariantSizes(savedVariant, request.getSizes());
+        createVariantImages(savedVariant, request.getImages());
+
+        productRepository.save(product);
+        log.info("Variant ID: ", variant.getVariantId());
+        return productVariantMapper.toProductVariantResponse(savedVariant);
     }
 
     @Override

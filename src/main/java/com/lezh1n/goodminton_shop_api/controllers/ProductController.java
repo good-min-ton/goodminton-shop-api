@@ -88,7 +88,7 @@ public class ProductController {
 				.build();
 	}
 
-	@DeleteMapping("/{productId}/specification/{specId}")
+	@DeleteMapping("/{productId}/specifications/{specId}")
 	public ApiResponse<String> deleteSpecification(
 			@PathVariable @Min(value = 1, message = "Product ID must be greater than 0") Integer productId,
 			@PathVariable @Min(value = 1, message = "Specification ID must be greater than 0") Integer specId) {
