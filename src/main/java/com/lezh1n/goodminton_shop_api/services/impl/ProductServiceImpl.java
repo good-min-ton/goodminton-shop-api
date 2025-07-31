@@ -35,12 +35,10 @@ import com.lezh1n.goodminton_shop_api.services.ProductService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -143,7 +141,6 @@ public class ProductServiceImpl implements ProductService {
         ProductSpecification savedSpecification = productSpecificationRepository.save(specification);
         product.getSpecifications().add(savedSpecification);
         productRepository.save(product);
-        log.info("Specification ID: ", specification.getSpecId());
         return productSpecificationMapper.toSpecificationResponse(savedSpecification);
     }
 
@@ -179,7 +176,6 @@ public class ProductServiceImpl implements ProductService {
         createVariantImages(savedVariant, request.getImages());
 
         productRepository.save(product);
-        log.info("Variant ID: ", variant.getVariantId());
         return productVariantMapper.toProductVariantResponse(savedVariant);
     }
 
