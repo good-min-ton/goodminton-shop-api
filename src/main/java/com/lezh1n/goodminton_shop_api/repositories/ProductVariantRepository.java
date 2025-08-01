@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +19,14 @@ public interface ProductVariantRepository extends JpaRepository<ProductVariant, 
     boolean existByColorId(@Param("colorId") Integer colorId);
 
     void deleteByProductProductId(Integer productId);
+
+    @Query("""
+            SELECT pv FROM ProductVariant pv
+            WHERE pv.product.productId=:productId
+            AND pv.version.versionId=:versionId
+            AND pv.color.colorId=:colorId""")
+    Optional<ProductVariant> findVariantByAttribute(
+            @Param("productId") Integer productId,
+            @Param("versionId") Integer version,
+            @Param("colorId") Integer colorId);
 }

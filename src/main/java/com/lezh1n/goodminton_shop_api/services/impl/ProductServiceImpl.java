@@ -1,6 +1,7 @@
 package com.lezh1n.goodminton_shop_api.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,24 +14,35 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantImageRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantSizeRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.SpecificVariantResponse;
+import com.lezh1n.goodminton_shop_api.entities.Color;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductSpecification;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
+import com.lezh1n.goodminton_shop_api.entities.Size;
 import com.lezh1n.goodminton_shop_api.entities.VariantImage;
 import com.lezh1n.goodminton_shop_api.entities.VariantSize;
+import com.lezh1n.goodminton_shop_api.entities.Version;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
+import com.lezh1n.goodminton_shop_api.mappers.ColorMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductSpecificationMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductVariantMapper;
 import com.lezh1n.goodminton_shop_api.mappers.VariantImageMapper;
 import com.lezh1n.goodminton_shop_api.mappers.VariantSizeMapper;
+import com.lezh1n.goodminton_shop_api.mappers.VersionMapper;
+import com.lezh1n.goodminton_shop_api.repositories.ColorRepository;
+import com.lezh1n.goodminton_shop_api.repositories.InventoryRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
+import com.lezh1n.goodminton_shop_api.repositories.SizeRepository;
+import com.lezh1n.goodminton_shop_api.repositories.VersionRepository;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 
 import jakarta.transaction.Transactional;
@@ -44,11 +56,17 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductVariantRepository productVariantRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
+    private final VersionRepository versionRepository;
+    private final ColorRepository colorRepository;
+    private final SizeRepository sizeRepository;
+    private final InventoryRepository inventoryRepository;
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
     private final VariantSizeMapper variantSizeMapper;
     private final VariantImageMapper variantImageMapper;
+    private final VersionMapper versionMapper;
+    private final ColorMapper colorMapper;
 
     /* -- Public methods -- */
     // Product CRUD
@@ -195,6 +213,51 @@ public class ProductServiceImpl implements ProductService {
         product.getVariants().remove(variant);
         productVariantRepository.delete(variant);
         productRepository.save(product);
+    }
+
+    // Get product by attributes
+    @Override
+    public ProductByAttributeResponse getProductByAttributes(Integer productId, Integer versionId, Integer colorId,
+            Integer sizeId) {
+        Optional<Version> version = versionRepository.findById(versionId);
+        Optional<Color> color = colorRepository.findById(colorId);
+        Optional<Size> size = sizeRepository.findById(sizeId);
+        if (version.isEmpty() || color.isEmpty() || size.isEmpty()) {
+            throw new AppException(ErrorCode.VARIANT_NOT_FOUND);
+        }
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        ProductVariant variant = productVariantRepository.findVariantByAttribute(productId, versionId, colorId)
+                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+
+        VariantSize variantSize = variant.getSizes().stream()
+                .filter(s -> s.getSize().getSizeId().equals(sizeId))
+                .findFirst().orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+
+        if (!inventoryRepository.existsByVariantSizeVariantSizeId(variantSize.getVariantSizeId())) {
+            throw new AppException(ErrorCode.INVENTORY_VARIANT_NOT_FOUND);
+        }
+
+        Integer quantity = inventoryRepository.sumQuantityByVariantSize(variantSize.getVariantSizeId());
+
+        return ProductByAttributeResponse.builder()
+                .productId(productId)
+                .name(product.getName())
+                .description(product.getDescription())
+                .thumbnailUrl(product.getThumbnailUrl())
+                .createAt(product.getCreateAt())
+                .variantResponse(SpecificVariantResponse.builder()
+                        .variantId(variant.getVariantId())
+                        .version(versionMapper.toVersionResponse(version.get()))
+                        .color(colorMapper.toColorResponse(color.get()))
+                        .size(variantSizeMapper.toVariantSizeResponse(variantSize))
+                        .quantity(quantity)
+                        .images(variant.getImages().stream()
+                                .map(variantImageMapper::toVariantImageResponse)
+                                .toList())
+                        .build())
+                .build();
     }
 
     /* -- Private methods-- */

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
@@ -30,4 +31,7 @@ public interface ProductService {
     ProductVariantResponse addVariantToProduct(Integer productId, ProductVariantRequest request);
 
     void deleteVariant(Integer productId, Integer variantId);
+
+    // Specific variant
+    ProductByAttributeResponse getProductByAttributes(Integer productId, Integer versionId, Integer colorId, Integer sizeId);
 }
