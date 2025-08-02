@@ -110,6 +110,9 @@ public enum ErrorCode {
         INVENTORY_VARIANT_NOT_FOUND(2301,
                         "Bản thể của sản phẩm hiện tại không thuộc bất kỳ kho của cửa hàng nào. Vui lòng chọn thêm sản phẩm vào kho cửa hàng trước",
                         HttpStatus.BAD_REQUEST),
+        INVENTORY_STORE_ID_REQUIRED(2302, "Store ID không đực để trống", HttpStatus.BAD_REQUEST),
+        INVENTORY_VARIANT_SIZE_REQUIRED(2303, "VariantSize ID không được để trống", HttpStatus.BAD_REQUEST),
+        INVENTORY_QUANTITY_REQUIRED(2304, "Số lượng sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
 
         // Database constraint violations(9601 - 9700)
         DATABASE_CONSTRAINT_VIOLATION(9601, "Vi phạm ràng buộc dữ liệu", HttpStatus.BAD_REQUEST),
