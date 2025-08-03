@@ -94,25 +94,30 @@ public enum ErrorCode {
         VARIANT_DUPLICATE_COMBINATION(2011, "Tổ hợp phiên bản và màu sắc đã tồn tại cho sản phảm này",
                         HttpStatus.CONFLICT),
 
-        // Product specification
+        // Product specification (2101 - 2200)
         SPEC_NOT_FOUND(2101, "Không tìm thấy thông số này", HttpStatus.BAD_REQUEST),
         SPEC_NAME_REQUIRED(2102, "Tên thông số không được để trống", HttpStatus.BAD_REQUEST),
         SPEC_VALUE_REQUIRED(2103, "Giá trị của thông số không được đê trống", HttpStatus.BAD_REQUEST),
         SPEC_NOT_BELONG_TO_PRODUCT(2104, "Thông số truyèn vào không danh sách thông số của sản phẩm",
                         HttpStatus.BAD_REQUEST),
-        SPEC_DUPLICATE(2403, "Thông số đã tồn tại cho sản phẩm", HttpStatus.CONFLICT),
+        SPEC_DUPLICATE(2105, "Thông số đã tồn tại cho sản phẩm", HttpStatus.CONFLICT),
 
-        // Variant image
+        // Variant image (2201 - 2300)
         VARIANT_IMAGE_URL_REQUIRED(2201, "Link ảnh không được đê trống", HttpStatus.BAD_REQUEST),
         VARIANT_IMAGE_PUBLIC_ID_DUPLICATE(2202, "Ảnh này đã đựợc truyề cho biến thể khác", HttpStatus.CONFLICT),
 
-        // Inventory
-        INVENTORY_VARIANT_NOT_FOUND(2301,
+        // Variant size (2301- 2400)
+        VARIANT_SIZE_NOT_FOUND(2301, "Không tìm thấy tổ hợp variant với size này", HttpStatus.BAD_REQUEST),
+
+        // Inventory (2401 - 2500)
+        INVENTORY_NOT_FOUND(2401, "Không tim thấy kho hàng này", HttpStatus.BAD_REQUEST),
+        INVENTORY_VARIANT_NOT_FOUND(2402,
                         "Bản thể của sản phẩm hiện tại không thuộc bất kỳ kho của cửa hàng nào. Vui lòng chọn thêm sản phẩm vào kho cửa hàng trước",
                         HttpStatus.BAD_REQUEST),
-        INVENTORY_STORE_ID_REQUIRED(2302, "Store ID không đực để trống", HttpStatus.BAD_REQUEST),
-        INVENTORY_VARIANT_SIZE_REQUIRED(2303, "VariantSize ID không được để trống", HttpStatus.BAD_REQUEST),
-        INVENTORY_QUANTITY_REQUIRED(2304, "Số lượng sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
+        INVENTORY_STORE_ID_REQUIRED(2403, "Store ID không đực để trống", HttpStatus.BAD_REQUEST),
+        INVENTORY_VARIANT_SIZE_REQUIRED(2404, "VariantSize ID không được để trống", HttpStatus.BAD_REQUEST),
+        INVENTORY_QUANTITY_REQUIRED(2405, "Số lượng sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
+        INVENTORY_STORE_AND_VARIANT_DUPLICATED(2406, "Kho của cửa hàng đã tồn tại bản thể của sản phẩm này", HttpStatus.BAD_REQUEST),
 
         // Database constraint violations(9601 - 9700)
         DATABASE_CONSTRAINT_VIOLATION(9601, "Vi phạm ràng buộc dữ liệu", HttpStatus.BAD_REQUEST),

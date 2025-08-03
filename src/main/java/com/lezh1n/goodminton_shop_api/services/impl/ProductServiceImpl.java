@@ -239,20 +239,17 @@ public class ProductServiceImpl implements ProductService {
             throw new AppException(ErrorCode.INVENTORY_VARIANT_NOT_FOUND);
         }
 
-        Integer quantity = inventoryRepository.sumQuantityByVariantSize(variantSize.getVariantSizeId());
-
         return ProductByAttributeResponse.builder()
                 .productId(productId)
                 .name(product.getName())
                 .description(product.getDescription())
                 .thumbnailUrl(product.getThumbnailUrl())
                 .createAt(product.getCreateAt())
-                .variantResponse(SpecificVariantResponse.builder()
+                .variant(SpecificVariantResponse.builder()
                         .variantId(variant.getVariantId())
                         .version(versionMapper.toVersionResponse(version.get()))
                         .color(colorMapper.toColorResponse(color.get()))
                         .size(variantSizeMapper.toVariantSizeResponse(variantSize))
-                        .quantity(quantity)
                         .images(variant.getImages().stream()
                                 .map(variantImageMapper::toVariantImageResponse)
                                 .toList())
