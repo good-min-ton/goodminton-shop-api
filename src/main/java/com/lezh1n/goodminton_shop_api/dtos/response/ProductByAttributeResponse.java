@@ -16,5 +16,5 @@ public class ProductByAttributeResponse {
     private String description;
     private String thumbnailUrl;
     private LocalDateTime createAt;
-    private SpecificVariantResponse variantResponse;
+    private SpecificVariantResponse variant;
 }

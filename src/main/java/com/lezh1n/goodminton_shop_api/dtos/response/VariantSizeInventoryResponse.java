@@ -1,5 +1,6 @@
 package com.lezh1n.goodminton_shop_api.dtos.response;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,10 +11,10 @@ import lombok.Data;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class InventoryResponse {
+public class VariantSizeInventoryResponse {
+    private Integer variantSizeId;
+    private BigDecimal price;
+    private LocalDateTime updateAt;
     private Integer inventoryId;
-    private StoreResponse store;
-    private VariantSizeResponse variantSize;
     private Integer quantity;
-    private LocalDateTime inventoryUpdatedAt;
 }

@@ -10,10 +10,9 @@ import lombok.Data;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SpecificVariantResponse {
+public class InventoryByVariantResponse {
     private Integer variantId;
     private VersionResponse version;
     private ColorResponse color;
-    private VariantSizeResponse size;
-    private List<VariantImageResponse> images;
+    private List<VariantSizeInventoryResponse> variantSizeInventory;
 }
