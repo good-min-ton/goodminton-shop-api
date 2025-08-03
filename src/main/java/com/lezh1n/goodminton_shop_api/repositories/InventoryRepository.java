@@ -2,6 +2,9 @@ package com.lezh1n.goodminton_shop_api.repositories;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +33,9 @@ public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
     Integer sumQuantityByVariantSize(@Param("variantSizeId") Integer variantSizeId);
 
     boolean existsByVariantSizeVariantSizeId(Integer variantSizeId);
+
+    boolean existsByStoreStoreIdAndVariantSizeVariantSizeId(Integer storeId, Integer variantSizeId);
+
+    @EntityGraph(attributePaths = {"store", "variantSize.variant.product"})
+    Page<Inventory> findByStoreStoreId(@Param("storeId") Integer storeId, Pageable pageable);
 }
