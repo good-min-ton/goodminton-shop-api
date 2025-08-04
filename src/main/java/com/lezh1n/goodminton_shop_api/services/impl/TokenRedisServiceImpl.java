@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TokenRedisServiceImpl implements TokenService {
 
-    @Qualifier("stringRedisTemplate")
+    @Qualifier("customStringRedisTemplate")
     private final RedisTemplate<String, String> redisTemplate;
     private static final String BLACKLIST_PREFIX = "token_blacklist:";
 
