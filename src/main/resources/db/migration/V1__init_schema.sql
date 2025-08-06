@@ -1,5 +1,10 @@
 -- ENUM types
-CREATE TYPE user_role AS ENUM ('SUPER_ADMIN', 'DISTRIBUTOR', 'STORE_ADMIN', 'CUSTOMER');
+CREATE TYPE user_role AS ENUM (
+    'SUPER_ADMIN',
+    'DISTRIBUTOR',
+    'STORE_ADMIN',
+    'CUSTOMER'
+);
 
 CREATE TYPE account_status AS ENUM ('ACTIVE', 'INACTIVE');
 
@@ -11,7 +16,7 @@ CREATE TYPE payment_status AS ENUM ('PENDING', 'PAID', 'FAILED');
 
 CREATE TYPE size_type AS ENUM ('RACKET', 'COSTUME', 'FOOTWEAR');
 
-CREATE TYPE multimedia_type AS ENUM ('IMAGE', 'VIDEO');
+CREATE TYPE order_type AS ENUM ('ORDER', 'DIRECT')
 
 -- Table account
 CREATE TABLE
@@ -157,7 +162,7 @@ CREATE TABLE
 CREATE TABLE
     "order" (
         order_id SERIAL PRIMARY KEY,
-        customer_id INTEGER NOT NULL REFERENCES account (account_id),
+        customer_id INTEGER REFERENCES account (account_id),
         order_date TIMESTAMP NOT NULL,
         total_amount DECIMAL(10, 2) NOT NULL,
         name VARCHAR(100),
@@ -165,7 +170,8 @@ CREATE TABLE
         address VARCHAR(100),
         email VARCHAR(50),
         note TEXT,
-        status order_status NOT NULL
+        status order_status NOT NULL,
+        order_type order_type NOT NULL
     );
 
 -- Table order_item
