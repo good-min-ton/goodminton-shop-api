@@ -6,7 +6,6 @@ import lombok.Getter;
 
 @Getter
 public class OrderRequest {
-    private Integer customerId;
     private List<OrderItemRequest> items;
     private String name;
     private String phone;
