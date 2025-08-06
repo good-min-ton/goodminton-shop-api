@@ -46,11 +46,11 @@ public enum ErrorCode {
     // Category (1401 - 1500)
     CATEGORY_NAME_REQUIRED(1401, "Tên danh mục không được để trống", HttpStatus.BAD_REQUEST),
     CATEGORY_DESCRIPTION_REQUIRED(1402, "Phần mô tả danh mục không được để trống", HttpStatus.BAD_REQUEST),
-    CATEGORY_NOT_FOUND(1403, "Category not found", HttpStatus.BAD_REQUEST),
+    CATEGORY_NOT_FOUND(1403, "Category not found", HttpStatus.NOT_FOUND),
     CATEGORY_PRODUCT_EXISTED(1404, "Danh mục hiện đang chứa có sản phẩm", HttpStatus.BAD_REQUEST),
 
     // Product (1501 - 1600)
-    PRODUCT_NOT_FOUND(1501, "Sản phẩm không tồn tại", HttpStatus.BAD_REQUEST),
+    PRODUCT_NOT_FOUND(1501, "Sản phẩm không tồn tại", HttpStatus.NOT_FOUND),
     PRODUCT_CATEGORY_BLANK(1502, "Danh mục không được để trống", HttpStatus.BAD_REQUEST),
     PRODUCT_BRAND_BLANK(1503, "Thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
     PRODUCT_NAME_BLANK(1504, "Tên sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
@@ -59,7 +59,7 @@ public enum ErrorCode {
 
     // Brand (1601 - 1700)
     BRAND_NAME_BLANK(1601, "Tên thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
-    BRAND_NOT_FOUND(1602, "Không tìm thấy thương hiệu", HttpStatus.BAD_REQUEST),
+    BRAND_NOT_FOUND(1602, "Không tìm thấy thương hiệu", HttpStatus.NOT_FOUND),
     BRAND_PRODUCT_EXISTED(1603, "Vui lòng xoá hết sản phẩm thuộc thương hiệu này", HttpStatus.BAD_REQUEST),
 
     // Version (1701 - 1800)
@@ -71,7 +71,7 @@ public enum ErrorCode {
     // Size (1801 - 1900)
     SIZE_NAME_BLANK(1801, "Tên size không được để trống", HttpStatus.BAD_REQUEST),
     SIZE_TYPE_BLANK(1802, "Loại size không được để trống", HttpStatus.BAD_REQUEST),
-    SIZE_NOT_FOUND(1803, "Size không tồn tại", HttpStatus.BAD_REQUEST),
+    SIZE_NOT_FOUND(1803, "Size không tồn tại", HttpStatus.NOT_FOUND),
     SIZE_VARIANT_EXISTED(1804, "Vui lòng xoá hết các product variant chứa size hiện tại", HttpStatus.BAD_REQUEST),
 
     // Color (1901 - 2000)
@@ -80,7 +80,7 @@ public enum ErrorCode {
     COLOR_VARIANT_EXISTED(1903, "Vui lòng xoá hết các product variant chứa màu hiện tại", HttpStatus.BAD_REQUEST),
 
     // Product variant(2001 - 2100)
-    VARIANT_NOT_FOUND(2001, "Biến thể sản phẩm này không tồn tại", HttpStatus.BAD_REQUEST),
+    VARIANT_NOT_FOUND(2001, "Biến thể sản phẩm này không tồn tại", HttpStatus.NOT_FOUND),
     VARIANT_PRODUCT_BLANK(2002, "Sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_VERSION_BLANK(2003, "Bản thể không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_COLOR_BLANK(2004, "Màu sắc không được để trống", HttpStatus.BAD_REQUEST),
@@ -95,7 +95,7 @@ public enum ErrorCode {
             HttpStatus.CONFLICT),
 
     // Product specification (2101 - 2200)
-    SPEC_NOT_FOUND(2101, "Không tìm thấy thông số này", HttpStatus.BAD_REQUEST),
+    SPEC_NOT_FOUND(2101, "Không tìm thấy thông số này", HttpStatus.NOT_FOUND),
     SPEC_NAME_REQUIRED(2102, "Tên thông số không được để trống", HttpStatus.BAD_REQUEST),
     SPEC_VALUE_REQUIRED(2103, "Giá trị của thông số không được đê trống", HttpStatus.BAD_REQUEST),
     SPEC_NOT_BELONG_TO_PRODUCT(2104, "Thông số truyèn vào không danh sách thông số của sản phẩm",
@@ -107,11 +107,11 @@ public enum ErrorCode {
     VARIANT_IMAGE_PUBLIC_ID_DUPLICATE(2202, "Ảnh này đã đựợc truyề cho biến thể khác", HttpStatus.CONFLICT),
 
     // Variant size (2301- 2400)
-    VARIANT_SIZE_NOT_FOUND(2301, "Không tìm thấy tổ hợp variant với size này", HttpStatus.BAD_REQUEST),
+    VARIANT_SIZE_NOT_FOUND(2301, "Không tìm thấy tổ hợp variant với size này", HttpStatus.NOT_FOUND),
     VARIANT_SIZE_ID_BLANK(2302, "VariantSize ID không được để trống", HttpStatus.BAD_REQUEST),
 
     // Inventory (2401 - 2500)
-    INVENTORY_NOT_FOUND(2401, "Không tim thấy kho hàng này", HttpStatus.BAD_REQUEST),
+    INVENTORY_NOT_FOUND(2401, "Không tim thấy kho hàng này", HttpStatus.NOT_FOUND),
     INVENTORY_VARIANT_NOT_FOUND(2402,
             "Bản thể của sản phẩm hiện tại không thuộc bất kỳ kho của cửa hàng nào. Vui lòng chọn thêm sản phẩm vào kho cửa hàng trước",
             HttpStatus.BAD_REQUEST),
@@ -122,7 +122,18 @@ public enum ErrorCode {
             HttpStatus.BAD_REQUEST),
 
     // Order (2501 - 2600)
-    ORDER_INVENTORY_INSUFFICIENT(2501, "Số lượng hàng trong kho không đủ", HttpStatus.BAD_REQUEST),
+    ORDER_NOT_FOUND(2501, "Không tìm thây đơn hàng", HttpStatus.NOT_FOUND),
+    ORDER_INVENTORY_INSUFFICIENT(2502, "Số lượng hàng trong kho không đủ", HttpStatus.BAD_REQUEST),
+    ORDER_INVALID_STATUS(2503, "Trạng thái đơn hàng không hợp lệ", HttpStatus.BAD_REQUEST),
+    ORDER_CANNOT_CANCEL_COMPLETED(2504, "Không thể huỷ đơn hàng đã hoàn thành", HttpStatus.BAD_REQUEST),
+    ORDER_CANCEL_ALREADY_CANCELLED(2505, "Không thể huỷ đơn hàng đã được huỷ trước đó", HttpStatus.BAD_REQUEST),
+
+    // Order item (2601 - 2700)
+    ORDER_ITEM_NOT_FOUND(2601, "Không tìm thấy chi tiết đơn hàng", HttpStatus.NOT_FOUND),
+
+    // ALLOCATION_QUANTITY_INVALID (2701 - 2800)
+    ALLOCATION_QUANTITY_INVALID(2701, "Số lượng sản phầm phân phối không khớp với đơn hàng", HttpStatus.BAD_REQUEST),
+    ALLOCATION_VARIANT_SIZE_INVALID(2702, "Bản phối sản phẩm không khớp vơi đơn hàng", HttpStatus.BAD_REQUEST),
 
     // Database constraint violations(9601 - 9700)
     DATABASE_CONSTRAINT_VIOLATION(9601, "Vi phạm ràng buộc dữ liệu", HttpStatus.BAD_REQUEST),
