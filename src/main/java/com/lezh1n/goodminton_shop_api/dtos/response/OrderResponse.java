@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lezh1n.goodminton_shop_api.enums.OrderStatus;
+import com.lezh1n.goodminton_shop_api.enums.OrderType;
 
 import lombok.Builder;
 import lombok.Data;
@@ -24,5 +25,6 @@ public class OrderResponse {
     private String email;
     private String note;
     private OrderStatus status;
+    private OrderType orderType;
     private List<OrderItemResponse> items;
 }
