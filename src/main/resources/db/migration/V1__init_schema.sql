@@ -16,7 +16,7 @@ CREATE TYPE payment_status AS ENUM ('PENDING', 'PAID', 'FAILED');
 
 CREATE TYPE size_type AS ENUM ('RACKET', 'COSTUME', 'FOOTWEAR');
 
-CREATE TYPE order_type AS ENUM ('ORDER', 'DIRECT')
+CREATE TYPE order_type AS ENUM ('ORDER', 'DIRECT');
 
 -- Table account
 CREATE TABLE
