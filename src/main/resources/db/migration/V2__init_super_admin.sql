@@ -2,7 +2,7 @@
 DO $$
 BEGIN
     IF NOT EXISTS (
-        SELECT 1 FROM account WHERE email = 'admin@goodminton.com'
+        SELECT 1 FROM account WHERE email = 'goodmintonadm@gmail.com'
     ) THEN
         INSERT INTO account (full_name, phone, email, password, role, create_at, status)
         VALUES (

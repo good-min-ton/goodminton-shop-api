@@ -26,3 +26,6 @@ CREATE INDEX idx_product_discount_time ON product_discount (start_time, end_time
 
 -- Index for review table
 CREATE INDEX idx_review_product_id ON review (product_id);
+
+-- Index for find order by status
+CREATE INDEX idx_order_type_status ON "order" (order_type, status);
