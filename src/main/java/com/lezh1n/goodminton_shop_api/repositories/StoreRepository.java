@@ -12,5 +12,4 @@ public interface StoreRepository extends JpaRepository<Store, Integer> {
 
     @Query(value = "SELECT EXISTS (SELECT 1 FROM store where admin_id = :id)", nativeQuery = true)
     boolean isAdminAssigned(@Param("id") Integer id);
-
 }

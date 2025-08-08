@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
+    @Qualifier("objectRedisTemplate")
     private final RedisTemplate<String, Object> redisTemplate;
     private final InventoryRepository inventoryRepository;
     private static final String REDIS_KEY = "cart:";
@@ -52,7 +54,7 @@ public class CartServiceImpl implements CartService {
                     .quantity(request.getQuantity())
                     .build());
         }
-        redisTemplate.opsForValue().set(key, cart, Duration.ofDays(24));
+        redisTemplate.opsForValue().set(key, cart, Duration.ofDays(7));
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.services.impl;
 
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TokenRedisServiceImpl implements TokenService {
 
+    @Qualifier("customStringRedisTemplate")
     private final RedisTemplate<String, String> redisTemplate;
     private static final String BLACKLIST_PREFIX = "token_blacklist:";
 
