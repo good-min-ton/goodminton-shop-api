@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderMapper {
 
     private final OrderItemMapper orderItemMapper;
+    private final PaymentMapper paymentMapper;
 
     public OrderResponse toOrderResponse(Order order) {
         return OrderResponse.builder()
@@ -26,6 +27,7 @@ public class OrderMapper {
                 .note(order.getNote())
                 .status(order.getOrderStatus())
                 .items(order.getOrderItems().stream().map(orderItemMapper::toOrderItemResponse).toList())
+                .payments(order.getPayments().stream().map(paymentMapper::toPaymentResponse).toList())
                 .build();
     }
 }
