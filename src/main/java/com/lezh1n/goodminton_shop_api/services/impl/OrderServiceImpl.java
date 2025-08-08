@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import com.lezh1n.goodminton_shop_api.entities.Inventory;
 import com.lezh1n.goodminton_shop_api.entities.Order;
 import com.lezh1n.goodminton_shop_api.entities.OrderItem;
 import com.lezh1n.goodminton_shop_api.entities.OrderItemInventoryAllocation;
+import com.lezh1n.goodminton_shop_api.entities.ProductDiscount;
 import com.lezh1n.goodminton_shop_api.entities.VariantSize;
 import com.lezh1n.goodminton_shop_api.enums.OrderStatus;
 import com.lezh1n.goodminton_shop_api.enums.OrderType;
@@ -31,6 +34,7 @@ import com.lezh1n.goodminton_shop_api.repositories.InventoryAllocationRepository
 import com.lezh1n.goodminton_shop_api.repositories.InventoryRepository;
 import com.lezh1n.goodminton_shop_api.repositories.OrderItemRepository;
 import com.lezh1n.goodminton_shop_api.repositories.OrderRepository;
+import com.lezh1n.goodminton_shop_api.repositories.ProductDiscountRepository;
 import com.lezh1n.goodminton_shop_api.repositories.StoreRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
 import com.lezh1n.goodminton_shop_api.services.CartService;
@@ -50,10 +54,12 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final InventoryAllocationRepository inventoryAllocationRepository;
+    private final ProductDiscountRepository productDiscountRepository;
     private final CartService cartService;
     private final OrderMapper orderMapper;
 
     @Override
+    @PreAuthorize("hasRole('CUSTOMER')")
     public OrderResponse createOrder(OrderRequest request) {
         Account customer = getCurrentAuthentication();
         if (customer.getRole() != UserRole.CUSTOMER) {
@@ -85,6 +91,10 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItemRequest item : request.getItems()) {
             VariantSize variantSize = variantSizeRepository.findById(item.getVariantSizeId())
                     .orElseThrow(() -> new AppException(ErrorCode.VARIANT_SIZE_NOT_FOUND));
+
+            BigDecimal unitPrice = variantSize.getPrice();
+            Optional<ProductDiscount> discount = productDiscountRepository
+                    .findActiveDiscountByVariantSizeId(item.getVariantSizeId(), LocalDateTime.now());
             OrderItem orderItem = OrderItem.builder()
                     .order(order)
                     .variantSize(variantSize)
@@ -104,6 +114,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @PreAuthorize("hasRole('STORE_ADMIN')")
     public OrderResponse createStoreOrder(OrderRequest request, Integer storeId) {
         Account admin = getCurrentAuthentication();
         if (admin.getRole() != UserRole.STORE_ADMIN) {
@@ -172,6 +183,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @PreAuthorize("hasRole('DISTRIBUTOR')")
     public OrderResponse allocateOrder(OrderAllocationRequest request) {
         Order order = orderRepository.findById(request.getOrderId())
                 .orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
@@ -220,6 +232,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @PreAuthorize("hasRole('CUSTOMER')")
     public OrderResponse cancelOrder(Integer orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
 

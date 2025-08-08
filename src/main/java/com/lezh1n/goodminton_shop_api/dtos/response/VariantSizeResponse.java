@@ -15,5 +15,6 @@ public class VariantSizeResponse {
     private Integer variantSizeId;
     private SizeResponse size;
     private BigDecimal price;
+    private BigDecimal discountPrice;
     private LocalDateTime updatedAt;
 }

@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.services.impl;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +21,10 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.SpecificVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.VariantSizeResponse;
 import com.lezh1n.goodminton_shop_api.entities.Color;
 import com.lezh1n.goodminton_shop_api.entities.Product;
+import com.lezh1n.goodminton_shop_api.entities.ProductDiscount;
 import com.lezh1n.goodminton_shop_api.entities.ProductSpecification;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
 import com.lezh1n.goodminton_shop_api.entities.Size;
@@ -38,6 +42,7 @@ import com.lezh1n.goodminton_shop_api.mappers.VariantSizeMapper;
 import com.lezh1n.goodminton_shop_api.mappers.VersionMapper;
 import com.lezh1n.goodminton_shop_api.repositories.ColorRepository;
 import com.lezh1n.goodminton_shop_api.repositories.InventoryRepository;
+import com.lezh1n.goodminton_shop_api.repositories.ProductDiscountRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
@@ -60,6 +65,7 @@ public class ProductServiceImpl implements ProductService {
     private final ColorRepository colorRepository;
     private final SizeRepository sizeRepository;
     private final InventoryRepository inventoryRepository;
+    private final ProductDiscountRepository productDiscountRepository;
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
@@ -96,7 +102,21 @@ public class ProductServiceImpl implements ProductService {
                 .map(variant -> {
                     ProductVariantResponse vr = productVariantMapper.toProductVariantResponse(variant);
 
-                    vr.setSizes(variant.getSizes().stream().map(variantSizeMapper::toVariantSizeResponse).toList());
+                    vr.setSizes(variant.getSizes().stream().map(
+                            variantSize -> {
+                                VariantSizeResponse vs = variantSizeMapper.toVariantSizeResponse(variantSize);
+
+                                BigDecimal discountPrice = null;
+                                Optional<ProductDiscount> discount = productDiscountRepository
+                                        .findActiveDiscountByVariantSizeId(id,
+                                                LocalDateTime.now());
+                                if (discount.isPresent()) {
+                                    discountPrice = discount.get().getSalePrice();
+                                }
+                                vs.setDiscountPrice(discountPrice);
+
+                                return vs;
+                            }).toList());
 
                     vr.setImages(variant.getImages().stream().map(variantImageMapper::toVariantImageResponse).toList());
 
