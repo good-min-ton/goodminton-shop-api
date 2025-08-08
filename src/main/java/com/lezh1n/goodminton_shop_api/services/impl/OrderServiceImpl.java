@@ -39,6 +39,7 @@ import com.lezh1n.goodminton_shop_api.repositories.StoreRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
 import com.lezh1n.goodminton_shop_api.services.CartService;
 import com.lezh1n.goodminton_shop_api.services.OrderService;
+import com.lezh1n.goodminton_shop_api.services.PaymentService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +57,7 @@ public class OrderServiceImpl implements OrderService {
     private final InventoryAllocationRepository inventoryAllocationRepository;
     private final ProductDiscountRepository productDiscountRepository;
     private final CartService cartService;
+    private final PaymentService paymentService;
     private final OrderMapper orderMapper;
 
     @Override
@@ -95,11 +97,15 @@ public class OrderServiceImpl implements OrderService {
             BigDecimal unitPrice = variantSize.getPrice();
             Optional<ProductDiscount> discount = productDiscountRepository
                     .findActiveDiscountByVariantSizeId(item.getVariantSizeId(), LocalDateTime.now());
+            if (discount.isPresent()) {
+                unitPrice = discount.get().getSalePrice();
+            }
+
             OrderItem orderItem = OrderItem.builder()
                     .order(order)
                     .variantSize(variantSize)
                     .quantity(item.getQuantity())
-                    .unitPrice(variantSize.getPrice())
+                    .unitPrice(unitPrice)
                     .build();
             order.getOrderItems().add(orderItem);
             totalAmount = totalAmount.add(variantSize.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
@@ -142,7 +148,7 @@ public class OrderServiceImpl implements OrderService {
                 .address(request.getAddress())
                 .email(request.getEmail())
                 .note(request.getNote())
-                .orderStatus(OrderStatus.PAID)
+                .orderStatus(OrderStatus.COMPLETED)
                 .orderType(OrderType.DIRECT)
                 .orderItems(new ArrayList<>())
                 .build();
@@ -151,11 +157,19 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItemRequest item : request.getItems()) {
             VariantSize variantSize = variantSizeRepository.findById(item.getVariantSizeId())
                     .orElseThrow(() -> new AppException(ErrorCode.VARIANT_SIZE_NOT_FOUND));
+
+            BigDecimal unitPrice = variantSize.getPrice();
+            Optional<ProductDiscount> discount = productDiscountRepository
+                    .findActiveDiscountByVariantSizeId(item.getVariantSizeId(), LocalDateTime.now());
+            if (discount.isPresent()) {
+                unitPrice = discount.get().getSalePrice();
+            }
+
             OrderItem orderItem = OrderItem.builder()
                     .order(order)
                     .variantSize(variantSize)
                     .quantity(item.getQuantity())
-                    .unitPrice(variantSize.getPrice())
+                    .unitPrice(unitPrice)
                     .build();
             order.getOrderItems().add(orderItem);
             totalAmount = totalAmount.add(variantSize.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
@@ -184,11 +198,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @PreAuthorize("hasRole('DISTRIBUTOR')")
-    public OrderResponse allocateOrder(OrderAllocationRequest request) {
-        Order order = orderRepository.findById(request.getOrderId())
+    public OrderResponse allocateOrder(Integer orderId, OrderAllocationRequest request) {
+        Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
 
-        if (order.getOrderStatus() != OrderStatus.NEW) {
+        if ((order.getOrderStatus() != OrderStatus.NEW && order.getOrderStatus() != OrderStatus.PAID)
+                || order.getOrderType() != OrderType.ORDER) {
             throw new AppException(ErrorCode.ORDER_INVALID_STATUS);
         }
 
@@ -227,6 +242,25 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         order.setOrderStatus(OrderStatus.PAID);
+        Order updatedOrder = orderRepository.save(order);
+        return orderMapper.toOrderResponse(updatedOrder);
+    }
+
+    @Override
+    public OrderResponse confirmPayment(Integer orderId, String transactionCode) {
+        paymentService.confirmPayment(orderId, transactionCode);
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
+        return orderMapper.toOrderResponse(order);
+    }
+
+    @Override
+    @PreAuthorize("hasRole('DISTRIBUTOR')")
+    public OrderResponse completeOrder(Integer orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
+        if (order.getOrderStatus() != OrderStatus.SHIPPED) {
+            throw new AppException(ErrorCode.ORDER_INVALID_STATUS);
+        }
+        order.setOrderStatus(OrderStatus.COMPLETED);
         Order updatedOrder = orderRepository.save(order);
         return orderMapper.toOrderResponse(updatedOrder);
     }
@@ -272,6 +306,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderResponse> getOrdersByStatus(OrderStatus status) {
         return orderRepository.findByOrderStatus(status).stream().map(orderMapper::toOrderResponse).toList();
+    }
+
+    @Override
+    @PreAuthorize("hasRole('DISTRIBUTOR')")
+    public List<OrderResponse> getOrdersForAllocation() {
+        return orderRepository.findByOrderTypeAndOrderStatusIn(OrderType.ORDER, List.of(OrderStatus.NEW, OrderStatus.PAID))
+                .stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
     }
 
     private Account getCurrentAuthentication() {

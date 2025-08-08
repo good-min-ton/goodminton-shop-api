@@ -131,9 +131,15 @@ public enum ErrorCode {
     // Order item (2601 - 2700)
     ORDER_ITEM_NOT_FOUND(2601, "Không tìm thấy chi tiết đơn hàng", HttpStatus.NOT_FOUND),
 
-    // ALLOCATION_QUANTITY_INVALID (2701 - 2800)
+    // Allocate order (2701 - 2800)
     ALLOCATION_QUANTITY_INVALID(2701, "Số lượng sản phầm phân phối không khớp với đơn hàng", HttpStatus.BAD_REQUEST),
     ALLOCATION_VARIANT_SIZE_INVALID(2702, "Bản phối sản phẩm không khớp vơi đơn hàng", HttpStatus.BAD_REQUEST),
+    ALLOCATION_LIST_EMPTY(2703, "Danh sách sản phẩm cần phân phối không được để trống", HttpStatus.BAD_REQUEST),
+
+    // Payment (2801 - 2900)
+    PAYMENT_NOT_FOUND(2801, "Không tìm thấy giao dích", HttpStatus.NOT_FOUND),
+    PAYMENT_ALREADY_PAID(2802, "Giao dịch đã được thanh toán", HttpStatus.BAD_REQUEST),
+    PAYMENT_INVALID_STATUS(2803, "Trạng thái giao dịch không hợp lệ", HttpStatus.BAD_REQUEST),
 
     // Database constraint violations(9601 - 9700)
     DATABASE_CONSTRAINT_VIOLATION(9601, "Vi phạm ràng buộc dữ liệu", HttpStatus.BAD_REQUEST),

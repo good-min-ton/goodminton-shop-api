@@ -49,10 +49,11 @@ public class OrderController {
                 .build();
     }
 
-    @PostMapping("/allocate")
-    public ApiResponse<OrderResponse> allocateOrder(@Valid @RequestBody OrderAllocationRequest request) {
+    @PostMapping("/allocate/{orderId}")
+    public ApiResponse<OrderResponse> allocateOrder(@PathVariable Integer orderId,
+            @Valid @RequestBody OrderAllocationRequest request) {
         return ApiResponse.<OrderResponse>builder()
-                .result(orderService.allocateOrder(request))
+                .result(orderService.allocateOrder(orderId, request))
                 .build();
     }
 
