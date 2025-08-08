@@ -27,4 +27,5 @@ public class OrderResponse {
     private OrderStatus status;
     private OrderType orderType;
     private List<OrderItemResponse> items;
+    private List<PaymentResponse> payments;
 }
