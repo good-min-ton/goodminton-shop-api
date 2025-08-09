@@ -20,4 +20,16 @@ public interface ProductDiscountRepository extends JpaRepository<ProductDiscount
             """)
     Optional<ProductDiscount> findActiveDiscountByVariantSizeId(@Param("variantSizeId") Integer variantSizeId,
             @Param("now") LocalDateTime now);
+
+    @Query("""
+            SELECT d
+            FROM ProductDiscount d
+            WHERE d.variantSize.variantSizeId = :variantSizeId
+            AND d.startTime <= :endTime
+            AND d.endTime >= :startTime
+            """)
+    boolean existByVariantSizeAndTime(
+            @Param("variantSizeId") Integer variantSizeId,
+            @Param("startTime") LocalDateTime startTime,
+            @Param("endTime") LocalDateTime endTime);
 }
