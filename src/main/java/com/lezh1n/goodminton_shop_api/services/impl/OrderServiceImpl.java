@@ -241,7 +241,7 @@ public class OrderServiceImpl implements OrderService {
                 inventoryAllocationRepository.save(allocation);
             }
         }
-        order.setOrderStatus(OrderStatus.PAID);
+        order.setOrderStatus(OrderStatus.SHIPPED);
         Order updatedOrder = orderRepository.save(order);
         return orderMapper.toOrderResponse(updatedOrder);
     }

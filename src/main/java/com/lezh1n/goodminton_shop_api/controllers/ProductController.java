@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
+import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
@@ -130,4 +132,13 @@ public class ProductController {
 				.result(productService.getProductByAttributes(productId, versionId, colorId, sizeId))
 				.build();
 	}
+
+	// Product discount
+	@PostMapping("/discount/{variantSizeId}")
+	public ApiResponse<DiscountResponse> createDiscount(@PathVariable Integer variantSizeId, @RequestBody DiscountRequest request) {
+		return ApiResponse.<DiscountResponse>builder()
+				.result(productService.createDiscount(variantSizeId, request))
+				.build();
+	}
+
 }

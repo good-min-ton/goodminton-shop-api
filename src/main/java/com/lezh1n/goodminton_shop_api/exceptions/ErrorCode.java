@@ -141,6 +141,14 @@ public enum ErrorCode {
     PAYMENT_ALREADY_PAID(2802, "Giao dịch đã được thanh toán", HttpStatus.BAD_REQUEST),
     PAYMENT_INVALID_STATUS(2803, "Trạng thái giao dịch không hợp lệ", HttpStatus.BAD_REQUEST),
 
+    // Product discount(2901 - 3000)
+    DISCOUNT_SALE_PRICE_NULL(2901, "Giá sale không được đê trống", HttpStatus.BAD_REQUEST),
+    DISCOUNT_START_TIME_NULL(2902, "Thời gian bắt đầu sale không được để trống", HttpStatus.BAD_REQUEST),
+    DISCOUNT_END_TIME_NULL(2903, "Thời gian kết thúc sale không được đê trống", HttpStatus.BAD_REQUEST),
+    DISCOUNT_START_TIME_BEFORE_NOW(2904, "Thời gian bắt đầu phải từ sau thòi điểm hiện tại", HttpStatus.BAD_REQUEST),
+    DISCOUNT_END_TIME_BEFORE_START_TIME(2905, "Thời gian kết thúc phải sau thời gian bắt đầu", HttpStatus.BAD_REQUEST),
+    DISCOUNT_EXISTED(2906, "Đã tồn tại discount của variant size trong khoảng thời gian này", HttpStatus.BAD_REQUEST),
+
     // Database constraint violations(9601 - 9700)
     DATABASE_CONSTRAINT_VIOLATION(9601, "Vi phạm ràng buộc dữ liệu", HttpStatus.BAD_REQUEST),
     DATABASE_DUPLICATE_KEY(9602, "Dữ liệu đã tồn tại trong hệ thống", HttpStatus.CONFLICT),

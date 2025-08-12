@@ -11,11 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantImageRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantSizeRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
@@ -34,6 +36,7 @@ import com.lezh1n.goodminton_shop_api.entities.Version;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.ColorMapper;
+import com.lezh1n.goodminton_shop_api.mappers.DiscountMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductSpecificationMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductVariantMapper;
@@ -47,6 +50,7 @@ import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
 import com.lezh1n.goodminton_shop_api.repositories.SizeRepository;
+import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VersionRepository;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 
@@ -66,6 +70,7 @@ public class ProductServiceImpl implements ProductService {
     private final SizeRepository sizeRepository;
     private final InventoryRepository inventoryRepository;
     private final ProductDiscountRepository productDiscountRepository;
+    private final VariantSizeRepository variantSizeRepository;
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
@@ -73,6 +78,7 @@ public class ProductServiceImpl implements ProductService {
     private final VariantImageMapper variantImageMapper;
     private final VersionMapper versionMapper;
     private final ColorMapper colorMapper;
+    private final DiscountMapper discountMapper;
 
     /* -- Public methods -- */
     // Product CRUD
@@ -275,6 +281,31 @@ public class ProductServiceImpl implements ProductService {
                                 .toList())
                         .build())
                 .build();
+    }
+
+    // Product discount
+    @Override
+    public DiscountResponse createDiscount(Integer variantSizeId, DiscountRequest request) {
+
+        VariantSize variantSize = variantSizeRepository.findById(variantSizeId)
+                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_SIZE_NOT_FOUND));
+
+        if (request.getStartTime().isBefore(LocalDateTime.now())) {
+            throw new AppException(ErrorCode.DISCOUNT_START_TIME_BEFORE_NOW);
+        }
+
+        if (request.getEndTime().isBefore(request.getStartTime())) {
+            throw new AppException(ErrorCode.DISCOUNT_END_TIME_BEFORE_START_TIME);
+        }
+
+        if (productDiscountRepository.existByVariantSizeAndTime(variantSize.getVariantSizeId(), request.getStartTime(),
+                request.getEndTime())) {
+            throw new AppException(ErrorCode.DISCOUNT_EXISTED);
+        }
+
+        ProductDiscount discount = discountMapper.toProductDiscount(variantSize, request);
+
+        return discountMapper.toDiscountResponse(productDiscountRepository.save(discount));
     }
 
     /* -- Private methods-- */

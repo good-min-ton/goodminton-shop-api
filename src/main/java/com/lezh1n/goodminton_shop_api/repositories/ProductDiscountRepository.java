@@ -22,7 +22,7 @@ public interface ProductDiscountRepository extends JpaRepository<ProductDiscount
             @Param("now") LocalDateTime now);
 
     @Query("""
-            SELECT d
+            SELECT CASE WHEN COUNT(d) > 0 THEN true ELSE false END
             FROM ProductDiscount d
             WHERE d.variantSize.variantSizeId = :variantSizeId
             AND d.startTime <= :endTime
