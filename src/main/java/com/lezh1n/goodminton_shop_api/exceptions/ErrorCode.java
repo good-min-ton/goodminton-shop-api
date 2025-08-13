@@ -149,6 +149,11 @@ public enum ErrorCode {
     DISCOUNT_END_TIME_BEFORE_START_TIME(2905, "Thời gian kết thúc phải sau thời gian bắt đầu", HttpStatus.BAD_REQUEST),
     DISCOUNT_EXISTED(2906, "Đã tồn tại discount của variant size trong khoảng thời gian này", HttpStatus.BAD_REQUEST),
 
+    // Review (3001 - 3100)
+    REVIEW_NOT_FOUND(3001, "Không tồn tại review này", HttpStatus.NOT_FOUND),
+    REVIEW_RATING_OUT_OF_RANGE(3002, "Rating không thuộc khoảng hợp lệ (1 - 5)", HttpStatus.BAD_REQUEST),
+    REVIEW_RATING_BLANK(3003, "Rating không được để trống", HttpStatus.BAD_REQUEST),
+
     // Database constraint violations(9601 - 9700)
     DATABASE_CONSTRAINT_VIOLATION(9601, "Vi phạm ràng buộc dữ liệu", HttpStatus.BAD_REQUEST),
     DATABASE_DUPLICATE_KEY(9602, "Dữ liệu đã tồn tại trong hệ thống", HttpStatus.CONFLICT),

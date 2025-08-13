@@ -135,7 +135,8 @@ public class ProductController {
 
 	// Product discount
 	@PostMapping("/discount/{variantSizeId}")
-	public ApiResponse<DiscountResponse> createDiscount(@PathVariable Integer variantSizeId, @RequestBody DiscountRequest request) {
+	public ApiResponse<DiscountResponse> createDiscount(@PathVariable Integer variantSizeId,
+			@Valid @RequestBody DiscountRequest request) {
 		return ApiResponse.<DiscountResponse>builder()
 				.result(productService.createDiscount(variantSizeId, request))
 				.build();

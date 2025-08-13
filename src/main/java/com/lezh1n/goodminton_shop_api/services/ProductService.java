@@ -6,11 +6,13 @@ import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 
 public interface ProductService {
     // Product CRUD
@@ -40,4 +42,8 @@ public interface ProductService {
 
     // Product discount
     DiscountResponse createDiscount(Integer variantSizeId, DiscountRequest request);
+
+    // Product comments
+
+    ReviewResponse createReview(Integer productId, ReviewRequest request);
 }

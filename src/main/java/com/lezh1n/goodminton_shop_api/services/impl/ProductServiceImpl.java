@@ -15,6 +15,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantImageRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantSizeRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
@@ -22,6 +23,7 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.SpecificVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantSizeResponse;
 import com.lezh1n.goodminton_shop_api.entities.Color;
@@ -306,6 +308,17 @@ public class ProductServiceImpl implements ProductService {
         ProductDiscount discount = discountMapper.toProductDiscount(variantSize, request);
 
         return discountMapper.toDiscountResponse(productDiscountRepository.save(discount));
+    }
+
+    // Product reviews
+    @Override
+    public ReviewResponse createReview(Integer productId, ReviewRequest request) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        
+        
+
+        throw new UnsupportedOperationException("Unimplemented method 'createReview'");
     }
 
     /* -- Private methods-- */
