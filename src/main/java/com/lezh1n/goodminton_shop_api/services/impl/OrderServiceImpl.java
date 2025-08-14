@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.InventoryAllocationRequest;
@@ -37,6 +35,7 @@ import com.lezh1n.goodminton_shop_api.repositories.OrderRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductDiscountRepository;
 import com.lezh1n.goodminton_shop_api.repositories.StoreRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
+import com.lezh1n.goodminton_shop_api.security.CurrentAccountProvider;
 import com.lezh1n.goodminton_shop_api.services.CartService;
 import com.lezh1n.goodminton_shop_api.services.OrderService;
 import com.lezh1n.goodminton_shop_api.services.PaymentService;
@@ -59,11 +58,12 @@ public class OrderServiceImpl implements OrderService {
     private final CartService cartService;
     private final PaymentService paymentService;
     private final OrderMapper orderMapper;
+    private final CurrentAccountProvider currentAccountProvider;
 
     @Override
     @PreAuthorize("hasRole('CUSTOMER')")
     public OrderResponse createOrder(OrderRequest request) {
-        Account customer = getCurrentAuthentication();
+        Account customer = currentAccountProvider.getCurrentAccount();
         if (customer.getRole() != UserRole.CUSTOMER) {
             throw new AppException(ErrorCode.AUTH_UNAUTHORIZED);
         }
@@ -122,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @PreAuthorize("hasRole('STORE_ADMIN')")
     public OrderResponse createStoreOrder(OrderRequest request, Integer storeId) {
-        Account admin = getCurrentAuthentication();
+        Account admin = currentAccountProvider.getCurrentAccount();
         if (admin.getRole() != UserRole.STORE_ADMIN) {
             throw new AppException(ErrorCode.AUTH_UNAUTHORIZED);
         }
@@ -311,19 +311,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @PreAuthorize("hasRole('DISTRIBUTOR')")
     public List<OrderResponse> getOrdersForAllocation() {
-        return orderRepository.findByOrderTypeAndOrderStatusIn(OrderType.ORDER, List.of(OrderStatus.NEW, OrderStatus.PAID))
+        return orderRepository
+                .findByOrderTypeAndOrderStatusIn(OrderType.ORDER, List.of(OrderStatus.NEW, OrderStatus.PAID))
                 .stream()
                 .map(orderMapper::toOrderResponse)
                 .toList();
-    }
-
-    private Account getCurrentAuthentication() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new AppException(ErrorCode.AUTH_UNAUTHENTICATED);
-        }
-
-        return (Account) authentication.getPrincipal();
     }
 }

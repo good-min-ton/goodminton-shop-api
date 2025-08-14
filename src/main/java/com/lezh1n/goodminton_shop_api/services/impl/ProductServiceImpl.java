@@ -26,11 +26,13 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.SpecificVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantSizeResponse;
+import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.entities.Color;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductDiscount;
 import com.lezh1n.goodminton_shop_api.entities.ProductSpecification;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
+import com.lezh1n.goodminton_shop_api.entities.Review;
 import com.lezh1n.goodminton_shop_api.entities.Size;
 import com.lezh1n.goodminton_shop_api.entities.VariantImage;
 import com.lezh1n.goodminton_shop_api.entities.VariantSize;
@@ -42,6 +44,7 @@ import com.lezh1n.goodminton_shop_api.mappers.DiscountMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductSpecificationMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductVariantMapper;
+import com.lezh1n.goodminton_shop_api.mappers.ReviewMapper;
 import com.lezh1n.goodminton_shop_api.mappers.VariantImageMapper;
 import com.lezh1n.goodminton_shop_api.mappers.VariantSizeMapper;
 import com.lezh1n.goodminton_shop_api.mappers.VersionMapper;
@@ -51,9 +54,11 @@ import com.lezh1n.goodminton_shop_api.repositories.ProductDiscountRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
+import com.lezh1n.goodminton_shop_api.repositories.ReviewRepository;
 import com.lezh1n.goodminton_shop_api.repositories.SizeRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VersionRepository;
+import com.lezh1n.goodminton_shop_api.security.CurrentAccountProvider;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 
 import jakarta.transaction.Transactional;
@@ -73,6 +78,7 @@ public class ProductServiceImpl implements ProductService {
     private final InventoryRepository inventoryRepository;
     private final ProductDiscountRepository productDiscountRepository;
     private final VariantSizeRepository variantSizeRepository;
+    private final ReviewRepository reviewRepository;
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
@@ -81,6 +87,8 @@ public class ProductServiceImpl implements ProductService {
     private final VersionMapper versionMapper;
     private final ColorMapper colorMapper;
     private final DiscountMapper discountMapper;
+    private final ReviewMapper reviewMapper;
+    private final CurrentAccountProvider currentAccountProvider;
 
     /* -- Public methods -- */
     // Product CRUD
@@ -315,10 +323,13 @@ public class ProductServiceImpl implements ProductService {
     public ReviewResponse createReview(Integer productId, ReviewRequest request) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-        
-        
 
-        throw new UnsupportedOperationException("Unimplemented method 'createReview'");
+        Account account = currentAccountProvider.getCurrentAccount();
+
+        Review review = reviewMapper.toReview(product, request);
+        review.setUser(account);
+
+        return reviewMapper.toReviewResponse(reviewRepository.save(review));
     }
 
     /* -- Private methods-- */

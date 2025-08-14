@@ -5,8 +5,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,7 @@ import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.AccountMapper;
 import com.lezh1n.goodminton_shop_api.repositories.AccountRepository;
+import com.lezh1n.goodminton_shop_api.security.CurrentAccountProvider;
 import com.lezh1n.goodminton_shop_api.services.AccountService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +28,7 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
+    private final CurrentAccountProvider currentAccountProvider;
 
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
@@ -53,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @PreAuthorize("isAuthenticated()")
     public AccountResponse getMyInfo() {
-        Account account = getCurrentAuthentication();
+        Account account = currentAccountProvider.getCurrentAccount();
 
         return accountMapper.toAccountResponse(account);
     }
@@ -61,7 +61,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @PreAuthorize("isAuthenticated()")
     public AccountResponse updateProfile(UpdateProfileRequest request) {
-        Account account = getCurrentAuthentication();
+        Account account = currentAccountProvider.getCurrentAccount();
 
         account.setFullName(request.getFullName());
         account.setPhone(request.getPhone());
@@ -72,7 +72,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @PreAuthorize("isAuthenticated()")
     public void changePassword(ChangePasswordRequest request) {
-        Account account = getCurrentAuthentication();
+        Account account = currentAccountProvider.getCurrentAccount();
 
         if (!passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
             throw new AppException(ErrorCode.ACCOUNT_OLD_PASSWORD_NOT_MATCH);
@@ -85,15 +85,5 @@ public class AccountServiceImpl implements AccountService {
         account.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
         accountRepository.save(account);
-    }
-
-    private Account getCurrentAuthentication() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new AppException(ErrorCode.AUTH_UNAUTHENTICATED);
-        }
-
-        return (Account) authentication.getPrincipal();
     }
 }

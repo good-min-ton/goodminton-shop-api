@@ -16,11 +16,13 @@ import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 
 import jakarta.validation.Valid;
@@ -142,4 +144,12 @@ public class ProductController {
 				.build();
 	}
 
+	// Product reviews
+	@PostMapping("/{productId}/review")
+	public ApiResponse<ReviewResponse> createReview(@PathVariable Integer productId,
+			@Valid @RequestBody ReviewRequest request) {
+		return ApiResponse.<ReviewResponse>builder()
+				.result(productService.createReview(productId, request))
+				.build();
+	}
 }
