@@ -44,6 +44,7 @@ public interface ProductService {
     DiscountResponse createDiscount(Integer variantSizeId, DiscountRequest request);
 
     // Product comments
-
     ReviewResponse createReview(Integer productId, ReviewRequest request);
+
+    Page<ReviewResponse> getReviewsOfProduct(Integer productId, int page, int size, String sortBy, String sortDir);
 }

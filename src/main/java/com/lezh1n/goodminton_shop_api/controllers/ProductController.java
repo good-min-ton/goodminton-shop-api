@@ -145,11 +145,23 @@ public class ProductController {
 	}
 
 	// Product reviews
-	@PostMapping("/{productId}/review")
+	@PostMapping("/{productId}/reviews")
 	public ApiResponse<ReviewResponse> createReview(@PathVariable Integer productId,
 			@Valid @RequestBody ReviewRequest request) {
 		return ApiResponse.<ReviewResponse>builder()
 				.result(productService.createReview(productId, request))
+				.build();
+	}
+
+	@GetMapping("/{productId}/reviews")
+	public ApiResponse<Page<ReviewResponse>> getReviewsOfProduct(
+			@PathVariable Integer productId,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "10") int size,
+			@RequestParam(defaultValue = "createAt") String sortBy,
+			@RequestParam(defaultValue = "desc") String sortDir) {
+		return ApiResponse.<Page<ReviewResponse>>builder()
+				.result(productService.getReviewsOfProduct(productId, page, size, sortBy, sortDir))
 				.build();
 	}
 }

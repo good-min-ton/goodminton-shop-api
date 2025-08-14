@@ -332,6 +332,20 @@ public class ProductServiceImpl implements ProductService {
         return reviewMapper.toReviewResponse(reviewRepository.save(review));
     }
 
+    @Override
+    public Page<ReviewResponse> getReviewsOfProduct(Integer productId, int page, int size, String sortBy,
+            String sortDir) {
+        if (!productRepository.existsById(productId)) {
+            throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
+        }
+
+        Sort sort = Sort.by(sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<Review> reviewPage = reviewRepository.findByProductProductId(productId, pageable);
+
+        return reviewPage.map(reviewMapper::toReviewResponse);
+    }
+
     /* -- Private methods-- */
     // Specifications
     private void createSpecifications(Product product, List<ProductSpecificationRequest> requests) {
