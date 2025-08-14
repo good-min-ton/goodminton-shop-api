@@ -100,33 +100,112 @@ src/
 
 ## 🚀 API Endpoints
 
+Below is the current list of REST endpoints derived directly from the controller source code. Query parameters for pagination & sorting use (page=1, size=10, sortBy=field, sortDir=asc|desc) unless noted. IDs are integers unless specified. Authentication / authorization (roles) are enforced via Spring Security configuration (not all role constraints are shown here).
+
 ### 🔐 Authentication
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User login
-- `POST /api/auth/refresh` - Token refresh
-- `POST /api/auth/logout` - User logout
+- `POST /api/auth/register` – Customer registration
+- `POST /api/auth/login` – Login (returns access & refresh tokens)
+- `POST /api/auth/refresh` – Refresh access token
+- `POST /api/auth/logout` – Logout & blacklist tokens
 
-### 🛍️ Product Management
-- `GET /api/products` - List all products (paginated)
-- `GET /api/products/{id}` - Get product details
-- `POST /api/products` - Create product (Admin only)
-- `PUT /api/products/{id}` - Update product (Admin only)
-- `DELETE /api/products/{id}` - Delete product (Admin only)
+### 👤 Accounts
+- `GET /api/accounts` – List accounts (paginated) `?page=&size=&sortBy=&sortDir=`
+- `GET /api/accounts/{id}` – Get account by ID
+- `POST /api/accounts/store-admin` – Create a Store Admin account
+- `GET /api/accounts/my-info` – Get current authenticated account profile
+- `PUT /api/accounts/my-info` – Update current account profile
+- `PATCH /api/accounts/change-password` – Change current account password
 
-### 📝 Product Specifications
-- `POST /api/products/{id}/specifications` - Add specification
-- `DELETE /api/products/{id}/specification/{specId}` - Remove specification
+### 🏪 Stores
+- `POST /api/stores` – Create store
+- `GET /api/stores` – List stores
+- `GET /api/stores/{id}` – Get store by ID
+- `GET /api/stores/available-admins` – List admins not yet assigned to a store
+- `PATCH /api/stores/{storeId}/update-admin/{adminId}` – Assign / change store admin
+- `DELETE /api/stores/{storeId}` – Delete store
 
-### 🎨 Product Variants
-- `POST /api/products/{id}/variants` - Add variant
-- `DELETE /api/products/{id}/variants/{variantId}` - Remove variant
+### 🏷️ Catalog: Brands
+- `POST /api/brands` – Create brand
+- `GET /api/brands` – List brands
+- `GET /api/brands/{brandId}` – Get brand
+- `PUT /api/brands/{brandId}` – Update brand
+- `DELETE /api/brands/{brandId}` – Delete brand
 
-### 🏷️ Catalog Management
-- `GET /api/categories` - List categories
-- `GET /api/brands` - List brands
-- `GET /api/versions` - List versions
-- `GET /api/colors` - List colors
-- `GET /api/sizes` - List sizes
+### 🏷️ Catalog: Categories
+- `POST /api/categories` – Create category
+- `GET /api/categories` – List categories
+- `GET /api/categories/{categoryId}` – Get category
+- `PUT /api/categories/{categoryId}` – Update category
+- `DELETE /api/categories/{categoryId}` – Delete category
+
+### 🏷️ Catalog: Colors
+- `POST /api/colors` – Create color
+- `GET /api/colors` – List colors
+- `GET /api/colors/{colorId}` – Get color
+- `PUT /api/colors/{colorId}` – Update color
+- `DELETE /api/colors/{colorId}` – Delete color
+
+### 🏷️ Catalog: Sizes
+- `POST /api/sizes` – Create size
+- `GET /api/sizes` – List sizes
+- `GET /api/sizes/{sizeId}` – Get size
+- `PUT /api/sizes/{sizeId}` – Update size
+- `DELETE /api/sizes/{sizeId}` – Delete size
+
+### 🏷️ Catalog: Versions
+- `POST /api/versions` – Create version
+- `GET /api/versions` – List versions
+- `GET /api/versions/{versionId}` – Get version
+- `PUT /api/versions/{versionId}` – Update version
+- `DELETE /api/versions/{versionId}` – Delete version
+
+### 🛍️ Products
+- `POST /api/products` – Create product
+- `GET /api/products` – List products (paginated) `?page=&size=&sortBy=&sortDir=`
+- `GET /api/products/{productId}` – Get product by ID
+- `PUT /api/products/{productId}` – Update product
+- `DELETE /api/products/{productId}` – Delete product
+
+#### � Product Specifications
+- `POST /api/products/{productId}/specifications` – Add specification to product
+- `DELETE /api/products/{productId}/specifications/{specId}` – Delete specification
+
+#### 🎨 Product Variants & Attributes
+- `POST /api/products/{productId}/variants` – Add variant (includes color/version/sizes/images as per request body)
+- `DELETE /api/products/{productId}/variants/{variantId}` – Delete variant
+- `GET /api/products/{productId}/variants?versionId=&colorId=&sizeId=` – Resolve product variant & size-specific details by attributes
+
+#### 💸 Discounts
+- `POST /api/products/discount/{variantSizeId}` – Create discount for a specific variant size
+
+#### ⭐ Reviews
+- `POST /api/products/{productId}/reviews` – Create review
+- `GET /api/products/{productId}/reviews` – List reviews (paginated) `?page=&size=&sortBy=&sortDir=`
+
+### 📦 Inventory
+- `POST /api/inventories` – Create inventory record (store + variant size)
+- `PUT /api/inventories/{inventoryId}` – Update inventory
+- `DELETE /api/inventories/{inventoryId}` – Delete inventory
+- `GET /api/inventories/{storeId}` – List inventories for store (paginated) `?page=&size=&sortBy=&sortDir=`
+
+### 🧾 Orders & Cart
+- `POST /api/orders` – Create customer order
+- `POST /api/orders/store?storeId=` – Create store-specific order (admin flow)
+- `POST /api/orders/allocate/{orderId}` – Allocate order to stores / inventory
+- `PUT /api/orders/{orderId}/cancel` – Cancel order
+- `GET /api/orders/{orderId}` – Get order by ID
+- `GET /api/orders/status/{status}` – List orders by status
+- `POST /api/orders/cart?accountId=` – Add item to cart (in Redis) for account
+- `GET /api/orders/cart?accountId=` – Get cart for account
+
+### ☁️ Uploads
+- `POST /api/uploads/images` – Upload single image (multipart form field `file`, optional `folder` param; default folder=products)
+
+### 🖼️ Notes
+- All responses are wrapped in the unified ApiResponse structure.
+- Date/time fields use ISO-8601 format.
+- Validation errors and business rule violations return standardized error codes (see ErrorCode enum).
+- Authentication required for protected endpoints; role requirements enforced via security configuration.
 
 ## ⚙️ Configuration
 
