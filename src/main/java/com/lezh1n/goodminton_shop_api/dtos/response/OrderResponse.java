@@ -28,4 +28,5 @@ public class OrderResponse {
     private OrderType orderType;
     private List<OrderItemResponse> items;
     private List<PaymentResponse> payments;
+    private String paymentLink;
 }

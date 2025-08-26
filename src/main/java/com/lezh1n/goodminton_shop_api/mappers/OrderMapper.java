@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 
 import com.lezh1n.goodminton_shop_api.dtos.response.OrderResponse;
 import com.lezh1n.goodminton_shop_api.entities.Order;
+import com.lezh1n.goodminton_shop_api.entities.Payment;
+import com.lezh1n.goodminton_shop_api.enums.PaymentStatus;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +30,9 @@ public class OrderMapper {
                 .status(order.getOrderStatus())
                 .items(order.getOrderItems().stream().map(orderItemMapper::toOrderItemResponse).toList())
                 .payments(order.getPayments().stream().map(paymentMapper::toPaymentResponse).toList())
+                .paymentLink(order.getPayments().stream()
+                        .filter(p -> p.getStatus() == PaymentStatus.PENDING)
+                        .findFirst().map(Payment::getTransactionCode).orElse(null))
                 .build();
     }
 }
