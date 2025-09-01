@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 public class OrderMapper {
 
     private final OrderItemMapper orderItemMapper;
-    private final PaymentMapper paymentMapper;
-
     public OrderResponse toOrderResponse(Order order) {
         return OrderResponse.builder()
                 .orderId(order.getOrderId())
@@ -28,8 +26,8 @@ public class OrderMapper {
                 .email(order.getEmail())
                 .note(order.getNote())
                 .status(order.getOrderStatus())
+                .orderType(order.getOrderType())
                 .items(order.getOrderItems().stream().map(orderItemMapper::toOrderItemResponse).toList())
-                .payments(order.getPayments().stream().map(paymentMapper::toPaymentResponse).toList())
                 .paymentLink(order.getPayments().stream()
                         .filter(p -> p.getStatus() == PaymentStatus.PENDING)
                         .findFirst().map(Payment::getTransactionCode).orElse(null))
