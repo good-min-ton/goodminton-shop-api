@@ -15,15 +15,18 @@ import com.lezh1n.goodminton_shop_api.dtos.request.OrderItemAllocationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.OrderItemRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.OrderRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.OrderResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.PaymentResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.entities.Inventory;
 import com.lezh1n.goodminton_shop_api.entities.Order;
 import com.lezh1n.goodminton_shop_api.entities.OrderItem;
 import com.lezh1n.goodminton_shop_api.entities.OrderItemInventoryAllocation;
+import com.lezh1n.goodminton_shop_api.entities.Payment;
 import com.lezh1n.goodminton_shop_api.entities.ProductDiscount;
 import com.lezh1n.goodminton_shop_api.entities.VariantSize;
 import com.lezh1n.goodminton_shop_api.enums.OrderStatus;
 import com.lezh1n.goodminton_shop_api.enums.OrderType;
+import com.lezh1n.goodminton_shop_api.enums.PaymentMethod;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
@@ -32,6 +35,7 @@ import com.lezh1n.goodminton_shop_api.repositories.InventoryAllocationRepository
 import com.lezh1n.goodminton_shop_api.repositories.InventoryRepository;
 import com.lezh1n.goodminton_shop_api.repositories.OrderItemRepository;
 import com.lezh1n.goodminton_shop_api.repositories.OrderRepository;
+import com.lezh1n.goodminton_shop_api.repositories.PaymentRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductDiscountRepository;
 import com.lezh1n.goodminton_shop_api.repositories.StoreRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
@@ -42,10 +46,12 @@ import com.lezh1n.goodminton_shop_api.services.PaymentService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     private final StoreRepository storeRepository;
@@ -55,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemRepository orderItemRepository;
     private final InventoryAllocationRepository inventoryAllocationRepository;
     private final ProductDiscountRepository productDiscountRepository;
+    private final PaymentRepository paymentRepository;
     private final CartService cartService;
     private final PaymentService paymentService;
     private final OrderMapper orderMapper;
@@ -87,6 +94,7 @@ public class OrderServiceImpl implements OrderService {
                 .orderStatus(OrderStatus.NEW)
                 .orderType(OrderType.ORDER)
                 .orderItems(new ArrayList<>())
+                .payments(new ArrayList<>())
                 .build();
 
         BigDecimal totalAmount = BigDecimal.ZERO;
@@ -108,11 +116,20 @@ public class OrderServiceImpl implements OrderService {
                     .unitPrice(unitPrice)
                     .build();
             order.getOrderItems().add(orderItem);
-            totalAmount = totalAmount.add(variantSize.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+            totalAmount = totalAmount.add(unitPrice.multiply(BigDecimal.valueOf(item.getQuantity())));
         }
 
         order.setTotalAmount(totalAmount);
         Order savedOrder = orderRepository.save(order);
+
+        if (request.getPaymentMethod() == PaymentMethod.BANKING) {
+            PaymentResponse paymentResponse = paymentService.createPayment(savedOrder.getOrderId(),
+                    request.getPaymentMethod(), totalAmount);
+            Payment payment = paymentRepository.findById(paymentResponse.getPaymentId())
+                    .orElseThrow(() -> new AppException(ErrorCode.PAYMENT_NOT_FOUND));
+            savedOrder.getPayments().add(payment);
+            savedOrder = orderRepository.save(savedOrder);
+        }
 
         cartService.clearCart(customer.getAccountId());
 

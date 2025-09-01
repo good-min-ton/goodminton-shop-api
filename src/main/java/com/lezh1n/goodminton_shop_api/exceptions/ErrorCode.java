@@ -130,6 +130,8 @@ public enum ErrorCode {
 
     // Order item (2601 - 2700)
     ORDER_ITEM_NOT_FOUND(2601, "Không tìm thấy chi tiết đơn hàng", HttpStatus.NOT_FOUND),
+    ORDER_ITEM_LIST_EMPTY(2602, "Danh sách đơn hàng không được để trống", HttpStatus.BAD_REQUEST),
+    ORDER_PAYMENT_METHOD_NULL(2603, "Phương thức thanh toán không được để trống", HttpStatus.BAD_REQUEST),
 
     // Allocate order (2701 - 2800)
     ALLOCATION_QUANTITY_INVALID(2701, "Số lượng sản phầm phân phối không khớp với đơn hàng", HttpStatus.BAD_REQUEST),
@@ -140,6 +142,8 @@ public enum ErrorCode {
     PAYMENT_NOT_FOUND(2801, "Không tìm thấy giao dích", HttpStatus.NOT_FOUND),
     PAYMENT_ALREADY_PAID(2802, "Giao dịch đã được thanh toán", HttpStatus.BAD_REQUEST),
     PAYMENT_INVALID_STATUS(2803, "Trạng thái giao dịch không hợp lệ", HttpStatus.BAD_REQUEST),
+    PAYMENT_CREATION_FAILED(2804, "Tạo giao dịch thất bại", HttpStatus.INTERNAL_SERVER_ERROR),
+    PAYMENT_WEBHOOK_FAILED(2805, "Webhook processing failed", HttpStatus.INTERNAL_SERVER_ERROR),
 
     // Product discount(2901 - 3000)
     DISCOUNT_SALE_PRICE_NULL(2901, "Giá sale không được đê trống", HttpStatus.BAD_REQUEST),
