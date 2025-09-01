@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.response.PaymentResponse;
 import com.lezh1n.goodminton_shop_api.entities.Order;
 import com.lezh1n.goodminton_shop_api.entities.Payment;
+import com.lezh1n.goodminton_shop_api.entities.VariantSize;
 import com.lezh1n.goodminton_shop_api.enums.OrderStatus;
 import com.lezh1n.goodminton_shop_api.enums.OrderType;
 import com.lezh1n.goodminton_shop_api.enums.PaymentMethod;
@@ -22,6 +24,10 @@ import com.lezh1n.goodminton_shop_api.services.PaymentService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import vn.payos.PayOS;
+import vn.payos.type.CheckoutResponseData;
+import vn.payos.type.ItemData;
+import vn.payos.type.PaymentData;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +37,16 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
     private final PaymentMapper paymentMapper;
+    private final PayOS payOS;
+
+    @Value("${payos.return-url}")
+    private String returnUrl;
+
+    @Value("${payos.cancel-url}")
+    private String cancelUrl;
 
     @Override
+    @Transactional
     public PaymentResponse createPayment(Integer orderId, PaymentMethod method, BigDecimal amount) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
         List<Payment> existingPayment = paymentRepository.findByOrderOrderIdAndStatus(orderId, PaymentStatus.PAID);
@@ -48,6 +62,13 @@ public class PaymentServiceImpl implements PaymentService {
                 .createAt(LocalDateTime.now())
                 .build();
         Payment savedPayment = paymentRepository.save(payment);
+
+        if (method == PaymentMethod.BANKING) {
+            String paymentLink = createPayOSLink(savedPayment, order);
+            savedPayment.setTransactionCode(paymentLink);
+            paymentRepository.save(savedPayment);
+        }
+
         return paymentMapper.toPaymentResponse(savedPayment);
     }
 
@@ -81,4 +102,45 @@ public class PaymentServiceImpl implements PaymentService {
                 .toList();
     }
 
+    @Override
+    public Payment getPaymentObject(Integer paymentId) {
+        return paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new AppException(ErrorCode.PAYMENT_NOT_FOUND));
+    }
+
+    @Override
+    public void updatePaymentRepository(Payment payment) {
+        paymentRepository.save(payment);
+    }
+
+    // Private methods
+    private String createPayOSLink(Payment payment, Order order) {
+        try {
+            List<ItemData> items = order.getOrderItems().stream().map(orderItem -> {
+                VariantSize variantSize = orderItem.getVariantSize();
+                return ItemData.builder()
+                        .name(variantSize.getVariant().getProduct().getName() + " - " + variantSize.getSize().getName())
+                        .quantity(orderItem.getQuantity())
+                        .price(orderItem.getUnitPrice().intValue())
+                        .build();
+            }).toList();
+
+            PaymentData paymentData = PaymentData.builder()
+                    .orderCode(payment.getPaymentId().longValue())
+                    .amount(payment.getAmount().intValue())
+                    .description("Thanh toán đơn hàng #" + order.getOrderId())
+                    .returnUrl(returnUrl)
+                    .cancelUrl(cancelUrl)
+                    .items(items)
+                    .buyerName(order.getName())
+                    .buyerEmail(order.getEmail())
+                    .buyerPhone(order.getPhone())
+                    .build();
+
+            CheckoutResponseData response = payOS.createPaymentLink(paymentData);
+            return response.getCheckoutUrl();
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.PAYMENT_CREATION_FAILED);
+        }
+    }
 }

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.lezh1n.goodminton_shop_api.dtos.response.PaymentResponse;
+import com.lezh1n.goodminton_shop_api.entities.Payment;
 import com.lezh1n.goodminton_shop_api.enums.PaymentMethod;
 
 public interface PaymentService {
@@ -12,4 +13,8 @@ public interface PaymentService {
     void confirmPayment(Integer paymentId, String transactionCode);
 
     List<PaymentResponse> getPaymentsByOrderId(Integer orderId);
+
+    Payment getPaymentObject(Integer paymentId);
+
+    void updatePaymentRepository(Payment payment);
 }
