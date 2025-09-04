@@ -39,14 +39,19 @@ public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final CustomJwtAuthenticationConverter customConverter;
 
-    private static final String[] PUBLIC_ENDPOINTS = {
+    private static final String[] POST_PUBLIC_ENDPOINTS = {
+            "/api/payos/webhook",
+            "/api/auth/**"
+    };
+
+    private static final String[] GET_PUBLIC_ENDPOINTS = {
             "/api/stores", "/api/stores/{storeId}",
             "/api/categories", "/api/categories/{categoryId}",
             "/api/brands", "/api/brands/{brandId}",
             "/api/versions", "/api/versions/{versionId}",
             "/api/sizes", "/api/sizes/{sizeId}",
             "api/colors", "api/colors/{colorId}",
-            "api/products", "api/products/{productId}" 
+            "api/products", "api/products/{productId}"
     };
 
     @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}")
@@ -78,8 +83,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.POST, POST_PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.GET, GET_PUBLIC_ENDPOINTS).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtBlacklistFilter, UsernamePasswordAuthenticationFilter.class)
                 .oauth2ResourceServer(oauth2 -> oauth2
