@@ -37,4 +37,9 @@ public class TokenRedisServiceImpl implements TokenService {
         return Boolean.TRUE.equals(existed);
     }
 
+    @Override
+    public void addResetToken(String token, String value) {
+        redisTemplate.opsForValue().set("reset_token" + token, value, 15, TimeUnit.MINUTES);
+    }
+
 }

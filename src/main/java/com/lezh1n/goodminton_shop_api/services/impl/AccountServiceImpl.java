@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ChangePasswordRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.ForgotPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
@@ -85,5 +86,13 @@ public class AccountServiceImpl implements AccountService {
         account.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
         accountRepository.save(account);
+    }
+
+    @Override
+    public void forgotPassword(ForgotPasswordRequest request) {
+        Account account = accountRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+
+        
     }
 }
