@@ -1,9 +1,12 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: goodminton-shop-api
 
   datasource:
-    url: jdbc:postgresql://localhost:${POSTGRES_PORT}/goodminton?stringtype=unspecified
+    url: jdbc:postgresql://localhost:${POSTGRES_HOST_PORT}/goodminton?stringtype=unspecified
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -20,7 +23,7 @@ spring:
   data:
     redis:
       host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
+      port: ${REDIS_HOST_PORT}
 
   flyway:
     enabled: true
@@ -39,6 +42,17 @@ spring:
             expiration: 600000
           refresh-token:
             expiration: 604800000
+  mail:
+    host: smtp.gmail.com
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 cloudinary:
   cloud-name: ${CLOUDINARY_NAME}
@@ -61,3 +75,6 @@ logging:
         type:
           descriptor:
             sql: TRACE
+
+app:
+  frontend-url: ${FRONTEND_URL}

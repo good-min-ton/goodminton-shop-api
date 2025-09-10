@@ -41,17 +41,21 @@ public class SecurityConfig {
 
     private static final String[] POST_PUBLIC_ENDPOINTS = {
             "/api/payos/webhook",
-            "/api/auth/**"
+            "/api/auth/**",
+            "/api/accounts/forgot-password",
+            "/api/accounts/reset-password",
     };
 
     private static final String[] GET_PUBLIC_ENDPOINTS = {
+            "/api/accounts/validate-reset-token",
             "/api/stores", "/api/stores/{storeId}",
             "/api/categories", "/api/categories/{categoryId}",
             "/api/brands", "/api/brands/{brandId}",
             "/api/versions", "/api/versions/{versionId}",
+
             "/api/sizes", "/api/sizes/{sizeId}",
             "api/colors", "api/colors/{colorId}",
-            "api/products", "api/products/{productId}"
+            "api/products", "api/products/{productId}",
     };
 
     @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}")

@@ -1,9 +1,13 @@
 package com.lezh1n.goodminton_shop_api.services;
 
 public interface TokenService {
-    public void addToBlacklist(String token, long expiryTime);
+    void addToBlacklist(String token, long expiryTime);
 
-    public void addResetToken(String token, String value);
+    void addResetToken(String token, String value);
 
-    public boolean isBlacklisted(String token);
+    boolean isBlacklisted(String token);
+
+    String getValue(String key);
+
+    void deleteValue(String key);
 }

@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.services.impl;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ChangePasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ForgotPasswordRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.ResetPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
@@ -19,6 +22,8 @@ import com.lezh1n.goodminton_shop_api.mappers.AccountMapper;
 import com.lezh1n.goodminton_shop_api.repositories.AccountRepository;
 import com.lezh1n.goodminton_shop_api.security.CurrentAccountProvider;
 import com.lezh1n.goodminton_shop_api.services.AccountService;
+import com.lezh1n.goodminton_shop_api.services.EmailService;
+import com.lezh1n.goodminton_shop_api.services.TokenService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +35,8 @@ public class AccountServiceImpl implements AccountService {
     private final AccountMapper accountMapper;
     private final PasswordEncoder passwordEncoder;
     private final CurrentAccountProvider currentAccountProvider;
+    private final TokenService tokenService;
+    private final EmailService emailService;
 
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
@@ -93,6 +100,29 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
 
-        
+        String resetToken = UUID.randomUUID().toString();
+        tokenService.addResetToken(resetToken, account.getEmail());
+        emailService.sendPasswordResetEmail(account.getEmail(), resetToken);
+    }
+
+    @Override
+    public void resetPassword(ResetPasswordRequest request) {
+        String redisKey = "reset_token:" + request.getToken();
+        String redisValue = tokenService.getValue(redisKey);
+
+        if (redisValue == null) {
+            throw new AppException(ErrorCode.ACCOUNT_RESET_TOKEN_INVALID);
+        }
+
+        Account account = accountRepository.findByEmail(redisValue)
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+
+        if (passwordEncoder.matches(request.getNewPassword(), account.getPassword())) {
+            throw new AppException(ErrorCode.ACCOUNT_PASSWORD_SAME_AS_OLD);
+        }
+
+        account.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        accountRepository.save(account);
+        tokenService.deleteValue(redisKey);
     }
 }

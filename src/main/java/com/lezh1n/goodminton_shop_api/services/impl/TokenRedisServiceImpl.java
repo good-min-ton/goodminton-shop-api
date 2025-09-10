@@ -39,7 +39,17 @@ public class TokenRedisServiceImpl implements TokenService {
 
     @Override
     public void addResetToken(String token, String value) {
-        redisTemplate.opsForValue().set("reset_token" + token, value, 15, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set("reset_token:" + token, value, 15, TimeUnit.MINUTES);
+    }
+
+    @Override
+    public String getValue(String key) {
+        return redisTemplate.opsForValue().get(key);
+    }
+
+    @Override
+    public void deleteValue(String key) {
+        redisTemplate.delete(key);
     }
 
 }

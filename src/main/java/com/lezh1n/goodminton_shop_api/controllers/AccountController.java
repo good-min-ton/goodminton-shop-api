@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.ChangePasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.ForgotPasswordRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.ResetPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
@@ -77,6 +79,22 @@ public class AccountController {
         accountService.changePassword(request);
         return ApiResponse.<String>builder()
                 .result("Mật khẩu đã được thay đổi thành công")
+                .build();
+    }
+
+    @PostMapping("/forgot-password")
+    public ApiResponse<String> forgotPassword(@RequestBody @Valid ForgotPasswordRequest request) {
+        accountService.forgotPassword(request);
+        return ApiResponse.<String>builder()
+                .result("Password reset instructions have been sent to your email")
+                .build();
+    }
+
+    @PostMapping("/reset-password")
+    public ApiResponse<String> resetPassword(@RequestBody @Valid ResetPasswordRequest request) {
+        accountService.resetPassword(request);
+        return ApiResponse.<String>builder()
+                .result("Password has been reset successfully")
                 .build();
     }
 }
