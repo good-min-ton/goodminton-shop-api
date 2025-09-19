@@ -7,11 +7,12 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ForgotPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ResetPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
+import com.lezh1n.goodminton_shop_api.enums.UserRole;
 
 public interface AccountService {
     AccountResponse getAccountById(Integer id);
 
-    Page<AccountResponse> getAllAccounts(int page, int size, String sortBy, String sortDir);
+    Page<AccountResponse> getAllAccounts(int page, int size, String sortBy, String sortDir, UserRole role);
 
     AccountResponse getMyInfo();
 

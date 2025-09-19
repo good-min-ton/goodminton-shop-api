@@ -16,6 +16,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ResetPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
+import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.AccountMapper;
@@ -48,12 +49,17 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
-    public Page<AccountResponse> getAllAccounts(int page, int size, String sortBy, String sortDir) {
+    public Page<AccountResponse> getAllAccounts(int page, int size, String sortBy, String sortDir, UserRole role) {
         Sort sort = Sort.by(sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
 
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 
-        Page<Account> accountPage = accountRepository.findAll(pageable);
+        Page<Account> accountPage;
+        if (role != null) {
+            accountPage = accountRepository.findByRole(role, pageable);
+        } else {
+            accountPage = accountRepository.findAll(pageable);
+        }
 
         return accountPage.map(accountMapper::toAccountResponse);
     }

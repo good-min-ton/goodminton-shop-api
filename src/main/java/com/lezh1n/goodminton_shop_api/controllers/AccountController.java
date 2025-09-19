@@ -1,6 +1,7 @@
 package com.lezh1n.goodminton_shop_api.controllers;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,13 +42,15 @@ public class AccountController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ApiResponse<Page<AccountResponse>> getAllAccounts(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "createAt") String sortBy,
-            @RequestParam(defaultValue = "desc") String sortDir) {
+            @RequestParam(defaultValue = "desc") String sortDir,
+            @RequestParam(required = false) UserRole role) {
 
-        Page<AccountResponse> accountPage = accountService.getAllAccounts(page, size, sortBy, sortDir);
+        Page<AccountResponse> accountPage = accountService.getAllAccounts(page, size, sortBy, sortDir, role);
         return ApiResponse.<Page<AccountResponse>>builder()
                 .result(accountPage)
                 .build();
