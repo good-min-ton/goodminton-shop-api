@@ -14,6 +14,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.RefreshTokenRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.AuthenticationResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
+import com.lezh1n.goodminton_shop_api.enums.AccountStatus;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
@@ -63,6 +64,9 @@ public class AuthServiceImpl implements AuthService {
                             request.getPassword()));
 
             Account account = (Account) authentication.getPrincipal();
+            if (account.getStatus() == AccountStatus.INACTIVE) {
+                throw new AppException(ErrorCode.AUTH_ACCOUNT_INACTIVE);
+            }
 
             String accessToken = jwtService.generateAccessToken(account);
             String refreshToken = jwtService.generateRefreshToken(account);
@@ -117,10 +121,10 @@ public class AuthServiceImpl implements AuthService {
             }
 
             if (refreshToken != null && !refreshToken.isEmpty() && jwtService.isRefreshToken(refreshToken)) {
-                    jwtService.blacklistToken(refreshToken);
-                    log.info("Token blacklisted successfully");
-                }
-            
+                jwtService.blacklistToken(refreshToken);
+                log.info("Token blacklisted successfully");
+            }
+
         } catch (Exception e) {
             log.error("Logout error: {}", e.getMessage());
         }

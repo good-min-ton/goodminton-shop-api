@@ -77,7 +77,7 @@ public class Account implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return status == AccountStatus.ACTIVE;
+        return true;
     }
 
     @Override
@@ -87,6 +87,6 @@ public class Account implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return status == AccountStatus.ACTIVE;
+        return true;
     }
 }

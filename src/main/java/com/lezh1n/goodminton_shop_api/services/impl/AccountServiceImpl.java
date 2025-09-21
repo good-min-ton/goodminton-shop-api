@@ -16,6 +16,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ResetPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
+import com.lezh1n.goodminton_shop_api.enums.AccountStatus;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
@@ -98,6 +99,16 @@ public class AccountServiceImpl implements AccountService {
 
         account.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
+        accountRepository.save(account);
+    }
+
+    @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public void changeAccountStatus(Integer accountId, AccountStatus status) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+
+        account.setStatus(status);
         accountRepository.save(account);
     }
 

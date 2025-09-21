@@ -19,6 +19,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ForgotPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ResetPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
+import com.lezh1n.goodminton_shop_api.enums.AccountStatus;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.services.AccountService;
 import com.lezh1n.goodminton_shop_api.services.AuthService;
@@ -82,6 +83,15 @@ public class AccountController {
         accountService.changePassword(request);
         return ApiResponse.<String>builder()
                 .result("Mật khẩu đã được thay đổi thành công")
+                .build();
+    }
+
+    @PatchMapping("/{accountId}/status/{status}")
+    public ApiResponse<String> changeAccountStatus(@PathVariable Integer accountId,
+            @PathVariable AccountStatus status) {
+        accountService.changeAccountStatus(accountId, status);
+        return ApiResponse.<String>builder()
+                .result("Thay đổi trạng thái tài khoản thành công")
                 .build();
     }
 

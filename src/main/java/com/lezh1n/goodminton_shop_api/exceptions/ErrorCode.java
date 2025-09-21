@@ -19,6 +19,7 @@ public enum ErrorCode {
     AUTH_FULLNAME_BLANK(1008, "Họ tên không được để trống", HttpStatus.BAD_REQUEST),
     AUTH_EMAIL_BLANK(1009, "Email không được để trống", HttpStatus.BAD_REQUEST),
     AUTH_INVALID_EMAIL(1010, "Email không đúng định dạng", HttpStatus.BAD_REQUEST),
+    AUTH_ACCOUNT_INACTIVE(1011, "Tài khoản của bạn đã bị khoá", HttpStatus.FORBIDDEN),
 
     // Jwt & Security(1101 - 1200)
     JWT_GENERATION_ERROR(1101, "Jwt generation failed", HttpStatus.INTERNAL_SERVER_ERROR),

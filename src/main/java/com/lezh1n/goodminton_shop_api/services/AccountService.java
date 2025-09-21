@@ -7,6 +7,7 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ForgotPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ResetPasswordRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.UpdateProfileRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
+import com.lezh1n.goodminton_shop_api.enums.AccountStatus;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 
 public interface AccountService {
@@ -19,6 +20,8 @@ public interface AccountService {
     AccountResponse updateProfile(UpdateProfileRequest request);
 
     void changePassword(ChangePasswordRequest request);
+
+    void changeAccountStatus(Integer accountId, AccountStatus status);
 
     void forgotPassword(ForgotPasswordRequest request);
 
