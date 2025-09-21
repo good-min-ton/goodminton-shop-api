@@ -64,6 +64,13 @@ public class AccountController {
                 .build();
     }
 
+    @PostMapping("/distributor")
+    public ApiResponse<AccountResponse> createDistributor(@Valid @RequestBody CreateAccountRequest request) {
+        return ApiResponse.<AccountResponse>builder()
+                .result(authService.register(request, UserRole.DISTRIBUTOR))
+                .build();
+    }
+
     @GetMapping("/my-info")
     public ApiResponse<AccountResponse> getMyInfo() {
         return ApiResponse.<AccountResponse>builder()
