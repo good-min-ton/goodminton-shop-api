@@ -88,12 +88,16 @@ public class AuthServiceImpl implements AuthService {
             throw new AppException(ErrorCode.JWT_INVALID_TOKEN);
         }
 
-        if (tokenService.isBlacklisted(refreshToken)) {
-            throw new AppException(ErrorCode.JWT_TOKEN_BLACKLISTED);
-        }
-
         if (jwtService.isTokenExpired(refreshToken)) {
             throw new AppException(ErrorCode.JWT_EXPIRED_TOKEN);
+        }
+
+        if (!jwtService.validateToken(refreshToken)) {
+            throw new AppException(ErrorCode.JWT_INVALID_TOKEN);
+        }
+
+        if (tokenService.isBlacklisted(refreshToken)) {
+            throw new AppException(ErrorCode.JWT_TOKEN_BLACKLISTED);
         }
 
         String email = jwtService.extractEmail(refreshToken);
@@ -111,23 +115,26 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void logout(LogoutRequest request) {
-        String accessToken = request.getAccessToken();
         String refreshToken = request.getRefreshToken();
 
-        try {
-            if (accessToken != null) {
-                String token = accessToken.substring(7);
-                jwtService.blacklistToken(token);
-            }
-
-            if (refreshToken != null && !refreshToken.isEmpty() && jwtService.isRefreshToken(refreshToken)) {
-                jwtService.blacklistToken(refreshToken);
-                log.info("Token blacklisted successfully");
-            }
-
-        } catch (Exception e) {
-            log.error("Logout error: {}", e.getMessage());
+        if (refreshToken == null || refreshToken.isEmpty()) {
+            throw new AppException(ErrorCode.JWT_INVALID_TOKEN);
         }
+
+        if (!jwtService.isRefreshToken(refreshToken)) {
+            throw new AppException(ErrorCode.JWT_INVALID_TOKEN);
+        }
+
+        if (!jwtService.validateToken(refreshToken)) {
+            throw new AppException(ErrorCode.JWT_INVALID_TOKEN);
+        }
+
+        if (tokenService.isBlacklisted(refreshToken)) {
+            log.info("Token already blacklisted");
+            return;
+        }
+
+        jwtService.blacklistToken(refreshToken);
     }
 
 }
