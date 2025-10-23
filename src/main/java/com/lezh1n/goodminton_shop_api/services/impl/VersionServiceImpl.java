@@ -55,7 +55,9 @@ public class VersionServiceImpl implements VersionService {
 
         version.setName(request.getName());
 
-        return versionMapper.toVersionResponse(version);
+        Version savedVersion = versionRepository.save(version);
+
+        return versionMapper.toVersionResponse(savedVersion);
     }
 
     @Override
