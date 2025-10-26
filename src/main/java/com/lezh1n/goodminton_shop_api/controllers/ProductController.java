@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,9 +37,11 @@ public class ProductController {
 
 	// Products
 	@PostMapping
-	public ApiResponse<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request) {
+	public ApiResponse<ProductResponse> createProduct(
+			@Valid @RequestPart("productInfo") ProductRequest request,
+			@RequestPart("productThumbnail") MultipartFile thumbnail) {
 		return ApiResponse.<ProductResponse>builder()
-				.result(productService.createProduct(request))
+				.result(productService.createProduct(request, thumbnail))
 				.build();
 	}
 
@@ -66,9 +69,10 @@ public class ProductController {
 	@PutMapping("/{productId}")
 	public ApiResponse<ProductResponse> updateProduct(
 			@PathVariable @Min(value = 1, message = "Product ID must be greater than 0") Integer productId,
-			@Valid @RequestBody ProductRequest request) {
+			@Valid @RequestPart("productInfo") ProductRequest request,
+			@RequestPart("productThumbnail") MultipartFile thumbnail) {
 		return ApiResponse.<ProductResponse>builder()
-				.result(productService.updateProduct(productId, request))
+				.result(productService.updateProduct(productId, request, thumbnail))
 				.build();
 	}
 

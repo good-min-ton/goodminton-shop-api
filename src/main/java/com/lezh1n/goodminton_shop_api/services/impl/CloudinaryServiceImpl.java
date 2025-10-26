@@ -45,7 +45,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
                 throw new AppException(ErrorCode.FILE_TYPE_NOT_SUPPORTED);
             }
 
-            validateFileSize(MAX_FILE_SIZE, resourceType);
+            validateFileSize(file.getSize(), resourceType);
 
             String publicId = UUID.randomUUID().toString();
 

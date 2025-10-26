@@ -14,13 +14,13 @@ import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 
 public interface ProductService {
     // Product CRUD
-    ProductResponse createProduct(ProductRequest request);
+    ProductResponse createProduct(ProductRequest request, MultipartFile thumbnail);
 
     ProductResponse getProductById(Integer id);
 
     Page<ProductResponse> getAllProducts(int page, int size, String sortBy, String sortDir);
 
-    ProductResponse updateProduct(Integer productId, ProductRequest request);
+    ProductResponse updateProduct(Integer productId, ProductRequest request, MultipartFile thumbnail);
 
     void deleteProduct(Integer productId);
 

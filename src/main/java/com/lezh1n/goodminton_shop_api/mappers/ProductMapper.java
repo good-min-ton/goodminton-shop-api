@@ -38,7 +38,6 @@ public class ProductMapper {
 				.brand(brand)
 				.name(request.getName())
 				.description(request.getDescription())
-				.thumbnailUrl(request.getThumbnailUrl())
 				.createAt(LocalDateTime.now())
 				.build();
 	}
@@ -67,6 +66,5 @@ public class ProductMapper {
 		product.setBrand(brand);
 		product.setName(request.getName());
 		product.setDescription(request.getDescription());
-		product.setThumbnailUrl(request.getThumbnailUrl());
 	}
 }

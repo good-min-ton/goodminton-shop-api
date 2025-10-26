@@ -99,8 +99,10 @@ public class ProductServiceImpl implements ProductService {
     // Product CRUD
     @Override
     @Transactional
-    public ProductResponse createProduct(ProductRequest request) {
+    public ProductResponse createProduct(ProductRequest request, MultipartFile thumbnail) {
         Product product = productMapper.toProduct(request);
+        CloudinaryFileInfo fileInfo = cloudinaryService.storeFile(thumbnail, "product_thumbnail");
+        product.setThumbnailUrl(fileInfo.url());
         Product savedProduct = productRepository.save(product);
         createSpecifications(savedProduct, request.getSpecifications());
         request.getVariants().forEach(variantReq -> createVariant(savedProduct, variantReq));
@@ -167,11 +169,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductResponse updateProduct(Integer productId, ProductRequest request) {
+    public ProductResponse updateProduct(Integer productId, ProductRequest request, MultipartFile thumbnail) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
         productMapper.updateProduct(product, request);
+        CloudinaryFileInfo fileInfo = cloudinaryService.storeFile(thumbnail, "product_thumbnail");
+        product.setThumbnailUrl(fileInfo.url());
         updateSpecification(product, request.getSpecifications());
         updateVariant(product, request.getVariants());
         productRepository.save(product);

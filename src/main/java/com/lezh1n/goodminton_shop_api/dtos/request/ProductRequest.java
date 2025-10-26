@@ -21,9 +21,6 @@ public class ProductRequest {
 
     private String description;
 
-    @NotBlank(message = "PRODUCT_THUMBNAIL_BLANK")
-    private String thumbnailUrl;
-
     private List<ProductSpecificationRequest> specifications;
 
     @NotEmpty(message = "PRODUCT_VARIANTS_REQUIRED")
