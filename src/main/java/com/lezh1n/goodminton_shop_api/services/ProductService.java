@@ -1,6 +1,7 @@
 package com.lezh1n.goodminton_shop_api.services;
 
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
@@ -13,6 +14,7 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 
 public interface ProductService {
     // Product CRUD
@@ -47,4 +49,6 @@ public interface ProductService {
     ReviewResponse createReview(Integer productId, ReviewRequest request);
 
     Page<ReviewResponse> getReviewsOfProduct(Integer productId, int page, int size, String sortBy, String sortDir);
+
+    VariantImageResponse uploadVariantImage(Integer variantId, Integer sortOrder, MultipartFile file);
 }

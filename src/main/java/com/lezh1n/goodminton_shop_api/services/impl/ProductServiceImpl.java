@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
@@ -25,6 +26,7 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.SpecificVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantSizeResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.entities.Color;
@@ -56,10 +58,13 @@ import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepositor
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ReviewRepository;
 import com.lezh1n.goodminton_shop_api.repositories.SizeRepository;
+import com.lezh1n.goodminton_shop_api.repositories.VariantImageRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
 import com.lezh1n.goodminton_shop_api.repositories.VersionRepository;
 import com.lezh1n.goodminton_shop_api.security.CurrentAccountProvider;
+import com.lezh1n.goodminton_shop_api.services.CloudinaryService;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
+import com.lezh1n.goodminton_shop_api.services.impl.CloudinaryServiceImpl.CloudinaryFileInfo;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -79,6 +84,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductDiscountRepository productDiscountRepository;
     private final VariantSizeRepository variantSizeRepository;
     private final ReviewRepository reviewRepository;
+    private final VariantImageRepository variantImageRepository;
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
@@ -89,6 +95,7 @@ public class ProductServiceImpl implements ProductService {
     private final DiscountMapper discountMapper;
     private final ReviewMapper reviewMapper;
     private final CurrentAccountProvider currentAccountProvider;
+    private final CloudinaryService cloudinaryService;
 
     /* -- Public methods -- */
     // Product CRUD
@@ -346,6 +353,22 @@ public class ProductServiceImpl implements ProductService {
         return reviewPage.map(reviewMapper::toReviewResponse);
     }
 
+    @Override
+    public VariantImageResponse uploadVariantImage(Integer variantId, Integer sortOrder, MultipartFile file) {
+        CloudinaryFileInfo fileInfo = cloudinaryService.storeFile(file, "products");
+        ProductVariant variant = productVariantRepository.findById(variantId)
+                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+        VariantImage variantImage = VariantImage.builder()
+                .variant(variant)
+                .publicId(fileInfo.publicId())
+                .imageUrl(fileInfo.url())
+                .sortOrder(sortOrder)
+                .createAt(LocalDateTime.now())
+                .build();
+        VariantImage resultImage = variantImageRepository.save(variantImage);
+        return variantImageMapper.toVariantImageResponse(resultImage);
+    }
+
     /* -- Private methods-- */
     // Specifications
     private void createSpecifications(Product product, List<ProductSpecificationRequest> requests) {
@@ -390,7 +413,6 @@ public class ProductServiceImpl implements ProductService {
         variant.getSizes().addAll(sizes);
     }
 
-    // Variant images
     private void createVariantImages(ProductVariant variant, List<VariantImageRequest> requests) {
         List<VariantImage> images = requests.stream()
                 .map(i -> variantImageMapper.toVariantImage(variant, i))

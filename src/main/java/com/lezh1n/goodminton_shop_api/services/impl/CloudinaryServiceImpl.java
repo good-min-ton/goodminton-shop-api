@@ -12,30 +12,30 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
-import com.lezh1n.goodminton_shop_api.services.FileStorageService;
+import com.lezh1n.goodminton_shop_api.services.CloudinaryService;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CloudinaryStorageImpl implements FileStorageService {
+public class CloudinaryServiceImpl implements CloudinaryService {
 
     private final Cloudinary cloudinary;
-    private static final List<String> ALLOWED_TYPES = List.of("image/jpeg", "image/png", "image/webp");
+    private static final List<String> ALLOWED_TYPES = List.of("raw", "image", "video");
 
     @Override
-    @Transactional
-    public String storeFile(MultipartFile file, String folderName) {
+    public CloudinaryFileInfo storeFile(MultipartFile file, String folderName) {
         try {
             if (file.isEmpty()) {
                 throw new AppException(ErrorCode.FILE_EMPTY);
             }
 
             String contentType = file.getContentType();
-            if (contentType == null || !ALLOWED_TYPES.contains(contentType)) {
+            String resourceType = detectResourceType(contentType);
+
+            if (contentType == null || !ALLOWED_TYPES.contains(resourceType)) {
                 throw new AppException(ErrorCode.FILE_TYPE_NOT_SUPPORTED);
             }
 
@@ -44,14 +44,16 @@ public class CloudinaryStorageImpl implements FileStorageService {
             @SuppressWarnings("unchecked")
             Map<String, Object> params = ObjectUtils.asMap(
                     "public_id", publicId,
-                    "folder", "goodminton/" + folderName,
-                    "overwrite", true,
-                    "resource_type", "image");
+                    "folder", "bot-cv/" + folderName,
+                    "overwrite", true);
 
             @SuppressWarnings("unchecked")
             Map<String, Object> uploadResult = cloudinary.uploader().upload(file.getBytes(), params);
 
-            return (String) uploadResult.get("secure_url");
+            String secureUrl = (String) uploadResult.get("secure_url");
+            String uploadedPublicId = (String) uploadResult.get("public_id");
+
+            return new CloudinaryFileInfo(secureUrl, uploadedPublicId);
         } catch (IOException e) {
             log.error("Failed to upload file: {}", e.getMessage());
             throw new AppException(ErrorCode.FILE_UPLOAD_FAILED);
@@ -70,4 +72,17 @@ public class CloudinaryStorageImpl implements FileStorageService {
         }
     }
 
+    // Private methods
+    private String detectResourceType(String contentType) {
+        if (contentType == null)
+            return "raw";
+        if (contentType.startsWith("image/"))
+            return "image";
+        if (contentType.startsWith("video/"))
+            return "video";
+        return "raw";
+    }
+
+    public record CloudinaryFileInfo(String url, String publicId) {
+    }
 }

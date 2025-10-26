@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
@@ -23,6 +24,7 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 
 import jakarta.validation.Valid;
@@ -162,6 +164,14 @@ public class ProductController {
 			@RequestParam(defaultValue = "desc") String sortDir) {
 		return ApiResponse.<Page<ReviewResponse>>builder()
 				.result(productService.getReviewsOfProduct(productId, page, size, sortBy, sortDir))
+				.build();
+	}
+
+	@PostMapping("/{variantId}/upload")
+	public ApiResponse<VariantImageResponse> uploadVariantImage(@PathVariable Integer variantId,
+			@RequestParam Integer sortOrder, @RequestParam("file") MultipartFile file) {
+		return ApiResponse.<VariantImageResponse>builder()
+				.result(productService.uploadVariantImage(variantId, sortOrder, file))
 				.build();
 	}
 }
