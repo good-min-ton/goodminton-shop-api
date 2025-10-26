@@ -5,6 +5,11 @@ spring:
   application:
     name: goodminton-shop-api
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+
   datasource:
     url: jdbc:postgresql://localhost:${POSTGRES_HOST_PORT}/goodminton?stringtype=unspecified
     username: ${POSTGRES_USERNAME}

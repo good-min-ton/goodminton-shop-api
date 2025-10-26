@@ -5,14 +5,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 
@@ -27,16 +23,6 @@ public interface ProductService {
     ProductResponse updateProduct(Integer productId, ProductRequest request);
 
     void deleteProduct(Integer productId);
-
-    // Product Specification CRUD
-    ProductSpecificationResponse addSpecificationToProduct(Integer productId, ProductSpecificationRequest request);
-
-    void deleteSpecification(Integer productId, Integer specId);
-
-    // Product Variant CRUD
-    ProductVariantResponse addVariantToProduct(Integer productId, ProductVariantRequest request);
-
-    void deleteVariant(Integer productId, Integer variantId);
 
     // Specific variant
     ProductByAttributeResponse getProductByAttributes(Integer productId, Integer versionId, Integer colorId,

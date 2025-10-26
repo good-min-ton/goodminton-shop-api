@@ -173,6 +173,7 @@ public enum ErrorCode {
     FILE_EMPTY(9701, "File ảnh không được để trống", HttpStatus.BAD_REQUEST),
     FILE_TYPE_NOT_SUPPORTED(9702, "Loại file không được hỗ trợ", HttpStatus.BAD_REQUEST),
     FILE_UPLOAD_FAILED(9703, "Có lỗi xảy ra khi upload file ảnh", HttpStatus.BAD_REQUEST),
+    FILE_SIZE_EXCEEDED(9704, "File size exceeds maximum allowed limit", HttpStatus.BAD_REQUEST),
 
     // Data errors
     ENUM_INVALID_VALUE(9800, "Invalid enum value", HttpStatus.BAD_REQUEST),

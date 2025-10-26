@@ -15,14 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
@@ -82,46 +78,6 @@ public class ProductController {
 		productService.deleteProduct(productId);
 		return ApiResponse.<String>builder()
 				.result("Xóa sản phẩm thành công")
-				.build();
-	}
-
-	// Specifications
-	@PostMapping("/{productId}/specifications")
-	public ApiResponse<ProductSpecificationResponse> addSpecificationToProduct(
-			@PathVariable @Min(value = 1, message = "Product ID must be greater than 0") Integer productId,
-			@Valid @RequestBody ProductSpecificationRequest request) {
-		return ApiResponse.<ProductSpecificationResponse>builder()
-				.result(productService.addSpecificationToProduct(productId, request))
-				.build();
-	}
-
-	@DeleteMapping("/{productId}/specifications/{specId}")
-	public ApiResponse<String> deleteSpecification(
-			@PathVariable @Min(value = 1, message = "Product ID must be greater than 0") Integer productId,
-			@PathVariable @Min(value = 1, message = "Specification ID must be greater than 0") Integer specId) {
-		productService.deleteSpecification(productId, specId);
-		return ApiResponse.<String>builder()
-				.result("Xóa thành công thông số sản phẩm")
-				.build();
-	}
-
-	// Variants
-	@PostMapping("{productId}/variants")
-	public ApiResponse<ProductVariantResponse> addVariantToProduct(
-			@PathVariable @Min(value = 1, message = "Product IDs must be greater than 0") Integer productId,
-			@Valid @RequestBody ProductVariantRequest request) {
-		return ApiResponse.<ProductVariantResponse>builder()
-				.result(productService.addVariantToProduct(productId, request))
-				.build();
-	}
-
-	@DeleteMapping("/{productId}/variants/{variantId}")
-	public ApiResponse<String> deleteVariant(
-			@PathVariable @Min(value = 1, message = "Product ID must be greater than 0") Integer productId,
-			@PathVariable @Min(value = 1, message = "Variant ID must be greater than 0") Integer variantId) {
-		productService.deleteVariant(productId, variantId);
-		return ApiResponse.<String>builder()
-				.result("Xóa thành công bản thể sản phẩm")
 				.build();
 	}
 

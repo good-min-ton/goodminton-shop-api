@@ -23,7 +23,13 @@ import lombok.extern.slf4j.Slf4j;
 public class CloudinaryServiceImpl implements CloudinaryService {
 
     private final Cloudinary cloudinary;
-    private static final List<String> ALLOWED_TYPES = List.of("raw", "image", "video");
+    private static final String RAW = "raw";
+    private static final String IMAGE = "image";
+    private static final String VIDEO = "video";
+    private static final List<String> ALLOWED_TYPES = List.of(RAW, IMAGE, VIDEO);
+    private static final long MAX_IMAGE_SIZE = 5L * 1024 * 1024;
+    private static final long MAX_VIDEO_SIZE = 30L * 1024 * 1024;
+    private static final long MAX_FILE_SIZE = 10L * 1024 * 1024;
 
     @Override
     public CloudinaryFileInfo storeFile(MultipartFile file, String folderName) {
@@ -38,6 +44,8 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             if (contentType == null || !ALLOWED_TYPES.contains(resourceType)) {
                 throw new AppException(ErrorCode.FILE_TYPE_NOT_SUPPORTED);
             }
+
+            validateFileSize(MAX_FILE_SIZE, resourceType);
 
             String publicId = UUID.randomUUID().toString();
 
@@ -73,14 +81,26 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     }
 
     // Private methods
+    private void validateFileSize(long fileSize, String resourceType) {
+        long maxSize = switch (resourceType) {
+            case IMAGE -> MAX_IMAGE_SIZE;
+            case VIDEO -> MAX_VIDEO_SIZE;
+            default -> MAX_FILE_SIZE;
+        };
+
+        if (fileSize > maxSize) {
+            throw new AppException(ErrorCode.FILE_SIZE_EXCEEDED);
+        }
+    }
+
     private String detectResourceType(String contentType) {
         if (contentType == null)
-            return "raw";
+            return RAW;
         if (contentType.startsWith("image/"))
-            return "image";
+            return IMAGE;
         if (contentType.startsWith("video/"))
-            return "video";
-        return "raw";
+            return VIDEO;
+        return RAW;
     }
 
     public record CloudinaryFileInfo(String url, String publicId) {

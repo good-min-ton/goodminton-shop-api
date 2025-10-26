@@ -17,12 +17,10 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.VariantImageRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantSizeRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductSpecificationResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.SpecificVariantResponse;
@@ -190,74 +188,6 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
-    // Specifications CRUD
-    @Override
-    @Transactional
-    public ProductSpecificationResponse addSpecificationToProduct(Integer productId,
-            ProductSpecificationRequest request) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-
-        ProductSpecification specification = productSpecificationMapper.toProductSpecification(product, request);
-        ProductSpecification savedSpecification = productSpecificationRepository.save(specification);
-        product.getSpecifications().add(savedSpecification);
-        productRepository.save(product);
-        return productSpecificationMapper.toSpecificationResponse(savedSpecification);
-    }
-
-    @Override
-    public void deleteSpecification(Integer productId, Integer specId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-
-        ProductSpecification spec = productSpecificationRepository.findById(specId)
-                .orElseThrow(() -> new AppException(ErrorCode.SPEC_NOT_FOUND));
-
-        if (!product.getSpecifications().contains(spec)) {
-            throw new AppException(ErrorCode.SPEC_NOT_BELONG_TO_PRODUCT);
-        }
-
-        product.getSpecifications().remove(spec);
-        productSpecificationRepository.delete(spec);
-        productRepository.save(product);
-    }
-
-    // Variant CRUD
-    @Override
-    @Transactional
-    public ProductVariantResponse addVariantToProduct(Integer productId, ProductVariantRequest request) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-
-        ProductVariant variant = productVariantMapper.toProductVariant(product, request);
-        product.getVariants().add(variant);
-        ProductVariant savedVariant = productVariantRepository.save(variant);
-
-        createVariantSizes(savedVariant, request.getSizes());
-        createVariantImages(savedVariant, request.getImages());
-
-        productRepository.save(product);
-        return productVariantMapper.toProductVariantResponse(savedVariant);
-    }
-
-    @Override
-    @Transactional
-    public void deleteVariant(Integer productId, Integer variantId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-
-        ProductVariant variant = productVariantRepository.findById(variantId)
-                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
-
-        if (!product.getVariants().contains(variant)) {
-            throw new AppException(ErrorCode.VARIANT_NOT_BELONG_TO_PRODUCT);
-        }
-
-        product.getVariants().remove(variant);
-        productVariantRepository.delete(variant);
-        productRepository.save(product);
-    }
-
     // Get product by attributes
     @Override
     public ProductByAttributeResponse getProductByAttributes(Integer productId, Integer versionId, Integer colorId,
@@ -395,7 +325,6 @@ public class ProductServiceImpl implements ProductService {
 
         product.getVariants().add(variant);
         createVariantSizes(variant, request.getSizes());
-        createVariantImages(variant, request.getImages());
     }
 
     private void updateVariant(Product product, List<ProductVariantRequest> requests) {
@@ -411,12 +340,5 @@ public class ProductServiceImpl implements ProductService {
                 .map(s -> variantSizeMapper.toVariantSize(variant, s))
                 .toList();
         variant.getSizes().addAll(sizes);
-    }
-
-    private void createVariantImages(ProductVariant variant, List<VariantImageRequest> requests) {
-        List<VariantImage> images = requests.stream()
-                .map(i -> variantImageMapper.toVariantImage(variant, i))
-                .toList();
-        variant.getImages().addAll(images);
     }
 }
