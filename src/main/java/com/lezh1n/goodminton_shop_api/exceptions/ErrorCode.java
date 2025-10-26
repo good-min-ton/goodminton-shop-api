@@ -108,8 +108,9 @@ public enum ErrorCode {
     SPEC_DUPLICATE(2105, "Thông số đã tồn tại cho sản phẩm", HttpStatus.CONFLICT),
 
     // Variant image (2201 - 2300)
-    VARIANT_IMAGE_URL_REQUIRED(2201, "Link ảnh không được đê trống", HttpStatus.BAD_REQUEST),
-    VARIANT_IMAGE_PUBLIC_ID_DUPLICATE(2202, "Ảnh này đã đựợc truyền cho biến thể khác", HttpStatus.CONFLICT),
+    VARIANT_IMAGE_NOT_FOUND(2201, "Không tìm thấy ảnh", HttpStatus.NOT_FOUND),
+    VARIANT_IMAGE_URL_REQUIRED(2202, "Link ảnh không được đê trống", HttpStatus.BAD_REQUEST),
+    VARIANT_IMAGE_PUBLIC_ID_DUPLICATE(2203, "Ảnh này đã đựợc truyền cho biến thể khác", HttpStatus.CONFLICT),
 
     // Variant size (2301- 2400)
     VARIANT_SIZE_NOT_FOUND(2301, "Không tìm thấy tổ hợp variant với size này", HttpStatus.NOT_FOUND),

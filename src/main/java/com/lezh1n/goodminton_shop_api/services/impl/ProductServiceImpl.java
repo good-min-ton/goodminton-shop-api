@@ -188,6 +188,40 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(product);
     }
 
+    // Variant image
+    @Override
+    public VariantImageResponse uploadVariantImage(Integer variantId, MultipartFile file) {
+        CloudinaryFileInfo fileInfo = cloudinaryService.storeFile(file, "products");
+        ProductVariant variant = productVariantRepository.findById(variantId)
+                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+        VariantImage vi = variantImageRepository.findTopByOrderBySortOrderDesc();
+        VariantImage variantImage = VariantImage.builder()
+                .variant(variant)
+                .publicId(fileInfo.publicId())
+                .imageUrl(fileInfo.url())
+                .sortOrder(vi != null ? vi.getSortOrder() + 1 : 0)
+                .createAt(LocalDateTime.now())
+                .build();
+        VariantImage resultImage = variantImageRepository.save(variantImage);
+        return variantImageMapper.toVariantImageResponse(resultImage);
+    }
+
+    @Override
+    public void deleteVariantImage(Integer imageId) {
+        VariantImage variantImage = variantImageRepository.findById(imageId)
+                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_IMAGE_NOT_FOUND));
+        List<VariantImage> greaterSortOrderImgs = variantImageRepository
+                .findImagesWithSortOrderGreaterThan(variantImage.getSortOrder());
+
+        if (greaterSortOrderImgs != null) {
+            for (VariantImage vi : greaterSortOrderImgs) {
+                vi.setSortOrder(vi.getSortOrder() - 1);
+                variantImageRepository.save(vi);
+            }
+        }
+        variantImageRepository.delete(variantImage);
+    }
+
     // Get product by attributes
     @Override
     public ProductByAttributeResponse getProductByAttributes(Integer productId, Integer versionId, Integer colorId,
@@ -281,22 +315,6 @@ public class ProductServiceImpl implements ProductService {
         Page<Review> reviewPage = reviewRepository.findByProductProductId(productId, pageable);
 
         return reviewPage.map(reviewMapper::toReviewResponse);
-    }
-
-    @Override
-    public VariantImageResponse uploadVariantImage(Integer variantId, Integer sortOrder, MultipartFile file) {
-        CloudinaryFileInfo fileInfo = cloudinaryService.storeFile(file, "products");
-        ProductVariant variant = productVariantRepository.findById(variantId)
-                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
-        VariantImage variantImage = VariantImage.builder()
-                .variant(variant)
-                .publicId(fileInfo.publicId())
-                .imageUrl(fileInfo.url())
-                .sortOrder(sortOrder)
-                .createAt(LocalDateTime.now())
-                .build();
-        VariantImage resultImage = variantImageRepository.save(variantImage);
-        return variantImageMapper.toVariantImageResponse(resultImage);
     }
 
     /* -- Private methods-- */

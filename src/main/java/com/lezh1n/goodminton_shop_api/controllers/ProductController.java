@@ -123,11 +123,19 @@ public class ProductController {
 				.build();
 	}
 
-	@PostMapping("/{variantId}/upload")
+	@PostMapping("/{variantId}/image")
 	public ApiResponse<VariantImageResponse> uploadVariantImage(@PathVariable Integer variantId,
-			@RequestParam Integer sortOrder, @RequestParam("file") MultipartFile file) {
+			@RequestParam("file") MultipartFile file) {
 		return ApiResponse.<VariantImageResponse>builder()
-				.result(productService.uploadVariantImage(variantId, sortOrder, file))
+				.result(productService.uploadVariantImage(variantId, file))
+				.build();
+	}
+
+	@DeleteMapping("/{variantId}/image")
+	public ApiResponse<String> deleteVariantImage(@PathVariable Integer variantId) {
+		productService.deleteVariantImage(variantId);
+		return ApiResponse.<String>builder()
+				.result("Delete image successfully")
 				.build();
 	}
 }

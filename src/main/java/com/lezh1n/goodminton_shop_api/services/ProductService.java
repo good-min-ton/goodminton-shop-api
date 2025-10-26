@@ -28,6 +28,11 @@ public interface ProductService {
     ProductByAttributeResponse getProductByAttributes(Integer productId, Integer versionId, Integer colorId,
             Integer sizeId);
 
+    // Variant image
+    VariantImageResponse uploadVariantImage(Integer variantId, MultipartFile file);
+
+    void deleteVariantImage(Integer imageId);
+
     // Product discount
     DiscountResponse createDiscount(Integer variantSizeId, DiscountRequest request);
 
@@ -35,6 +40,4 @@ public interface ProductService {
     ReviewResponse createReview(Integer productId, ReviewRequest request);
 
     Page<ReviewResponse> getReviewsOfProduct(Integer productId, int page, int size, String sortBy, String sortDir);
-
-    VariantImageResponse uploadVariantImage(Integer variantId, Integer sortOrder, MultipartFile file);
 }
