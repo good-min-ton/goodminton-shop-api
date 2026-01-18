@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductByAttributeResponse {
+public class VariantByAttributeResponse {
     private Integer productId;
     private String name;
     private String description;

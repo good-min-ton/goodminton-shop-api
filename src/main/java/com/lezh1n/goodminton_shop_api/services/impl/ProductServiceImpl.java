@@ -19,11 +19,11 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.VariantSizeRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.SpecificVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.VariantByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantSizeResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
@@ -228,7 +228,7 @@ public class ProductServiceImpl implements ProductService {
 
     // Get product by attributes
     @Override
-    public ProductByAttributeResponse getProductByAttributes(Integer productId, Integer versionId, Integer colorId,
+    public VariantByAttributeResponse getVariantByAttributes(Integer productId, Integer versionId, Integer colorId,
             Integer sizeId) {
         Optional<Version> version = versionRepository.findById(versionId);
         Optional<Color> color = colorRepository.findById(colorId);
@@ -250,7 +250,7 @@ public class ProductServiceImpl implements ProductService {
             throw new AppException(ErrorCode.INVENTORY_VARIANT_NOT_FOUND);
         }
 
-        return ProductByAttributeResponse.builder()
+        return VariantByAttributeResponse.builder()
                 .productId(productId)
                 .name(product.getName())
                 .description(product.getDescription())

@@ -18,9 +18,9 @@ import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.VariantByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 
@@ -87,13 +87,13 @@ public class ProductController {
 
 	// Get variant by attributes
 	@GetMapping("/{productId}/variants")
-	public ApiResponse<ProductByAttributeResponse> getProductByAttribute(
+	public ApiResponse<VariantByAttributeResponse> getProductByAttribute(
 			@PathVariable @Min(value = 1, message = "Product ID must be greater than 0") Integer productId,
 			@RequestParam("versionId") Integer versionId,
 			@RequestParam("colorId") Integer colorId,
 			@RequestParam("sizeId") Integer sizeId) {
-		return ApiResponse.<ProductByAttributeResponse>builder()
-				.result(productService.getProductByAttributes(productId, versionId, colorId, sizeId))
+		return ApiResponse.<VariantByAttributeResponse>builder()
+				.result(productService.getVariantByAttributes(productId, versionId, colorId, sizeId))
 				.build();
 	}
 

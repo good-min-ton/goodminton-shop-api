@@ -7,9 +7,9 @@ import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.VariantByAttributeResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
 
 public interface ProductService {
@@ -25,7 +25,7 @@ public interface ProductService {
     void deleteProduct(Integer productId);
 
     // Specific variant
-    ProductByAttributeResponse getProductByAttributes(Integer productId, Integer versionId, Integer colorId,
+    VariantByAttributeResponse getVariantByAttributes(Integer productId, Integer versionId, Integer colorId,
             Integer sizeId);
 
     // Variant image
