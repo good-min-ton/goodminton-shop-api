@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
+import com.lezh1n.goodminton_shop_api.common.ApiResponse;
 import com.lezh1n.goodminton_shop_api.entities.Payment;
 import com.lezh1n.goodminton_shop_api.enums.PaymentStatus;
 import com.lezh1n.goodminton_shop_api.services.PaymentService;
@@ -56,14 +56,14 @@ public class PayOSWebhookController {
             }
 
             if (payment.getStatus() == PaymentStatus.PAID) {
-                log.info("Payment {} already PAID, skip.", payment.getPaymentId());
+                log.info("Payment {} already PAID, skip.", payment.getId());
                 return ApiResponse.<String>builder()
                         .result("OK")
                         .build();
             }
 
             if (isSuccessStatus(status)) {
-                paymentService.confirmPayment(payment.getPaymentId(), reference);
+                paymentService.confirmPayment(payment.getId(), reference);
             } else if (isFailStatus(status)) {
                 payment.setStatus(PaymentStatus.FAILED);
                 paymentService.updatePaymentRepository(payment);

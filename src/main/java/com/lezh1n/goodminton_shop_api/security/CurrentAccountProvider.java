@@ -21,6 +21,6 @@ public class CurrentAccountProvider {
     }
 
     public Integer getCurrentAccountId() {
-        return getCurrentAccount().getAccountId();
+        return getCurrentAccount().getId();
     }
 }

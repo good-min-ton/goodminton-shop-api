@@ -17,17 +17,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "store")
+@Table(name = "stores")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Store {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id")
-    private Integer storeId;
+    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "name", length = 100, nullable = false)
     private String name;
@@ -43,6 +43,9 @@ public class Store {
 
     @Column(name = "latitude", nullable = false)
     private BigDecimal latitude;
+
+    @Column(name = "is_central", nullable = false)
+    private boolean isCentral;
 
     @Column(name = "create_at", nullable = false)
     private LocalDateTime createAt;

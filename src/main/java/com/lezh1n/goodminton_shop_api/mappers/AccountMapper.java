@@ -21,7 +21,7 @@ public class AccountMapper {
                 .email(request.getEmail())
                 .phone(request.getPhone())
                 .status(AccountStatus.ACTIVE)
-                .createAt(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -30,12 +30,12 @@ public class AccountMapper {
             return null;
         }
         return AccountResponse.builder()
-                .accountId(account.getAccountId())
+                .accountId(account.getId())
                 .fullName(account.getFullName())
                 .email(account.getEmail())
                 .phone(account.getPhone())
                 .role(account.getRole())
-                .createAt(account.getCreateAt())
+                .createAt(account.getCreatedAt())
                 .status(account.getStatus())
                 .build();
     }

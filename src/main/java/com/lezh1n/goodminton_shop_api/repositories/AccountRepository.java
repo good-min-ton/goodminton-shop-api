@@ -20,6 +20,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     boolean existsByEmail(String email);
 
+    boolean existsByRole(UserRole role);
+
     @Query("SELECT a FROM Account a WHERE a.email = :identifier OR a.phone = :identifier")
     Optional<Account> findByEmailOrPhone(@Param("identifier") String identifier);
 

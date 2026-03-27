@@ -15,16 +15,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "order_item_inventory_allocation")
+@Table(name = "order_item_allocations")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderItemInventoryAllocation {
+public class OrderItemAllocation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "allocation_id")
-    private Integer allocationId;
+    @Column(name = "id")
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "order_item_id", nullable = false)

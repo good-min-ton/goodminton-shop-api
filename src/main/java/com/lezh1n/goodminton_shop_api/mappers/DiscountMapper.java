@@ -23,8 +23,8 @@ public class DiscountMapper {
 
     public DiscountResponse toDiscountResponse(ProductDiscount discount) {
         return DiscountResponse.builder()
-                .discountId(discount.getDiscountId())
-                .variantSizeId(discount.getVariantSize().getVariantSizeId())
+                .discountId(discount.getId())
+                .variantSizeId(discount.getVariantSize().getId())
                 .salePrice(discount.getSalePrice())
                 .startTime(discount.getStartTime())
                 .endTime(discount.getEndTime())

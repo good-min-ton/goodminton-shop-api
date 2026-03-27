@@ -25,15 +25,15 @@ public class Inventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inventory_id")
-    private Integer inventoryId;
+    @Column(name = "id")
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
     @ManyToOne
-    @JoinColumn(name = "variant_size_id", nullable = false)
+    @JoinColumn(name = "variant_id", nullable = false)
     private VariantSize variantSize;
 
     @Column(name = "quantity", nullable = false)

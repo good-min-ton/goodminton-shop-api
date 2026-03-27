@@ -27,7 +27,7 @@ public class VariantImageMapper {
 
     public VariantImageResponse toVariantImageResponse(VariantImage variantImage) {
         return VariantImageResponse.builder()
-                .imageId(variantImage.getImageId())
+                .imageId(variantImage.getId())
                 .publicId(variantImage.getPublicId())
                 .imageUrl(variantImage.getImageUrl())
                 .sortOrder(variantImage.getSortOrder())

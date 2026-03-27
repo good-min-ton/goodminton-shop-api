@@ -45,7 +45,7 @@ public class ProductMapper {
 	public ProductResponse toProductResponse(Product product) {
 
 		return ProductResponse.builder()
-				.productId(product.getProductId())
+				.productId(product.getId())
 				.category(categoryMapper.toCategoryResponse(product.getCategory()))
 				.brand(brandMapper.toBrandResponse(product.getBrand()))
 				.name(product.getName())

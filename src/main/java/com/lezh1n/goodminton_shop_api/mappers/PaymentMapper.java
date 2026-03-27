@@ -9,7 +9,7 @@ import com.lezh1n.goodminton_shop_api.entities.Payment;
 public class PaymentMapper {
     public PaymentResponse toPaymentResponse(Payment payment) {
         return PaymentResponse.builder()
-                .paymentId(payment.getPaymentId())
+                .paymentId(payment.getId())
                 .method(payment.getMethod())
                 .status(payment.getStatus())
                 .amount(payment.getAmount())

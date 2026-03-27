@@ -19,7 +19,7 @@ public class ProductSpecificationMapper {
 
     public ProductSpecificationResponse toSpecificationResponse(ProductSpecification productSpecification) {
         return ProductSpecificationResponse.builder()
-                .specId(productSpecification.getSpecId())
+                .specId(productSpecification.getId())
                 .name(productSpecification.getName())
                 .value(productSpecification.getValue())
                 .build();

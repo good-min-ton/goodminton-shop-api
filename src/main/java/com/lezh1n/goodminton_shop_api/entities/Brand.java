@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "brand")
+@Table(name = "brands")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,9 +20,9 @@ import lombok.NoArgsConstructor;
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "brand_id")
-    private Integer brandId;
+    @Column(name = "id")
+    private Integer id;
 
-    @Column(name = "brand_name", length = 100, nullable = false)
-    private String brandName;
+    @Column(name = "name", length = 100, nullable = false)
+    private String name;
 }

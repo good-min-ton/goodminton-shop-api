@@ -58,7 +58,7 @@ public class SecurityConfig {
             "api/products", "api/products/{productId}",
     };
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}")
+    @Value("${spring.jwt.secret}")
     private String jwtSecret;
 
     @Bean

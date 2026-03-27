@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
+
+import com.lezh1n.goodminton_shop_api.common.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.BrandRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.BrandResponse;
 import com.lezh1n.goodminton_shop_api.services.BrandService;

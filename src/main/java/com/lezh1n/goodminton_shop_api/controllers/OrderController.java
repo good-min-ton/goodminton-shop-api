@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lezh1n.goodminton_shop_api.dtos.ApiResponse;
+import com.lezh1n.goodminton_shop_api.common.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.CartItemRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.OrderAllocationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.OrderRequest;

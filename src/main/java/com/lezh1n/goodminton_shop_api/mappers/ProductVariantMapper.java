@@ -41,7 +41,7 @@ public class ProductVariantMapper {
     public ProductVariantResponse toProductVariantResponse(ProductVariant productVariant) {
 
         return ProductVariantResponse.builder()
-                .variantId(productVariant.getVariantId())
+                .variantId(productVariant.getId())
                 .version(versionMapper.toVersionResponse(productVariant.getVersion()))
                 .color(colorMapper.toColorResponse(productVariant.getColor()))
                 .build();

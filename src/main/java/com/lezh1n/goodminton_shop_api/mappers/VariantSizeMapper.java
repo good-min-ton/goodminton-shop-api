@@ -39,9 +39,9 @@ public class VariantSizeMapper {
 
     public VariantSizeResponse toVariantSizeResponse(VariantSize variantSize) {
         Optional<ProductDiscount> discount = productDiscountRepository
-                .findActiveDiscountByVariantSizeId(variantSize.getVariantSizeId(), LocalDateTime.now());
+                .findActiveDiscountByVariantSizeId(variantSize.getId(), LocalDateTime.now());
         return VariantSizeResponse.builder()
-                .variantSizeId(variantSize.getVariantSizeId())
+                .variantSizeId(variantSize.getId())
                 .size(sizeMapper.toSizeResponse(variantSize.getSize()))
                 .price(variantSize.getPrice())
                 .discountPrice(discount.map(ProductDiscount::getSalePrice).orElse(null))

@@ -107,7 +107,7 @@ public class ProductServiceImpl implements ProductService {
         createSpecifications(savedProduct, request.getSpecifications());
         request.getVariants().forEach(variantReq -> createVariant(savedProduct, variantReq));
         productRepository.save(product);
-        return getProductById(savedProduct.getProductId());
+        return getProductById(savedProduct.getId());
     }
 
     @Override
@@ -159,7 +159,7 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> productPage = productRepository.findAll(pageable);
 
         return productPage.map(product -> ProductResponse.builder()
-                .productId(product.getProductId())
+                .productId(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())
                 .thumbnailUrl(product.getThumbnailUrl())
@@ -243,10 +243,10 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
 
         VariantSize variantSize = variant.getSizes().stream()
-                .filter(s -> s.getSize().getSizeId().equals(sizeId))
+                .filter(s -> s.getSize().getId().equals(sizeId))
                 .findFirst().orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
 
-        if (!inventoryRepository.existsByVariantSizeVariantSizeId(variantSize.getVariantSizeId())) {
+        if (!inventoryRepository.existsByVariantSizeVariantSizeId(variantSize.getId())) {
             throw new AppException(ErrorCode.INVENTORY_VARIANT_NOT_FOUND);
         }
 
@@ -257,7 +257,7 @@ public class ProductServiceImpl implements ProductService {
                 .thumbnailUrl(product.getThumbnailUrl())
                 .createAt(product.getCreateAt())
                 .variant(SpecificVariantResponse.builder()
-                        .variantId(variant.getVariantId())
+                        .variantId(variant.getId())
                         .version(versionMapper.toVersionResponse(version.get()))
                         .color(colorMapper.toColorResponse(color.get()))
                         .size(variantSizeMapper.toVariantSizeResponse(variantSize))
@@ -283,7 +283,7 @@ public class ProductServiceImpl implements ProductService {
             throw new AppException(ErrorCode.DISCOUNT_END_TIME_BEFORE_START_TIME);
         }
 
-        if (productDiscountRepository.existByVariantSizeAndTime(variantSize.getVariantSizeId(), request.getStartTime(),
+        if (productDiscountRepository.existByVariantSizeAndTime(variantSize.getId(), request.getStartTime(),
                 request.getEndTime())) {
             throw new AppException(ErrorCode.DISCOUNT_EXISTED);
         }
@@ -331,7 +331,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void updateSpecification(Product product, List<ProductSpecificationRequest> requests) {
-        productSpecificationRepository.deleteByProductProductId(product.getProductId());
+        productSpecificationRepository.deleteByProductProductId(product.getId());
         product.getSpecifications().clear();
         productSpecificationRepository.flush();
 
@@ -350,7 +350,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void updateVariant(Product product, List<ProductVariantRequest> requests) {
-        productVariantRepository.deleteByProductProductId(product.getProductId());
+        productVariantRepository.deleteByProductProductId(product.getId());
         product.getVariants().clear();
         productVariantRepository.flush();
         requests.forEach(vr -> createVariant(product, vr));

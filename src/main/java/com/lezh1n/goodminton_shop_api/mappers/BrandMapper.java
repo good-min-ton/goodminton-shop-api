@@ -10,14 +10,14 @@ import com.lezh1n.goodminton_shop_api.entities.Brand;
 public class BrandMapper {
     public Brand toBrand(BrandRequest request) {
         return Brand.builder()
-                .brandName(request.getBrandName())
+                .name(request.getBrandName())
                 .build();
     }
 
     public BrandResponse toBrandResponse(Brand brand) {
         return BrandResponse.builder()
-                .brandId(brand.getBrandId())
-                .brandName(brand.getBrandName())
+                .brandId(brand.getId())
+                .brandName(brand.getName())
                 .build();
     }
 }

@@ -41,7 +41,7 @@ public class InventoryMapper {
 
     public InventoryResponse toInventoryResponse(Inventory inventory) {
         return InventoryResponse.builder()
-                .inventoryId(inventory.getInventoryId())
+                .inventoryId(inventory.getId())
                 .store(storeMapper.toStoreResponse(inventory.getStore()))
                 .variantSize(variantSizeMapper.toVariantSizeResponse(inventory.getVariantSize()))
                 .quantity(inventory.getQuantity())

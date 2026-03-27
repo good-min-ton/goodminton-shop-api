@@ -126,9 +126,9 @@ public class PaymentServiceImpl implements PaymentService {
             }).toList();
 
             PaymentData paymentData = PaymentData.builder()
-                    .orderCode(payment.getPaymentId().longValue())
+                    .orderCode(payment.getId().longValue())
                     .amount(payment.getAmount().intValue())
-                    .description("Thanh toán đơn hàng #" + order.getOrderId())
+                    .description("Thanh toán đơn hàng #" + order.getId())
                     .returnUrl(returnUrl)
                     .cancelUrl(cancelUrl)
                     .items(items)

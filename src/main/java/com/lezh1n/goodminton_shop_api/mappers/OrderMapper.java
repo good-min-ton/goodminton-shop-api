@@ -16,8 +16,8 @@ public class OrderMapper {
     private final OrderItemMapper orderItemMapper;
     public OrderResponse toOrderResponse(Order order) {
         return OrderResponse.builder()
-                .orderId(order.getOrderId())
-                .customerId(order.getCustomer().getAccountId())
+                .orderId(order.getId())
+                .customerId(order.getCustomer().getId())
                 .orderDate(order.getOrderDate())
                 .totalAmount(order.getTotalAmount())
                 .name(order.getName())

@@ -28,8 +28,8 @@ public class ReviewMapper {
 
     public ReviewResponse toReviewResponse(Review review) {
         return ReviewResponse.builder()
-                .reviewId(review.getReviewId())
-                .productId(review.getProduct().getProductId())
+                .reviewId(review.getId())
+                .productId(review.getProduct().getId())
                 .user(accountMapper.toAccountResponse(review.getUser()))
                 .rating(review.getRating())
                 .comment(review.getComment())

@@ -20,7 +20,7 @@ import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.entities.Inventory;
 import com.lezh1n.goodminton_shop_api.entities.Order;
 import com.lezh1n.goodminton_shop_api.entities.OrderItem;
-import com.lezh1n.goodminton_shop_api.entities.OrderItemInventoryAllocation;
+import com.lezh1n.goodminton_shop_api.entities.OrderItemAllocation;
 import com.lezh1n.goodminton_shop_api.entities.Payment;
 import com.lezh1n.goodminton_shop_api.entities.ProductDiscount;
 import com.lezh1n.goodminton_shop_api.entities.VariantSize;
@@ -123,7 +123,7 @@ public class OrderServiceImpl implements OrderService {
         Order savedOrder = orderRepository.save(order);
 
         if (request.getPaymentMethod() == PaymentMethod.BANKING) {
-            PaymentResponse paymentResponse = paymentService.createPayment(savedOrder.getOrderId(),
+            PaymentResponse paymentResponse = paymentService.createPayment(savedOrder.getId(),
                     request.getPaymentMethod(), totalAmount);
             Payment payment = paymentRepository.findById(paymentResponse.getPaymentId())
                     .orElseThrow(() -> new AppException(ErrorCode.PAYMENT_NOT_FOUND));
@@ -131,7 +131,7 @@ public class OrderServiceImpl implements OrderService {
             savedOrder = orderRepository.save(savedOrder);
         }
 
-        cartService.clearCart(customer.getAccountId());
+        cartService.clearCart(customer.getId());
 
         return orderMapper.toOrderResponse(savedOrder);
     }
@@ -198,7 +198,7 @@ public class OrderServiceImpl implements OrderService {
             inventory.setUpdatedAt(LocalDateTime.now());
             inventoryRepository.save(inventory);
 
-            OrderItemInventoryAllocation allocation = OrderItemInventoryAllocation.builder()
+            OrderItemAllocation allocation = OrderItemAllocation.builder()
                     .orderItem(orderItem)
                     .inventory(inventory)
                     .quantity(item.getQuantity())
@@ -241,8 +241,8 @@ public class OrderServiceImpl implements OrderService {
                 if (inventory.getQuantity() < alloc.getQuantity()) {
                     throw new AppException(ErrorCode.ORDER_INVENTORY_INSUFFICIENT);
                 }
-                if (!inventory.getVariantSize().getVariantSizeId()
-                        .equals(orderItem.getVariantSize().getVariantSizeId())) {
+                if (!inventory.getVariantSize().getId()
+                        .equals(orderItem.getVariantSize().getId())) {
                     throw new AppException(ErrorCode.ALLOCATION_VARIANT_SIZE_INVALID);
                 }
 
@@ -250,7 +250,7 @@ public class OrderServiceImpl implements OrderService {
                 inventory.setUpdatedAt(LocalDateTime.now());
                 inventoryRepository.save(inventory);
 
-                OrderItemInventoryAllocation allocation = OrderItemInventoryAllocation.builder()
+                OrderItemAllocation allocation = OrderItemAllocation.builder()
                         .orderItem(orderItem)
                         .inventory(inventory)
                         .quantity(alloc.getQuantity())
@@ -297,9 +297,9 @@ public class OrderServiceImpl implements OrderService {
 
         if (order.getOrderStatus() == OrderStatus.PAID || order.getOrderStatus() == OrderStatus.SHIPPED) {
             for (OrderItem item : order.getOrderItems()) {
-                List<OrderItemInventoryAllocation> allocations = inventoryAllocationRepository
-                        .findByOrderItemOrderItemId(item.getOrderItemId());
-                for (OrderItemInventoryAllocation allocation : allocations) {
+                List<OrderItemAllocation> allocations = inventoryAllocationRepository
+                        .findByOrderItemOrderItemId(item.getId());
+                for (OrderItemAllocation allocation : allocations) {
                     Inventory inventory = allocation.getInventory();
                     inventory.setQuantity(inventory.getQuantity() + allocation.getQuantity());
                     inventory.setUpdatedAt(LocalDateTime.now());

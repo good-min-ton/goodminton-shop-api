@@ -1,9 +1,15 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
 
 spring:
   application:
     name: goodminton-shop-api
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  config:
+    import: optional:file:.env.${spring.profiles.active}[.properties]
 
   servlet:
     multipart:
@@ -11,24 +17,20 @@ spring:
       max-request-size: 50MB
 
   datasource:
-    url: jdbc:postgresql://localhost:${POSTGRES_HOST_PORT}/goodminton?stringtype=unspecified
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:goodminton}?stringtype=unspecified
+    username: ${POSTGRES_USERNAME:admin}
+    password: ${POSTGRES_PASSWORD:postgresql123}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: none
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-    format-sql: true
 
   data:
     redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_HOST_PORT}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
 
   flyway:
     enabled: true
@@ -37,16 +39,11 @@ spring:
     baseline-on-migrate: true
     baseline-version: 1
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: goodminton
-          secret-key: ${JWT_SECRET}
-          access-token:
-            expiration: 600000
-          refresh-token:
-            expiration: 604800000
+  jwt:
+    issuer-uri: goodminton
+    secret: ${JWT_SECRET}
+    access-token-expiration: ${JWT_ACCESS_EXP:600000}
+    refresh-token-expiration: ${JWT_REFRESH_EXP:604800000}
   mail:
     host: smtp.gmail.com
     port: ${MAIL_PORT}
@@ -72,14 +69,9 @@ payos:
   return-url: ${PAYOS_RETURN_URL}
   cancel-url: ${PAYOS_CANCEL_URL}
 
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql: TRACE
-
 app:
   frontend-url: ${FRONTEND_URL}
+  admin:
+    email: ${ADMIN_EMAIL}
+    phone: ${ADMIN_PHONE}
+    password: ${ADMIN_PASSWORD}

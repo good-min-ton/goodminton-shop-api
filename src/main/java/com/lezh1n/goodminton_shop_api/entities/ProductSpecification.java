@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "product_specification")
+@Table(name = "product_specifications")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,7 +23,8 @@ public class ProductSpecification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer specId;
+    @Column(name = "id")
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

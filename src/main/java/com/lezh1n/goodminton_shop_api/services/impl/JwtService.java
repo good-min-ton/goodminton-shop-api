@@ -30,16 +30,16 @@ public class JwtService {
 
     private final TokenService tokenService;
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
+    @Value("${spring.jwt.issuer-uri}")
     private String tokenIssuer;
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}")
+    @Value("${spring.jwt.secret}")
     private String secretKey;
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.access-token.expiration}")
+    @Value("${spring.jwt.access-token-expiration}")
     private long accessTokenExpiration;
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.refresh-token.expiration}")
+    @Value("${spring.jwt.refresh-token-expiration}")
     private long refreshTokenExpiration;
 
     public String generateAccessToken(Account account) {

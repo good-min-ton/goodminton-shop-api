@@ -42,7 +42,7 @@ public class StoreServiceImpl implements StoreService {
         Account account = accountRepository.findById(request.getAdminId())
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
 
-        checkValidAdminAccount(account.getAccountId());
+        checkValidAdminAccount(account.getId());
 
         store.setAdmin(account);
 

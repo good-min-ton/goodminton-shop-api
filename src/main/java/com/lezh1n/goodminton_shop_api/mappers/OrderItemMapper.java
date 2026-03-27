@@ -22,15 +22,15 @@ public class OrderItemMapper {
     private final SizeMapper sizeMapper;
 
     public OrderItemResponse toOrderItemResponse(OrderItem item) {
-        VariantSize variantSize = variantSizeRepository.findById(item.getVariantSize().getVariantSizeId())
+        VariantSize variantSize = variantSizeRepository.findById(item.getVariantSize().getId())
                 .orElseThrow(() -> new AppException(ErrorCode.VARIANT_SIZE_NOT_FOUND));
         Product product = variantSize.getVariant().getProduct();
         return OrderItemResponse.builder()
-                .orderItemId(item.getOrderItemId())
-                .variantSizeId(item.getVariantSize().getVariantSizeId())
+                .orderItemId(item.getId())
+                .variantSizeId(item.getVariantSize().getId())
                 .quantity(item.getQuantity())
                 .unitPrice(item.getUnitPrice())
-                .productId(product.getProductId())
+                .productId(product.getId())
                 .productName(product.getName())
                 .version(versionMapper.toVersionResponse(variantSize.getVariant().getVersion()))
                 .color(colorMapper.toColorResponse(variantSize.getVariant().getColor()))

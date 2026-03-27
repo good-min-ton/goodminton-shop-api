@@ -29,7 +29,7 @@ public class StoreMapper {
 
     public StoreResponse toStoreResponse(Store store) {
         return StoreResponse.builder()
-                .storeId(store.getStoreId())
+                .storeId(store.getId())
                 .name(store.getName())
                 .address(store.getAddress())
                 .contact(store.getContact())

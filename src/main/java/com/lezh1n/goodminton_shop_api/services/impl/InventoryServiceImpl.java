@@ -86,10 +86,10 @@ public class InventoryServiceImpl implements InventoryService {
             Product product = variant.getProduct();
 
             VariantSizeInventoryResponse sizeResponse = VariantSizeInventoryResponse.builder()
-                    .variantSizeId(variantSize.getVariantSizeId())
+                    .variantSizeId(variantSize.getId())
                     .price(variantSize.getPrice())
                     .updateAt(inventory.getUpdatedAt())
-                    .inventoryId(inventory.getInventoryId())
+                    .inventoryId(inventory.getId())
                     .quantity(inventory.getQuantity())
                     .build();
             productMap.computeIfAbsent(product, k -> new HashMap<>())
@@ -102,21 +102,21 @@ public class InventoryServiceImpl implements InventoryService {
                     Product product = entry.getKey();
                     List<InventoryByVariantResponse> variantResponses = entry.getValue().entrySet().stream()
                             .map(variantEntry -> InventoryByVariantResponse.builder()
-                                    .variantId(variantEntry.getKey().getVariantId())
+                                    .variantId(variantEntry.getKey().getId())
                                     .version(versionMapper.toVersionResponse(variantEntry.getKey().getVersion()))
                                     .color(colorMapper.toColorResponse(variantEntry.getKey().getColor()))
                                     .variantSizeInventory(variantEntry.getValue())
                                     .build())
                             .toList();
                     return InventoryByProductResponse.builder()
-                            .productId(product.getProductId())
+                            .productId(product.getId())
                             .productName(product.getName())
                             .createAt(product.getCreateAt())
                             .variants(variantResponses)
                             .build();
                 }).toList();
         return InventoryByStoreResponse.builder()
-                .storeId(store.getStoreId())
+                .storeId(store.getId())
                 .storeName(store.getName())
                 .storeAddress(store.getAddress())
                 .products(productResponses)

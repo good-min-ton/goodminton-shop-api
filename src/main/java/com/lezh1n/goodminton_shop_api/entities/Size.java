@@ -16,7 +16,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "size")
+@Table(name = "sizes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,8 +25,8 @@ public class Size {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "size_id")
-    private Integer sizeId;
+    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "name", length = 50, unique = true, nullable = false)
     private String name;
