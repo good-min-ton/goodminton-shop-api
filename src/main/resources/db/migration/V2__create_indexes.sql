@@ -41,16 +41,16 @@ CREATE INDEX idx_specs_product_id ON product_specifications (product_id);
 CREATE INDEX idx_variants_product_id ON product_variants (product_id);
 
 -- ------------------------------------------------------------
--- variant_images
+-- resources
 -- ------------------------------------------------------------
--- Lấy ảnh theo variant, sort theo thứ tự
-CREATE INDEX idx_images_variant_sort ON variant_images (variant_id, sort_order);
+CREATE INDEX idx_resources_owner ON resources (owner_type, owner_id, sort_order);
 
 -- ------------------------------------------------------------
--- product_discounts
+-- product_variants — variant đang giảm giá
 -- ------------------------------------------------------------
--- Query "variant này có đang giảm giá không?"
-CREATE INDEX idx_discounts_lookup ON product_discounts (variant_id, is_active, start_time, end_time);
+CREATE INDEX idx_variants_sale_price ON product_variants (sale_price)
+WHERE
+    sale_price IS NOT NULL;
 
 -- ------------------------------------------------------------
 -- inventory
@@ -87,13 +87,6 @@ CREATE INDEX idx_orders_order_date ON orders (order_date);
 CREATE INDEX idx_order_items_order_id ON order_items (order_id);
 
 CREATE INDEX idx_order_items_variant_id ON order_items (variant_id);
-
--- ------------------------------------------------------------
--- order_item_allocations
--- ------------------------------------------------------------
-CREATE INDEX idx_allocations_order_item_id ON order_item_allocations (order_item_id);
-
-CREATE INDEX idx_allocations_inventory_id ON order_item_allocations (inventory_id);
 
 -- ------------------------------------------------------------
 -- payments

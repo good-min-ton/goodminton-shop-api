@@ -28,6 +28,14 @@ CREATE TYPE payment_status AS ENUM ('PENDING', 'PAID', 'FAILED');
 
 CREATE TYPE size_type AS ENUM ('RACKET', 'NON_RACKET');
 
+CREATE TYPE resource_type AS ENUM ('IMAGE', 'VIDEO');
+
+CREATE TYPE resource_owner AS ENUM (
+    'PRODUCT_THUMBNAIL',
+    'VARIANT_IMAGE',
+    'REVIEW_MEDIA'
+);
+
 -- ------------------------------------------------------------
 -- TABLES
 -- ------------------------------------------------------------
@@ -80,10 +88,10 @@ CREATE TABLE
         related_product_id INTEGER,
         name VARCHAR(100) NOT NULL,
         description TEXT,
-        thumbnail_url VARCHAR(255) NOT NULL,
         slug VARCHAR(200) NOT NULL UNIQUE,
         is_visible BOOLEAN NOT NULL DEFAULT TRUE,
         created_at TIMESTAMP NOT NULL DEFAULT NOW (),
+        updated_at TIMESTAMP NOT NULL DEFAULT NOW (),
         CONSTRAINT fk_products_category FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE RESTRICT,
         CONSTRAINT fk_products_brand FOREIGN KEY (brand_id) REFERENCES brands (id) ON DELETE RESTRICT,
         CONSTRAINT fk_products_related FOREIGN KEY (related_product_id) REFERENCES products (id) ON DELETE SET NULL
@@ -123,38 +131,12 @@ CREATE TABLE
         size_id INTEGER,
         sku_code VARCHAR(100) NOT NULL UNIQUE,
         price DECIMAL(10, 2) NOT NULL,
+        sale_price DECIMAL(10, 2),
         updated_at TIMESTAMP NOT NULL DEFAULT NOW (),
         CONSTRAINT fk_variants_product FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE,
         CONSTRAINT fk_variants_color FOREIGN KEY (color_id) REFERENCES colors (id) ON DELETE RESTRICT,
         CONSTRAINT fk_variants_size FOREIGN KEY (size_id) REFERENCES sizes (id) ON DELETE RESTRICT,
         CONSTRAINT uq_variant UNIQUE (product_id, color_id, size_id)
-    );
-
--- ------------------------------------------------------------
-CREATE TABLE
-    variant_images (
-        id SERIAL PRIMARY KEY,
-        variant_id INTEGER NOT NULL,
-        public_id VARCHAR(255) NOT NULL,
-        image_url VARCHAR(255) NOT NULL,
-        sort_order INTEGER NOT NULL DEFAULT 0,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW (),
-        CONSTRAINT fk_images_variant FOREIGN KEY (variant_id) REFERENCES product_variants (id) ON DELETE CASCADE
-    );
-
--- ------------------------------------------------------------
-CREATE TABLE
-    product_discounts (
-        id SERIAL PRIMARY KEY,
-        variant_id INTEGER NOT NULL,
-        sale_price DECIMAL(10, 2) NOT NULL,
-        is_active BOOLEAN NOT NULL DEFAULT TRUE,
-        start_time TIMESTAMP NOT NULL,
-        end_time TIMESTAMP NOT NULL,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW (),
-        CONSTRAINT fk_discounts_variant FOREIGN KEY (variant_id) REFERENCES product_variants (id) ON DELETE CASCADE,
-        CONSTRAINT chk_discount_price CHECK (sale_price > 0),
-        CONSTRAINT chk_discount_time CHECK (end_time > start_time)
     );
 
 -- ------------------------------------------------------------
@@ -210,18 +192,6 @@ CREATE TABLE
 
 -- ------------------------------------------------------------
 CREATE TABLE
-    order_item_allocations (
-        id SERIAL PRIMARY KEY,
-        order_item_id INTEGER NOT NULL,
-        inventory_id INTEGER NOT NULL,
-        quantity INTEGER NOT NULL,
-        CONSTRAINT fk_allocations_item FOREIGN KEY (order_item_id) REFERENCES order_items (id) ON DELETE CASCADE,
-        CONSTRAINT fk_allocations_inventory FOREIGN KEY (inventory_id) REFERENCES inventory (id) ON DELETE RESTRICT,
-        CONSTRAINT chk_allocations_quantity CHECK (quantity > 0)
-    );
-
--- ------------------------------------------------------------
-CREATE TABLE
     payments (
         id SERIAL PRIMARY KEY,
         order_id INTEGER NOT NULL,
@@ -254,4 +224,16 @@ CREATE TABLE
         CONSTRAINT fk_reviews_order_item FOREIGN KEY (order_item_id) REFERENCES order_items (id) ON DELETE RESTRICT,
         CONSTRAINT uq_review UNIQUE (order_item_id),
         CONSTRAINT chk_review_rating CHECK (rating BETWEEN 1 AND 5)
+    );
+
+CREATE TABLE
+    resources (
+        id SERIAL PRIMARY KEY,
+        public_id VARCHAR(255) NOT NULL UNIQUE, -- Cloudinary public_id
+        url VARCHAR(255) NOT NULL,
+        type resource_type NOT NULL DEFAULT 'IMAGE',
+        owner_type resource_owner NOT NULL,
+        owner_id INTEGER NOT NULL, -- product_id / variant_id / review_id
+        sort_order INTEGER NOT NULL DEFAULT 0,
+        created_at TIMESTAMP NOT NULL DEFAULT NOW ()
     );
