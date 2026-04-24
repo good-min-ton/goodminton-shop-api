@@ -185,6 +185,11 @@ public enum ErrorCode {
     FILE_UPLOAD_FAILED(9703, "Có lỗi xảy ra khi upload file ảnh", HttpStatus.BAD_REQUEST),
     FILE_SIZE_EXCEEDED(9704, "File size exceeds maximum allowed limit", HttpStatus.BAD_REQUEST),
 
+    // Resource (9801 - 9900)
+    RESOURCE_NOT_FOUND(9801, "Không tìm thấy resource", HttpStatus.NOT_FOUND),
+    RESOURCE_OWNER_MISMATCH(9802, "Resource không thuộc owner được chỉ định", HttpStatus.BAD_REQUEST),
+    RESOURCE_REORDER_INVALID(9803, "Danh sách reorder không khớp với resource hiện có", HttpStatus.BAD_REQUEST),
+
     // Data errors
     ENUM_INVALID_VALUE(9800, "Invalid enum value", HttpStatus.BAD_REQUEST),
 

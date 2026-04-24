@@ -8,18 +8,17 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Resources;
 import com.lezh1n.goodminton_shop_api.enums.ResourceOwner;
 import com.lezh1n.goodminton_shop_api.enums.ResourceType;
-import com.lezh1n.goodminton_shop_api.services.impl.CloudinaryServiceImpl.CloudinaryFileInfo;
 
 @Component
 public class ResourceMapper {
 
-    public Resources toResource(ResourceOwner ownerType, Integer ownerId, CloudinaryFileInfo fileInfo,
-            ResourceType type, int sortOrder) {
+    public Resources toResource(ResourceOwner ownerType, Integer ownerId,
+            String publicId, String url, ResourceType type, int sortOrder) {
         return Resources.builder()
                 .ownerType(ownerType)
                 .ownerId(ownerId)
-                .publicId(fileInfo.publicId())
-                .url(fileInfo.url())
+                .publicId(publicId)
+                .url(url)
                 .type(type)
                 .sortOrder(sortOrder)
                 .createdAt(LocalDateTime.now())

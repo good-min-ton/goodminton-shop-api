@@ -22,27 +22,22 @@ import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.entities.OrderItem;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
-import com.lezh1n.goodminton_shop_api.entities.Resources;
 import com.lezh1n.goodminton_shop_api.entities.Review;
 import com.lezh1n.goodminton_shop_api.enums.ResourceOwner;
-import com.lezh1n.goodminton_shop_api.enums.ResourceType;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.ProductMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductSpecificationMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductVariantMapper;
-import com.lezh1n.goodminton_shop_api.mappers.ResourceMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ReviewMapper;
 import com.lezh1n.goodminton_shop_api.repositories.OrderItemRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
-import com.lezh1n.goodminton_shop_api.repositories.ResourceRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ReviewRepository;
 import com.lezh1n.goodminton_shop_api.security.CurrentAccountProvider;
-import com.lezh1n.goodminton_shop_api.services.CloudinaryService;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
-import com.lezh1n.goodminton_shop_api.services.impl.CloudinaryServiceImpl.CloudinaryFileInfo;
+import com.lezh1n.goodminton_shop_api.services.ResourceService;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -56,17 +51,15 @@ public class ProductServiceImpl implements ProductService {
     private final ProductVariantRepository productVariantRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
     private final ReviewRepository reviewRepository;
-    private final ResourceRepository resourceRepository;
     private final OrderItemRepository orderItemRepository;
 
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
-    private final ResourceMapper resourceMapper;
     private final ReviewMapper reviewMapper;
 
+    private final ResourceService resourceService;
     private final CurrentAccountProvider currentAccountProvider;
-    private final CloudinaryService cloudinaryService;
 
     @Override
     public ProductResponse createProduct(ProductRequest request, MultipartFile thumbnail) {
@@ -87,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(saved);
 
         if (thumbnail != null && !thumbnail.isEmpty()) {
-            uploadThumbnail(saved.getId(), thumbnail);
+            resourceService.upload(ResourceOwner.PRODUCT_THUMBNAIL, saved.getId(), thumbnail);
         }
 
         return buildProductResponse(saved);
@@ -122,7 +115,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
 
         if (thumbnail != null && !thumbnail.isEmpty()) {
-            replaceThumbnail(product.getId(), thumbnail);
+            resourceService.replaceSingle(ResourceOwner.PRODUCT_THUMBNAIL, product.getId(), thumbnail);
         }
 
         return buildProductResponse(product);
@@ -137,7 +130,8 @@ public class ProductServiceImpl implements ProductService {
             throw new AppException(ErrorCode.PRODUCT_HAS_RELATED_CHILDREN);
         }
 
-        deleteAllResourcesOfProduct(product);
+        resourceService.deleteByOwner(ResourceOwner.PRODUCT_THUMBNAIL, productId);
+        product.getVariants().forEach(v -> resourceService.deleteByOwner(ResourceOwner.VARIANT_IMAGE, v.getId()));
         productRepository.delete(product);
     }
 
@@ -146,22 +140,12 @@ public class ProductServiceImpl implements ProductService {
         if (!productVariantRepository.existsById(variantId)) {
             throw new AppException(ErrorCode.VARIANT_NOT_FOUND);
         }
-        CloudinaryFileInfo info = cloudinaryService.storeFile(file, "variant_image");
-        int nextOrder = resourceRepository
-                .findTopByOwnerTypeAndOwnerIdOrderBySortOrderDesc(ResourceOwner.VARIANT_IMAGE, variantId)
-                .map(r -> r.getSortOrder() + 1)
-                .orElse(0);
-        Resources saved = resourceRepository.save(resourceMapper.toResource(
-                ResourceOwner.VARIANT_IMAGE, variantId, info, ResourceType.IMAGE, nextOrder));
-        return resourceMapper.toResourceResponse(saved);
+        return resourceService.upload(ResourceOwner.VARIANT_IMAGE, variantId, file);
     }
 
     @Override
     public void deleteVariantImage(Integer imageId) {
-        Resources image = resourceRepository.findById(imageId)
-                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_IMAGE_NOT_FOUND));
-        cloudinaryService.deleteFile(image.getPublicId());
-        resourceRepository.delete(image);
+        resourceService.delete(imageId);
     }
 
     @Override
@@ -193,9 +177,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private ProductResponse buildProductResponse(Product product) {
-        ResourceResponse thumbnail = resourceRepository
-                .findFirstByOwnerTypeAndOwnerIdOrderBySortOrderAsc(ResourceOwner.PRODUCT_THUMBNAIL, product.getId())
-                .map(resourceMapper::toResourceResponse)
+        ResourceResponse thumbnail = resourceService
+                .findSingle(ResourceOwner.PRODUCT_THUMBNAIL, product.getId())
                 .orElse(null);
 
         ProductResponse response = productMapper.toProductResponse(product, thumbnail);
@@ -209,41 +192,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private ProductVariantResponse buildVariantResponse(ProductVariant variant) {
-        List<ResourceResponse> images = resourceRepository
-                .findByOwnerTypeAndOwnerIdOrderBySortOrderAsc(ResourceOwner.VARIANT_IMAGE, variant.getId())
-                .stream()
-                .map(resourceMapper::toResourceResponse)
-                .toList();
+        List<ResourceResponse> images = resourceService.listByOwner(ResourceOwner.VARIANT_IMAGE, variant.getId());
         return productVariantMapper.toProductVariantResponse(variant, images);
-    }
-
-    private void uploadThumbnail(Integer productId, MultipartFile file) {
-        CloudinaryFileInfo info = cloudinaryService.storeFile(file, "product_thumbnail");
-        resourceRepository.save(resourceMapper.toResource(
-                ResourceOwner.PRODUCT_THUMBNAIL, productId, info, ResourceType.IMAGE, 0));
-    }
-
-    private void replaceThumbnail(Integer productId, MultipartFile file) {
-        resourceRepository.findFirstByOwnerTypeAndOwnerIdOrderBySortOrderAsc(
-                ResourceOwner.PRODUCT_THUMBNAIL, productId)
-                .ifPresent(existing -> {
-                    cloudinaryService.deleteFile(existing.getPublicId());
-                    resourceRepository.delete(existing);
-                });
-        uploadThumbnail(productId, file);
-    }
-
-    private void deleteAllResourcesOfProduct(Product product) {
-        deleteResources(ResourceOwner.PRODUCT_THUMBNAIL, product.getId());
-        product.getVariants().forEach(v -> deleteResources(ResourceOwner.VARIANT_IMAGE, v.getId()));
-    }
-
-    private void deleteResources(ResourceOwner ownerType, Integer ownerId) {
-        resourceRepository.findByOwnerTypeAndOwnerIdOrderBySortOrderAsc(ownerType, ownerId)
-                .forEach(r -> {
-                    cloudinaryService.deleteFile(r.getPublicId());
-                    resourceRepository.delete(r);
-                });
     }
 
     private void updateSpecifications(Product product, List<ProductSpecificationRequest> requests) {
@@ -259,7 +209,7 @@ public class ProductServiceImpl implements ProductService {
 
     private void updateVariants(Product product, List<ProductVariantRequest> requests) {
         List<ProductVariant> existing = productVariantRepository.findByProduct_Id(product.getId());
-        existing.forEach(v -> deleteResources(ResourceOwner.VARIANT_IMAGE, v.getId()));
+        existing.forEach(v -> resourceService.deleteByOwner(ResourceOwner.VARIANT_IMAGE, v.getId()));
         productVariantRepository.deleteByProduct_Id(product.getId());
         product.getVariants().clear();
         productVariantRepository.flush();

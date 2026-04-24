@@ -2,10 +2,14 @@ package com.lezh1n.goodminton_shop_api.services;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lezh1n.goodminton_shop_api.services.impl.CloudinaryServiceImpl.CloudinaryFileInfo;
+import com.lezh1n.goodminton_shop_api.enums.ResourceType;
 
 public interface CloudinaryService {
-    public CloudinaryFileInfo storeFile(MultipartFile file, String folderName);
 
-    public void deleteFile(String imageUrl);
+    UploadedFile storeFile(MultipartFile file, String folderName);
+
+    void deleteFile(String publicId);
+
+    record UploadedFile(String publicId, String url, ResourceType type) {
+    }
 }
