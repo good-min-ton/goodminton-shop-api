@@ -1,9 +1,12 @@
 package com.lezh1n.goodminton_shop_api.enums;
 
 public enum OrderStatus {
-    NEW,
-    PAID,
-    SHIPPED,
+    PENDING,
+    CONFIRMED,
+    PREPARING,
+    SHIPPING,
+    DELIVERED,
     COMPLETED,
-    CANCEL
+    CANCELLED,
+    RETURN_REQUESTED
 }

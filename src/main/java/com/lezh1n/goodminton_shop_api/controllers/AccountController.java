@@ -47,7 +47,7 @@ public class AccountController {
     public ApiResponse<Page<AccountResponse>> getAllAccounts(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "createAt") String sortBy,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDir,
             @RequestParam(required = false) UserRole role) {
 
@@ -61,13 +61,6 @@ public class AccountController {
     public ApiResponse<AccountResponse> createStoreAdmin(@Valid @RequestBody CreateAccountRequest request) {
         return ApiResponse.<AccountResponse>builder()
                 .result(authService.register(request, UserRole.STORE_ADMIN))
-                .build();
-    }
-
-    @PostMapping("/distributor")
-    public ApiResponse<AccountResponse> createDistributor(@Valid @RequestBody CreateAccountRequest request) {
-        return ApiResponse.<AccountResponse>builder()
-                .result(authService.register(request, UserRole.DISTRIBUTOR))
                 .build();
     }
 

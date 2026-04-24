@@ -34,8 +34,8 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public BrandResponse getBrandById(Integer brandId) {
-        Brand brand = brandRepository.findById(brandId).orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
-
+        Brand brand = brandRepository.findById(brandId)
+                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
         return brandMapper.toBrandResponse(brand);
     }
 
@@ -47,22 +47,21 @@ public class BrandServiceImpl implements BrandService {
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public BrandResponse updateBrand(Integer brandId, BrandRequest request) {
-        Brand brand = brandRepository.findById(brandId).orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
-
+        Brand brand = brandRepository.findById(brandId)
+                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
         brand.setName(request.getBrandName());
-
         return brandMapper.toBrandResponse(brandRepository.save(brand));
     }
 
     @Override
     public void deleteBrand(Integer brandId) {
-        Brand brand = brandRepository.findById(brandId).orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+        Brand brand = brandRepository.findById(brandId)
+                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
 
-        if (productRepository.existsByBrandId(brandId)) {
+        if (productRepository.existsByBrand_Id(brandId)) {
             throw new AppException(ErrorCode.BRAND_PRODUCT_EXISTED);
         }
 
         brandRepository.delete(brand);
     }
-
 }

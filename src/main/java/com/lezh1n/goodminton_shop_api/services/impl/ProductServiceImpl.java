@@ -1,9 +1,7 @@
 package com.lezh1n.goodminton_shop_api.services.impl;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,53 +10,35 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lezh1n.goodminton_shop_api.dtos.request.DiscountRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.VariantSizeRequest;
-import com.lezh1n.goodminton_shop_api.dtos.response.DiscountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.SpecificVariantResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.VariantByAttributeResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.VariantImageResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.VariantSizeResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
-import com.lezh1n.goodminton_shop_api.entities.Color;
+import com.lezh1n.goodminton_shop_api.entities.OrderItem;
 import com.lezh1n.goodminton_shop_api.entities.Product;
-import com.lezh1n.goodminton_shop_api.entities.ProductDiscount;
-import com.lezh1n.goodminton_shop_api.entities.ProductSpecification;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
+import com.lezh1n.goodminton_shop_api.entities.Resources;
 import com.lezh1n.goodminton_shop_api.entities.Review;
-import com.lezh1n.goodminton_shop_api.entities.Size;
-import com.lezh1n.goodminton_shop_api.entities.VariantImage;
-import com.lezh1n.goodminton_shop_api.entities.VariantSize;
-import com.lezh1n.goodminton_shop_api.entities.Version;
+import com.lezh1n.goodminton_shop_api.enums.ResourceOwner;
+import com.lezh1n.goodminton_shop_api.enums.ResourceType;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
-import com.lezh1n.goodminton_shop_api.mappers.ColorMapper;
-import com.lezh1n.goodminton_shop_api.mappers.DiscountMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductSpecificationMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductVariantMapper;
+import com.lezh1n.goodminton_shop_api.mappers.ResourceMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ReviewMapper;
-import com.lezh1n.goodminton_shop_api.mappers.VariantImageMapper;
-import com.lezh1n.goodminton_shop_api.mappers.VariantSizeMapper;
-import com.lezh1n.goodminton_shop_api.mappers.VersionMapper;
-import com.lezh1n.goodminton_shop_api.repositories.ColorRepository;
-import com.lezh1n.goodminton_shop_api.repositories.InventoryRepository;
-import com.lezh1n.goodminton_shop_api.repositories.ProductDiscountRepository;
+import com.lezh1n.goodminton_shop_api.repositories.OrderItemRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
+import com.lezh1n.goodminton_shop_api.repositories.ResourceRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ReviewRepository;
-import com.lezh1n.goodminton_shop_api.repositories.SizeRepository;
-import com.lezh1n.goodminton_shop_api.repositories.VariantImageRepository;
-import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
-import com.lezh1n.goodminton_shop_api.repositories.VersionRepository;
 import com.lezh1n.goodminton_shop_api.security.CurrentAccountProvider;
 import com.lezh1n.goodminton_shop_api.services.CloudinaryService;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
@@ -75,235 +55,129 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductVariantRepository productVariantRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
-    private final VersionRepository versionRepository;
-    private final ColorRepository colorRepository;
-    private final SizeRepository sizeRepository;
-    private final InventoryRepository inventoryRepository;
-    private final ProductDiscountRepository productDiscountRepository;
-    private final VariantSizeRepository variantSizeRepository;
     private final ReviewRepository reviewRepository;
-    private final VariantImageRepository variantImageRepository;
+    private final ResourceRepository resourceRepository;
+    private final OrderItemRepository orderItemRepository;
+
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
-    private final VariantSizeMapper variantSizeMapper;
-    private final VariantImageMapper variantImageMapper;
-    private final VersionMapper versionMapper;
-    private final ColorMapper colorMapper;
-    private final DiscountMapper discountMapper;
+    private final ResourceMapper resourceMapper;
     private final ReviewMapper reviewMapper;
+
     private final CurrentAccountProvider currentAccountProvider;
     private final CloudinaryService cloudinaryService;
 
-    /* -- Public methods -- */
-    // Product CRUD
     @Override
-    @Transactional
     public ProductResponse createProduct(ProductRequest request, MultipartFile thumbnail) {
+        if (productRepository.existsBySlug(request.getSlug())) {
+            throw new AppException(ErrorCode.PRODUCT_SLUG_EXISTED);
+        }
+
         Product product = productMapper.toProduct(request);
-        CloudinaryFileInfo fileInfo = cloudinaryService.storeFile(thumbnail, "product_thumbnail");
-        product.setThumbnailUrl(fileInfo.url());
-        Product savedProduct = productRepository.save(product);
-        createSpecifications(savedProduct, request.getSpecifications());
-        request.getVariants().forEach(variantReq -> createVariant(savedProduct, variantReq));
-        productRepository.save(product);
-        return getProductById(savedProduct.getId());
+        Product saved = productRepository.save(product);
+
+        if (request.getSpecifications() != null) {
+            request.getSpecifications().forEach(s -> saved.getSpecifications()
+                    .add(productSpecificationMapper.toProductSpecification(saved, s)));
+        }
+        request.getVariants().forEach(v -> saved.getVariants()
+                .add(productVariantMapper.toProductVariant(saved, v)));
+
+        productRepository.save(saved);
+
+        if (thumbnail != null && !thumbnail.isEmpty()) {
+            uploadThumbnail(saved.getId(), thumbnail);
+        }
+
+        return buildProductResponse(saved);
     }
 
     @Override
     public ProductResponse getProductById(Integer id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-
-        ProductResponse productResponse = productMapper.toProductResponse(product);
-
-        productResponse.setSpecifications(product.getSpecifications().stream()
-                .map(productSpecificationMapper::toSpecificationResponse)
-                .toList());
-
-        List<ProductVariantResponse> variantResponses = product.getVariants().stream()
-                .map(variant -> {
-                    ProductVariantResponse vr = productVariantMapper.toProductVariantResponse(variant);
-
-                    vr.setSizes(variant.getSizes().stream().map(
-                            variantSize -> {
-                                VariantSizeResponse vs = variantSizeMapper.toVariantSizeResponse(variantSize);
-
-                                BigDecimal discountPrice = null;
-                                Optional<ProductDiscount> discount = productDiscountRepository
-                                        .findActiveDiscountByVariantSizeId(id,
-                                                LocalDateTime.now());
-                                if (discount.isPresent()) {
-                                    discountPrice = discount.get().getSalePrice();
-                                }
-                                vs.setDiscountPrice(discountPrice);
-
-                                return vs;
-                            }).toList());
-
-                    vr.setImages(variant.getImages().stream().map(variantImageMapper::toVariantImageResponse).toList());
-
-                    return vr;
-                })
-                .toList();
-
-        productResponse.setVariants(variantResponses);
-        return productResponse;
+        return buildProductResponse(product);
     }
 
     @Override
     public Page<ProductResponse> getAllProducts(int page, int size, String sortBy, String sortDir) {
-
         Sort sort = Sort.by(sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
-        Page<Product> productPage = productRepository.findAll(pageable);
-
-        return productPage.map(product -> ProductResponse.builder()
-                .productId(product.getId())
-                .name(product.getName())
-                .description(product.getDescription())
-                .thumbnailUrl(product.getThumbnailUrl())
-                .createAt(product.getCreateAt())
-                .build());
+        Pageable pageable = PageRequest.of(Math.max(0, page - 1), size, sort);
+        return productRepository.findAll(pageable).map(this::buildProductResponse);
     }
 
     @Override
-    @Transactional
     public ProductResponse updateProduct(Integer productId, ProductRequest request, MultipartFile thumbnail) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
+        if (!product.getSlug().equals(request.getSlug()) && productRepository.existsBySlug(request.getSlug())) {
+            throw new AppException(ErrorCode.PRODUCT_SLUG_EXISTED);
+        }
+
         productMapper.updateProduct(product, request);
-        CloudinaryFileInfo fileInfo = cloudinaryService.storeFile(thumbnail, "product_thumbnail");
-        product.setThumbnailUrl(fileInfo.url());
-        updateSpecification(product, request.getSpecifications());
-        updateVariant(product, request.getVariants());
+        updateSpecifications(product, request.getSpecifications());
+        updateVariants(product, request.getVariants());
         productRepository.save(product);
 
-        return getProductById(productId);
+        if (thumbnail != null && !thumbnail.isEmpty()) {
+            replaceThumbnail(product.getId(), thumbnail);
+        }
+
+        return buildProductResponse(product);
     }
 
     @Override
-    @Transactional
     public void deleteProduct(Integer productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
+        if (productRepository.existsByRelatedProduct_Id(productId)) {
+            throw new AppException(ErrorCode.PRODUCT_HAS_RELATED_CHILDREN);
+        }
+
+        deleteAllResourcesOfProduct(product);
         productRepository.delete(product);
     }
 
-    // Variant image
     @Override
-    public VariantImageResponse uploadVariantImage(Integer variantId, MultipartFile file) {
-        CloudinaryFileInfo fileInfo = cloudinaryService.storeFile(file, "products");
-        ProductVariant variant = productVariantRepository.findById(variantId)
-                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
-        VariantImage vi = variantImageRepository.findTopByOrderBySortOrderDesc();
-        VariantImage variantImage = VariantImage.builder()
-                .variant(variant)
-                .publicId(fileInfo.publicId())
-                .imageUrl(fileInfo.url())
-                .sortOrder(vi != null ? vi.getSortOrder() + 1 : 0)
-                .createAt(LocalDateTime.now())
-                .build();
-        VariantImage resultImage = variantImageRepository.save(variantImage);
-        return variantImageMapper.toVariantImageResponse(resultImage);
+    public ResourceResponse uploadVariantImage(Integer variantId, MultipartFile file) {
+        if (!productVariantRepository.existsById(variantId)) {
+            throw new AppException(ErrorCode.VARIANT_NOT_FOUND);
+        }
+        CloudinaryFileInfo info = cloudinaryService.storeFile(file, "variant_image");
+        int nextOrder = resourceRepository
+                .findTopByOwnerTypeAndOwnerIdOrderBySortOrderDesc(ResourceOwner.VARIANT_IMAGE, variantId)
+                .map(r -> r.getSortOrder() + 1)
+                .orElse(0);
+        Resources saved = resourceRepository.save(resourceMapper.toResource(
+                ResourceOwner.VARIANT_IMAGE, variantId, info, ResourceType.IMAGE, nextOrder));
+        return resourceMapper.toResourceResponse(saved);
     }
 
     @Override
     public void deleteVariantImage(Integer imageId) {
-        VariantImage variantImage = variantImageRepository.findById(imageId)
+        Resources image = resourceRepository.findById(imageId)
                 .orElseThrow(() -> new AppException(ErrorCode.VARIANT_IMAGE_NOT_FOUND));
-        List<VariantImage> greaterSortOrderImgs = variantImageRepository
-                .findImagesWithSortOrderGreaterThan(variantImage.getSortOrder());
-
-        if (greaterSortOrderImgs != null) {
-            for (VariantImage vi : greaterSortOrderImgs) {
-                vi.setSortOrder(vi.getSortOrder() - 1);
-                variantImageRepository.save(vi);
-            }
-        }
-        variantImageRepository.delete(variantImage);
+        cloudinaryService.deleteFile(image.getPublicId());
+        resourceRepository.delete(image);
     }
 
-    // Get product by attributes
-    @Override
-    public VariantByAttributeResponse getVariantByAttributes(Integer productId, Integer versionId, Integer colorId,
-            Integer sizeId) {
-        Optional<Version> version = versionRepository.findById(versionId);
-        Optional<Color> color = colorRepository.findById(colorId);
-        Optional<Size> size = sizeRepository.findById(sizeId);
-        if (version.isEmpty() || color.isEmpty() || size.isEmpty()) {
-            throw new AppException(ErrorCode.VARIANT_NOT_FOUND);
-        }
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-
-        ProductVariant variant = productVariantRepository.findVariantByAttribute(productId, versionId, colorId)
-                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
-
-        VariantSize variantSize = variant.getSizes().stream()
-                .filter(s -> s.getSize().getId().equals(sizeId))
-                .findFirst().orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
-
-        if (!inventoryRepository.existsByVariantSizeVariantSizeId(variantSize.getId())) {
-            throw new AppException(ErrorCode.INVENTORY_VARIANT_NOT_FOUND);
-        }
-
-        return VariantByAttributeResponse.builder()
-                .productId(productId)
-                .name(product.getName())
-                .description(product.getDescription())
-                .thumbnailUrl(product.getThumbnailUrl())
-                .createAt(product.getCreateAt())
-                .variant(SpecificVariantResponse.builder()
-                        .variantId(variant.getId())
-                        .version(versionMapper.toVersionResponse(version.get()))
-                        .color(colorMapper.toColorResponse(color.get()))
-                        .size(variantSizeMapper.toVariantSizeResponse(variantSize))
-                        .images(variant.getImages().stream()
-                                .map(variantImageMapper::toVariantImageResponse)
-                                .toList())
-                        .build())
-                .build();
-    }
-
-    // Product discount
-    @Override
-    public DiscountResponse createDiscount(Integer variantSizeId, DiscountRequest request) {
-
-        VariantSize variantSize = variantSizeRepository.findById(variantSizeId)
-                .orElseThrow(() -> new AppException(ErrorCode.VARIANT_SIZE_NOT_FOUND));
-
-        if (request.getStartTime().isBefore(LocalDateTime.now())) {
-            throw new AppException(ErrorCode.DISCOUNT_START_TIME_BEFORE_NOW);
-        }
-
-        if (request.getEndTime().isBefore(request.getStartTime())) {
-            throw new AppException(ErrorCode.DISCOUNT_END_TIME_BEFORE_START_TIME);
-        }
-
-        if (productDiscountRepository.existByVariantSizeAndTime(variantSize.getId(), request.getStartTime(),
-                request.getEndTime())) {
-            throw new AppException(ErrorCode.DISCOUNT_EXISTED);
-        }
-
-        ProductDiscount discount = discountMapper.toProductDiscount(variantSize, request);
-
-        return discountMapper.toDiscountResponse(productDiscountRepository.save(discount));
-    }
-
-    // Product reviews
     @Override
     public ReviewResponse createReview(Integer productId, ReviewRequest request) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
-        Account account = currentAccountProvider.getCurrentAccount();
+        OrderItem orderItem = orderItemRepository.findById(request.getOrderItemId())
+                .orElseThrow(() -> new AppException(ErrorCode.ORDER_ITEM_NOT_FOUND));
 
-        Review review = reviewMapper.toReview(product, request);
-        review.setUser(account);
+        if (reviewRepository.existsByOrderItem_Id(orderItem.getId())) {
+            throw new AppException(ErrorCode.REVIEW_ALREADY_EXISTS);
+        }
 
+        Account customer = currentAccountProvider.getCurrentAccount();
+        Review review = reviewMapper.toReview(product, customer, orderItem, request);
         return reviewMapper.toReviewResponse(reviewRepository.save(review));
     }
 
@@ -313,54 +187,84 @@ public class ProductServiceImpl implements ProductService {
         if (!productRepository.existsById(productId)) {
             throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
         }
-
         Sort sort = Sort.by(sortDir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy);
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
-        Page<Review> reviewPage = reviewRepository.findByProductProductId(productId, pageable);
-
-        return reviewPage.map(reviewMapper::toReviewResponse);
+        Pageable pageable = PageRequest.of(Math.max(0, page - 1), size, sort);
+        return reviewRepository.findByProduct_Id(productId, pageable).map(reviewMapper::toReviewResponse);
     }
 
-    /* -- Private methods-- */
-    // Specifications
-    private void createSpecifications(Product product, List<ProductSpecificationRequest> requests) {
-        List<ProductSpecification> specifications = requests.stream()
-                .map(s -> productSpecificationMapper.toProductSpecification(product, s))
+    private ProductResponse buildProductResponse(Product product) {
+        ResourceResponse thumbnail = resourceRepository
+                .findFirstByOwnerTypeAndOwnerIdOrderBySortOrderAsc(ResourceOwner.PRODUCT_THUMBNAIL, product.getId())
+                .map(resourceMapper::toResourceResponse)
+                .orElse(null);
+
+        ProductResponse response = productMapper.toProductResponse(product, thumbnail);
+        response.setSpecifications(product.getSpecifications().stream()
+                .map(productSpecificationMapper::toSpecificationResponse)
+                .toList());
+        response.setVariants(product.getVariants().stream()
+                .map(this::buildVariantResponse)
+                .toList());
+        return response;
+    }
+
+    private ProductVariantResponse buildVariantResponse(ProductVariant variant) {
+        List<ResourceResponse> images = resourceRepository
+                .findByOwnerTypeAndOwnerIdOrderBySortOrderAsc(ResourceOwner.VARIANT_IMAGE, variant.getId())
+                .stream()
+                .map(resourceMapper::toResourceResponse)
                 .toList();
-        product.getSpecifications().addAll(specifications);
+        return productVariantMapper.toProductVariantResponse(variant, images);
     }
 
-    private void updateSpecification(Product product, List<ProductSpecificationRequest> requests) {
-        productSpecificationRepository.deleteByProductProductId(product.getId());
+    private void uploadThumbnail(Integer productId, MultipartFile file) {
+        CloudinaryFileInfo info = cloudinaryService.storeFile(file, "product_thumbnail");
+        resourceRepository.save(resourceMapper.toResource(
+                ResourceOwner.PRODUCT_THUMBNAIL, productId, info, ResourceType.IMAGE, 0));
+    }
+
+    private void replaceThumbnail(Integer productId, MultipartFile file) {
+        resourceRepository.findFirstByOwnerTypeAndOwnerIdOrderBySortOrderAsc(
+                ResourceOwner.PRODUCT_THUMBNAIL, productId)
+                .ifPresent(existing -> {
+                    cloudinaryService.deleteFile(existing.getPublicId());
+                    resourceRepository.delete(existing);
+                });
+        uploadThumbnail(productId, file);
+    }
+
+    private void deleteAllResourcesOfProduct(Product product) {
+        deleteResources(ResourceOwner.PRODUCT_THUMBNAIL, product.getId());
+        product.getVariants().forEach(v -> deleteResources(ResourceOwner.VARIANT_IMAGE, v.getId()));
+    }
+
+    private void deleteResources(ResourceOwner ownerType, Integer ownerId) {
+        resourceRepository.findByOwnerTypeAndOwnerIdOrderBySortOrderAsc(ownerType, ownerId)
+                .forEach(r -> {
+                    cloudinaryService.deleteFile(r.getPublicId());
+                    resourceRepository.delete(r);
+                });
+    }
+
+    private void updateSpecifications(Product product, List<ProductSpecificationRequest> requests) {
+        productSpecificationRepository.deleteByProduct_Id(product.getId());
         product.getSpecifications().clear();
         productSpecificationRepository.flush();
-
-        List<ProductSpecification> specifications = requests.stream()
-                .map(s -> productSpecificationMapper.toProductSpecification(product, s))
-                .toList();
-        product.getSpecifications().addAll(specifications);
+        if (requests == null) {
+            return;
+        }
+        requests.forEach(r -> product.getSpecifications()
+                .add(productSpecificationMapper.toProductSpecification(product, r)));
     }
 
-    // Product variants
-    private void createVariant(Product product, ProductVariantRequest request) {
-        ProductVariant variant = productVariantMapper.toProductVariant(product, request);
-
-        product.getVariants().add(variant);
-        createVariantSizes(variant, request.getSizes());
-    }
-
-    private void updateVariant(Product product, List<ProductVariantRequest> requests) {
-        productVariantRepository.deleteByProductProductId(product.getId());
+    private void updateVariants(Product product, List<ProductVariantRequest> requests) {
+        List<ProductVariant> existing = productVariantRepository.findByProduct_Id(product.getId());
+        existing.forEach(v -> deleteResources(ResourceOwner.VARIANT_IMAGE, v.getId()));
+        productVariantRepository.deleteByProduct_Id(product.getId());
         product.getVariants().clear();
         productVariantRepository.flush();
-        requests.forEach(vr -> createVariant(product, vr));
-    }
-
-    // Variant sizes
-    private void createVariantSizes(ProductVariant variant, List<VariantSizeRequest> requests) {
-        List<VariantSize> sizes = requests.stream()
-                .map(s -> variantSizeMapper.toVariantSize(variant, s))
-                .toList();
-        variant.getSizes().addAll(sizes);
+        requests.forEach(r -> product.getVariants()
+                .add(productVariantMapper.toProductVariant(product, r)));
+        product.setUpdatedAt(LocalDateTime.now());
     }
 }

@@ -11,8 +11,8 @@ import com.lezh1n.goodminton_shop_api.entities.Size;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.SizeMapper;
+import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
 import com.lezh1n.goodminton_shop_api.repositories.SizeRepository;
-import com.lezh1n.goodminton_shop_api.repositories.VariantSizeRepository;
 import com.lezh1n.goodminton_shop_api.services.SizeService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,22 +22,20 @@ import lombok.RequiredArgsConstructor;
 public class SizeServiceImpl implements SizeService {
 
     private final SizeRepository sizeRepository;
-    private final VariantSizeRepository variantSizeRepository;
+    private final ProductVariantRepository productVariantRepository;
     private final SizeMapper sizeMapper;
 
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public SizeResponse createSize(SizeRequest request) {
-
         Size size = sizeMapper.toSize(request);
-
         return sizeMapper.toSizeResponse(sizeRepository.save(size));
     }
 
     @Override
     public SizeResponse getSizeById(Integer sizeId) {
-        Size size = sizeRepository.findById(sizeId).orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
-
+        Size size = sizeRepository.findById(sizeId)
+                .orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
         return sizeMapper.toSizeResponse(size);
     }
 
@@ -49,24 +47,23 @@ public class SizeServiceImpl implements SizeService {
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public SizeResponse updateSize(Integer sizeId, SizeRequest request) {
-        Size size = sizeRepository.findById(sizeId).orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
-
+        Size size = sizeRepository.findById(sizeId)
+                .orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
         size.setName(request.getName());
         size.setType(request.getType());
-
         return sizeMapper.toSizeResponse(sizeRepository.save(size));
     }
 
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public void deleteSize(Integer sizeId) {
-        Size size = sizeRepository.findById(sizeId).orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
+        Size size = sizeRepository.findById(sizeId)
+                .orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
 
-        if (variantSizeRepository.existBySizeId(sizeId)) {
+        if (productVariantRepository.existsBySize_Id(sizeId)) {
             throw new AppException(ErrorCode.SIZE_VARIANT_EXISTED);
         }
 
         sizeRepository.delete(size);
     }
-
 }

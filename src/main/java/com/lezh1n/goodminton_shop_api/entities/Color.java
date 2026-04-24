@@ -21,8 +21,8 @@ public class Color {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "color_id")
-    private Integer colorId;
+    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "name", length = 50, unique = true, nullable = false)
     private String name;

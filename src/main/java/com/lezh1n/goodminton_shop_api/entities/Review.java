@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,15 +34,19 @@ public class Review {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Account user;
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Account customer;
+
+    @OneToOne
+    @JoinColumn(name = "order_item_id", nullable = false, unique = true)
+    private OrderItem orderItem;
 
     @Column(name = "rating", nullable = false)
-    private Integer rating;
+    private Short rating;
 
     @Column(name = "comment", columnDefinition = "TEXT")
     private String comment;
 
-    @Column(name = "create_at", nullable = false)
-    private LocalDateTime createAt;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 }

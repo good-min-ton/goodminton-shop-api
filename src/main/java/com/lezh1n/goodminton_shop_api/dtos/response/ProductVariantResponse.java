@@ -1,5 +1,6 @@
 package com.lezh1n.goodminton_shop_api.dtos.response;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,8 +13,10 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductVariantResponse {
     private Integer variantId;
-    private VersionResponse version;
     private ColorResponse color;
-    private List<VariantSizeResponse> sizes;
-    private List<VariantImageResponse> images;
+    private SizeResponse size;
+    private String skuCode;
+    private BigDecimal price;
+    private BigDecimal salePrice;
+    private List<ResourceResponse> images;
 }

@@ -49,12 +49,21 @@ public class Payment {
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;
 
+    @Column(name = "vnpay_txn_ref")
+    private String vnpayTxnRef;
+
+    @Column(name = "vnpay_transaction_no")
+    private String vnpayTransactionNo;
+
+    @Column(name = "vnpay_bank_code")
+    private String vnpayBankCode;
+
+    @Column(name = "vnpay_response_code")
+    private String vnpayResponseCode;
+
     @Column(name = "paid_at")
     private LocalDateTime paidAt;
 
-    @Column(name = "transaction_code", length = 100)
-    private String transactionCode;
-
-    @Column(name = "create_at", nullable = false)
-    private LocalDateTime createAt;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 }

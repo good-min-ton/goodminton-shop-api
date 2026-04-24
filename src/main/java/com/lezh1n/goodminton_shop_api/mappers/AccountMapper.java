@@ -35,7 +35,7 @@ public class AccountMapper {
                 .email(account.getEmail())
                 .phone(account.getPhone())
                 .role(account.getRole())
-                .createAt(account.getCreatedAt())
+                .createdAt(account.getCreatedAt())
                 .status(account.getStatus())
                 .build();
     }

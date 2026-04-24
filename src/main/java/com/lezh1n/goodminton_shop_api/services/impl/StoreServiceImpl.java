@@ -85,7 +85,7 @@ public class StoreServiceImpl implements StoreService {
     public void deleteStore(Integer storeId) {
         Store store = storeRepository.findById(storeId).orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
 
-        if (inventoryRepository.existsByStoreId(storeId)) {
+        if (inventoryRepository.existsByStore_Id(storeId)) {
             throw new AppException(ErrorCode.STORE_INVENTORY_EXISTED);
         }
 

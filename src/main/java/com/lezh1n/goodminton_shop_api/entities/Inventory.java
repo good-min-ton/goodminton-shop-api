@@ -10,13 +10,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "inventory")
+@Table(name = "inventory", uniqueConstraints = {
+        @UniqueConstraint(name = "uq_store_variant", columnNames = { "store_id", "variant_id" })
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,12 +37,11 @@ public class Inventory {
 
     @ManyToOne
     @JoinColumn(name = "variant_id", nullable = false)
-    private VariantSize variantSize;
+    private ProductVariant variant;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
 }

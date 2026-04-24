@@ -16,10 +16,17 @@ public class ProductRequest {
     @NotNull(message = "PRODUCT_BRAND_BLANK")
     private Integer brandId;
 
+    private Integer relatedProductId;
+
     @NotBlank(message = "PRODUCT_NAME_BLANK")
     private String name;
 
     private String description;
+
+    @NotBlank(message = "PRODUCT_SLUG_BLANK")
+    private String slug;
+
+    private Boolean isVisible;
 
     private List<ProductSpecificationRequest> specifications;
 

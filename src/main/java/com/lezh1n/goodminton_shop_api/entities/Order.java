@@ -40,41 +40,44 @@ public class Order {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Account customer;
 
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
 
-    @Column(name = "order_date", nullable = false)
-    private LocalDateTime orderDate;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_type", nullable = false)
+    private OrderType orderType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private OrderStatus status;
 
     @Column(name = "total_amount", nullable = false)
     private BigDecimal totalAmount;
 
-    @Column(name = "name", length = 100)
-    private String name;
+    @Column(name = "shipping_code", length = 100)
+    private String shippingCode;
 
-    @Column(name = "phone", length = 20)
-    private String phone;
+    @Column(name = "recipient_name", length = 100)
+    private String recipientName;
 
-    @Column(name = "address", length = 100)
-    private String address;
+    @Column(name = "recipient_phone", length = 20)
+    private String recipientPhone;
 
-    @Column(name = "email", length = 50)
-    private String email;
+    @Column(name = "recipient_address", length = 255)
+    private String recipientAddress;
+
+    @Column(name = "recipient_email", length = 50)
+    private String recipientEmail;
 
     @Column(name = "note", columnDefinition = "TEXT")
     private String note;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private OrderStatus orderStatus;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "order_type", nullable = false)
-    private OrderType orderType;
+    @Column(name = "order_date", nullable = false)
+    private LocalDateTime orderDate;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Builder.Default

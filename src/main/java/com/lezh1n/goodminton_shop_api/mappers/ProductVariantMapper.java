@@ -1,17 +1,21 @@
 package com.lezh1n.goodminton_shop_api.mappers;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Color;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
-import com.lezh1n.goodminton_shop_api.entities.Version;
+import com.lezh1n.goodminton_shop_api.entities.Size;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.repositories.ColorRepository;
-import com.lezh1n.goodminton_shop_api.repositories.VersionRepository;
+import com.lezh1n.goodminton_shop_api.repositories.SizeRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,31 +23,40 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductVariantMapper {
 
-    private final VersionRepository versionRepository;
     private final ColorRepository colorRepository;
-    private final VersionMapper versionMapper;
+    private final SizeRepository sizeRepository;
     private final ColorMapper colorMapper;
-    
-    public ProductVariant toProductVariant(Product product, ProductVariantRequest request) {
-        Version version = versionRepository.findById(request.getVersionId())
-                .orElseThrow(() -> new AppException(ErrorCode.VERSION_NOT_FOUND));
+    private final SizeMapper sizeMapper;
 
-        Color color = colorRepository.findById(request.getColorId())
-                .orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
+    public ProductVariant toProductVariant(Product product, ProductVariantRequest request) {
+        Color color = request.getColorId() == null ? null
+                : colorRepository.findById(request.getColorId())
+                        .orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
+
+        Size size = request.getSizeId() == null ? null
+                : sizeRepository.findById(request.getSizeId())
+                        .orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
 
         return ProductVariant.builder()
                 .product(product)
-                .version(version)
                 .color(color)
+                .size(size)
+                .skuCode(request.getSkuCode())
+                .price(request.getPrice())
+                .salePrice(request.getSalePrice())
+                .updatedAt(LocalDateTime.now())
                 .build();
     }
 
-    public ProductVariantResponse toProductVariantResponse(ProductVariant productVariant) {
-
+    public ProductVariantResponse toProductVariantResponse(ProductVariant variant, List<ResourceResponse> images) {
         return ProductVariantResponse.builder()
-                .variantId(productVariant.getId())
-                .version(versionMapper.toVersionResponse(productVariant.getVersion()))
-                .color(colorMapper.toColorResponse(productVariant.getColor()))
+                .variantId(variant.getId())
+                .color(variant.getColor() == null ? null : colorMapper.toColorResponse(variant.getColor()))
+                .size(variant.getSize() == null ? null : sizeMapper.toSizeResponse(variant.getSize()))
+                .skuCode(variant.getSkuCode())
+                .price(variant.getPrice())
+                .salePrice(variant.getSalePrice())
+                .images(images)
                 .build();
     }
 }

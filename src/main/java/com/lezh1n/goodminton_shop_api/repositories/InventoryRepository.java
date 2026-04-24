@@ -1,41 +1,21 @@
 package com.lezh1n.goodminton_shop_api.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.lezh1n.goodminton_shop_api.entities.Inventory;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
-    @Query(value = "SELECT EXISTS(SELECT 1 FROM inventory WHERE store_id = :storeId)", nativeQuery = true)
-    boolean existsByStoreId(@Param("storeId") Integer storeId);
 
-    @Query("""
-            SELECT i from Inventory i
-            WHERE i.variantSize.variantSizeId =:variantSizeId
-            AND i.store.storeId = :storeId
-            """)
-    Optional<Inventory> findByVariantAndStore(
-            @Param("variantSizeId") Integer variantSizeId,
-            @Param("storeId") Integer storeId);
+    boolean existsByStore_Id(Integer storeId);
 
-    @Query("""
-            SELECT SUM(i.quantity) FROM Inventory i
-            WHERE i.variantSize.variantSizeId = :variantSizeId
-            """)
-    Integer sumQuantityByVariantSize(@Param("variantSizeId") Integer variantSizeId);
+    List<Inventory> findByStore_Id(Integer storeId);
 
-    boolean existsByVariantSizeVariantSizeId(Integer variantSizeId);
+    Optional<Inventory> findByStore_IdAndVariant_Id(Integer storeId, Integer variantId);
 
-    boolean existsByStoreStoreIdAndVariantSizeVariantSizeId(Integer storeId, Integer variantSizeId);
-
-    @EntityGraph(attributePaths = {"store", "variantSize.variant.product"})
-    Page<Inventory> findByStoreStoreId(@Param("storeId") Integer storeId, Pageable pageable);
+    Integer countByVariant_Id(Integer variantId);
 }

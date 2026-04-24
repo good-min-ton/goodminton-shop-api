@@ -3,6 +3,7 @@ package com.lezh1n.goodminton_shop_api.dtos.response;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,8 +13,9 @@ import lombok.Data;
 public class ReviewResponse {
     private Integer reviewId;
     private Integer productId;
-    private AccountResponse user;
-    private Integer rating;
+    private Integer orderItemId;
+    private AccountResponse customer;
+    private Short rating;
     private String comment;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }

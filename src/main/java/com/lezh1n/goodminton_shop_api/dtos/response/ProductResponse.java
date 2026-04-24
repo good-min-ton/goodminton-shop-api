@@ -15,10 +15,13 @@ public class ProductResponse {
     private Integer productId;
     private CategoryResponse category;
     private BrandResponse brand;
+    private Integer relatedProductId;
     private String name;
     private String description;
-    private String thumbnailUrl;
-    private LocalDateTime createAt;
+    private String slug;
+    private Boolean isVisible;
+    private ResourceResponse thumbnail;
+    private LocalDateTime createdAt;
     private List<ProductSpecificationResponse> specifications;
     private List<ProductVariantResponse> variants;
 }

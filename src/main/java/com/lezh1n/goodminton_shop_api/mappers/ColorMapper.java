@@ -8,6 +8,7 @@ import com.lezh1n.goodminton_shop_api.entities.Color;
 
 @Component
 public class ColorMapper {
+
     public Color toColor(ColorRequest request) {
         return Color.builder()
                 .name(request.getName())
@@ -16,7 +17,7 @@ public class ColorMapper {
 
     public ColorResponse toColorResponse(Color color) {
         return ColorResponse.builder()
-                .colorId(color.getColorId())
+                .colorId(color.getId())
                 .name(color.getName())
                 .build();
     }

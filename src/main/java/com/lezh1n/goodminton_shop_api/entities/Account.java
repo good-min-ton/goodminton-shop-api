@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.annotations.CurrentTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,7 +42,7 @@ public class Account implements UserDetails {
     @Column(name = "full_name", length = 50, nullable = false)
     private String fullName;
 
-    @Column(name = "phone", length = 20, unique = true)
+    @Column(name = "phone", length = 20, nullable = false, unique = true)
     private String phone;
 
     @Column(name = "email", length = 50, nullable = false, unique = true)
@@ -58,9 +60,11 @@ public class Account implements UserDetails {
     private AccountStatus status;
 
     @Column(name = "created_at", nullable = false)
+    @CurrentTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @Override

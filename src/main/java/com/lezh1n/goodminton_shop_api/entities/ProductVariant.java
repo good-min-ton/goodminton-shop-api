@@ -1,26 +1,26 @@
 package com.lezh1n.goodminton_shop_api.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "product_variants")
+@Table(name = "product_variants", uniqueConstraints = {
+        @UniqueConstraint(name = "uq_variant", columnNames = { "product_id", "color_id", "size_id" })
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,18 +37,22 @@ public class ProductVariant {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "version_id")
-    private Version version;
-
-    @ManyToOne
     @JoinColumn(name = "color_id")
     private Color color;
 
-    @OneToMany(mappedBy = "variant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @Builder.Default
-    private List<VariantSize> sizes = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    private Size size;
 
-    @OneToMany(mappedBy = "variant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @Builder.Default
-    private List<VariantImage> images = new ArrayList<>();
+    @Column(name = "sku_code", length = 100, nullable = false, unique = true)
+    private String skuCode;
+
+    @Column(name = "price", nullable = false)
+    private BigDecimal price;
+
+    @Column(name = "sale_price")
+    private BigDecimal salePrice;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }

@@ -61,6 +61,13 @@ public enum ErrorCode {
     PRODUCT_NAME_BLANK(1504, "Tên sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
     PRODUCT_THUMBNAIL_BLANK(1505, "Vui lòng thêm ảnh sản phẩm", HttpStatus.BAD_REQUEST),
     PRODUCT_VARIANTS_REQUIRED(1506, "Vui lòng tạo variant cho sản phẩm", HttpStatus.BAD_REQUEST),
+    PRODUCT_SLUG_BLANK(1507, "Slug sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
+    PRODUCT_SLUG_EXISTED(1508, "Slug đã được sử dụng", HttpStatus.CONFLICT),
+    PRODUCT_RELATED_MUST_BE_ROOT(1509, "Chỉ được liên kết với sản phẩm gốc", HttpStatus.BAD_REQUEST),
+    PRODUCT_CANNOT_RELATE_TO_ITSELF(1510, "Sản phẩm không thể liên kết với chính nó", HttpStatus.BAD_REQUEST),
+    PRODUCT_HAS_RELATED_CHILDREN(1511, "Sản phẩm đang có các phiên bản liên kết", HttpStatus.CONFLICT),
+    VARIANT_SKU_BLANK(1512, "SKU không được để trống", HttpStatus.BAD_REQUEST),
+    VARIANT_SKU_EXISTED(1513, "SKU đã được sử dụng", HttpStatus.CONFLICT),
 
     // Brand (1601 - 1700)
     BRAND_NAME_BLANK(1601, "Tên thương hiệu không được để trống", HttpStatus.BAD_REQUEST),
@@ -163,6 +170,8 @@ public enum ErrorCode {
     REVIEW_NOT_FOUND(3001, "Không tồn tại review này", HttpStatus.NOT_FOUND),
     REVIEW_RATING_OUT_OF_RANGE(3002, "Rating không thuộc khoảng hợp lệ (1 - 5)", HttpStatus.BAD_REQUEST),
     REVIEW_RATING_BLANK(3003, "Rating không được để trống", HttpStatus.BAD_REQUEST),
+    REVIEW_ORDER_ITEM_BLANK(3004, "Order item id không được để trống", HttpStatus.BAD_REQUEST),
+    REVIEW_ALREADY_EXISTS(3005, "Bạn đã review chi tiết đơn hàng này", HttpStatus.CONFLICT),
 
     // Database constraint violations(9601 - 9700)
     DATABASE_CONSTRAINT_VIOLATION(9601, "Vi phạm ràng buộc dữ liệu", HttpStatus.BAD_REQUEST),

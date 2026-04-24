@@ -18,6 +18,6 @@ public class StoreResponse {
     private String contact;
     private BigDecimal longitude;
     private BigDecimal latitude;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
     private AccountResponse admin;
 }

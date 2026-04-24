@@ -29,14 +29,13 @@ public class ColorServiceImpl implements ColorService {
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ColorResponse createColor(ColorRequest request) {
         Color color = colorMapper.toColor(request);
-
         return colorMapper.toColorResponse(colorRepository.save(color));
     }
 
     @Override
     public ColorResponse getColorById(Integer colorId) {
-        Color color = colorRepository.findById(colorId).orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
-
+        Color color = colorRepository.findById(colorId)
+                .orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
         return colorMapper.toColorResponse(color);
     }
 
@@ -48,23 +47,22 @@ public class ColorServiceImpl implements ColorService {
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ColorResponse updateColor(Integer colorId, ColorRequest request) {
-        Color color = colorRepository.findById(colorId).orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
-
+        Color color = colorRepository.findById(colorId)
+                .orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
         color.setName(request.getName());
-
         return colorMapper.toColorResponse(colorRepository.save(color));
     }
 
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public void deleteColor(Integer colorId) {
-        Color color = colorRepository.findById(colorId).orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
+        Color color = colorRepository.findById(colorId)
+                .orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
 
-        if (productVariantRepository.existByColorId(colorId)) {
+        if (productVariantRepository.existsByColor_Id(colorId)) {
             throw new AppException(ErrorCode.COLOR_VARIANT_EXISTED);
         }
 
         colorRepository.delete(color);
     }
-
 }

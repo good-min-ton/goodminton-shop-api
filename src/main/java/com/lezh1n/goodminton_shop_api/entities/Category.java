@@ -27,6 +27,6 @@ public class Category {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 }

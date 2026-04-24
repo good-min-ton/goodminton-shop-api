@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
+import com.lezh1n.goodminton_shop_api.entities.Account;
+import com.lezh1n.goodminton_shop_api.entities.OrderItem;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.Review;
 
@@ -17,12 +19,14 @@ public class ReviewMapper {
 
     private final AccountMapper accountMapper;
 
-    public Review toReview(Product product, ReviewRequest request) {
+    public Review toReview(Product product, Account customer, OrderItem orderItem, ReviewRequest request) {
         return Review.builder()
                 .product(product)
+                .customer(customer)
+                .orderItem(orderItem)
                 .rating(request.getRating())
                 .comment(request.getComment())
-                .createAt(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -30,10 +34,11 @@ public class ReviewMapper {
         return ReviewResponse.builder()
                 .reviewId(review.getId())
                 .productId(review.getProduct().getId())
-                .user(accountMapper.toAccountResponse(review.getUser()))
+                .orderItemId(review.getOrderItem().getId())
+                .customer(accountMapper.toAccountResponse(review.getCustomer()))
                 .rating(review.getRating())
                 .comment(review.getComment())
-                .createAt(review.getCreateAt())
+                .createdAt(review.getCreatedAt())
                 .build();
     }
 }

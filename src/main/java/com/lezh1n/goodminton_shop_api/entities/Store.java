@@ -29,6 +29,10 @@ public class Store {
     @Column(name = "id")
     private Integer id;
 
+    @OneToOne
+    @JoinColumn(name = "admin_id", nullable = false)
+    private Account admin;
+
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
@@ -47,10 +51,6 @@ public class Store {
     @Column(name = "is_central", nullable = false)
     private boolean isCentral;
 
-    @Column(name = "create_at", nullable = false)
-    private LocalDateTime createAt;
-
-    @OneToOne
-    @JoinColumn(name = "admin_id")
-    private Account admin;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 }

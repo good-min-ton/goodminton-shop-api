@@ -1,22 +1,26 @@
 package com.lezh1n.goodminton_shop_api.dtos.request;
 
-import java.util.List;
+import java.math.BigDecimal;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 
 @Getter
 public class ProductVariantRequest {
 
-    @NotNull(message = "VARIANT_VERSION_BLANK")
-    private Integer versionId;
-
-    @NotNull(message = "VARIANT_COLOR_BLANK")
     private Integer colorId;
 
-    @NotEmpty(message = "VARIANT_SIZE_BLANK")
-    private List<VariantSizeRequest> sizes;
+    private Integer sizeId;
 
-    private List<VariantImageRequest> images;
+    @NotBlank(message = "VARIANT_SKU_BLANK")
+    private String skuCode;
+
+    @NotNull(message = "VARIANT_PRICE_BLANK")
+    @Positive(message = "VARIANT_PRICE_MUST_BE_POSITIVE")
+    private BigDecimal price;
+
+    @Positive(message = "VARIANT_PRICE_MUST_BE_POSITIVE")
+    private BigDecimal salePrice;
 }

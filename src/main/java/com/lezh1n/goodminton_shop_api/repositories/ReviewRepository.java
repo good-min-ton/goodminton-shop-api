@@ -9,5 +9,8 @@ import com.lezh1n.goodminton_shop_api.entities.Review;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
-    Page<Review> findByProductProductId(Integer productId, Pageable pageable);
+
+    Page<Review> findByProduct_Id(Integer productId, Pageable pageable);
+
+    boolean existsByOrderItem_Id(Integer orderItemId);
 }

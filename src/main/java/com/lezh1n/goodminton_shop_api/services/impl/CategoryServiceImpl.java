@@ -28,18 +28,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public CategoryResponse createCategory(CategoryRequest request) {
-
         Category category = categoryMapper.toCategory(request);
-
         return categoryMapper.toCategoryResponse(categoryRepository.save(category));
     }
 
     @Override
     public CategoryResponse getCategoryById(Integer categoryId) {
-
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
-
         return categoryMapper.toCategoryResponse(category);
     }
 
@@ -53,10 +49,8 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponse updateCategory(Integer categoryId, CategoryRequest request) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
-
         category.setName(request.getName());
         category.setDescription(request.getDescription());
-
         return categoryMapper.toCategoryResponse(categoryRepository.save(category));
     }
 
@@ -66,11 +60,10 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
 
-        if (productRepository.existsByCategoryId(categoryId)) {
+        if (productRepository.existsByCategory_Id(categoryId)) {
             throw new AppException(ErrorCode.CATEGORY_PRODUCT_EXISTED);
         }
 
         categoryRepository.delete(category);
     }
-
 }

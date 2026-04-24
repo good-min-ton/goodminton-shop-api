@@ -34,11 +34,14 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "variant_id", nullable = false)
-    private VariantSize variantSize;
+    private ProductVariant variant;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
     @Column(name = "unit_price", nullable = false)
     private BigDecimal unitPrice;
+
+    @Column(name = "discount_price")
+    private BigDecimal discountPrice;
 }

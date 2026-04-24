@@ -23,7 +23,7 @@ public class StoreMapper {
                 .contact(request.getContact())
                 .longitude(request.getLongitude())
                 .latitude(request.getLatitude())
-                .createAt(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -35,7 +35,7 @@ public class StoreMapper {
                 .contact(store.getContact())
                 .longitude(store.getLongitude())
                 .latitude(store.getLatitude())
-                .createAt(store.getCreateAt())
+                .createdAt(store.getCreatedAt())
                 .admin(accountMapper.toAccountResponse(store.getAdmin()))
                 .build();
     }
