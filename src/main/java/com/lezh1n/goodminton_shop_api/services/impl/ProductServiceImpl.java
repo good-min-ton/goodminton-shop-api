@@ -3,6 +3,7 @@ package com.lezh1n.goodminton_shop_api.services.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lezh1n.goodminton_shop_api.configurations.CacheConfig;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
@@ -62,6 +64,7 @@ public class ProductServiceImpl implements ProductService {
     private final CurrentAccountProvider currentAccountProvider;
 
     @Override
+    @CacheEvict(value = CacheConfig.RECOMMENDATIONS_CACHE, allEntries = true)
     public ProductResponse createProduct(ProductRequest request, MultipartFile thumbnail) {
         if (productRepository.existsBySlug(request.getSlug())) {
             throw new AppException(ErrorCode.PRODUCT_SLUG_EXISTED);
@@ -101,6 +104,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(value = CacheConfig.RECOMMENDATIONS_CACHE, allEntries = true)
     public ProductResponse updateProduct(Integer productId, ProductRequest request, MultipartFile thumbnail) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
@@ -122,6 +126,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(value = CacheConfig.RECOMMENDATIONS_CACHE, allEntries = true)
     public void deleteProduct(Integer productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));

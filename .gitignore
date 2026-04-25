@@ -39,3 +39,9 @@ build/
 
 ### docs ###
 /docs/
+
+### Agent ###
+.claude/
+.gitnexus
+AGENTS.md
+CLAUDE.md

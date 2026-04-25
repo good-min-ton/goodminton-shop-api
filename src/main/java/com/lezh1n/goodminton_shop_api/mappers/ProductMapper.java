@@ -1,15 +1,20 @@
 package com.lezh1n.goodminton_shop_api.mappers;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.Objects;
 
 import org.springframework.stereotype.Component;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductListItemResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Brand;
 import com.lezh1n.goodminton_shop_api.entities.Category;
 import com.lezh1n.goodminton_shop_api.entities.Product;
+import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.repositories.BrandRepository;
@@ -83,6 +88,27 @@ public class ProductMapper {
             product.setIsVisible(request.getIsVisible());
         }
         product.setUpdatedAt(LocalDateTime.now());
+    }
+
+    public ProductListItemResponse toListItemResponse(Product product, String thumbnailUrl) {
+        BigDecimal minPrice = product.getVariants().stream()
+                .map(ProductVariant::getPrice)
+                .filter(Objects::nonNull)
+                .min(Comparator.naturalOrder())
+                .orElse(null);
+        BigDecimal minSalePrice = product.getVariants().stream()
+                .map(ProductVariant::getSalePrice)
+                .filter(Objects::nonNull)
+                .min(Comparator.naturalOrder())
+                .orElse(null);
+        return ProductListItemResponse.builder()
+                .productId(product.getId())
+                .name(product.getName())
+                .slug(product.getSlug())
+                .thumbnailUrl(thumbnailUrl)
+                .minPrice(minPrice)
+                .minSalePrice(minSalePrice)
+                .build();
     }
 
     private Product resolveRelatedProduct(Integer relatedId) {
