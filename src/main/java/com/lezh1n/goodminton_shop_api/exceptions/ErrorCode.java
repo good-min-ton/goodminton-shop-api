@@ -157,6 +157,8 @@ public enum ErrorCode {
     PAYMENT_INVALID_STATUS(2803, "Trạng thái giao dịch không hợp lệ", HttpStatus.BAD_REQUEST),
     PAYMENT_CREATION_FAILED(2804, "Tạo giao dịch thất bại", HttpStatus.INTERNAL_SERVER_ERROR),
     PAYMENT_WEBHOOK_FAILED(2805, "Webhook processing failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    PAYMENT_ORDER_ID_REQUIRED(2806, "Order ID không được để trống", HttpStatus.BAD_REQUEST),
+    PAYMENT_INVALID_SIGNATURE(2807, "Chữ ký VNPay không hợp lệ", HttpStatus.BAD_REQUEST),
 
     // Product discount(2901 - 3000)
     DISCOUNT_SALE_PRICE_NULL(2901, "Giá sale không được đê trống", HttpStatus.BAD_REQUEST),

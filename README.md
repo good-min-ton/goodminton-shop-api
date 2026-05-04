@@ -5,28 +5,34 @@ A comprehensive e-commerce REST API for badminton equipment built with Spring Bo
 ## 🚀 Technologies Used
 
 ### Backend Framework
+
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=spring-security&logoColor=white)
 ![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 
 ### Database & Caching
+
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 ![Flyway](https://img.shields.io/badge/Flyway-CC0200?style=for-the-badge&logo=flyway&logoColor=white)
 
 ### Authentication & Security
+
 ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
 ![OAuth 2.0](https://img.shields.io/badge/OAuth%202.0-3C5BBA?style=for-the-badge&logo=oauth&logoColor=white)
 
 ### Cloud Services
+
 ![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
 
 ### Development Tools
+
 ![Java](https://img.shields.io/badge/Java%2017-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
 ![Lombok](https://img.shields.io/badge/Lombok-BC4C00?style=for-the-badge&logo=lombok&logoColor=white)
 
 ### API Documentation & Validation
+
 ![Hibernate Validator](https://img.shields.io/badge/Hibernate%20Validator-59666C?style=for-the-badge&logo=hibernate&logoColor=white)
 
 ## 📋 Project Overview
@@ -72,10 +78,12 @@ src/
 ### Core Entities
 
 #### 👤 User Management
+
 - **Account** - User accounts with role-based access
 - **Store** - Physical store locations with admin assignments
 
 #### 🛍️ Product Catalog
+
 - **Product** - Main product information
 - **Category** - Product categories
 - **Brand** - Product brands
@@ -86,6 +94,7 @@ src/
 - **VariantImage** - Product images
 
 #### 📦 Inventory & Orders
+
 - **Inventory** - Stock levels per store
 - **Order** - Customer orders
 - **OrderItem** - Individual order items
@@ -93,6 +102,7 @@ src/
 - **Review** - Product reviews and ratings
 
 ### 🔧 Enums
+
 - **UserRole**: `SUPER_ADMIN`, `STORE_ADMIN`, `CUSTOMER`
 - **OrderStatus**: `NEW`, `PAID`, `SHIPPED`, `COMPLETED`, `CANCEL`
 - **PaymentMethod**: `COD`, `BANKING`, `VNPAY`
@@ -103,12 +113,14 @@ src/
 Below is the current list of REST endpoints derived directly from the controller source code. Query parameters for pagination & sorting use (page=1, size=10, sortBy=field, sortDir=asc|desc) unless noted. IDs are integers unless specified. Authentication / authorization (roles) are enforced via Spring Security configuration (not all role constraints are shown here).
 
 ### 🔐 Authentication
+
 - `POST /api/auth/register` – Customer registration
 - `POST /api/auth/login` – Login (returns access & refresh tokens)
 - `POST /api/auth/refresh` – Refresh access token
 - `POST /api/auth/logout` – Logout & blacklist tokens
 
 ### 👤 Accounts
+
 - `GET /api/accounts` – List accounts (paginated) `?page=&size=&sortBy=&sortDir=`
 - `GET /api/accounts/{id}` – Get account by ID
 - `POST /api/accounts/store-admin` – Create a Store Admin account
@@ -117,6 +129,7 @@ Below is the current list of REST endpoints derived directly from the controller
 - `PATCH /api/accounts/change-password` – Change current account password
 
 ### 🏪 Stores
+
 - `POST /api/stores` – Create store
 - `GET /api/stores` – List stores
 - `GET /api/stores/{id}` – Get store by ID
@@ -125,6 +138,7 @@ Below is the current list of REST endpoints derived directly from the controller
 - `DELETE /api/stores/{storeId}` – Delete store
 
 ### 🏷️ Catalog: Brands
+
 - `POST /api/brands` – Create brand
 - `GET /api/brands` – List brands
 - `GET /api/brands/{brandId}` – Get brand
@@ -132,6 +146,7 @@ Below is the current list of REST endpoints derived directly from the controller
 - `DELETE /api/brands/{brandId}` – Delete brand
 
 ### 🏷️ Catalog: Categories
+
 - `POST /api/categories` – Create category
 - `GET /api/categories` – List categories
 - `GET /api/categories/{categoryId}` – Get category
@@ -139,6 +154,7 @@ Below is the current list of REST endpoints derived directly from the controller
 - `DELETE /api/categories/{categoryId}` – Delete category
 
 ### 🏷️ Catalog: Colors
+
 - `POST /api/colors` – Create color
 - `GET /api/colors` – List colors
 - `GET /api/colors/{colorId}` – Get color
@@ -146,6 +162,7 @@ Below is the current list of REST endpoints derived directly from the controller
 - `DELETE /api/colors/{colorId}` – Delete color
 
 ### 🏷️ Catalog: Sizes
+
 - `POST /api/sizes` – Create size
 - `GET /api/sizes` – List sizes
 - `GET /api/sizes/{sizeId}` – Get size
@@ -153,6 +170,7 @@ Below is the current list of REST endpoints derived directly from the controller
 - `DELETE /api/sizes/{sizeId}` – Delete size
 
 ### 🏷️ Catalog: Versions
+
 - `POST /api/versions` – Create version
 - `GET /api/versions` – List versions
 - `GET /api/versions/{versionId}` – Get version
@@ -160,6 +178,7 @@ Below is the current list of REST endpoints derived directly from the controller
 - `DELETE /api/versions/{versionId}` – Delete version
 
 ### 🛍️ Products
+
 - `POST /api/products` – Create product
 - `GET /api/products` – List products (paginated) `?page=&size=&sortBy=&sortDir=`
 - `GET /api/products/{productId}` – Get product by ID
@@ -167,28 +186,34 @@ Below is the current list of REST endpoints derived directly from the controller
 - `DELETE /api/products/{productId}` – Delete product
 
 #### � Product Specifications
+
 - `POST /api/products/{productId}/specifications` – Add specification to product
 - `DELETE /api/products/{productId}/specifications/{specId}` – Delete specification
 
 #### 🎨 Product Variants & Attributes
+
 - `POST /api/products/{productId}/variants` – Add variant (includes color/version/sizes/images as per request body)
 - `DELETE /api/products/{productId}/variants/{variantId}` – Delete variant
 - `GET /api/products/{productId}/variants?versionId=&colorId=&sizeId=` – Resolve product variant & size-specific details by attributes
 
 #### 💸 Discounts
+
 - `POST /api/products/discount/{variantSizeId}` – Create discount for a specific variant size
 
 #### ⭐ Reviews
+
 - `POST /api/products/{productId}/reviews` – Create review
 - `GET /api/products/{productId}/reviews` – List reviews (paginated) `?page=&size=&sortBy=&sortDir=`
 
 ### 📦 Inventory
+
 - `POST /api/inventories` – Create inventory record (store + variant size)
 - `PUT /api/inventories/{inventoryId}` – Update inventory
 - `DELETE /api/inventories/{inventoryId}` – Delete inventory
 - `GET /api/inventories/{storeId}` – List inventories for store (paginated) `?page=&size=&sortBy=&sortDir=`
 
 ### 🧾 Orders & Cart
+
 - `POST /api/orders` – Create customer order
 - `POST /api/orders/store?storeId=` – Create store-specific order (admin flow)
 - `POST /api/orders/allocate/{orderId}` – Allocate order to stores / inventory
@@ -199,9 +224,11 @@ Below is the current list of REST endpoints derived directly from the controller
 - `GET /api/orders/cart?accountId=` – Get cart for account
 
 ### ☁️ Uploads
+
 - `POST /api/uploads/images` – Upload single image (multipart form field `file`, optional `folder` param; default folder=products)
 
 ### 🖼️ Notes
+
 - All responses are wrapped in the unified ApiResponse structure.
 - Date/time fields use ISO-8601 format.
 - Validation errors and business rule violations return standardized error codes (see ErrorCode enum).
@@ -210,6 +237,7 @@ Below is the current list of REST endpoints derived directly from the controller
 ## ⚙️ Configuration
 
 ### Environment Variables
+
 Create a .env file in the root directory:
 
 ```env
@@ -235,17 +263,20 @@ CLOUDINARY_API_SECRET=your_api_secret
 ```
 
 ### Application Configuration
+
 The application uses `application.yaml` for configuration with environment variable substitution.
 
 ## 🛡️ Security Features
 
 ### Authentication & Authorization
+
 - **JWT-based authentication** with access and refresh tokens
 - **Role-based access control** (RBAC)
 - **Token blacklisting** using Redis
 - **Password encryption** with BCrypt
 
 ### API Security
+
 - **CORS configuration** for cross-origin requests
 - **Input validation** with Bean Validation
 - **Custom exception handling** with standardized error responses
@@ -254,17 +285,20 @@ The application uses `application.yaml` for configuration with environment varia
 ## 🎯 Business Logic Highlights
 
 ### Product Management
+
 - **Complex product variants** with size-specific pricing
 - **Image management** with Cloudinary integration
 - **Specification system** for technical details
 - **Category and brand organization**
 
 ### Inventory System
+
 - **Multi-store inventory tracking**
 - **Real-time stock updates**
 - **Discount management** with time-based pricing
 
 ### Order Processing
+
 - **Complete order lifecycle management**
 - **Multiple payment methods** support
 - **Customer information handling**
@@ -273,6 +307,7 @@ The application uses `application.yaml` for configuration with environment varia
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Java 17+
 - PostgreSQL 12+
 - Redis 6+
@@ -281,18 +316,21 @@ The application uses `application.yaml` for configuration with environment varia
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
-   git clone https://github.com/yourusername/goodminton-shop-api.git
+   git clone https://github.com/hoanglong1208/goodminton-shop-api.git
    cd goodminton-shop-api
    ```
 
 2. **Set up environment variables**
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
 3. **Start dependencies**
+
    ```bash
    # Start PostgreSQL and Redis
    docker-compose up -d postgres redis
@@ -308,7 +346,8 @@ The API will be available at `http://localhost:8080`
 ## 📊 Database Migration
 
 The project uses Flyway for database versioning:
-- V1__init_schema.sql - Initial database schema
+
+- V1\_\_init_schema.sql - Initial database schema
 - `V2__init_super_admin.sql` - Default super admin user
 
 Migrations run automatically on application startup.
@@ -345,4 +384,4 @@ Error responses include appropriate HTTP status codes and error messages.
 
 ---
 
-*Built with ❤️ for the badminton community*
+_Built with ❤️ for the badminton community_

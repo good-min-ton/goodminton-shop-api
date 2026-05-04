@@ -62,13 +62,14 @@ cloudinary:
   api-secret: ${CLOUDINARY_API_SECRET}
   folder-prefix: ${CLOUDINARY_FOLDER_PREFIX:goodminton}
 
-payos:
-  client-id: ${PAYOS_CLIENT_ID}
-  api-key: ${PAYOS_API_KEY}
-  checksum-key: ${PAYOS_CHECKSUM_KEY}
-  webhook-url: ${PAYOS_WEBHOOK_URL}
-  return-url: ${PAYOS_RETURN_URL}
-  cancel-url: ${PAYOS_CANCEL_URL}
+vnpay:
+  tmn-code: ${VNP_TMN_CODE}
+  hash-secret: ${VNP_HASH_SECRET}
+  pay-url: ${VNP_PAY_URL:https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+  api-url: ${VNP_API_URL:https://sandbox.vnpayment.vn/merchant_webapi/api/transaction}
+  return-url: ${VNP_RETURN_URL}
+  frontend-return-url: ${VNP_FRONTEND_RETURN_URL}
+  payment-timeout-minutes: 15
 
 app:
   frontend-url: ${FRONTEND_URL}

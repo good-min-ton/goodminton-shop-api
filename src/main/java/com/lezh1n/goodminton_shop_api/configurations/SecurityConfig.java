@@ -40,7 +40,6 @@ public class SecurityConfig {
     private final CustomJwtAuthenticationConverter customConverter;
 
     private static final String[] POST_PUBLIC_ENDPOINTS = {
-            "/api/payos/webhook",
             "/api/auth/**",
             "/api/accounts/forgot-password",
             "/api/accounts/reset-password",
@@ -51,11 +50,12 @@ public class SecurityConfig {
             "/api/stores", "/api/stores/{storeId}",
             "/api/categories", "/api/categories/{categoryId}",
             "/api/brands", "/api/brands/{brandId}",
-            "/api/versions", "/api/versions/{versionId}",
 
             "/api/sizes", "/api/sizes/{sizeId}",
             "api/colors", "api/colors/{colorId}",
             "api/products", "api/products/{productId}",
+
+            "/api/vnpay/callback", "/api/vnpay/ipn",
     };
 
     @Value("${spring.jwt.secret}")
