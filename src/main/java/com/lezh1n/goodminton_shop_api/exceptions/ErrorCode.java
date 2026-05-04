@@ -133,6 +133,10 @@ public enum ErrorCode {
     INVENTORY_QUANTITY_REQUIRED(2405, "Số lượng sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
     INVENTORY_STORE_AND_VARIANT_DUPLICATED(2406, "Kho của cửa hàng đã tồn tại bản thể của sản phẩm này",
             HttpStatus.BAD_REQUEST),
+    INVENTORY_VARIANT_ID_REQUIRED(2407, "Variant ID không được để trống", HttpStatus.BAD_REQUEST),
+    INVENTORY_QUANTITY_NEGATIVE(2408, "Số lượng tồn kho không được âm", HttpStatus.BAD_REQUEST),
+    STORE_NO_CENTRAL(2409, "Không tìm thấy kho trung tâm — vui lòng đặt is_central = true cho 1 store",
+            HttpStatus.INTERNAL_SERVER_ERROR),
 
     // Order (2501 - 2600)
     ORDER_NOT_FOUND(2501, "Không tìm thây đơn hàng", HttpStatus.NOT_FOUND),
