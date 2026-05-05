@@ -191,8 +191,7 @@ public class ResourceServiceImpl implements ResourceService {
         return FOLDERS.getOrDefault(ownerType, "misc");
     }
 
-    // Cloudinary delete chạy sau DB commit — tránh trường hợp DB rollback nhưng
-    // file Cloudinary đã bị xoá
+    // Run Cloudinary delete after DB commit so a rollback never leaves files orphaned.
     private void afterCommit(Runnable action) {
         if (TransactionSynchronizationManager.isSynchronizationActive()) {
             TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {

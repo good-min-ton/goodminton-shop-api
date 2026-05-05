@@ -58,7 +58,7 @@ public class RecommendationServiceImpl implements RecommendationService {
                 PageRequest.of(0, CATEGORY_BRAND_LIMIT));
         addAll(picked, similar, excluded);
 
-        // Source 2: best seller 30 ngày
+        // Source 2: best sellers in last 30 days
         int remaining = TARGET_SIZE - picked.size();
         if (remaining > 0) {
             List<Integer> bestSellerIds = orderItemRepository.findBestSellerProductIds(
@@ -69,7 +69,7 @@ public class RecommendationServiceImpl implements RecommendationService {
             addAll(picked, loadOrdered(bestSellerIds), excluded);
         }
 
-        // Source 3: đang có sale_price
+        // Source 3: variants currently on sale
         remaining = TARGET_SIZE - picked.size();
         if (remaining > 0) {
             List<Product> onSale = productRepository.findOnSale(excluded, PageRequest.of(0, remaining));
@@ -83,7 +83,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         Set<Integer> excluded = new LinkedHashSet<>();
         excluded.add(current.getId());
 
-        // Nếu current là phiên bản → root + tất cả sibling; nếu current là root → root + children
+        // Resolve root then collect all siblings, so we exclude the whole related family.
         Integer rootId = current.getRelatedProduct() != null
                 ? current.getRelatedProduct().getId()
                 : current.getId();

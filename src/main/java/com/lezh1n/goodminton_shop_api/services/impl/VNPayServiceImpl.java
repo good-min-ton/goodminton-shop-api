@@ -139,7 +139,7 @@ public class VNPayServiceImpl implements VNPayService {
             return new IpnResult("04", "Invalid amount");
         }
 
-        // IPN có thể được VNPay gọi nhiều lần — trả 02 nếu đã xử lý để tránh side effect kép
+        // VNPay may retry IPN — return 02 if already processed to keep handler idempotent.
         if (payment.getStatus() != PaymentStatus.PENDING) {
             return new IpnResult("02", "Order already confirmed");
         }

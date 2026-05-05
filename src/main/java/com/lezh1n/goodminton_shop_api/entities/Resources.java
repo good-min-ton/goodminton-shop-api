@@ -18,7 +18,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// Polymorphic theo (owner_type, owner_id) — không dùng JPA FK, enforce ở service layer.
+// Polymorphic via (owner_type, owner_id) — no JPA FK, enforced in service layer.
 @Entity
 @Table(name = "resources")
 @Data

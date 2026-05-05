@@ -117,7 +117,7 @@ public class ProductMapper {
         }
         Product related = productRepository.findById(relatedId)
                 .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-        // Chỉ cho phép trỏ về sản phẩm gốc (related_product_id = NULL)
+        // Only allow linking to a root product (related_product_id IS NULL).
         if (related.getRelatedProduct() != null) {
             throw new AppException(ErrorCode.PRODUCT_RELATED_MUST_BE_ROOT);
         }

@@ -42,7 +42,7 @@ public class InventoryServiceImpl implements InventoryService {
         }
         int updated = inventoryRepository.decrementIfAvailable(storeId, variantId, quantity, LocalDateTime.now());
         if (updated == 0) {
-            // Phân biệt "không tồn tại record" và "không đủ stock"
+            // Distinguish "no inventory row" vs "insufficient stock".
             inventoryRepository.findByStore_IdAndVariant_Id(storeId, variantId)
                     .orElseThrow(() -> new AppException(ErrorCode.INVENTORY_VARIANT_NOT_FOUND));
             throw new AppException(ErrorCode.ORDER_INVENTORY_INSUFFICIENT);
