@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.configurations.CacheConfig;
+import com.lezh1n.goodminton_shop_api.configurations.OrderProperties;
+import com.lezh1n.goodminton_shop_api.configurations.VNPayProperties;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateInStoreOrderRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateOnlineOrderRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.OrderItemRequest;
@@ -54,6 +56,9 @@ public class OrderServiceImpl implements OrderService {
     private final InventoryService inventoryService;
     private final CurrentAccountProvider currentAccountProvider;
     private final OrderMapper orderMapper;
+
+    private final OrderProperties orderProperties;
+    private final VNPayProperties vnpayProperties;
 
     // ---------- Customer ----------
 
@@ -222,6 +227,39 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAll(pageable).map(orderMapper::toOrderResponse);
     }
 
+    // ---------- Scheduled jobs ----------
+
+    @Override
+    @CacheEvict(value = CacheConfig.RECOMMENDATIONS_CACHE, allEntries = true)
+    public int autoCompleteDeliveredOrders() {
+        // Approximation: uses orderDate since Order has no delivered_at column yet (see
+        // PERFORMANCE.md).
+        LocalDateTime threshold = LocalDateTime.now().minusDays(orderProperties.getAutoCompleteDays());
+        List<Order> eligible = orderRepository.findEligibleForAutoComplete(
+                OrderStatus.DELIVERED, OrderType.ONLINE, threshold);
+        eligible.forEach(o -> o.setStatus(OrderStatus.COMPLETED));
+        orderRepository.saveAll(eligible);
+        return eligible.size();
+    }
+
+    @Override
+    public int cancelExpiredVNPayOrders() {
+        LocalDateTime threshold = LocalDateTime.now().minusMinutes(vnpayProperties.getPaymentTimeoutMinutes());
+        List<Order> expired = orderRepository.findExpiredVNPayPending(
+                OrderStatus.PENDING, PaymentMethod.VNPAY,
+                PaymentStatus.PENDING, PaymentStatus.PAID, threshold);
+
+        for (Order order : expired) {
+            restockItems(order);
+            order.getPayments().stream()
+                    .filter(p -> p.getMethod() == PaymentMethod.VNPAY && p.getStatus() == PaymentStatus.PENDING)
+                    .forEach(p -> p.setStatus(PaymentStatus.FAILED));
+            order.setStatus(OrderStatus.CANCELLED);
+        }
+        orderRepository.saveAll(expired);
+        return expired.size();
+    }
+
     // ---------- Helpers ----------
 
     private BigDecimal buildItemsAndDeductStock(Order order, List<OrderItemRequest> itemRequests, Integer storeId) {
@@ -233,7 +271,8 @@ public class OrderServiceImpl implements OrderService {
             // Atomic stock deduction — throws if insufficient.
             inventoryService.deduct(storeId, variant.getId(), req.getQuantity());
 
-            // Snapshot price at order time so later sale_price changes don't affect history.
+            // Snapshot price at order time so later sale_price changes don't affect
+            // history.
             BigDecimal unitPrice = variant.getPrice();
             BigDecimal discountPrice = variant.getSalePrice();
             BigDecimal effective = discountPrice != null ? discountPrice : unitPrice;

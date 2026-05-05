@@ -39,4 +39,9 @@ public interface OrderService {
     OrderResponse getOrderById(Integer orderId);
 
     Page<OrderResponse> getAllOrders(OrderStatus status, OrderType type, Pageable pageable);
+
+    // Scheduled jobs
+    int autoCompleteDeliveredOrders();
+
+    int cancelExpiredVNPayOrders();
 }

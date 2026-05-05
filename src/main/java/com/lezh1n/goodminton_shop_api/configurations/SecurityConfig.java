@@ -56,6 +56,9 @@ public class SecurityConfig {
             "api/products", "api/products/{productId}",
 
             "/api/vnpay/callback", "/api/vnpay/ipn",
+
+            "/v3/api-docs", "/v3/api-docs/**", "/v3/api-docs.yaml",
+            "/swagger-ui.html", "/swagger-ui/**",
     };
 
     @Value("${spring.jwt.secret}")
