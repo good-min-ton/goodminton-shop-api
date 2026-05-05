@@ -25,7 +25,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
 
     Optional<Inventory> findByStore_IdAndVariant_Id(Integer storeId, Integer variantId);
 
-    // Atomic decrement — chỉ thành công nếu quantity hiện tại đủ
+    // Atomic decrement — success if quantity is enough
     @Modifying
     @Query("""
             UPDATE Inventory i
