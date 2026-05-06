@@ -35,6 +35,7 @@ public enum ErrorCode {
     ACCOUNT_RESET_TOKEN_BLANK(1205, "Reset token could not be blank", HttpStatus.BAD_REQUEST),
     ACCOUNT_RESET_TOKEN_INVALID(1206, "Link reset mật khẩu không hợp lệ hoặc đã hết hạn", HttpStatus.BAD_REQUEST),
     ACCOUNT_PASSWORD_SAME_AS_OLD(1207, "Mật khẩu mới không được trùng với mật khẩu cũ", HttpStatus.BAD_REQUEST),
+    ACCOUNT_CANT_BE_LOCKED(1208, "Không thể khóa tải khoản super admin", HttpStatus.BAD_REQUEST),
 
     // Store (1301 - 1400)
     STORE_NOT_FOUND(1301, "Store not found", HttpStatus.NOT_FOUND),

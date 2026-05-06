@@ -31,14 +31,14 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query(value = """
             SELECT EXISTS (SELECT 1
-                FROM account
+                FROM accounts
                 WHERE account_id = :accountId
                 AND role = 'STORE_ADMIN')
             """, nativeQuery = true)
     boolean isStoreAdminAccount(@Param("accountId") Integer accountId);
 
     @Query(value = """
-            SELECT * FROM account a
+            SELECT * FROM accounts a
             WHERE a.role = 'STORE_ADMIN'
             AND a.account_id NOT IN (SELECT s.admin_id FROM store s)
             """, nativeQuery = true)

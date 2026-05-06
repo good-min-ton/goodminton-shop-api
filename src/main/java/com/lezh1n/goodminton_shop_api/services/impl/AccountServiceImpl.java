@@ -108,6 +108,10 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
 
+        if (accountId.equals(currentAccountProvider.getCurrentAccountId())) {
+            throw new AppException(ErrorCode.ACCOUNT_CANT_BE_LOCKED);
+        }
+
         account.setStatus(status);
         accountRepository.save(account);
     }

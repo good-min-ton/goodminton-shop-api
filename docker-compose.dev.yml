@@ -1,8 +1,3 @@
-# Run: docker compose -f docker-compose.dev.yml up --build
-#
-# Compose auto-reads `.env` in this directory for ${VAR} substitution and the app service.
-# Each machine keeps its own `.env` (gitignored). Use `.env.example` as template.
-
 services:
   postgres:
     image: postgres:15
@@ -17,7 +12,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USERNAME:-admin} -d ${POSTGRES_DB:-goodminton}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USERNAME:-admin} -d ${POSTGRES_DB:-goodminton}" ]
       interval: 5s
       timeout: 3s
       retries: 10
@@ -29,7 +24,7 @@ services:
     ports:
       - "${REDIS_PORT:-6379}:6379"
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
       timeout: 3s
       retries: 10
