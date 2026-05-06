@@ -124,9 +124,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     /**
      * PENDING orders with VNPay payment older than threshold and no PAID payment —
-     * expired.
+     * expired. Fetch only orderItems (single collection); payments lazy-loaded inside @Transactional.
      */
-    @EntityGraph(attributePaths = { "orderItems", "orderItems.variant", "store", "payments" })
+    @EntityGraph(attributePaths = { "orderItems", "orderItems.variant", "store" })
     @Query("""
             SELECT DISTINCT o FROM Order o
             JOIN o.payments p
