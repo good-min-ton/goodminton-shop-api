@@ -1,4 +1,7 @@
-version: "3.9"
+# Run: docker compose -f docker-compose.dev.yml up --build
+#
+# Compose auto-reads `.env` in this directory for ${VAR} substitution and the app service.
+# Each machine keeps its own `.env` (gitignored). Use `.env.example` as template.
 
 services:
   postgres:
@@ -6,20 +9,55 @@ services:
     container_name: goodminton-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: goodminton
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: postgresql123
+      POSTGRES_DB: ${POSTGRES_DB:-goodminton}
+      POSTGRES_USER: ${POSTGRES_USERNAME:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgresql123}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USERNAME:-admin} -d ${POSTGRES_DB:-goodminton}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   redis:
     image: redis:7
     container_name: goodminton-redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT:-6379}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: goodminton-shop-api:dev
+    container_name: goodminton-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
+    env_file:
+      - .env
+    # Container-internal hostnames (compose service DNS) — not user-configurable.
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      SERVER_PORT: 8080
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
 
 volumes:
   postgres_data:
