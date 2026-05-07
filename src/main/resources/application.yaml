@@ -62,6 +62,15 @@ cloudinary:
   api-secret: ${CLOUDINARY_API_SECRET}
   folder-prefix: ${CLOUDINARY_FOLDER_PREFIX:goodminton}
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

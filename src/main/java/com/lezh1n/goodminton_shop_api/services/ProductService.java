@@ -4,10 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 
 public interface ProductService {
 
@@ -24,8 +22,4 @@ public interface ProductService {
     ResourceResponse uploadVariantImage(Integer variantId, MultipartFile file);
 
     void deleteVariantImage(Integer imageId);
-
-    ReviewResponse createReview(Integer productId, ReviewRequest request);
-
-    Page<ReviewResponse> getReviewsOfProduct(Integer productId, int page, int size, String sortBy, String sortDir);
 }

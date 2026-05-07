@@ -32,7 +32,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = """
             SELECT EXISTS (SELECT 1
                 FROM accounts
-                WHERE account_id = :accountId
+                WHERE id = :accountId
                 AND role = 'STORE_ADMIN')
             """, nativeQuery = true)
     boolean isStoreAdminAccount(@Param("accountId") Integer accountId);
@@ -40,7 +40,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = """
             SELECT * FROM accounts a
             WHERE a.role = 'STORE_ADMIN'
-            AND a.account_id NOT IN (SELECT s.admin_id FROM store s)
+            AND a.id NOT IN (SELECT s.admin_id FROM stores s)
             """, nativeQuery = true)
     List<Account> findAdminsNotAssigned();
 }

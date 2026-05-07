@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -15,10 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.common.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
-import com.lezh1n.goodminton_shop_api.dtos.request.ReviewRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ReviewResponse;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 
 import jakarta.validation.Valid;
@@ -75,26 +72,6 @@ public class ProductController {
         productService.deleteProduct(productId);
         return ApiResponse.<String>builder()
                 .result("Xóa sản phẩm thành công")
-                .build();
-    }
-
-    @PostMapping("/{productId}/reviews")
-    public ApiResponse<ReviewResponse> createReview(@PathVariable Integer productId,
-            @Valid @RequestBody ReviewRequest request) {
-        return ApiResponse.<ReviewResponse>builder()
-                .result(productService.createReview(productId, request))
-                .build();
-    }
-
-    @GetMapping("/{productId}/reviews")
-    public ApiResponse<Page<ReviewResponse>> getReviewsOfProduct(
-            @PathVariable Integer productId,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "createdAt") String sortBy,
-            @RequestParam(defaultValue = "desc") String sortDir) {
-        return ApiResponse.<Page<ReviewResponse>>builder()
-                .result(productService.getReviewsOfProduct(productId, page, size, sortBy, sortDir))
                 .build();
     }
 

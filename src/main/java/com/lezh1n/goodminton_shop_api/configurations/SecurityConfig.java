@@ -54,11 +54,14 @@ public class SecurityConfig {
             "/api/sizes", "/api/sizes/{sizeId}",
             "api/colors", "api/colors/{colorId}",
             "api/products", "api/products/{productId}",
+            "/api/reviews/{productId}",
 
             "/api/vnpay/callback", "/api/vnpay/ipn",
 
             "/v3/api-docs", "/v3/api-docs/**", "/v3/api-docs.yaml",
             "/swagger-ui.html", "/swagger-ui/**",
+
+            "/actuator/health", "/actuator/health/**",
     };
 
     @Value("${spring.jwt.secret}")
