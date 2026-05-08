@@ -13,7 +13,7 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountResponse {
-    private Integer accountId;
+    private Integer id;
     private String fullName;
     private String email;
     private String phone;

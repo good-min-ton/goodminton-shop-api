@@ -18,7 +18,7 @@ public class OrderItemMapper {
     public OrderItemResponse toOrderItemResponse(OrderItem item) {
         ProductVariant variant = item.getVariant();
         return OrderItemResponse.builder()
-                .orderItemId(item.getId())
+                .id(item.getId())
                 .variantId(variant.getId())
                 .productId(variant.getProduct().getId())
                 .productName(variant.getProduct().getName())

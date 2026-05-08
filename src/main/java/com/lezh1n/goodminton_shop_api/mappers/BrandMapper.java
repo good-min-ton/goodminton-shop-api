@@ -16,7 +16,7 @@ public class BrandMapper {
 
     public BrandResponse toBrandResponse(Brand brand) {
         return BrandResponse.builder()
-                .brandId(brand.getId())
+                .id(brand.getId())
                 .brandName(brand.getName())
                 .build();
     }

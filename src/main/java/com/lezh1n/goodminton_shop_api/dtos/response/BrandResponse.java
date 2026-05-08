@@ -9,6 +9,6 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BrandResponse {
-    private Integer brandId;
+    private Integer id;
     private String brandName;
 }

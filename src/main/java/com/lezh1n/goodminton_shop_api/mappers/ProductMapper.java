@@ -58,7 +58,7 @@ public class ProductMapper {
 
     public ProductResponse toProductResponse(Product product, ResourceResponse thumbnail) {
         return ProductResponse.builder()
-                .productId(product.getId())
+                .id(product.getId())
                 .category(categoryMapper.toCategoryResponse(product.getCategory()))
                 .brand(brandMapper.toBrandResponse(product.getBrand()))
                 .relatedProductId(product.getRelatedProduct() == null ? null : product.getRelatedProduct().getId())
@@ -102,7 +102,7 @@ public class ProductMapper {
                 .min(Comparator.naturalOrder())
                 .orElse(null);
         return ProductListItemResponse.builder()
-                .productId(product.getId())
+                .id(product.getId())
                 .name(product.getName())
                 .slug(product.getSlug())
                 .thumbnailUrl(thumbnailUrl)

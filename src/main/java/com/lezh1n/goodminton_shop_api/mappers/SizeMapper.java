@@ -17,7 +17,7 @@ public class SizeMapper {
 
     public SizeResponse toSizeResponse(Size size) {
         return SizeResponse.builder()
-                .sizeId(size.getId())
+                .id(size.getId())
                 .name(size.getName())
                 .type(size.getType())
                 .build();

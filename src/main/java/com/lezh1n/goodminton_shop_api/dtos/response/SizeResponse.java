@@ -10,7 +10,7 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SizeResponse {
-    private Integer sizeId;
+    private Integer id;
     private String name;
     private SizeType type;
 }

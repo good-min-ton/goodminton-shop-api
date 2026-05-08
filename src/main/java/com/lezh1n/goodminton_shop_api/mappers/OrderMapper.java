@@ -16,7 +16,7 @@ public class OrderMapper {
 
     public OrderResponse toOrderResponse(Order order) {
         return OrderResponse.builder()
-                .orderId(order.getId())
+                .id(order.getId())
                 .customerId(order.getCustomer() == null ? null : order.getCustomer().getId())
                 .customerName(order.getCustomer() == null ? null : order.getCustomer().getFullName())
                 .storeId(order.getStore() == null ? null : order.getStore().getId())

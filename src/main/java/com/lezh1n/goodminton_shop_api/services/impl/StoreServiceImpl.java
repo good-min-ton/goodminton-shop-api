@@ -19,10 +19,12 @@ import com.lezh1n.goodminton_shop_api.repositories.InventoryRepository;
 import com.lezh1n.goodminton_shop_api.repositories.StoreRepository;
 import com.lezh1n.goodminton_shop_api.services.StoreService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class StoreServiceImpl implements StoreService {
 
     private final AccountRepository accountRepository;
@@ -37,14 +39,18 @@ public class StoreServiceImpl implements StoreService {
         if (request.getAdminId() == null) {
             throw new AppException(ErrorCode.STORE_ADMIN_ID_REQUIRED);
         }
-        Store store = storeMapper.toStore(request);
 
         Account account = accountRepository.findById(request.getAdminId())
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
-
         checkValidAdminAccount(account.getId());
 
+        Store store = storeMapper.toStore(request);
         store.setAdmin(account);
+
+        // Only one central store allowed — demote current central before promoting new one.
+        if (store.isCentral()) {
+            demoteCurrentCentral();
+        }
 
         return storeMapper.toStoreResponse(storeRepository.save(store));
     }
@@ -69,7 +75,6 @@ public class StoreServiceImpl implements StoreService {
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public StoreResponse updateStoreAdmin(Integer storeId, Integer adminId) {
-
         Store store = storeRepository.findById(storeId).orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
         Account admin = accountRepository.findById(adminId)
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
@@ -78,6 +83,19 @@ public class StoreServiceImpl implements StoreService {
         store.setAdmin(admin);
 
         return storeMapper.toStoreResponse(storeRepository.save(store));
+    }
+
+    @Override
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public StoreResponse setCentral(Integer storeId) {
+        Store target = storeRepository.findById(storeId)
+                .orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
+        if (!target.isCentral()) {
+            demoteCurrentCentral();
+            target.setCentral(true);
+            storeRepository.save(target);
+        }
+        return storeMapper.toStoreResponse(target);
     }
 
     @Override
@@ -100,5 +118,12 @@ public class StoreServiceImpl implements StoreService {
         if (storeRepository.isAdminAssigned(adminId)) {
             throw new AppException(ErrorCode.STORE_ADMIN_ASSIGNED);
         }
+    }
+
+    private void demoteCurrentCentral() {
+        storeRepository.findByIsCentralTrue().ifPresent(s -> {
+            s.setCentral(false);
+            storeRepository.save(s);
+        });
     }
 }

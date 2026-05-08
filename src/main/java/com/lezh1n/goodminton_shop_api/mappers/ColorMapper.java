@@ -17,7 +17,7 @@ public class ColorMapper {
 
     public ColorResponse toColorResponse(Color color) {
         return ColorResponse.builder()
-                .colorId(color.getId())
+                .id(color.getId())
                 .name(color.getName())
                 .build();
     }

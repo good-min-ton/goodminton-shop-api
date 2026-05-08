@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PaymentResponse {
-    private Integer paymentId;
+    private Integer id;
     private PaymentMethod method;
     private PaymentStatus status;
     private BigDecimal amount;

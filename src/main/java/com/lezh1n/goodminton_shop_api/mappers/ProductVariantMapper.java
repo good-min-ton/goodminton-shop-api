@@ -50,7 +50,7 @@ public class ProductVariantMapper {
 
     public ProductVariantResponse toProductVariantResponse(ProductVariant variant, List<ResourceResponse> images) {
         return ProductVariantResponse.builder()
-                .variantId(variant.getId())
+                .id(variant.getId())
                 .color(variant.getColor() == null ? null : colorMapper.toColorResponse(variant.getColor()))
                 .size(variant.getSize() == null ? null : sizeMapper.toSizeResponse(variant.getSize()))
                 .skuCode(variant.getSkuCode())

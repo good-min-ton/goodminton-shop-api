@@ -13,7 +13,7 @@ import com.lezh1n.goodminton_shop_api.services.RecommendationService;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController 
+@RestController
 @RequestMapping("api/products")
 @RequiredArgsConstructor
 public class RecommendationController {

@@ -10,7 +10,7 @@ public class PaymentMapper {
 
     public PaymentResponse toPaymentResponse(Payment payment) {
         return PaymentResponse.builder()
-                .paymentId(payment.getId())
+                .id(payment.getId())
                 .method(payment.getMethod())
                 .status(payment.getStatus())
                 .amount(payment.getAmount())

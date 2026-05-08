@@ -12,12 +12,13 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StoreResponse {
-    private Integer storeId;
+    private Integer id;
     private String name;
     private String address;
     private String contact;
     private BigDecimal longitude;
     private BigDecimal latitude;
+    private boolean isCentral;
     private LocalDateTime createdAt;
     private AccountResponse admin;
 }

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderResponse {
-    private Integer orderId;
+    private Integer id;
     private Integer customerId;
     private String customerName;
     private Integer storeId;

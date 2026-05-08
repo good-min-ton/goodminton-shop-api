@@ -9,6 +9,6 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ColorResponse {
-    private Integer colorId;
+    private Integer id;
     private String name;
 }

@@ -12,7 +12,7 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductVariantResponse {
-    private Integer variantId;
+    private Integer id;
     private ColorResponse color;
     private SizeResponse size;
     private String skuCode;

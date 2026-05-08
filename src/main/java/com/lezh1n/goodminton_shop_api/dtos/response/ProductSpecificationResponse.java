@@ -9,7 +9,7 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductSpecificationResponse {
-    private Integer specId;
+    private Integer id;
     private String name;
     private String value;
 }

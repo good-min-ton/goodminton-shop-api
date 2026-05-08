@@ -18,7 +18,7 @@ public class InventoryMapper {
     public InventoryResponse toInventoryResponse(Inventory inventory) {
         ProductVariant variant = inventory.getVariant();
         return InventoryResponse.builder()
-                .inventoryId(inventory.getId())
+                .id(inventory.getId())
                 .storeId(inventory.getStore().getId())
                 .storeName(inventory.getStore().getName())
                 .variantId(variant.getId())

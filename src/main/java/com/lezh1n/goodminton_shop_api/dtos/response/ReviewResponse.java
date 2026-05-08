@@ -11,7 +11,7 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReviewResponse {
-    private Integer reviewId;
+    private Integer id;
     private Integer productId;
     private Integer orderItemId;
     private AccountResponse customer;

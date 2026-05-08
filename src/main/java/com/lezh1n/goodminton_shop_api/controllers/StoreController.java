@@ -62,6 +62,13 @@ public class StoreController {
                 .build();
     }
 
+    @PatchMapping("/{storeId}/set-central")
+    public ApiResponse<StoreResponse> setCentral(@PathVariable Integer storeId) {
+        return ApiResponse.<StoreResponse>builder()
+                .result(storeService.setCentral(storeId))
+                .build();
+    }
+
     @DeleteMapping("/{storeId}")
     public ApiResponse<String> deleteStore(@PathVariable Integer storeId) {
         storeService.deleteStore(storeId);

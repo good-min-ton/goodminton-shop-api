@@ -28,4 +28,7 @@ public class CreateStoreRequest {
 
     @NotNull(message = "STORE_ADMIN_BLANK")
     private Integer adminId;
+
+    // Optional. Default false. If true, current central store is auto-demoted.
+    private Boolean isCentral;
 }

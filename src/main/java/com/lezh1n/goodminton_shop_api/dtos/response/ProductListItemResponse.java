@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductListItemResponse {
-    private Integer productId;
+    private Integer id;
     private String name;
     private String slug;
     private String thumbnailUrl;

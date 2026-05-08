@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class InventoryResponse {
-    private Integer inventoryId;
+    private Integer id;
     private Integer storeId;
     private String storeName;
     private Integer variantId;

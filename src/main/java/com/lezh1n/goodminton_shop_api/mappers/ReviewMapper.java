@@ -32,7 +32,7 @@ public class ReviewMapper {
 
     public ReviewResponse toReviewResponse(Review review) {
         return ReviewResponse.builder()
-                .reviewId(review.getId())
+                .id(review.getId())
                 .productId(review.getProduct().getId())
                 .orderItemId(review.getOrderItem().getId())
                 .customer(accountMapper.toAccountResponse(review.getCustomer()))

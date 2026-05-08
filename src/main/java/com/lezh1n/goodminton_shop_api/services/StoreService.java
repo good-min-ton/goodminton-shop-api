@@ -17,5 +17,8 @@ public interface StoreService {
 
     StoreResponse updateStoreAdmin(Integer storeId, Integer adminId);
 
+    /** Promote store to central; auto-demote previous central. */
+    StoreResponse setCentral(Integer storeId);
+
     void deleteStore(Integer storeId);
 }

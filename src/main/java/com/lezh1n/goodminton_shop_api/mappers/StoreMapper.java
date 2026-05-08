@@ -23,18 +23,20 @@ public class StoreMapper {
                 .contact(request.getContact())
                 .longitude(request.getLongitude())
                 .latitude(request.getLatitude())
+                .isCentral(Boolean.TRUE.equals(request.getIsCentral()))
                 .createdAt(LocalDateTime.now())
                 .build();
     }
 
     public StoreResponse toStoreResponse(Store store) {
         return StoreResponse.builder()
-                .storeId(store.getId())
+                .id(store.getId())
                 .name(store.getName())
                 .address(store.getAddress())
                 .contact(store.getContact())
                 .longitude(store.getLongitude())
                 .latitude(store.getLatitude())
+                .isCentral(store.isCentral())
                 .createdAt(store.getCreatedAt())
                 .admin(accountMapper.toAccountResponse(store.getAdmin()))
                 .build();
