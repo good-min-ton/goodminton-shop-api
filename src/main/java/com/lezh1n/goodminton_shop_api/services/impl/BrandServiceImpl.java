@@ -49,7 +49,7 @@ public class BrandServiceImpl implements BrandService {
     public BrandResponse updateBrand(Integer brandId, BrandRequest request) {
         Brand brand = brandRepository.findById(brandId)
                 .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
-        brand.setName(request.getBrandName());
+        brand.setName(request.getName());
         return brandMapper.toBrandResponse(brandRepository.save(brand));
     }
 

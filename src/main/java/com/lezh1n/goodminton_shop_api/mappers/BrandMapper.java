@@ -8,16 +8,17 @@ import com.lezh1n.goodminton_shop_api.entities.Brand;
 
 @Component
 public class BrandMapper {
+
     public Brand toBrand(BrandRequest request) {
         return Brand.builder()
-                .name(request.getBrandName())
+                .name(request.getName())
                 .build();
     }
 
     public BrandResponse toBrandResponse(Brand brand) {
         return BrandResponse.builder()
                 .id(brand.getId())
-                .brandName(brand.getName())
+                .name(brand.getName())
                 .build();
     }
 }
