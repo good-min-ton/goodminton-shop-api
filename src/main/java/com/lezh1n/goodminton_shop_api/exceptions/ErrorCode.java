@@ -108,6 +108,7 @@ public enum ErrorCode {
     INVENTORY_VARIANT_ID_REQUIRED(2204, "Variant ID không được để trống", HttpStatus.BAD_REQUEST),
     INVENTORY_QUANTITY_REQUIRED(2205, "Số lượng sản phẩm không được để trống", HttpStatus.BAD_REQUEST),
     INVENTORY_QUANTITY_NEGATIVE(2206, "Số lượng tồn kho không được âm", HttpStatus.BAD_REQUEST),
+    INVENTORY_FORBIDDEN(2207, "Không có quyền cập nhật kho hàng này", HttpStatus.FORBIDDEN),
 
     // Order (2301 - 2400)
     ORDER_NOT_FOUND(2301, "Không tìm thấy đơn hàng", HttpStatus.NOT_FOUND),

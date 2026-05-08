@@ -12,6 +12,7 @@ import com.lezh1n.goodminton_shop_api.entities.Account;
 import com.lezh1n.goodminton_shop_api.entities.Inventory;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
 import com.lezh1n.goodminton_shop_api.entities.Store;
+import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.InventoryMapper;
@@ -68,6 +69,8 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public InventoryResponse setQuantity(SetInventoryRequest request) {
+        ensureCanManageStore(request.getStoreId());
+
         Store store = storeRepository.findById(request.getStoreId())
                 .orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
         ProductVariant variant = productVariantRepository.findById(request.getVariantId())
@@ -83,6 +86,18 @@ public class InventoryServiceImpl implements InventoryService {
         inventory.setQuantity(request.getQuantity());
         inventory.setUpdatedAt(LocalDateTime.now());
         return inventoryMapper.toInventoryResponse(inventoryRepository.save(inventory));
+    }
+
+    /** STORE_ADMIN can only manage their own store; SUPER_ADMIN passes through. */
+    private void ensureCanManageStore(Integer storeId) {
+        Account current = currentAccountProvider.getCurrentAccount();
+        if (current.getRole() == UserRole.STORE_ADMIN) {
+            Store managed = storeRepository.findByAdmin_Id(current.getId())
+                    .orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
+            if (!managed.getId().equals(storeId)) {
+                throw new AppException(ErrorCode.INVENTORY_FORBIDDEN);
+            }
+        }
     }
 
     @Override

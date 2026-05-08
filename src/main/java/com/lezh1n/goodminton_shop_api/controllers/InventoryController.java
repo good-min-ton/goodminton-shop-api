@@ -29,7 +29,7 @@ public class InventoryController {
     private final InventoryService inventoryService;
 
     @PutMapping
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'STORE_ADMIN')")
     public ApiResponse<InventoryResponse> setQuantity(@Valid @RequestBody SetInventoryRequest request) {
         return ApiResponse.<InventoryResponse>builder()
                 .result(inventoryService.setQuantity(request))
