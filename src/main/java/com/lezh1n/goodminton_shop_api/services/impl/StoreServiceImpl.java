@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateStoreRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.UpdateStoreRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.StoreResponse;
 import com.lezh1n.goodminton_shop_api.entities.Account;
@@ -42,12 +43,11 @@ public class StoreServiceImpl implements StoreService {
 
         Account account = accountRepository.findById(request.getAdminId())
                 .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
-        checkValidAdminAccount(account.getId());
+        ensureAssignableAdmin(account.getId(), null);
 
         Store store = storeMapper.toStore(request);
         store.setAdmin(account);
 
-        // Only one central store allowed — demote current central before promoting new one.
         if (store.isCentral()) {
             demoteCurrentCentral();
         }
@@ -74,28 +74,34 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @PreAuthorize("hasRole('SUPER_ADMIN')")
-    public StoreResponse updateStoreAdmin(Integer storeId, Integer adminId) {
-        Store store = storeRepository.findById(storeId).orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
-        Account admin = accountRepository.findById(adminId)
-                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+    public StoreResponse updateStore(Integer storeId, UpdateStoreRequest request) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
 
-        checkValidAdminAccount(adminId);
-        store.setAdmin(admin);
+        // Admin re-assignment — skip validation if unchanged.
+        if (!request.getAdminId().equals(store.getAdmin().getId())) {
+            Account newAdmin = accountRepository.findById(request.getAdminId())
+                    .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
+            ensureAssignableAdmin(newAdmin.getId(), storeId);
+            store.setAdmin(newAdmin);
+        }
+
+        store.setName(request.getName());
+        store.setAddress(request.getAddress());
+        store.setContact(request.getContact());
+        store.setLongitude(request.getLongitude());
+        store.setLatitude(request.getLatitude());
+
+        // Central flag: null = no change.
+        Boolean centralFlag = request.getIsCentral();
+        if (centralFlag != null && centralFlag.booleanValue() != store.isCentral()) {
+            if (centralFlag.booleanValue()) {
+                demoteCurrentCentral();
+            }
+            store.setCentral(centralFlag.booleanValue());
+        }
 
         return storeMapper.toStoreResponse(storeRepository.save(store));
-    }
-
-    @Override
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
-    public StoreResponse setCentral(Integer storeId) {
-        Store target = storeRepository.findById(storeId)
-                .orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
-        if (!target.isCentral()) {
-            demoteCurrentCentral();
-            target.setCentral(true);
-            storeRepository.save(target);
-        }
-        return storeMapper.toStoreResponse(target);
     }
 
     @Override
@@ -110,12 +116,17 @@ public class StoreServiceImpl implements StoreService {
         storeRepository.delete(store);
     }
 
-    private void checkValidAdminAccount(Integer adminId) {
+    /**
+     * Validate role + uniqueness. selfStoreId allows admin to keep current store.
+     */
+    private void ensureAssignableAdmin(Integer adminId, Integer selfStoreId) {
         if (!accountRepository.isStoreAdminAccount(adminId)) {
             throw new AppException(ErrorCode.STORE_ASSIGN_NON_ADMIN_ACCOUNT);
         }
-
-        if (storeRepository.isAdminAssigned(adminId)) {
+        boolean assignedElsewhere = storeRepository.findByAdmin_Id(adminId)
+                .filter(s -> selfStoreId == null || !s.getId().equals(selfStoreId))
+                .isPresent();
+        if (assignedElsewhere) {
             throw new AppException(ErrorCode.STORE_ADMIN_ASSIGNED);
         }
     }

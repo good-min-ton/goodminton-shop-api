@@ -4,15 +4,16 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lezh1n.goodminton_shop_api.common.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateStoreRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.UpdateStoreRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.AccountResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.StoreResponse;
 import com.lezh1n.goodminton_shop_api.services.StoreService;
@@ -55,17 +56,11 @@ public class StoreController {
                 .build();
     }
 
-    @PatchMapping("/{storeId}/update-admin/{adminId}")
-    public ApiResponse<StoreResponse> updateStoreAdmin(@PathVariable Integer storeId, @PathVariable Integer adminId) {
+    @PutMapping("/{storeId}")
+    public ApiResponse<StoreResponse> updateStore(@PathVariable Integer storeId,
+            @Valid @RequestBody UpdateStoreRequest request) {
         return ApiResponse.<StoreResponse>builder()
-                .result(storeService.updateStoreAdmin(storeId, adminId))
-                .build();
-    }
-
-    @PatchMapping("/{storeId}/set-central")
-    public ApiResponse<StoreResponse> setCentral(@PathVariable Integer storeId) {
-        return ApiResponse.<StoreResponse>builder()
-                .result(storeService.setCentral(storeId))
+                .result(storeService.updateStore(storeId, request))
                 .build();
     }
 
