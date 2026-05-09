@@ -37,6 +37,7 @@ public class ResourceServiceImpl implements ResourceService {
         FOLDERS.put(ResourceOwner.PRODUCT_THUMBNAIL, "products/thumbnails");
         FOLDERS.put(ResourceOwner.VARIANT_IMAGE, "products/variants");
         FOLDERS.put(ResourceOwner.REVIEW_MEDIA, "reviews");
+        FOLDERS.put(ResourceOwner.CATEGORY_THUMBNAIL, "categories/thumbnails");
     }
 
     private final ResourceRepository resourceRepository;

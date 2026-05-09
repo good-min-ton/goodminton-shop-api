@@ -4,10 +4,12 @@ import org.springframework.stereotype.Component;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.CategoryRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.CategoryResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Category;
 
 @Component
 public class CategoryMapper {
+
     public Category toCategory(CategoryRequest request) {
         return Category.builder()
                 .name(request.getName())
@@ -15,11 +17,16 @@ public class CategoryMapper {
                 .build();
     }
 
-    public CategoryResponse toCategoryResponse(Category category) {
+    public CategoryResponse toCategoryResponse(Category category, ResourceResponse thumbnail) {
         return CategoryResponse.builder()
                 .id(category.getId())
                 .name(category.getName())
                 .description(category.getDescription())
+                .thumbnail(thumbnail)
                 .build();
+    }
+
+    public CategoryResponse toCategoryResponse(Category category) {
+        return toCategoryResponse(category, null);
     }
 }

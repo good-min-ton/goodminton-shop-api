@@ -33,7 +33,8 @@ CREATE TYPE resource_type AS ENUM ('IMAGE', 'VIDEO');
 CREATE TYPE resource_owner AS ENUM (
     'PRODUCT_THUMBNAIL',
     'VARIANT_IMAGE',
-    'REVIEW_MEDIA'
+    'REVIEW_MEDIA',
+    'CATEGORY_THUMBNAIL'
 );
 
 -- ------------------------------------------------------------

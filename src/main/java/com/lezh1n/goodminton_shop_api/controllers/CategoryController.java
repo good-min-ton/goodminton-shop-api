@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.common.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.CategoryRequest;
@@ -27,9 +28,11 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public ApiResponse<CategoryResponse> createCategory(@Valid @RequestBody CategoryRequest request) {
+    public ApiResponse<CategoryResponse> createCategory(
+            @Valid @RequestPart("categoryInfo") CategoryRequest request,
+            @RequestPart(value = "thumbnail", required = false) MultipartFile thumbnail) {
         return ApiResponse.<CategoryResponse>builder()
-                .result(categoryService.createCategory(request))
+                .result(categoryService.createCategory(request, thumbnail))
                 .build();
     }
 
@@ -50,9 +53,10 @@ public class CategoryController {
     @PutMapping("/{categoryId}")
     public ApiResponse<CategoryResponse> updateCategory(
             @PathVariable Integer categoryId,
-            @Valid @RequestBody CategoryRequest request) {
+            @Valid @RequestPart("categoryInfo") CategoryRequest request,
+            @RequestPart(value = "thumbnail", required = false) MultipartFile thumbnail) {
         return ApiResponse.<CategoryResponse>builder()
-                .result(categoryService.updateCategory(categoryId, request))
+                .result(categoryService.updateCategory(categoryId, request, thumbnail))
                 .build();
     }
 
