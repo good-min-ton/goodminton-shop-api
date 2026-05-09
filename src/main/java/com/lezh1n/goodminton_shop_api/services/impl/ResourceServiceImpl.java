@@ -34,10 +34,10 @@ public class ResourceServiceImpl implements ResourceService {
 
     private static final Map<ResourceOwner, String> FOLDERS = new EnumMap<>(ResourceOwner.class);
     static {
-        FOLDERS.put(ResourceOwner.PRODUCT_THUMBNAIL, "products/thumbnails");
-        FOLDERS.put(ResourceOwner.VARIANT_IMAGE, "products/variants");
+        FOLDERS.put(ResourceOwner.PRODUCT_THUMBNAIL, "products");
+        FOLDERS.put(ResourceOwner.VARIANT_IMAGE, "products");
+        FOLDERS.put(ResourceOwner.CATEGORY_THUMBNAIL, "categories");
         FOLDERS.put(ResourceOwner.REVIEW_MEDIA, "reviews");
-        FOLDERS.put(ResourceOwner.CATEGORY_THUMBNAIL, "categories/thumbnails");
     }
 
     private final ResourceRepository resourceRepository;

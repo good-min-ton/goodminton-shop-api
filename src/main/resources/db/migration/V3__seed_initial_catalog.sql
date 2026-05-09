@@ -26,6 +26,8 @@ INSERT INTO categories (id, name, description) VALUES (4, 'Quần cầu lông', 
 INSERT INTO categories (id, name, description) VALUES (5, 'Dây cước cầu lông', 'Danh mục Dây cước cầu lông');
 SELECT setval('categories_id_seq', 5);
 
+-- category thumbnails are seeded at the end of file (after resources_id_seq setval).
+
 -- colors
 INSERT INTO colors (id, name) VALUES (1, 'Default');
 INSERT INTO colors (id, name) VALUES (2, 'Dark Olive');
@@ -15174,3 +15176,11 @@ SELECT setval('products_id_seq', 272);
 SELECT setval('product_variants_id_seq', 1083);
 SELECT setval('product_specifications_id_seq', 317);
 SELECT setval('resources_id_seq', 647);
+
+-- category thumbnails (Cloudinary pre-uploaded)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (648, 'vot-cau-long_pwbeac',  'https://res.cloudinary.com/dyrppweev/image/upload/v1778319702/vot-cau-long_pwbeac.webp', 'IMAGE', 'CATEGORY_THUMBNAIL', 1, 0, NOW());
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (649, 'giay-cay-long_g9ieod', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778319701/giay-cay-long_g9ieod.jpg',  'IMAGE', 'CATEGORY_THUMBNAIL', 2, 0, NOW());
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (650, 'ao-cau-long_rzmocx',   'https://res.cloudinary.com/dyrppweev/image/upload/v1778319714/ao-cau-long_rzmocx.jpg',    'IMAGE', 'CATEGORY_THUMBNAIL', 3, 0, NOW());
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (651, 'quan-cau-long_qg0msc', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778319700/quan-cau-long_qg0msc.webp', 'IMAGE', 'CATEGORY_THUMBNAIL', 4, 0, NOW());
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (652, 'cuoc-cau-long_ipjabu', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778319701/cuoc-cau-long_ipjabu.jpg',  'IMAGE', 'CATEGORY_THUMBNAIL', 5, 0, NOW());
+SELECT setval('resources_id_seq', 652);
