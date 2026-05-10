@@ -76,7 +76,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
               AND (
                   to_tsvector('simple', immutable_unaccent(p.name || ' ' || COALESCE(p.description, '')))
                       @@ plainto_tsquery('simple', immutable_unaccent(:query))
-                  OR immutable_unaccent(lower(p.name)) %% immutable_unaccent(lower(:query))
+                  OR immutable_unaccent(lower(p.name)) % immutable_unaccent(lower(:query))
               )
             ORDER BY similarity(immutable_unaccent(lower(p.name)), immutable_unaccent(lower(:query))) DESC,
                      p.created_at DESC
@@ -87,7 +87,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
               AND (
                   to_tsvector('simple', immutable_unaccent(p.name || ' ' || COALESCE(p.description, '')))
                       @@ plainto_tsquery('simple', immutable_unaccent(:query))
-                  OR immutable_unaccent(lower(p.name)) %% immutable_unaccent(lower(:query))
+                  OR immutable_unaccent(lower(p.name)) % immutable_unaccent(lower(:query))
               )
             """,
             nativeQuery = true)
@@ -96,16 +96,20 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = """
             SELECT * FROM products p
             WHERE p.is_visible = true
-              AND (
-                  immutable_unaccent(lower(p.name)) LIKE immutable_unaccent(lower(:prefix)) || '%'
-                  OR immutable_unaccent(lower(p.name)) %% immutable_unaccent(lower(:prefix))
-              )
+              AND to_tsvector('simple', immutable_unaccent(p.name))
+                  @@ to_tsquery('simple', :tsquery)
             ORDER BY
-                CASE WHEN immutable_unaccent(lower(p.name)) LIKE immutable_unaccent(lower(:prefix)) || '%'
+                CASE WHEN immutable_unaccent(lower(p.name)) LIKE immutable_unaccent(lower(:rawPrefix)) || '%'
                      THEN 0 ELSE 1 END,
-                similarity(immutable_unaccent(lower(p.name)), immutable_unaccent(lower(:prefix))) DESC,
+                ts_rank(
+                    to_tsvector('simple', immutable_unaccent(p.name)),
+                    to_tsquery('simple', :tsquery)
+                ) DESC,
                 p.name
             LIMIT :limit
             """, nativeQuery = true)
-    List<Product> suggestProducts(@Param("prefix") String prefix, @Param("limit") int limit);
+    List<Product> suggestProducts(
+            @Param("tsquery") String tsquery,
+            @Param("rawPrefix") String rawPrefix,
+            @Param("limit") int limit);
 }

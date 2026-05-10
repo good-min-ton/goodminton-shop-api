@@ -43,4 +43,28 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             AND a.id NOT IN (SELECT s.admin_id FROM stores s)
             """, nativeQuery = true)
     List<Account> findAdminsNotAssigned();
+
+    @Query(value = """
+            SELECT * FROM accounts a
+            WHERE immutable_unaccent(lower(a.full_name || ' ' || a.email || ' ' || a.phone))
+                  % immutable_unaccent(lower(:query))
+               OR immutable_unaccent(lower(a.full_name)) LIKE '%' || immutable_unaccent(lower(:query)) || '%'
+               OR a.email LIKE '%' || lower(:query) || '%'
+               OR a.phone LIKE '%' || :query || '%'
+            ORDER BY similarity(
+                immutable_unaccent(lower(a.full_name || ' ' || a.email)),
+                immutable_unaccent(lower(:query))
+            ) DESC,
+            a.full_name
+            """,
+            countQuery = """
+            SELECT COUNT(*) FROM accounts a
+            WHERE immutable_unaccent(lower(a.full_name || ' ' || a.email || ' ' || a.phone))
+                  % immutable_unaccent(lower(:query))
+               OR immutable_unaccent(lower(a.full_name)) LIKE '%' || immutable_unaccent(lower(:query)) || '%'
+               OR a.email LIKE '%' || lower(:query) || '%'
+               OR a.phone LIKE '%' || :query || '%'
+            """,
+            nativeQuery = true)
+    Page<Account> searchAccounts(@Param("query") String query, Pageable pageable);
 }

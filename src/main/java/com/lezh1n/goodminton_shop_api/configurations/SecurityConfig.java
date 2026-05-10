@@ -55,7 +55,8 @@ public class SecurityConfig {
             "api/colors", "api/colors/{colorId}",
             "api/products", "api/products/{productId}",
             "/api/reviews/{productId}",
-            "/api/search", "/api/search/suggest",
+            "/api/search/products", "/api/search/products/suggest",
+            "/api/search/categories", "/api/search/brands",
 
             "/api/vnpay/callback", "/api/vnpay/ipn",
 
