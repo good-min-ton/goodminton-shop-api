@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -68,4 +69,43 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @EntityGraph(attributePaths = { "variants" })
     @Query("SELECT p FROM Product p WHERE p.id IN :ids")
     List<Product> findAllByIdInWithVariants(@Param("ids") Collection<Integer> ids);
+
+    @Query(value = """
+            SELECT * FROM products p
+            WHERE p.is_visible = true
+              AND (
+                  to_tsvector('simple', immutable_unaccent(p.name || ' ' || COALESCE(p.description, '')))
+                      @@ plainto_tsquery('simple', immutable_unaccent(:query))
+                  OR immutable_unaccent(lower(p.name)) %% immutable_unaccent(lower(:query))
+              )
+            ORDER BY similarity(immutable_unaccent(lower(p.name)), immutable_unaccent(lower(:query))) DESC,
+                     p.created_at DESC
+            """,
+            countQuery = """
+            SELECT COUNT(*) FROM products p
+            WHERE p.is_visible = true
+              AND (
+                  to_tsvector('simple', immutable_unaccent(p.name || ' ' || COALESCE(p.description, '')))
+                      @@ plainto_tsquery('simple', immutable_unaccent(:query))
+                  OR immutable_unaccent(lower(p.name)) %% immutable_unaccent(lower(:query))
+              )
+            """,
+            nativeQuery = true)
+    Page<Product> searchProducts(@Param("query") String query, Pageable pageable);
+
+    @Query(value = """
+            SELECT * FROM products p
+            WHERE p.is_visible = true
+              AND (
+                  immutable_unaccent(lower(p.name)) LIKE immutable_unaccent(lower(:prefix)) || '%'
+                  OR immutable_unaccent(lower(p.name)) %% immutable_unaccent(lower(:prefix))
+              )
+            ORDER BY
+                CASE WHEN immutable_unaccent(lower(p.name)) LIKE immutable_unaccent(lower(:prefix)) || '%'
+                     THEN 0 ELSE 1 END,
+                similarity(immutable_unaccent(lower(p.name)), immutable_unaccent(lower(:prefix))) DESC,
+                p.name
+            LIMIT :limit
+            """, nativeQuery = true)
+    List<Product> suggestProducts(@Param("prefix") String prefix, @Param("limit") int limit);
 }
