@@ -13,8 +13,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 10MB
-      max-request-size: 50MB
+      max-file-size: 8MB
+      max-request-size: 8MB
 
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:goodminton}?stringtype=unspecified
@@ -96,3 +96,7 @@ app:
     email: ${ADMIN_EMAIL}
     phone: ${ADMIN_PHONE}
     password: ${ADMIN_PASSWORD}
+  store-admin:
+    email: ${STORE_ADMIN_EMAIL}
+    phone: ${STORE_ADMIN_PHONE}
+    password: ${STORE_ADMIN_PASSWORD}

@@ -26,7 +26,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     private static final String CLOUDINARY_IMAGE = "image";
     private static final String CLOUDINARY_VIDEO = "video";
     private static final long MAX_IMAGE_SIZE = 5L * 1024 * 1024;
-    private static final long MAX_VIDEO_SIZE = 30L * 1024 * 1024;
+    private static final long MAX_VIDEO_SIZE = 8L * 1024 * 1024;
 
     private final Cloudinary cloudinary;
 
