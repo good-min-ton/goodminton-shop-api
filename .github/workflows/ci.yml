@@ -1,0 +1,84 @@
+name: CI - Build & Test
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: goodminton
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: postgresql123
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U admin -d goodminton"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: goodminton
+      POSTGRES_USERNAME: admin
+      POSTGRES_PASSWORD: postgresql123
+
+      REDIS_HOST: localhost
+      REDIS_PORT: 6379
+
+      JWT_SECRET: cHJlc3Nwcml2YXRlYnVzeWNhc3RsZWFpcmRvbGxhcmxhdWdoc3VpdGNlcnRhaW5zaGU=
+
+      MAIL_PORT: 587
+      MAIL_USERNAME: ci@example.com
+      MAIL_PASSWORD: dummy-app-password
+
+      CLOUDINARY_NAME: dummy
+      CLOUDINARY_API_KEY: dummy
+      CLOUDINARY_API_SECRET: dummy
+
+      VNP_TMN_CODE: DUMMY
+      VNP_HASH_SECRET: dummy-hash-secret
+      VNP_RETURN_URL: http://localhost:8080/api/vnpay/callback
+      VNP_FRONTEND_RETURN_URL: http://localhost:3000/payment/result
+
+      FRONTEND_URL: http://localhost:3000
+      ADMIN_EMAIL: ci-admin@example.com
+      ADMIN_PHONE: "0000000001"
+      ADMIN_PASSWORD: CiPassword!123
+      STORE_ADMIN_EMAIL: ci-store@example.com
+      STORE_ADMIN_PHONE: "0000000002"
+      STORE_ADMIN_PASSWORD: CiPassword!456
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: temurin
+          cache: maven
+
+      - name: Build & Test
+        run: mvn -B verify
