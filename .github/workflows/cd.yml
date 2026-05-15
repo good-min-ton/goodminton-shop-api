@@ -60,7 +60,9 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/goodminton-api:latest
+            cd ~/goodminton
+
+            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
 
             docker stop goodminton-api || true
             docker rm goodminton-api || true
@@ -70,4 +72,4 @@ jobs:
               -p 8080:8080 \
               --env-file .env.prod \
               --restart unless-stopped \
-              ${{ secrets.DOCKER_USERNAME }}/goodminton-api:latest
+              ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
