@@ -60,16 +60,9 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd ~/goodminton
+            cd ~/projects/goodminton
 
-            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            docker compose -f docker-compose.prod.yml pull shop-api
+            docker compose -f docker-compose.prod.yml up -d --no-deps shop-api
 
-            docker stop goodminton-api || true
-            docker rm goodminton-api || true
-
-            docker run -d \
-              --name goodminton-api \
-              -p 8080:8080 \
-              --env-file .env.prod \
-              --restart unless-stopped \
-              ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            docker image prune -f
