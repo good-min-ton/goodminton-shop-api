@@ -34,7 +34,7 @@ public class VNPayServiceImpl implements VNPayService {
 
     private static final DateTimeFormatter VNP_DATE_FORMAT = DateTimeFormatter
             .ofPattern("yyyyMMddHHmmss")
-            .withZone(ZoneId.of("Etc/GMT+7"));
+            .withZone(ZoneId.of("Asia/Ho_Chi_Minh"));
 
     private static final String VERSION = "2.1.0";
     private static final String COMMAND = "pay";
