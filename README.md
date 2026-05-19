@@ -1,4 +1,4 @@
-# 🏸 Goodminton Shop API
+# Goodminton Shop API
 
 A comprehensive e-commerce REST API for badminton equipment built with Spring Boot, providing complete product management, user authentication, and order processing capabilities.
 
@@ -376,12 +376,4 @@ Error responses include appropriate HTTP status codes and error messages.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📞 Contact
-
-**Project Maintainer**: Lezh1n
-**Email**: [hoangphilong1208@gmail.com]
-**Project Link**: [https://github.com/good-min-ton/goodminton-shop-api.git](https://github.com/good-min-ton/goodminton-shop-api.git)
-
 ---
-
-_Built with ❤️ for the badminton community_
