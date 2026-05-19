@@ -44,6 +44,8 @@ services:
     image: ollama/ollama:latest
     container_name: goodminton-ollama
     restart: unless-stopped
+    environment:
+      OLLAMA_KEEP_ALIVE: 24h
     volumes:
       - ollama_data:/root/.ollama
     # GPU passthrough — host needs NVIDIA driver + nvidia-container-toolkit
