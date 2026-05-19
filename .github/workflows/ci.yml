@@ -36,6 +36,19 @@ jobs:
           --health-timeout 3s
           --health-retries 10
 
+      rabbitmq:
+        image: rabbitmq:3-management
+        env:
+          RABBITMQ_DEFAULT_USER: ci
+          RABBITMQ_DEFAULT_PASS: ci-pass
+        ports:
+          - 5672:5672
+        options: >-
+          --health-cmd "rabbitmq-diagnostics ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
     env:
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
@@ -45,6 +58,13 @@ jobs:
 
       REDIS_HOST: localhost
       REDIS_PORT: 6379
+
+      RABBITMQ_HOST: localhost
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: ci
+      RABBITMQ_PASSWORD: ci-pass
+
+      INTERNAL_API_KEY: ci-dummy-internal-key
 
       JWT_SECRET: cHJlc3Nwcml2YXRlYnVzeWNhc3RsZWFpcmRvbGxhcmxhdWdoc3VpdGNlcnRhaW5zaGU=
 
