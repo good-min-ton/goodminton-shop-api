@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
+@Slf4j
 public class RabbitMQConfig {
 
     @Value("${rabbitmq.exchange.products}")
@@ -57,6 +60,20 @@ public class RabbitMQConfig {
     RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter converter) {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
         template.setMessageConverter(converter);
+
+        template.setConfirmCallback((correlation, ack, cause) -> {
+            if (!ack) {
+                log.error("RabbitMQ NACK | correlation={} | cause={}", correlation, cause);
+            }
+        });
+
+        template.setReturnsCallback(returned ->
+            log.warn("RabbitMQ unroutable | exchange={} | routingKey={} | replyText={} | body={}",
+                    returned.getExchange(),
+                    returned.getRoutingKey(),
+                    returned.getReplyText(),
+                    new String(returned.getMessage().getBody())));
+
         return template;
     }
 }
