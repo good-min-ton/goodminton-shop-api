@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductForRagResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductPricingResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.VariantPricingResponse;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
@@ -40,5 +42,23 @@ public class InternalProductController {
                 .category(p.getCategory().getName())
                 .specifications(specs)
                 .build();
+    }
+
+    @GetMapping("/{id}/pricing")
+    public ProductPricingResponse getPricing(@PathVariable Integer id) {
+        Product p = productRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+
+        List<VariantPricingResponse> variants = p.getVariants().stream()
+                .map(v -> new VariantPricingResponse(
+                        v.getId(),
+                        v.getColor() != null ? v.getColor().getName() : null,
+                        v.getSize() != null ? v.getSize().getName() : null,
+                        v.getSkuCode(),
+                        v.getPrice(),
+                        v.getSalePrice()))
+                .toList();
+
+        return new ProductPricingResponse(p.getId(), p.getName(), variants);
     }
 }
