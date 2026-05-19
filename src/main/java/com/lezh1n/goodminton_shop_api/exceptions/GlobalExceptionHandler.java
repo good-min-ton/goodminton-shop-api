@@ -119,6 +119,8 @@ public class GlobalExceptionHandler {
                 errorCode = ErrorCode.VARIANT_DUPLICATE_COMBINATION;
             } else if (message.contains("variant_image_public_id_key")) {
                 errorCode = ErrorCode.VARIANT_IMAGE_PUBLIC_ID_DUPLICATE;
+            } else if (message.contains("fk_inventory_variant") || message.contains("fk_items_variant")) {
+                errorCode = ErrorCode.VARIANT_IN_USE;
             } else if (message.contains("duplicate key")) {
                 errorCode = ErrorCode.DATABASE_DUPLICATE_KEY;
             } else if (message.contains("foreign key")) {

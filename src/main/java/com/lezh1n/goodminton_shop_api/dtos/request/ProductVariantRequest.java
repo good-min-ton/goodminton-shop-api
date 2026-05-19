@@ -10,6 +10,9 @@ import lombok.Getter;
 @Getter
 public class ProductVariantRequest {
 
+    // Present when updating an existing variant; null when creating a new one.
+    private Integer id;
+
     private Integer colorId;
 
     private Integer sizeId;

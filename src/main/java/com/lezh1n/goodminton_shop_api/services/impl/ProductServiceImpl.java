@@ -1,7 +1,12 @@
 package com.lezh1n.goodminton_shop_api.services.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.cache.annotation.CacheEvict;
@@ -30,6 +35,8 @@ import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.ProductMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductSpecificationMapper;
 import com.lezh1n.goodminton_shop_api.mappers.ProductVariantMapper;
+import com.lezh1n.goodminton_shop_api.repositories.InventoryRepository;
+import com.lezh1n.goodminton_shop_api.repositories.OrderItemRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
@@ -47,6 +54,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductVariantRepository productVariantRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
+    private final InventoryRepository inventoryRepository;
+    private final OrderItemRepository orderItemRepository;
     private final ProductMapper productMapper;
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
@@ -180,14 +189,53 @@ public class ProductServiceImpl implements ProductService {
                 .add(productSpecificationMapper.toProductSpecification(product, r)));
     }
 
+    /**
+     * Smart diff: variants with id → update; without id → create; existing not in
+     * request → delete (only if no inventory/order_item references).
+     */
     private void updateVariants(Product product, List<ProductVariantRequest> requests) {
-        List<ProductVariant> existing = productVariantRepository.findByProduct_Id(product.getId());
-        existing.forEach(v -> resourceService.deleteByOwner(ResourceOwner.VARIANT_IMAGE, v.getId()));
-        productVariantRepository.deleteByProduct_Id(product.getId());
-        product.getVariants().clear();
+        List<ProductVariant> existing = new ArrayList<>(product.getVariants());
+        Map<Integer, ProductVariant> existingById = new HashMap<>();
+        existing.forEach(v -> existingById.put(v.getId(), v));
+
+        Set<Integer> requestedIds = new HashSet<>();
+        requests.forEach(r -> {
+            if (r.getId() != null) {
+                requestedIds.add(r.getId());
+            }
+        });
+
+        // 1. Delete variants no longer in request.
+        for (ProductVariant v : existing) {
+            if (!requestedIds.contains(v.getId())) {
+                ensureVariantNotInUse(v.getId());
+                resourceService.deleteByOwner(ResourceOwner.VARIANT_IMAGE, v.getId());
+                product.getVariants().remove(v);
+                productVariantRepository.delete(v);
+            }
+        }
         productVariantRepository.flush();
-        requests.forEach(r -> product.getVariants()
-                .add(productVariantMapper.toProductVariant(product, r)));
+
+        // 2. Update existing or create new.
+        for (ProductVariantRequest req : requests) {
+            if (req.getId() != null) {
+                ProductVariant target = existingById.get(req.getId());
+                if (target == null || !Objects.equals(target.getProduct().getId(), product.getId())) {
+                    throw new AppException(ErrorCode.VARIANT_NOT_FOUND);
+                }
+                productVariantMapper.applyUpdate(target, req);
+            } else {
+                product.getVariants().add(productVariantMapper.toProductVariant(product, req));
+            }
+        }
+
         product.setUpdatedAt(LocalDateTime.now());
+    }
+
+    private void ensureVariantNotInUse(Integer variantId) {
+        if (inventoryRepository.existsByVariant_Id(variantId)
+                || orderItemRepository.existsByVariant_Id(variantId)) {
+            throw new AppException(ErrorCode.VARIANT_IN_USE);
+        }
     }
 }

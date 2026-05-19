@@ -16,6 +16,8 @@ import com.lezh1n.goodminton_shop_api.enums.OrderStatus;
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
+    boolean existsByVariant_Id(Integer variantId);
+
     @Query("""
             SELECT oi.variant.product.id FROM OrderItem oi
             WHERE oi.order.status = :status

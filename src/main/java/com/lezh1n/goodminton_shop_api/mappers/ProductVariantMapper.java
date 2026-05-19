@@ -48,6 +48,23 @@ public class ProductVariantMapper {
                 .build();
     }
 
+    public void applyUpdate(ProductVariant variant, ProductVariantRequest request) {
+        Color color = request.getColorId() == null ? null
+                : colorRepository.findById(request.getColorId())
+                        .orElseThrow(() -> new AppException(ErrorCode.COLOR_NOT_FOUND));
+
+        Size size = request.getSizeId() == null ? null
+                : sizeRepository.findById(request.getSizeId())
+                        .orElseThrow(() -> new AppException(ErrorCode.SIZE_NOT_FOUND));
+
+        variant.setColor(color);
+        variant.setSize(size);
+        variant.setSkuCode(request.getSkuCode());
+        variant.setPrice(request.getPrice());
+        variant.setSalePrice(request.getSalePrice());
+        variant.setUpdatedAt(LocalDateTime.now());
+    }
+
     public ProductVariantResponse toProductVariantResponse(ProductVariant variant, List<ResourceResponse> images) {
         return ProductVariantResponse.builder()
                 .id(variant.getId())

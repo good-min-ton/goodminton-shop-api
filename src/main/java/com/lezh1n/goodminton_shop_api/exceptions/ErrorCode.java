@@ -92,6 +92,9 @@ public enum ErrorCode {
     VARIANT_DUPLICATE_COMBINATION(1905, "Tổ hợp color/size đã tồn tại cho sản phẩm này", HttpStatus.CONFLICT),
     VARIANT_SKU_BLANK(1906, "SKU không được để trống", HttpStatus.BAD_REQUEST),
     VARIANT_SKU_EXISTED(1907, "SKU đã được sử dụng", HttpStatus.CONFLICT),
+    VARIANT_IN_USE(1908,
+            "Không thể xoá variant đang có tồn kho hoặc đơn hàng. Hãy xoá inventory liên quan trước.",
+            HttpStatus.CONFLICT),
 
     // Product specification (2001 - 2100)
     SPEC_NAME_REQUIRED(2001, "Tên thông số không được để trống", HttpStatus.BAD_REQUEST),

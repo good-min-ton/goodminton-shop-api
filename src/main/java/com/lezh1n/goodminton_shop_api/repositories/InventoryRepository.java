@@ -25,6 +25,8 @@ public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
 
     Optional<Inventory> findByStore_IdAndVariant_Id(Integer storeId, Integer variantId);
 
+    boolean existsByVariant_Id(Integer variantId);
+
     // Atomic decrement — success if quantity is enough
     @Modifying
     @Query("""
