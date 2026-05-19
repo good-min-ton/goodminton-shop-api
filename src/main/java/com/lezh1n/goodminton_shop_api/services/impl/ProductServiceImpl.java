@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.services.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import org.springframework.context.ApplicationEventPublisher;
 
 import com.lezh1n.goodminton_shop_api.configurations.CacheConfig;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
@@ -21,6 +24,7 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
 import com.lezh1n.goodminton_shop_api.enums.ResourceOwner;
+import com.lezh1n.goodminton_shop_api.events.ProductChangedEvent;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.ProductMapper;
@@ -47,6 +51,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
     private final ResourceService resourceService;
+    private final ApplicationEventPublisher events;
 
     @Override
     @CacheEvict(value = CacheConfig.RECOMMENDATIONS_CACHE, allEntries = true)
@@ -71,6 +76,7 @@ public class ProductServiceImpl implements ProductService {
             resourceService.upload(ResourceOwner.PRODUCT_THUMBNAIL, saved.getId(), thumbnail);
         }
 
+        events.publishEvent(ProductChangedEvent.created(saved.getId()));
         return buildProductResponse(saved);
     }
 
@@ -107,6 +113,9 @@ public class ProductServiceImpl implements ProductService {
             resourceService.replaceSingle(ResourceOwner.PRODUCT_THUMBNAIL, product.getId(), thumbnail);
         }
 
+        events.publishEvent(ProductChangedEvent.updated(
+                product.getId(),
+                Set.of("name", "description", "specs", "brand", "category")));
         return buildProductResponse(product);
     }
 
@@ -123,6 +132,8 @@ public class ProductServiceImpl implements ProductService {
         resourceService.deleteByOwner(ResourceOwner.PRODUCT_THUMBNAIL, productId);
         product.getVariants().forEach(v -> resourceService.deleteByOwner(ResourceOwner.VARIANT_IMAGE, v.getId()));
         productRepository.delete(product);
+
+        events.publishEvent(ProductChangedEvent.deleted(productId));
     }
 
     @Override

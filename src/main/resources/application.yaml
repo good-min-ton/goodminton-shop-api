@@ -32,6 +32,12 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
 
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+
   flyway:
     enabled: true
     locations:
@@ -92,6 +98,7 @@ vnpay:
 
 app:
   frontend-url: ${FRONTEND_URL}
+  internal-api-key: ${INTERNAL_API_KEY}
   admin:
     email: ${ADMIN_EMAIL}
     phone: ${ADMIN_PHONE}
@@ -100,3 +107,11 @@ app:
     email: ${STORE_ADMIN_EMAIL}
     phone: ${STORE_ADMIN_PHONE}
     password: ${STORE_ADMIN_PASSWORD}
+
+rabbitmq:
+  exchange:
+    products: goodminton.products
+  queue:
+    rag-product-sync: rag.product.sync
+    rag-product-sync-dlq: rag.product.sync.dlq
+
