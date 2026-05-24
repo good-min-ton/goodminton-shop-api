@@ -19,7 +19,7 @@ public interface ProductService {
 
     void deleteProduct(Integer productId);
 
-    ResourceResponse uploadVariantImage(Integer variantId, MultipartFile file);
+    ResourceResponse uploadProductImage(Integer productId, MultipartFile file);
 
-    void deleteVariantImage(Integer imageId);
+    void deleteProductImage(Integer imageId);
 }

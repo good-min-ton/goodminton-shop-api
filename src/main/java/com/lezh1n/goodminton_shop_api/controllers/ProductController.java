@@ -75,17 +75,17 @@ public class ProductController {
                 .build();
     }
 
-    @PostMapping("/variants/{variantId}/images")
-    public ApiResponse<ResourceResponse> uploadVariantImage(@PathVariable Integer variantId,
+    @PostMapping("/{productId}/images")
+    public ApiResponse<ResourceResponse> uploadProductImage(@PathVariable Integer productId,
             @RequestParam("file") MultipartFile file) {
         return ApiResponse.<ResourceResponse>builder()
-                .result(productService.uploadVariantImage(variantId, file))
+                .result(productService.uploadProductImage(productId, file))
                 .build();
     }
 
-    @DeleteMapping("/variants/images/{imageId}")
-    public ApiResponse<String> deleteVariantImage(@PathVariable Integer imageId) {
-        productService.deleteVariantImage(imageId);
+    @DeleteMapping("/images/{imageId}")
+    public ApiResponse<String> deleteProductImage(@PathVariable Integer imageId) {
+        productService.deleteProductImage(imageId);
         return ApiResponse.<String>builder()
                 .result("Xoá ảnh thành công")
                 .build();

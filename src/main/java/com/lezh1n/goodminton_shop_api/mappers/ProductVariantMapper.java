@@ -1,13 +1,11 @@
 package com.lezh1n.goodminton_shop_api.mappers;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Color;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
@@ -65,7 +63,7 @@ public class ProductVariantMapper {
         variant.setUpdatedAt(LocalDateTime.now());
     }
 
-    public ProductVariantResponse toProductVariantResponse(ProductVariant variant, List<ResourceResponse> images) {
+    public ProductVariantResponse toProductVariantResponse(ProductVariant variant) {
         return ProductVariantResponse.builder()
                 .id(variant.getId())
                 .color(variant.getColor() == null ? null : colorMapper.toColorResponse(variant.getColor()))
@@ -73,7 +71,6 @@ public class ProductVariantMapper {
                 .skuCode(variant.getSkuCode())
                 .price(variant.getPrice())
                 .salePrice(variant.getSalePrice())
-                .images(images)
                 .build();
     }
 }

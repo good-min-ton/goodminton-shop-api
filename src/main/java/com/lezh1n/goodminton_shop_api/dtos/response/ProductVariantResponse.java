@@ -1,7 +1,6 @@
 package com.lezh1n.goodminton_shop_api.dtos.response;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -18,5 +17,4 @@ public class ProductVariantResponse {
     private String skuCode;
     private BigDecimal price;
     private BigDecimal salePrice;
-    private List<ResourceResponse> images;
 }

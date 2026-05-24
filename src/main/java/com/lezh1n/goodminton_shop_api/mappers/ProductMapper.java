@@ -3,6 +3,7 @@ package com.lezh1n.goodminton_shop_api.mappers;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.stereotype.Component;
@@ -56,7 +57,8 @@ public class ProductMapper {
                 .build();
     }
 
-    public ProductResponse toProductResponse(Product product, ResourceResponse thumbnail) {
+    public ProductResponse toProductResponse(Product product, ResourceResponse thumbnail,
+            List<ResourceResponse> images) {
         return ProductResponse.builder()
                 .id(product.getId())
                 .category(categoryMapper.toCategoryResponse(product.getCategory()))
@@ -67,6 +69,7 @@ public class ProductMapper {
                 .slug(product.getSlug())
                 .isVisible(product.getIsVisible())
                 .thumbnail(thumbnail)
+                .images(images)
                 .createdAt(product.getCreatedAt())
                 .build();
     }

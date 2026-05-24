@@ -24,7 +24,6 @@ import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
-import com.lezh1n.goodminton_shop_api.dtos.response.ProductVariantResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
@@ -138,44 +137,41 @@ public class ProductServiceImpl implements ProductService {
             throw new AppException(ErrorCode.PRODUCT_HAS_RELATED_CHILDREN);
         }
 
+        // Images now live at product-level under PRODUCT_THUMBNAIL (sort_order=0 is
+        // the primary thumbnail; sort_order>0 are gallery images). One owner_id
+        // bucket per product, so a single deleteByOwner removes everything.
         resourceService.deleteByOwner(ResourceOwner.PRODUCT_THUMBNAIL, productId);
-        product.getVariants().forEach(v -> resourceService.deleteByOwner(ResourceOwner.VARIANT_IMAGE, v.getId()));
         productRepository.delete(product);
 
         events.publishEvent(ProductChangedEvent.deleted(productId));
     }
 
     @Override
-    public ResourceResponse uploadVariantImage(Integer variantId, MultipartFile file) {
-        if (!productVariantRepository.existsById(variantId)) {
-            throw new AppException(ErrorCode.VARIANT_NOT_FOUND);
+    public ResourceResponse uploadProductImage(Integer productId, MultipartFile file) {
+        if (!productRepository.existsById(productId)) {
+            throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
         }
-        return resourceService.upload(ResourceOwner.VARIANT_IMAGE, variantId, file);
+        return resourceService.upload(ResourceOwner.PRODUCT_THUMBNAIL, productId, file);
     }
 
     @Override
-    public void deleteVariantImage(Integer imageId) {
+    public void deleteProductImage(Integer imageId) {
         resourceService.delete(imageId);
     }
 
     private ProductResponse buildProductResponse(Product product) {
-        ResourceResponse thumbnail = resourceService
-                .findSingle(ResourceOwner.PRODUCT_THUMBNAIL, product.getId())
-                .orElse(null);
+        List<ResourceResponse> images = resourceService
+                .listByOwner(ResourceOwner.PRODUCT_THUMBNAIL, product.getId());
+        ResourceResponse thumbnail = images.isEmpty() ? null : images.get(0);
 
-        ProductResponse response = productMapper.toProductResponse(product, thumbnail);
+        ProductResponse response = productMapper.toProductResponse(product, thumbnail, images);
         response.setSpecifications(product.getSpecifications().stream()
                 .map(productSpecificationMapper::toSpecificationResponse)
                 .toList());
         response.setVariants(product.getVariants().stream()
-                .map(this::buildVariantResponse)
+                .map(productVariantMapper::toProductVariantResponse)
                 .toList());
         return response;
-    }
-
-    private ProductVariantResponse buildVariantResponse(ProductVariant variant) {
-        List<ResourceResponse> images = resourceService.listByOwner(ResourceOwner.VARIANT_IMAGE, variant.getId());
-        return productVariantMapper.toProductVariantResponse(variant, images);
     }
 
     private void updateSpecifications(Product product, List<ProductSpecificationRequest> requests) {
@@ -206,10 +202,10 @@ public class ProductServiceImpl implements ProductService {
         });
 
         // 1. Delete variants no longer in request.
+        // Images live at product-level now, no variant-image cleanup needed.
         for (ProductVariant v : existing) {
             if (!requestedIds.contains(v.getId())) {
                 ensureVariantNotInUse(v.getId());
-                resourceService.deleteByOwner(ResourceOwner.VARIANT_IMAGE, v.getId());
                 product.getVariants().remove(v);
                 productVariantRepository.delete(v);
             }

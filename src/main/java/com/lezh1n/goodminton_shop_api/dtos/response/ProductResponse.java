@@ -21,6 +21,7 @@ public class ProductResponse {
     private String slug;
     private Boolean isVisible;
     private ResourceResponse thumbnail;
+    private List<ResourceResponse> images;
     private LocalDateTime createdAt;
     private List<ProductSpecificationResponse> specifications;
     private List<ProductVariantResponse> variants;
