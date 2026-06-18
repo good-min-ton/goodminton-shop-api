@@ -108,7 +108,7 @@ public class EmailServiceImpl implements EmailService {
                     "        </div>\n" +
                     "        \n" +
                     "        <div class=\"info\">\n" +
-                    "            <p>⚠️ <strong>Lưu ý quan trọng:</strong> Đường dẫn này sẽ hết hạn sau 15 phút.</p>\n" +
+                    "            <p><strong>Lưu ý quan trọng:</strong> Đường dẫn này sẽ hết hạn sau 15 phút.</p>\n" +
                     "        </div>\n" +
                     "        \n" +
                     "        <p>Nếu nút không hoạt động, bạn có thể sao chép và dán đường dẫn sau vào trình duyệt:</p>\n"
