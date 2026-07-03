@@ -57,12 +57,17 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @EntityGraph(attributePaths = { "variants" })
     @Query("""
-            SELECT DISTINCT p FROM Product p
-            JOIN p.variants pv
-            WHERE pv.salePrice IS NOT NULL
-              AND p.isVisible = true
+            SELECT p FROM Product p
+            WHERE p.isVisible = true
               AND p.id NOT IN :excluded
-            ORDER BY pv.updatedAt DESC
+              AND EXISTS (
+                  SELECT 1 FROM ProductVariant pv
+                  WHERE pv.product = p AND pv.salePrice IS NOT NULL
+              )
+            ORDER BY (
+                SELECT MAX(pv.updatedAt) FROM ProductVariant pv
+                WHERE pv.product = p AND pv.salePrice IS NOT NULL
+            ) DESC
             """)
     List<Product> findOnSale(@Param("excluded") Collection<Integer> excluded, Pageable pageable);
 
