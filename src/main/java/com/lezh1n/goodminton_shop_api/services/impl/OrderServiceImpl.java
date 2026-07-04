@@ -31,7 +31,6 @@ import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.OrderMapper;
-import com.lezh1n.goodminton_shop_api.repositories.AccountRepository;
 import com.lezh1n.goodminton_shop_api.repositories.OrderRepository;
 import com.lezh1n.goodminton_shop_api.repositories.PaymentRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
@@ -52,7 +51,6 @@ public class OrderServiceImpl implements OrderService {
     private final PaymentRepository paymentRepository;
     private final ProductVariantRepository productVariantRepository;
     private final StoreRepository storeRepository;
-    private final AccountRepository accountRepository;
 
     private final InventoryService inventoryService;
     private final CurrentAccountProvider currentAccountProvider;
@@ -145,15 +143,15 @@ public class OrderServiceImpl implements OrderService {
         Account adminAccount = currentAccountProvider.getCurrentAccount();
         Store store = storeRepository.findByAdmin_Id(adminAccount.getId())
                 .orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND));
-        Account customer = accountRepository.findById(request.getCustomerId())
-                .orElseThrow(() -> new AppException(ErrorCode.ACCOUNT_NOT_FOUND));
 
         LocalDateTime now = LocalDateTime.now();
         Order order = Order.builder()
-                .customer(customer)
+                .customer(null)
                 .store(store)
                 .orderType(OrderType.IN_STORE)
                 .status(OrderStatus.COMPLETED)
+                .recipientName(request.getCustomerName())
+                .recipientPhone(request.getCustomerPhone())
                 .orderDate(now)
                 .totalAmount(BigDecimal.ZERO)
                 .orderItems(new ArrayList<>())

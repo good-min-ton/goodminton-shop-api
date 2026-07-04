@@ -42,7 +42,7 @@ public class Order {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id")
     private Account customer;
 
     @ManyToOne

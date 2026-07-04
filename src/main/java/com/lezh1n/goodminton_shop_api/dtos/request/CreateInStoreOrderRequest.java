@@ -7,13 +7,17 @@ import com.lezh1n.goodminton_shop_api.enums.PaymentMethod;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
 public class CreateInStoreOrderRequest {
 
-    @NotNull(message = "ORDER_CUSTOMER_REQUIRED")
-    private Integer customerId;
+    @Size(max = 100)
+    private String customerName;
+
+    @Size(max = 20)
+    private String customerPhone;
 
     @NotEmpty(message = "ORDER_ITEMS_REQUIRED")
     @Valid

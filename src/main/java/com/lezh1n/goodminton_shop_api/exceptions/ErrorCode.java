@@ -125,7 +125,6 @@ public enum ErrorCode {
     ORDER_RECIPIENT_ADDRESS_REQUIRED(2309, "Địa chỉ người nhận không được để trống", HttpStatus.BAD_REQUEST),
     ORDER_RECIPIENT_EMAIL_INVALID(2310, "Email người nhận không hợp lệ", HttpStatus.BAD_REQUEST),
     ORDER_PAYMENT_METHOD_REQUIRED(2311, "Phương thức thanh toán không được để trống", HttpStatus.BAD_REQUEST),
-    ORDER_CUSTOMER_REQUIRED(2312, "Customer ID không được để trống", HttpStatus.BAD_REQUEST),
     ORDER_SHIPPING_CODE_REQUIRED(2313, "Mã vận đơn không được để trống", HttpStatus.BAD_REQUEST),
     ORDER_ITEM_NOT_FOUND(2314, "Không tìm thấy chi tiết đơn hàng", HttpStatus.NOT_FOUND),
     ORDER_ITEM_VARIANT_REQUIRED(2315, "Variant ID không được để trống", HttpStatus.BAD_REQUEST),
