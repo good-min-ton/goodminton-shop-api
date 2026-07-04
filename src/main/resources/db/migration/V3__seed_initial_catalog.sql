@@ -29,7 +29,6 @@ SELECT setval('categories_id_seq', 5);
 -- category thumbnails are seeded at the end of file (after resources_id_seq setval).
 
 -- colors
-INSERT INTO colors (id, name) VALUES (1, 'Default');
 INSERT INTO colors (id, name) VALUES (2, 'Dark Olive');
 INSERT INTO colors (id, name) VALUES (3, 'Black/Green');
 INSERT INTO colors (id, name) VALUES (4, 'Black');
@@ -125,7 +124,6 @@ INSERT INTO colors (id, name) VALUES (93, 'Honey Mustard/Night Shadow');
 SELECT setval('colors_id_seq', 93);
 
 -- sizes
-INSERT INTO sizes (id, name, type) VALUES (1, 'ONE_SIZE', 'RACKET');
 INSERT INTO sizes (id, name, type) VALUES (2, '4U5', 'RACKET');
 INSERT INTO sizes (id, name, type) VALUES (3, '4U6', 'RACKET');
 INSERT INTO sizes (id, name, type) VALUES (4, '5U5', 'RACKET');
@@ -184,7 +182,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-yonex-astrox-22-lite-bk-rd-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1, 1, 1, 1, 'VNB026983-ONESIZE-Default', 2818800, 2349000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1, 1, NULL, NULL, 'VNB026983-ONESIZE-Default', 2818800, 2349000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (1, 'goodminton/products/vot-cau-long-yonex-astrox-22-lite-bk-rd-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157581/goodminton/products/vot-cau-long-yonex-astrox-22-lite-bk-rd-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 1, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (2, 'goodminton/products/vot-cau-long-yonex-astrox-22-lite-bk-rd-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157579/goodminton/products/vot-cau-long-yonex-astrox-22-lite-bk-rd-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 1, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (3, 'goodminton/products/vot-cau-long-yonex-astrox-22-lite-bk-rd-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157580/goodminton/products/vot-cau-long-yonex-astrox-22-lite-bk-rd-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 1, 2, NOW());
@@ -219,7 +217,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-yonex-astrox-77-play-limited-light-beige-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (2, 2, 1, 1, 'VNB028131-ONESIZE-Default', 1380000, 1150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (2, 2, NULL, NULL, 'VNB028131-ONESIZE-Default', 1380000, 1150000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (4, 'goodminton/products/vot-cau-long-yonex-astrox-77-play-limited-light-beige-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157581/goodminton/products/vot-cau-long-yonex-astrox-77-play-limited-light-beige-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 2, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (5, 'goodminton/products/vot-cau-long-yonex-astrox-77-play-limited-light-beige-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157580/goodminton/products/vot-cau-long-yonex-astrox-77-play-limited-light-beige-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 2, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (6, 'goodminton/products/vot-cau-long-yonex-astrox-77-play-limited-light-beige-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157580/goodminton/products/vot-cau-long-yonex-astrox-77-play-limited-light-beige-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 2, 2, NOW());
@@ -403,7 +401,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-yonex-arcsaber-7-play-limited-light-beige-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (14, 6, 1, 1, 'VNB028130-ONESIZE-Default', 1560000, 1300000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (14, 6, NULL, NULL, 'VNB028130-ONESIZE-Default', 1560000, 1300000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (22, 'goodminton/products/vot-cau-long-yonex-arcsaber-7-play-limited-light-beige-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157576/goodminton/products/vot-cau-long-yonex-arcsaber-7-play-limited-light-beige-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 6, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (23, 'goodminton/products/vot-cau-long-yonex-arcsaber-7-play-limited-light-beige-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157575/goodminton/products/vot-cau-long-yonex-arcsaber-7-play-limited-light-beige-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 6, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (24, 'goodminton/products/vot-cau-long-yonex-arcsaber-7-play-limited-light-beige-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157576/goodminton/products/vot-cau-long-yonex-arcsaber-7-play-limited-light-beige-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 6, 2, NOW());
@@ -444,7 +442,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-yonex-astrox-77-tour-limited-light-beige-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (15, 7, 1, 1, 'VNB028127-ONESIZE-Default', 3526800, 2939000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (15, 7, NULL, NULL, 'VNB028127-ONESIZE-Default', 3526800, 2939000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (27, 'goodminton/products/vot-cau-long-yonex-astrox-77-tour-limited-light-beige-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157581/goodminton/products/vot-cau-long-yonex-astrox-77-tour-limited-light-beige-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 7, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (28, 'goodminton/products/vot-cau-long-yonex-astrox-77-tour-limited-light-beige-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157582/goodminton/products/vot-cau-long-yonex-astrox-77-tour-limited-light-beige-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 7, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (29, 'goodminton/products/vot-cau-long-yonex-astrox-77-tour-limited-light-beige-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157581/goodminton/products/vot-cau-long-yonex-astrox-77-tour-limited-light-beige-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 7, 2, NOW());
@@ -1088,7 +1086,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-axforce-cannon-pro-limited-2026-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (43, 21, 1, 1, 'VNB028601-ONESIZE-Default', 2280000, 1900000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (43, 21, NULL, NULL, 'VNB028601-ONESIZE-Default', 2280000, 1900000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (76, 'goodminton/products/vot-cau-long-lining-axforce-cannon-pro-limited-2026-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157550/goodminton/products/vot-cau-long-lining-axforce-cannon-pro-limited-2026-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 21, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (77, 'goodminton/products/vot-cau-long-lining-axforce-cannon-pro-limited-2026-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157549/goodminton/products/vot-cau-long-lining-axforce-cannon-pro-limited-2026-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 21, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (78, 'goodminton/products/vot-cau-long-lining-axforce-cannon-pro-limited-2026-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157549/goodminton/products/vot-cau-long-lining-axforce-cannon-pro-limited-2026-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 21, 2, NOW());
@@ -1127,7 +1125,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-halbertec-7000-purple-twilight-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (44, 22, 1, 1, 'VNB028157-ONESIZE-Default', 4788000, 3990000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (44, 22, NULL, NULL, 'VNB028157-ONESIZE-Default', 4788000, 3990000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (81, 'goodminton/products/vot-cau-long-lining-halbertec-7000-purple-twilight-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157556/goodminton/products/vot-cau-long-lining-halbertec-7000-purple-twilight-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 22, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (82, 'goodminton/products/vot-cau-long-lining-halbertec-7000-purple-twilight-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157555/goodminton/products/vot-cau-long-lining-halbertec-7000-purple-twilight-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 22, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (83, 'goodminton/products/vot-cau-long-lining-halbertec-7000-purple-twilight-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157556/goodminton/products/vot-cau-long-lining-halbertec-7000-purple-twilight-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 22, 2, NOW());
@@ -1173,7 +1171,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-axforce-100-gen-2-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (45, 23, 1, 1, 'VNB027447-ONESIZE-Default', 6780000, 5650000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (45, 23, NULL, NULL, 'VNB027447-ONESIZE-Default', 6780000, 5650000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (65, 23, 'Thunder Technology', 'Tăng cường độ cứng của thân vợt, hỗ trợ độ bền cho trục thân vợt');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (66, 23, 'TB NANO + M46 +T1100 + ULTRA CARBON', 'Carbon Thế Hệ Mới kết hợp với vật liệu Nano Siêu Dẫn nâng cao tính linh hoạt của vợt giúp chịu nhiệt và tăng cấp độ cho khung vợt bền chắc');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (67, 23, 'HDF Shock Absorption System', 'Hệ thống hấp thụ chấn mật độ cao giúp cải thiện tối đa hiệu suất tăng cường tốc độ linh hoạt cho tấn công');
@@ -1223,7 +1221,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-axforce-90-limited-2026-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (46, 24, 1, 1, 'VNB028160-ONESIZE-Default', 6120000, 5100000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (46, 24, NULL, NULL, 'VNB028160-ONESIZE-Default', 6120000, 5100000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (91, 'goodminton/products/vot-cau-long-lining-axforce-90-limited-2026-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157546/goodminton/products/vot-cau-long-lining-axforce-90-limited-2026-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 24, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (92, 'goodminton/products/vot-cau-long-lining-axforce-90-limited-2026-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157545/goodminton/products/vot-cau-long-lining-axforce-90-limited-2026-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 24, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (93, 'goodminton/products/vot-cau-long-lining-axforce-90-limited-2026-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157546/goodminton/products/vot-cau-long-lining-axforce-90-limited-2026-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 24, 2, NOW());
@@ -1304,7 +1302,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-halbertec-1000-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (49, 26, 1, 1, 'VNB026782-ONESIZE-Default', 1056000, 880000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (49, 26, NULL, NULL, 'VNB026782-ONESIZE-Default', 1056000, 880000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (73, 26, 'HIGH MODULUS GRAPHITE', 'là công nghệ của vợt cầu lông Lining sử dụng chất liệu carbon cao cấp với độ bền bỉ và độ cứng cáp vượt trội, cho phép khung và thân vợt chịu lực tốt hơn, chịu được các tác động nhỏ để hạn chế tình trạng nứt gãy khi gặp va chạm cũng như là cải thiện mức c');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (101, 'goodminton/products/vot-cau-long-lining-halbertec-1000-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157554/goodminton/products/vot-cau-long-lining-halbertec-1000-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 26, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (102, 'goodminton/products/vot-cau-long-lining-halbertec-1000-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157553/goodminton/products/vot-cau-long-lining-halbertec-1000-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 26, 1, NOW());
@@ -1347,7 +1345,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-halbertec-4000', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (50, 27, 1, 7, 'VNB024856-4U-Default', 2484000, 2070000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (50, 27, NULL, 7, 'VNB024856-4U-Default', 2484000, 2070000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (74, 27, 'WING STABILIZER', 'Công nghệ siêu đặc biệt ổn định vành vợt giúp khung luôn ổn định trước tác động lực đa chiều');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (105, 'goodminton/products/vot-cau-long-lining-halbertec-4000-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157555/goodminton/products/vot-cau-long-lining-halbertec-4000-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 27, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (106, 'goodminton/products/vot-cau-long-lining-halbertec-4000-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157554/goodminton/products/vot-cau-long-lining-halbertec-4000-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 27, 1, NOW());
@@ -1388,8 +1386,8 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-axforce-bigbang-new', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (51, 28, 23, 1, 'VNB024848-ONESIZE-en', 1950000, 1690000, NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (52, 28, 24, 1, 'VNB024848-ONESIZE-Trng', 1950000, 1690000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (51, 28, 23, NULL, 'VNB024848-ONESIZE-en', 1950000, 1690000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (52, 28, 24, NULL, 'VNB024848-ONESIZE-Trng', 1950000, 1690000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (75, 28, '7.00MM SOFT FLEXIBLE SHAFT', 'Trục vợt mỏng giúp cải thiện điểm uốn trên trục thân vợt tăng tốc xoay chuyển những cú đập linh hoạt chuẩn xác');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (110, 'goodminton/products/vot-cau-long-lining-axforce-bigbang-new-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157548/goodminton/products/vot-cau-long-lining-axforce-bigbang-new-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 28, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (111, 'goodminton/products/vot-cau-long-lining-axforce-bigbang-new-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157548/goodminton/products/vot-cau-long-lining-axforce-bigbang-new-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 28, 1, NOW());
@@ -1432,7 +1430,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-axforce-90-new-loh-kean-yew-2024', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (53, 29, 1, 7, 'VNB024860-4U-Default', 6120000, 5100000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (53, 29, NULL, 7, 'VNB024860-4U-Default', 6120000, 5100000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (76, 29, 'Thunder Technology', 'Tổng thể vợt được xây dựng trên nền tảng công nghệ Thunder Technology – Hệ thống năng lượng siêu nạp giúp người chơi liên tục tối đa hóa khả năng của mình, nhất là với các pha xoay chuyển từ thế bị động sang chủ động, từ phòng thủ sang tấn công, chớp thời');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (77, 29, 'UHB-SHAFT', 'Cải thiện điểm uốn trên trục thân vợt phía trước, giúp cho những cú đập cầu mạnh mẽ và uy lực');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (78, 29, 'BOX SHAPE FRAME', 'Thiết kế khung vợt dạng hộp giúp tăng cường sự ổn định của khung, đồng thời bộc phát tối đa sức mạnh trong mọi cú đánh, đặc biệt là các pha đập cầu uy lực');
@@ -1528,7 +1526,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-aeronaut-6000i', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (56, 31, 1, 1, 'VNB023704-ONESIZE-Default', 2400000, 2190000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (56, 31, NULL, NULL, 'VNB023704-ONESIZE-Default', 2400000, 2190000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (84, 31, 'AERONAUT TECHNOLOGY PLATFORM', 'Cây vợt cầu lông Lining Aeronaut 6000i được xây dựng trên nền tảng công nghệ hàng không, có các rãnh thoát khí độc đáo được tích hợp vào đầu vợt, điều này làm giảm sức cản không khí khi vung vợt giúp người dùng tạo ra những cú đánh tốc độ hơn');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (85, 31, 'High Tensile Slim Shaft', 'Thiết kế trục mỏng trên cùng 7,0mm cung cấp độ bền cực cao và khả năng điều khiển tự do dễ dàng hơn. Cân bằng hoàn hảo với trọng lượng vợt và quán tính chuyển động kết hợp khí động học. Trục mỏng có độ bền cao làm trụ cột của sức mạnh và kỹ năng, giải phó');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (86, 31, 'MPCF REINFORCING TECHNOLOGY', 'Li-Ning thực hiện bước bổ sung để tránh sự không hoàn hảo đôi khi do xử lý máy của các vợt khác. Bằng cách thực hiện các sợi carbon nhiều lớp, vợt được chế tạo với sức mạnh và tuổi thọ cao trong tâm trí');
@@ -1580,7 +1578,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-aeronaut-6000c', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (57, 32, 1, 1, 'VNB023703-ONESIZE-Default', 2300000, 1950000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (57, 32, NULL, NULL, 'VNB023703-ONESIZE-Default', 2300000, 1950000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (88, 32, 'WING STABILIZER', 'Giới thiệu thiết kế công nghệ hàng không giải phóng bộ nhớ hiệu suất kim loại và cải thiện kiểm soát trên các nét. Cây vợt cầu lông Lining Aeronaut 6000C ứng dụng chéo của công nghệ hàng không trên các sản phẩm Li Ning là cơ chế ổn định cánh. Nó sẽ điều k');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (89, 32, 'MPCF REINFORCING TECHNOLOGY', 'Li-Ning thực hiện bước bổ sung để tránh sự không hoàn hảo đôi khi do xử lý máy của các vợt khác. Bằng cách thực hiện các sợi carbon nhiều lớp, vợt được chế tạo với sức mạnh và tuổi thọ cao trong tâm trí');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (90, 32, 'HOT MELT', 'Quy trình độc quyền của trộn kỹ các loại nhựa với sợi carbon để đảm bảo tất cả các vợt của Lining được sản xuất một cách thống nhất. Điều này cung cấp sức mạnh tối ưu và hiệu suất phù hợp cho dù bạn chọn vợt nào');
@@ -1625,7 +1623,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'set-vot-cau-long-lining-bladex-900-new-2024', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (58, 33, 1, 7, 'VNB023206-4U-Default', 8520000, 7100000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (58, 33, NULL, 7, 'VNB023206-4U-Default', 8520000, 7100000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (128, 'goodminton/products/set-vot-cau-long-lining-bladex-900-new-2024-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157539/goodminton/products/set-vot-cau-long-lining-bladex-900-new-2024-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 33, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (129, 'goodminton/products/set-vot-cau-long-lining-bladex-900-new-2024-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157537/goodminton/products/set-vot-cau-long-lining-bladex-900-new-2024-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 33, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (130, 'goodminton/products/set-vot-cau-long-lining-bladex-900-new-2024-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157538/goodminton/products/set-vot-cau-long-lining-bladex-900-new-2024-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 33, 2, NOW());
@@ -1675,7 +1673,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-aeronaut-6000', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (59, 34, 1, 1, 'VNB023702-ONESIZE-Default', 2300000, 1950000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (59, 34, NULL, NULL, 'VNB023702-ONESIZE-Default', 2300000, 1950000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (94, 34, 'WING STABILIZER', 'Giới thiệu thiết kế công nghệ hàng không giải phóng bộ nhớ hiệu suất kim loại và cải thiện kiểm soát trên các nét. Lining Aeronaut 6000 ứng dụng chéo của công nghệ hàng không trên các sản phẩm Li Ning là cơ chế ổn định cánh. Nó sẽ điều khiển phục hồi khun');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (95, 34, 'MPCF REINFORCING TECHNOLOGY', 'Li-Ning thực hiện bước bổ sung để tránh sự không hoàn hảo đôi khi do xử lý máy của các vợt khác. Bằng cách thực hiện các sợi carbon nhiều lớp, vợt được chế tạo với sức mạnh và tuổi thọ cao trong tâm trí');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (96, 34, 'HOT MELT', 'Quy trình độc quyền của trộn kỹ các loại nhựa với sợi carbon để đảm bảo tất cả các vợt của Lining được sản xuất một cách thống nhất. Điều này cung cấp sức mạnh tối ưu và hiệu suất phù hợp cho dù bạn chọn vợt nào');
@@ -1717,7 +1715,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'set-vot-cau-long-lining-halbertec-9000-limited-olympic-paris-2024', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (60, 35, 1, 7, 'VNB021065-4U-Default', 14760000, 12300000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (60, 35, NULL, 7, 'VNB021065-4U-Default', 14760000, 12300000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (100, 35, '6.6mm HIGH-MODULUS SLIM SHAFT', 'Thiết kế với trục vợt mỏng, chỉ có đường kính 6.6mm là minh chứng cho độ chính xác kỹ thuật. Được chế tạo từ than chì có mô đun cao, trục thanh mảnh này mang lại sự cân bằng hoàn hảo giữa tính linh hoạt và sức mạnh. Cấu hình mỏng của nó đảm bảo khả năng p');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (133, 'goodminton/products/set-vot-cau-long-lining-halbertec-9000-limited-olympic-paris-2024-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157539/goodminton/products/set-vot-cau-long-lining-halbertec-9000-limited-olympic-paris-2024-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 35, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (134, 'goodminton/products/set-vot-cau-long-lining-halbertec-9000-limited-olympic-paris-2024-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157539/goodminton/products/set-vot-cau-long-lining-halbertec-9000-limited-olympic-paris-2024-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 35, 1, NOW());
@@ -1960,9 +1958,9 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-lining-aeronaut-7000b', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (90, 40, 1, 10, 'VNB021994-3U-Default', 4860000, 4050000, NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (91, 40, 1, 7, 'VNB021994-4U-Default', 4860000, 4050000, NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (92, 40, 1, 8, 'VNB021994-5U-Default', 4860000, 4050000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (90, 40, NULL, 10, 'VNB021994-3U-Default', 4860000, 4050000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (91, 40, NULL, 7, 'VNB021994-4U-Default', 4860000, 4050000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (92, 40, NULL, 8, 'VNB021994-5U-Default', 4860000, 4050000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (103, 40, 'AERONAUT TECHNOLOGY PLATFORM', 'Được xây dựng trên nền tảng công nghệ hàng không, có các rãnh thoát khí độc đáo được tích hợp vào đầu cây vợt đẳng cấp Aeronaut 7000B, điều này làm giảm sức cản không khí khi vung vợt giúp người dùng tạo ra những cú đánh tốc độ hơn');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (104, 40, 'WING STABILIZER', 'Giới thiệu thiết kế công nghệ hàng không giải phóng bộ nhớ hiệu suất kim loại và cải thiện kiểm soát trên các nét. Aeronaut 7000B ứng dụng chéo của công nghệ hàng không trên các sản phẩm Li Ning là cơ chế ổn định cánh. Nó sẽ điều khiển phục hồi khung chín');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (105, 40, 'MPCF REINFORCING TECHNOLOGY', 'Li-Ning thực hiện bước bổ sung để tránh sự không hoàn hảo đôi khi do xử lý máy của các vợt khác. Bằng cách thực hiện các sợi carbon nhiều lớp, vợt được chế tạo với sức mạnh và tuổi thọ cao trong tâm trí');
@@ -2008,8 +2006,8 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-ars-30h-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (93, 41, 34, 1, 'VNB028526-ONESIZE-DFT', 2430000, 1250000, NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (94, 41, 23, 1, 'VNB028526-ONESIZE-en', 2430000, 1250000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (93, 41, 34, NULL, 'VNB028526-ONESIZE-DFT', 2430000, 1250000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (94, 41, 23, NULL, 'VNB028526-ONESIZE-en', 2430000, 1250000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (110, 41, 'NANOTEC', 'Công nghệ NANO TEC hoạt động bằng cách phân bố đều các hạt có kích thước nano vào khoảng trống giữa các bó sợi carbon, điều này làm tăng đáng kể độ cứng tổng thể của sợi carbon tổng hợp và giảm độ biến dạng của khung vợt cầu lông Victor ARS 30H');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (111, 41, 'FREECORE', 'Được thiết kế bằng mô phỏng máy tính và được hỗ trợ bằng việc áp dụng kỹ thuật ép phun, kiểu tay cầm mang tính cách mạng này cho phép trục di chuyển tự do hơn, điều này không chỉ giúp các cú xoay mượt mà hơn mà còn cải thiện trải nghiệm xử lý tổng thể. Th');
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (42, 1, 3, 'Vợt Cầu Lông Victor Thruster Ryuga Muse F chính hãng', '<div class="rte product_getcontent">
@@ -2045,7 +2043,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-thruster-ryuga-muse-f-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (95, 42, 1, 1, 'VNB028385-ONESIZE-Default', 3960000, 3300000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (95, 42, NULL, NULL, 'VNB028385-ONESIZE-Default', 3960000, 3300000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (160, 'goodminton/products/vot-cau-long-victor-thruster-ryuga-muse-f-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157571/goodminton/products/vot-cau-long-victor-thruster-ryuga-muse-f-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 42, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (161, 'goodminton/products/vot-cau-long-victor-thruster-ryuga-muse-f-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157571/goodminton/products/vot-cau-long-victor-thruster-ryuga-muse-f-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 42, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (162, 'goodminton/products/vot-cau-long-victor-thruster-ryuga-muse-f-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157570/goodminton/products/vot-cau-long-victor-thruster-ryuga-muse-f-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 42, 2, NOW());
@@ -2091,7 +2089,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-auraspeed-99-j-2026-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (96, 43, 1, 1, 'VNB028384-ONESIZE-Default', 4800000, 4000000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (96, 43, NULL, NULL, 'VNB028384-ONESIZE-Default', 4800000, 4000000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (165, 'goodminton/products/vot-cau-long-victor-auraspeed-99-j-2026-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157558/goodminton/products/vot-cau-long-victor-auraspeed-99-j-2026-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 43, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (166, 'goodminton/products/vot-cau-long-victor-auraspeed-99-j-2026-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157558/goodminton/products/vot-cau-long-victor-auraspeed-99-j-2026-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 43, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (167, 'goodminton/products/vot-cau-long-victor-auraspeed-99-j-2026-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157558/goodminton/products/vot-cau-long-victor-auraspeed-99-j-2026-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 43, 2, NOW());
@@ -2136,7 +2134,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-auraspeed-99-tuc26-d-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (97, 44, 1, 1, 'VNB028383-ONESIZE-Default', 4800000, 4000000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (97, 44, NULL, NULL, 'VNB028383-ONESIZE-Default', 4800000, 4000000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (112, 44, 'WHIPPING ENHANCE SYSTEM 3.0', 'Cấu trúc trục được thiết kế lại theo dạng xếp lớp tối ưu, giúp lực truyền đi trực tiếp và dứt khoát hơn. Nhờ đó, mỗi cú vung tạo ra hiệu ứng “quất cầu” rõ rệt, tăng tốc độ và độ uy lực khi tấn công');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (113, 44, 'VICTOR ANTI-TORSION SYSTEM', 'Hệ thống chống xoắn được phát triển nhằm nâng cao độ ổn định của trục vợt. Sự kết hợp giữa vật liệu đàn hồi cao và thiết kế hiện đại giúp hạn chế biến dạng khi va chạm, đảm bảo độ chính xác trong từng cú đánh');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (114, 44, 'PYROFIL by Mitsubishi', 'Sử dụng sợi carbon hiệu suất cao đến từ Nhật Bản, vật liệu này có đặc tính siêu nhẹ và liên kết bền chắc. Nhờ đó, vợt cải thiện khả năng hấp thụ rung chấn, đồng thời mang lại cảm giác cầu rõ ràng và khả năng kiểm soát tốt hơn');
@@ -2189,7 +2187,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-drivex-12-wt25-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (98, 45, 1, 1, 'VNB027453-ONESIZE-Default', 5338800, 4449000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (98, 45, NULL, NULL, 'VNB027453-ONESIZE-Default', 5338800, 4449000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (120, 45, 'PYROFIL', 'là công nghệ của hãng Victor sử dụng sợi carbon và vật liệu tổng hợp. Đây là vật liệu tiên tiến siêu nhẹ của Nhật Bản giúp vợt có khả năng hấp thụ sốc tuyệt vời và tăng cường khả năng kiểm soát');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (121, 45, 'HARD CORE TECHNOLOGY', 'Lấy cảm hứng từ máy bay trực thăng quân sự, công nghệ này mang lại cấu trúc nhiều lớp được làm bằng sợi carbon và vật liệu tổng hợp, giúp giảm thiểu kích thước vật liệu, tăng cường cảm giác cầu và đạt tới hiệu suất tối đa cho khung vợt cầu lông Victor');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (122, 45, 'FREECORE', 'công nghệ cán cầm được hãng Victor thiết kế bằng mô phỏng máy tính và tạo ra bằng việc áp dụng kỹ thuật ép phun. Kiểu tay cầm mới này cho phép trục di chuyển tự do hơn, điều này giúp các cú xoay mượt mà hơn. Theo kết quả thử nghiệm thì cán cầm FREECORE ch');
@@ -2237,7 +2235,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-auraspeed-99-bac26-j-limited-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (99, 46, 1, 1, 'VNB028381-ONESIZE-Default', 4800000, 4000000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (99, 46, NULL, NULL, 'VNB028381-ONESIZE-Default', 4800000, 4000000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (125, 46, 'METALLIC CARBON FIBER', 'Sự kết hợp giữa sợi carbon và vật liệu kim loại giúp tăng độ đàn hồi, cải thiện khả năng truyền lực và gia tăng sức mạnh cho từng cú đánh');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (126, 46, 'NANO AEROGEL', 'Vật liệu siêu nhẹ được tích hợp vào khung giúp nâng cao độ ổn định, đồng thời cải thiện cảm giác cầu trong các tình huống điều cầu và xử lý kỹ thuật');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (127, 46, 'DYNAMIC-SWORD', 'Thiết kế khung dạng lưỡi kiếm giúp tối ưu luồng khí, tăng tốc độ vung vợt và cải thiện độ linh hoạt trong các pha cầu nhanh');
@@ -2286,7 +2284,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-auraspeed-a-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (100, 47, 1, 1, 'VNB028382-ONESIZE-Default', 1200000, 1000000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (100, 47, NULL, NULL, 'VNB028382-ONESIZE-Default', 1200000, 1000000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (184, 'goodminton/products/vot-cau-long-victor-auraspeed-a-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157561/goodminton/products/vot-cau-long-victor-auraspeed-a-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 47, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (185, 'goodminton/products/vot-cau-long-victor-auraspeed-a-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157559/goodminton/products/vot-cau-long-victor-auraspeed-a-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 47, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (186, 'goodminton/products/vot-cau-long-victor-auraspeed-a-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157560/goodminton/products/vot-cau-long-victor-auraspeed-a-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 47, 2, NOW());
@@ -2333,7 +2331,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-thruster-f-c-ultra-x-chinh-ahng', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (101, 48, 1, 1, 'VNB026992-ONESIZE-Default', 5340000, 4450000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (101, 48, NULL, NULL, 'VNB026992-ONESIZE-Default', 5340000, 4450000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (131, 48, 'PYROFIL', 'là công nghệ của hãng Victor sử dụng sợi carbon và vật liệu tổng hợp. Đây là vật liệu tiên tiến siêu nhẹ của Nhật Bản giúp vợt có khả năng hấp thụ sốc tuyệt vời và tăng cường khả năng kiểm soát');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (132, 48, 'HARD CORE TECHNOLOGY', 'Lấy cảm hứng từ máy bay trực thăng quân sự, công nghệ này mang lại cấu trúc nhiều lớp được làm bằng sợi carbon và vật liệu tổng hợp, giúp giảm thiểu kích thước vật liệu, tăng cường cảm giác cầu và đạt tới hiệu suất tối đa cho khung vợt cầu lông Victor');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (133, 48, 'FREECORE', 'công nghệ cán cầm được hãng Victor thiết kế bằng mô phỏng máy tính và tạo ra bằng việc áp dụng kỹ thuật ép phun. Kiểu tay cầm mới này cho phép trục di chuyển tự do hơn, điều này giúp các cú xoay mượt mà hơn. Theo kết quả thử nghiệm thì cán cầm FREECORE ch');
@@ -2381,7 +2379,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-auraspeed-fantome-f-hyq-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (102, 49, 1, 1, 'VNB026962-ONESIZE-Default', 5388000, 4490000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (102, 49, NULL, NULL, 'VNB026962-ONESIZE-Default', 5388000, 4490000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (134, 49, 'HARD CORED TECHNOLOGY', 'Công nghệ lấy cảm hứng từ máy bay trực thăng quân sự, mang lại cấu trúc nhiều lớp được làm bằng sợi carbon và vật liệu tổng hợp, giúp giảm thiểu kích thước vật liệu, tăng cường cảm giác cầu và đạt tới hiệu suất tối đa cho khung vợt cầu lông Victor');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (135, 49, 'PBO HIGH PERFORMANCE FIBER', 'Một vật liệu hàng không có độ bền cao và nâng cao hiệu suất truyền lực. Điều này làm cho vợt nhẹ và kết hợp cả sức mạnh và cảm giác đánh thoải mái');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (136, 49, '5.0mm ULTRA SLIM FRAME', 'Thiết kế khung vợt 5.0mm với phần mỏng nhất của khung vợt chỉ 5.0mm, mỗi cú vung vợt giống như vung một lưỡi kiếm sắc bén và mang lại tốc độ cực nhanh');
@@ -2417,7 +2415,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-dx-1-a-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (103, 50, 1, 1, 'VNB026132-ONESIZE-Default', 1740000, 1450000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (103, 50, NULL, NULL, 'VNB026132-ONESIZE-Default', 1740000, 1450000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (199, 'goodminton/products/vot-cau-long-victor-dx-1-a-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157564/goodminton/products/vot-cau-long-victor-dx-1-a-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 50, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (200, 'goodminton/products/vot-cau-long-victor-dx-1-a-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157564/goodminton/products/vot-cau-long-victor-dx-1-a-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 50, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (201, 'goodminton/products/vot-cau-long-victor-dx-1-a-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157564/goodminton/products/vot-cau-long-victor-dx-1-a-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 50, 2, NOW());
@@ -2459,7 +2457,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-drivex-12-o-zheng-siwei-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (104, 51, 1, 1, 'VNB026991-ONESIZE-Default', 4920000, 4100000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (104, 51, NULL, NULL, 'VNB026991-ONESIZE-Default', 4920000, 4100000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (137, 51, 'PYROFIL', 'là công nghệ của hãng Victor sử dụng sợi carbon và vật liệu tổng hợp. Đây là vật liệu tiên tiến siêu nhẹ của Nhật Bản giúp vợt có khả năng hấp thụ sốc tuyệt vời và tăng cường khả năng kiểm soát');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (138, 51, 'HARD CORE TECHNOLOGY', 'Lấy cảm hứng từ máy bay trực thăng quân sự, công nghệ này mang lại cấu trúc nhiều lớp được làm bằng sợi carbon và vật liệu tổng hợp, giúp giảm thiểu kích thước vật liệu, tăng cường cảm giác cầu và đạt tới hiệu suất tối đa cho khung vợt cầu lông Victor');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (139, 51, 'FREECORE', 'công nghệ cán cầm được hãng Victor thiết kế bằng mô phỏng máy tính và tạo ra bằng việc áp dụng kỹ thuật ép phun. Kiểu tay cầm mới này cho phép trục di chuyển tự do hơn, điều này giúp các cú xoay mượt mà hơn. Theo kết quả thử nghiệm thì cán cầm FREECORE ch');
@@ -2498,7 +2496,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-tk-ultramanz-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (105, 52, 1, 1, 'VNB025848-ONESIZE-Default', 2148000, 1790000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (105, 52, NULL, NULL, 'VNB025848-ONESIZE-Default', 2148000, 1790000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (142, 52, 'POWER BOX', 'là một trong những công nghệ khung của VICTOR mang đến thiết kế hình hộp giúp tăng cường độ ổn định và chống mô-men xoắn hiệu quả. Bên cạnh đó, công nghệ này còn giúp gia tăng độ bền cho khung để có thể chịu được độ căng dây cao hơn');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (207, 'goodminton/products/vot-cau-long-victor-tk-ultramanz-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157573/goodminton/products/vot-cau-long-victor-tk-ultramanz-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 52, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (208, 'goodminton/products/vot-cau-long-victor-tk-ultramanz-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157572/goodminton/products/vot-cau-long-victor-tk-ultramanz-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 52, 1, NOW());
@@ -2536,7 +2534,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-tk-ultramantiga-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (106, 53, 1, 1, 'VNB025847-ONESIZE-Default', 2988000, 2490000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (106, 53, NULL, NULL, 'VNB025847-ONESIZE-Default', 2988000, 2490000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (143, 53, 'POWER BOX', 'là một trong những công nghệ khung của VICTOR mang đến thiết kế hình hộp giúp tăng cường độ ổn định và chống mô-men xoắn hiệu quả. Bên cạnh đó, công nghệ này còn giúp gia tăng độ bền cho khung để có thể chịu được độ căng dây cao hơn');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (212, 'goodminton/products/vot-cau-long-victor-tk-ultramantiga-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157572/goodminton/products/vot-cau-long-victor-tk-ultramantiga-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 53, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (213, 'goodminton/products/vot-cau-long-victor-tk-ultramantiga-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157572/goodminton/products/vot-cau-long-victor-tk-ultramantiga-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 53, 1, NOW());
@@ -2577,8 +2575,8 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-thruster-shenron-g-ndash-dragonball-z-2025', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (107, 54, 1, 10, 'VNB025623-3U-Default', 3840000, 3200000, NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (108, 54, 1, 7, 'VNB025623-4U-Default', 3840000, 3200000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (107, 54, NULL, 10, 'VNB025623-3U-Default', 3840000, 3200000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (108, 54, NULL, 7, 'VNB025623-4U-Default', 3840000, 3200000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (144, 54, 'PYROFIL', 'Sợi carbon PYROFIL và vật liệu tổng hợp của nó là những vật liệu hiệu suất cao tiên tiến từ Nhật Bản. Đặc tính của các liên kết cường độ cao siêu nhẹ mang đến cho vợt khả năng hấp thụ sốc tuyệt vời và tăng cường khả năng kiểm soát');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (145, 54, 'HARD CORE TECHNOLOGY', 'Công nghệ này giúp tăng sự liên kết giữa các sợi Carbon trong khung vợt, giúp hiệu suất sử dụng được tăng lên đáng kể, bên cạnh đó nó cũng tăng độ cứng của khung vợt giúp vợt chịu được mức căng cao');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (146, 54, 'NANO TEC', 'Công nghệ NANO TEC của hãng VICTOR hoạt động bằng cách phân bố đều các hạt có kích thước nano vào khoảng trống giữa các bó sợi carbon, các phân tử này sẽ lấp đầy các khoảng trống để gắn kết các phân tử vật liệu hơn để làm tăng đáng kể độ cứng tổng thể của');
@@ -2626,8 +2624,8 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'set-vot-cau-long-victor-thruster-goku-gb-f-ndash-dragonball-z-2025', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (109, 55, 1, 10, 'VNB025622-3U-Default', 5760000, 4800000, NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (110, 55, 1, 7, 'VNB025622-4U-Default', 5760000, 4800000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (109, 55, NULL, 10, 'VNB025622-3U-Default', 5760000, 4800000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (110, 55, NULL, 7, 'VNB025622-4U-Default', 5760000, 4800000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (149, 55, 'PYROFIL', 'Sợi carbon PYROFIL và vật liệu tổng hợp của nó là những vật liệu hiệu suất cao tiên tiến từ Nhật Bản. Đặc tính của các liên kết cường độ cao siêu nhẹ mang đến cho vợt khả năng hấp thụ sốc tuyệt vời và tăng cường khả năng kiểm soát');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (150, 55, 'HARD CORE TECHNOLOGY', 'Công nghệ này giúp tăng sự liên kết giữa các sợi Carbon trong khung vợt, giúp hiệu suất sử dụng được tăng lên đáng kể, bên cạnh đó nó cũng tăng độ cứng của khung vợt giúp vợt chịu được mức căng cao');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (151, 55, 'POWER BOX', 'Khung vợt được thiết kế cứng cáp, bền bỉ, cung cấp độ chính xác và hiệu quả khi người chơi thực hiện nhồi cầu, smash cầu liên tục áp đảo sân cầu đối phương');
@@ -2677,7 +2675,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-auraspeed-fantome-sc25-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (111, 56, 1, 1, 'VNB025429-ONESIZE-Default', 4980000, 4150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (111, 56, NULL, NULL, 'VNB025429-ONESIZE-Default', 4980000, 4150000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (154, 56, 'HARD CORED TECHNOLOGY', 'Công nghệ lấy cảm hứng từ máy bay trực thăng quân sự, mang lại cấu trúc nhiều lớp được làm bằng sợi carbon và vật liệu tổng hợp, giúp giảm thiểu kích thước vật liệu, tăng cường cảm giác cầu và đạt tới hiệu suất tối đa cho khung vợt cầu lông Victor');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (155, 56, 'PBO HIGH PERFORMANCE FIBER', 'Một vật liệu hàng không có độ bền cao và nâng cao hiệu suất truyền lực. Điều này làm cho vợt nhẹ và kết hợp cả sức mạnh và cảm giác đánh thoải mái');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (156, 56, '5.0mm ULTRA SLIM FRAME', 'Thiết kế khung vợt 5.0mm với phần mỏng nhất của khung vợt chỉ 5.0mm, mỗi cú vung vợt giống như vung một lưỡi kiếm sắc bén và mang lại tốc độ cực nhanh');
@@ -2719,7 +2717,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-ryuga-td-c-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (112, 57, 1, 1, 'VNB025347-ONESIZE-Default', 2940000, 2450000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (112, 57, NULL, NULL, 'VNB025347-ONESIZE-Default', 2940000, 2450000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (232, 'goodminton/products/vot-cau-long-victor-ryuga-td-c-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157566/goodminton/products/vot-cau-long-victor-ryuga-td-c-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 57, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (233, 'goodminton/products/vot-cau-long-victor-ryuga-td-c-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157565/goodminton/products/vot-cau-long-victor-ryuga-td-c-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 57, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (234, 'goodminton/products/vot-cau-long-victor-ryuga-td-c-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157565/goodminton/products/vot-cau-long-victor-ryuga-td-c-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 57, 2, NOW());
@@ -2809,8 +2807,8 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-thruster-ryuga-ii-pro-cps', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (117, 59, 1, 10, 'VNB025143-3U-Default', 4740000, 3950000, NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (118, 59, 1, 7, 'VNB025143-4U-Default', 4740000, 3950000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (117, 59, NULL, 10, 'VNB025143-3U-Default', 4740000, 3950000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (118, 59, NULL, 7, 'VNB025143-4U-Default', 4740000, 3950000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (159, 59, 'PYROFIL', 'là công nghệ của hãng Victor sử dụng sợi carbon và vật liệu tổng hợp. Đây là vật liệu tiên tiến siêu nhẹ của Nhật Bản giúp vợt có khả năng hấp thụ sốc tuyệt vời và tăng cường khả năng kiểm soát');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (160, 59, 'HARD CORE TECHNOLOGY', 'Lấy cảm hứng từ máy bay trực thăng quân sự, công nghệ này mang lại cấu trúc nhiều lớp được làm bằng sợi carbon và vật liệu tổng hợp, giúp giảm thiểu kích thước vật liệu, tăng cường cảm giác cầu và đạt tới hiệu suất tối đa cho khung vợt cầu lông Victor');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (161, 59, 'FREECORE', 'công nghệ cán cầm được hãng Victor thiết kế bằng mô phỏng máy tính và tạo ra bằng việc áp dụng kỹ thuật ép phun. Kiểu tay cầm mới này cho phép trục di chuyển tự do hơn, điều này giúp các cú xoay mượt mà hơn. Theo kết quả thử nghiệm thì cán cầm FREECORE ch');
@@ -2858,8 +2856,8 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'vot-cau-long-victor-thruster-ryuga-metallic-cps', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (119, 60, 1, 10, 'VNB025142-3U-Default', 4740000, 3950000, NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (120, 60, 1, 7, 'VNB025142-4U-Default', 4740000, 3950000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (119, 60, NULL, 10, 'VNB025142-3U-Default', 4740000, 3950000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (120, 60, NULL, 7, 'VNB025142-4U-Default', 4740000, 3950000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (164, 60, 'PYROFIL', 'Sợi carbon PYROFIL và vật liệu tổng hợp của nó là những vật liệu hiệu suất cao tiên tiến từ Nhật Bản. Đặc tính của các liên kết cường độ cao siêu nhẹ mang đến cho vợt khả năng hấp thụ sốc tuyệt vời và tăng cường khả năng kiểm soát');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (165, 60, 'METALLIC CARBON FIBER', 'Kết hợp giữa công nghệ Free Core và Metal Shaft, cấu trúc vật liệu mới ra đời giúp tăng tốc độ bắn của vợt sau va chạm, lực đẩy cầu nhanh và mạnh hơn, dễ dàng tung ra các pha smash cầu uy lực và dứt khoát cùng khả năng cơ động, xử lý cầu linh hoạt trên sâ');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (166, 60, 'HARD CORE TECHNOLOGY', 'Công nghệ này giúp tăng sự liên kết giữa các sợi Carbon trong khung vợt, giúp hiệu suất sử dụng được tăng lên đáng kể, bên cạnh đó nó cũng tăng độ cứng của khung vợt giúp vợt chịu được mức căng cao');
@@ -3256,7 +3254,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-yonex-subaxia-gt-women-light-gray-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (308, 65, 1, 1, 'VNB027556-ONESIZE-Default', 4174800, 3479000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (308, 65, NULL, NULL, 'VNB027556-ONESIZE-Default', 4174800, 3479000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (179, 65, 'GRPHT THRTTL', 'Công nghệ đệm thế hệ mới, mang đến khả năng giảm chấn vượt trội và lực đẩy bùng nổ, hỗ trợ tối đa cho các pha bật nhảy và smash uy lực, đặc biệt phù hợp với lối chơi tấn công hiện đại');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (180, 65, 'DOUBLE RACHEL MESH', 'là loại lưới siêu mịn được phát triển trên các đôi giày cầu lông Yonex với tính năng cực kỳ nhẹ và bền, cung cấp khả năng trao đổi không khí để giải phóng độ ẩm gấp tám lần so với vải lưới thông thường. Điều này giúp đôi chân của bạn luôn trong trạng thái');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (181, 65, 'Toe Assist Shape', 'Thiết kế tập trung vào ngón chân giúp giảm áp lực ở ngón chân cái, cũng như cung cấp sự hỗ trợ được cải thiện ở giữa bàn chân và gót chân để mang lại cảm giác vừa vặn, ổn định. Giảm tổn thất năng lượng, cho phép thực hiện các động tác chân nhanh chóng');
@@ -3308,7 +3306,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-yonex-subaxia-gt-wide-gray-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (309, 66, 1, 1, 'VNB027557-ONESIZE-Default', 4174800, 3479000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (309, 66, NULL, NULL, 'VNB027557-ONESIZE-Default', 4174800, 3479000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (185, 66, 'GRPHT THRTTL', 'Công nghệ đệm thế hệ mới, mang đến khả năng giảm chấn vượt trội và lực đẩy bùng nổ, hỗ trợ tối đa cho các pha bật nhảy và smash uy lực, đặc biệt phù hợp với lối chơi tấn công hiện đại');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (186, 66, 'DOUBLE RACHEL MESH', 'là loại lưới siêu mịn được phát triển trên các đôi giày cầu lông Yonex với tính năng cực kỳ nhẹ và bền, cung cấp khả năng trao đổi không khí để giải phóng độ ẩm gấp tám lần so với vải lưới thông thường. Điều này giúp đôi chân của bạn luôn trong trạng thái');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (187, 66, 'Toe Assist Shape', 'Thiết kế tập trung vào ngón chân giúp giảm áp lực ở ngón chân cái, cũng như cung cấp sự hỗ trợ được cải thiện ở giữa bàn chân và gót chân để mang lại cảm giác vừa vặn, ổn định. Giảm tổn thất năng lượng, cho phép thực hiện các động tác chân nhanh chóng');
@@ -3359,7 +3357,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-yonex-subaxia-gt-men-dark-gray-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (310, 67, 1, 1, 'VNB027555-ONESIZE-Default', 4174800, 3479000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (310, 67, NULL, NULL, 'VNB027555-ONESIZE-Default', 4174800, 3479000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (191, 67, 'GRPHT THRTTL', 'Công nghệ đệm thế hệ mới, mang đến khả năng giảm chấn vượt trội và lực đẩy bùng nổ, hỗ trợ tối đa cho các pha bật nhảy và smash uy lực, đặc biệt phù hợp với lối chơi tấn công hiện đại');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (192, 67, 'DOUBLE RACHEL MESH', 'là loại lưới siêu mịn được phát triển trên các đôi giày cầu lông Yonex với tính năng cực kỳ nhẹ và bền, cung cấp khả năng trao đổi không khí để giải phóng độ ẩm gấp tám lần so với vải lưới thông thường. Điều này giúp đôi chân của bạn luôn trong trạng thái');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (193, 67, 'Toe Assist Shape', 'Thiết kế tập trung vào ngón chân giúp giảm áp lực ở ngón chân cái, cũng như cung cấp sự hỗ trợ được cải thiện ở giữa bàn chân và gót chân để mang lại cảm giác vừa vặn, ổn định. Giảm tổn thất năng lượng, cho phép thực hiện các động tác chân nhanh chóng');
@@ -3623,7 +3621,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-yonex-shb-65z-va-women-grayish-beige-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (413, 71, 1, 1, 'VNB026737-ONESIZE-Default', 3826800, 3189000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (413, 71, NULL, NULL, 'VNB026737-ONESIZE-Default', 3826800, 3189000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (200, 71, 'POWER CUSHION+', 'Bằng cách thêm một loại nhựa đàn hồi đặc biệt vào POWER CUSHION trong khi vẫn duy trì các đặc tính nhẹ nhàng giúp khả năng hấp thụ sốc cao được thực hiện. Ngoài ra, các rãnh ở đế được thiết kế theo mô hình mạng tinh thể với khoảng cách và độ sâu tối ưu, đ');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (201, 71, 'POWER GRAPHITE LITE', 'Công nghệ giúp tăng và cải thiện độ ổn định và giảm độ xoắn sau khi tiếp đất');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (202, 71, 'INNER BOOTIE', 'Lớp vải Bootie nối giữa thân giày và lưỡi gà với nhau cho cảm giác khi mang giày cầu lông vào sẽ rất êm ái và phần cổ giày sẽ ôm khít mắt cá chân');
@@ -3665,7 +3663,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-yonex-shb-65z-va-men-grayish-beige-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (414, 72, 1, 1, 'VNB026736-ONESIZE-Default', 3826800, 3189000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (414, 72, NULL, NULL, 'VNB026736-ONESIZE-Default', 3826800, 3189000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (204, 72, 'POWER CUSHION+', 'Bằng cách thêm một loại nhựa đàn hồi đặc biệt vào POWER CUSHION trong khi vẫn duy trì các đặc tính nhẹ nhàng giúp khả năng hấp thụ sốc cao được thực hiện. Ngoài ra, các rãnh ở đế được thiết kế theo mô hình mạng tinh thể với khoảng cách và độ sâu tối ưu, đ');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (205, 72, 'POWER GRAPHITE LITE', 'Công nghệ giúp tăng và cải thiện độ ổn định và giảm độ xoắn sau khi tiếp đất');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (206, 72, 'INNER BOOTIE', 'Lớp vải Bootie nối giữa thân giày và lưỡi gà với nhau cho cảm giác khi mang giày cầu lông vào sẽ rất êm ái và phần cổ giày sẽ ôm khít mắt cá chân');
@@ -4533,7 +4531,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-ayav001-5-saga-3-pro-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (892, 81, 1, 1, 'VNB027679-ONESIZE-Default', 4536000, 3780000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (892, 81, NULL, NULL, 'VNB027679-ONESIZE-Default', 4536000, 3780000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (344, 'goodminton/products/giay-cau-long-lining-ayav001-5-saga-3-pro-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157482/goodminton/products/giay-cau-long-lining-ayav001-5-saga-3-pro-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 81, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (345, 'goodminton/products/giay-cau-long-lining-ayav001-5-saga-3-pro-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157482/goodminton/products/giay-cau-long-lining-ayav001-5-saga-3-pro-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 81, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (346, 'goodminton/products/giay-cau-long-lining-ayav001-5-saga-3-pro-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157483/goodminton/products/giay-cau-long-lining-ayav001-5-saga-3-pro-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 81, 2, NOW());
@@ -4567,7 +4565,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytv021-5-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (893, 82, 1, 1, 'VNB028163-ONESIZE-Default', 1344000, 1120000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (893, 82, NULL, NULL, 'VNB028163-ONESIZE-Default', 1344000, 1120000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (348, 'goodminton/products/giay-cau-long-lining-aytv021-5-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157492/goodminton/products/giay-cau-long-lining-aytv021-5-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 82, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (349, 'goodminton/products/giay-cau-long-lining-aytv021-5-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157491/goodminton/products/giay-cau-long-lining-aytv021-5-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 82, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (350, 'goodminton/products/giay-cau-long-lining-aytv021-5-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157491/goodminton/products/giay-cau-long-lining-aytv021-5-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 82, 2, NOW());
@@ -4601,7 +4599,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytv021-3-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (894, 83, 1, 1, 'VNB028161-ONESIZE-Default', 1344000, 1120000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (894, 83, NULL, NULL, 'VNB028161-ONESIZE-Default', 1344000, 1120000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (237, 83, 'LN Cloud Midsole', 'Công nghệ giúp hấp thụ lực hiệu quả khi tiếp đất, đặc biệt trong các pha bật nhảy hoặc di chuyển cường độ cao. Nhờ đó, áp lực lên cổ chân và đầu gối được giảm thiểu rõ rệt, mang lại cảm giác êm ái và ổn định xuyên suốt trận đấu');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (238, 83, 'Breathable Mesh Upper', 'Thân giày cầu lông Lining AYTV021-3 kết hợp giữa lớp vải lưới và da tổng hợp, giúp tối ưu khả năng thoáng khí đồng thời giữ form giày chắc chắn. Thiết kế ôm chân hỗ trợ người chơi kiểm soát chuyển động tốt hơn, đặc biệt trong các tình huống đổi hướng đột ');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (239, 83, 'ProbarLoc Stability Plate', 'Công nghệ này đóng vai trò như “bộ khung” hỗ trợ vòm bàn chân, tăng cường độ ổn định khi di chuyển ngang hoặc thực hiện các bước đạp mạnh. Điều này giúp hạn chế lật cổ chân và nâng cao độ an toàn khi thi đấu');
@@ -4639,7 +4637,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-ayav001-2-saga-3-pro-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (895, 84, 1, 1, 'VNB027502-ONESIZE-Default', 4078800, 3399000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (895, 84, NULL, NULL, 'VNB027502-ONESIZE-Default', 4078800, 3399000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (241, 84, 'CARBON-FIBER PLATE', 'Được làm từ sợi carbon nhẹ hơn và bền hơn so với TPU thông thường, mang lại độ bền, khả năng hấp thụ sốc và chống va đập tuyệt vời. Nó giúp hỗ trợ và truyền lực tốt trong quá trình tập luyện, giảm mệt mỏi và cải thiện hiệu suất thể thao');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (242, 84, 'HEEL LOC', 'Là thiết bị hỗ trợ và ổn định TPU bao quanh gót chân, mang lại sự ổn định, hỗ trợ và hướng dẫn để nâng chân lên khỏi mặt đất một cách hiệu quả, hỗ trợ giữ thăng bằng trong các chuyển động liên tục');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (243, 84, 'Hệ thống kiểm soát mặt đất Li-Ning GCU', 'Là một loại polyurethane đúc mới. Sản phẩm này áp dụng sáng tạo cho đế ngoài, sử dụng thiết kế cấu trúc phân tử đặc biệt để mang lại cho đế ngoài khả năng chống trượt và chống mài mòn tuyệt vời cùng lúc. Điều này phá vỡ sự đánh đổi truyền thống giữa khả n');
@@ -4678,7 +4676,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-ayav001-1-saga-3-pro-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (896, 85, 1, 1, 'VNB027678-ONESIZE-Default', 4536000, 3780000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (896, 85, NULL, NULL, 'VNB027678-ONESIZE-Default', 4536000, 3780000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (363, 'goodminton/products/giay-cau-long-lining-ayav001-1-saga-3-pro-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157480/goodminton/products/giay-cau-long-lining-ayav001-1-saga-3-pro-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 85, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (364, 'goodminton/products/giay-cau-long-lining-ayav001-1-saga-3-pro-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157480/goodminton/products/giay-cau-long-lining-ayav001-1-saga-3-pro-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 85, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (365, 'goodminton/products/giay-cau-long-lining-ayav001-1-saga-3-pro-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157480/goodminton/products/giay-cau-long-lining-ayav001-1-saga-3-pro-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 85, 2, NOW());
@@ -4709,7 +4707,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytv013-1-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (897, 86, 1, 1, 'VNB027587-ONESIZE-Default', 2244000, 1870000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (897, 86, NULL, NULL, 'VNB027587-ONESIZE-Default', 2244000, 1870000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (245, 86, 'Boom Lightweight Rebound', 'Công nghệ này giúp người chơi cảm nhận rõ ràng lực đẩy trong mỗi bước chân, giúp các pha di chuyển trở nên thanh thoát và bùng nổ hơn, đặc biệt là trong những tình huống cần tốc độ như lao lên lưới cứu cầu hay bật nhảy đập cầu');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (246, 86, 'Công nghệ đế giữa Li-Ning Cloud PLUS', 'Công nghệ này hoạt động như một tấm đệm cao cấp, bảo vệ khớp gối và cổ chân của người chơi khỏi các tác động lực mạnh khi tiếp đất, mang lại sự êm ái và thoải mái vượt trội ngay cả khi thi đấu ở cường độ cao');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (247, 86, 'Công nghệ TUFF RB', 'Điểm nhấn đắt giá nhất trên phiên bản AYTV013-1 chính là lớp cao su TUFF RB ở đế ngoài. Đây là loại vật liệu có khả năng chống mài mòn cao hơn gấp nhiều lần so với cao su thông thường');
@@ -4746,7 +4744,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-ayav001-3-saga-3-pro-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (898, 87, 1, 1, 'VNB027503-ONESIZE-Default', 4078800, 3399000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (898, 87, NULL, NULL, 'VNB027503-ONESIZE-Default', 4078800, 3399000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (250, 87, 'CARBON-FIBER PLATE', 'Được làm từ sợi carbon nhẹ hơn và bền hơn so với TPU thông thường, mang lại độ bền, khả năng hấp thụ sốc và chống va đập tuyệt vời. Nó giúp hỗ trợ và truyền lực tốt trong quá trình tập luyện, giảm mệt mỏi và cải thiện hiệu suất thể thao');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (251, 87, 'HEEL LOC', 'Là thiết bị hỗ trợ và ổn định TPU bao quanh gót chân, mang lại sự ổn định, hỗ trợ và hướng dẫn để nâng chân lên khỏi mặt đất một cách hiệu quả, hỗ trợ giữ thăng bằng trong các chuyển động liên tục');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (252, 87, 'Hệ thống kiểm soát mặt đất Li-Ning GCU', 'Là một loại polyurethane đúc mới. Sản phẩm này áp dụng sáng tạo cho đế ngoài, sử dụng thiết kế cấu trúc phân tử đặc biệt để mang lại cho đế ngoài khả năng chống trượt và chống mài mòn tuyệt vời cùng lúc. Điều này phá vỡ sự đánh đổi truyền thống giữa khả n');
@@ -4781,7 +4779,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytv013-2-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (899, 88, 1, 1, 'VNB027500-ONESIZE-Default', 2244000, 1870000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (899, 88, NULL, NULL, 'VNB027500-ONESIZE-Default', 2244000, 1870000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (254, 88, 'Boom Lightweight Rebound', 'Công nghệ này giúp người chơi cảm nhận rõ ràng lực đẩy trong mỗi bước chân, giúp các pha di chuyển trở nên thanh thoát và bùng nổ hơn, đặc biệt là trong những tình huống cần tốc độ như lao lên lưới cứu cầu hay bật nhảy đập cầu');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (255, 88, 'Công nghệ đế giữa Li-Ning Cloud PLUS', 'Công nghệ này hoạt động như một tấm đệm cao cấp, bảo vệ khớp gối và cổ chân của người chơi khỏi các tác động lực mạnh khi tiếp đất, mang lại sự êm ái và thoải mái vượt trội ngay cả khi thi đấu ở cường độ cao');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (256, 88, 'Công nghệ TUFF RB', 'Điểm nhấn đắt giá nhất trên phiên bản AYTV013-2 chính là lớp cao su TUFF RB ở đế ngoài. Đây là loại vật liệu có khả năng chống mài mòn cao hơn gấp nhiều lần so với cao su thông thường');
@@ -4818,7 +4816,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytv031-1-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (900, 89, 1, 1, 'VNB026956-ONESIZE-Default', 1380000, 1150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (900, 89, NULL, NULL, 'VNB026956-ONESIZE-Default', 1380000, 1150000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (377, 'goodminton/products/giay-cau-long-lining-aytv031-1-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157495/goodminton/products/giay-cau-long-lining-aytv031-1-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 89, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (378, 'goodminton/products/giay-cau-long-lining-aytv031-1-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157494/goodminton/products/giay-cau-long-lining-aytv031-1-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 89, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (379, 'goodminton/products/giay-cau-long-lining-aytv031-1-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157493/goodminton/products/giay-cau-long-lining-aytv031-1-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 89, 2, NOW());
@@ -4851,7 +4849,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytt001-6-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (901, 90, 1, 1, 'VNB026859-ONESIZE-Default', 1440000, 1200000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (901, 90, NULL, NULL, 'VNB026859-ONESIZE-Default', 1440000, 1200000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (382, 'goodminton/products/giay-cau-long-lining-aytt001-6-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157483/goodminton/products/giay-cau-long-lining-aytt001-6-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 90, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (383, 'goodminton/products/giay-cau-long-lining-aytt001-6-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157483/goodminton/products/giay-cau-long-lining-aytt001-6-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 90, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (384, 'goodminton/products/giay-cau-long-lining-aytt001-6-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157483/goodminton/products/giay-cau-long-lining-aytt001-6-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 90, 2, NOW());
@@ -4881,7 +4879,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-ayzv001-2-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (902, 91, 1, 1, 'VNB026795-ONESIZE-Default', 2628000, 2190000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (902, 91, NULL, NULL, 'VNB026795-ONESIZE-Default', 2628000, 2190000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (259, 91, 'LI-NING CLOUD', 'là công nghệ hấp thụ sốc đặc trưng của Li-Ning. Đế giữa toàn bộ chiều dài sử dụng công thức polymer giúp tích tụ lực tác động hiệu quả trong quá trình đệm và chuyển đổi thành năng lượng phục hồi, tạo ra một chu kỳ năng lượng. Sản phẩm cũng mềm mại và nhẹ,');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (260, 91, 'LI-NING BOUNSE +', 'là vật liệu có độ phục hồi cao, chống nén với hiệu suất phục hồi theo chiều dọc vượt trội so với các vật liệu đế giữa truyền thống, giúp vận động viên giảm thiểu tổn thất năng lượng trong quá trình tập luyện');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (385, 'goodminton/products/giay-cau-long-lining-ayzv001-2-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157496/goodminton/products/giay-cau-long-lining-ayzv001-2-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 91, 0, NOW());
@@ -4914,7 +4912,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-ayzv001-3-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (903, 92, 1, 1, 'VNB026794-ONESIZE-Default', 2628000, 2190000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (903, 92, NULL, NULL, 'VNB026794-ONESIZE-Default', 2628000, 2190000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (261, 92, 'LI-NING CLOUD', 'là công nghệ hấp thụ sốc đặc trưng của Li-Ning. Đế giữa toàn bộ chiều dài sử dụng công thức polymer giúp tích tụ lực tác động hiệu quả trong quá trình đệm và chuyển đổi thành năng lượng phục hồi, tạo ra một chu kỳ năng lượng. Sản phẩm cũng mềm mại và nhẹ,');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (262, 92, 'LI-NING BOUNSE +', 'là vật liệu có độ phục hồi cao, chống nén với hiệu suất phục hồi theo chiều dọc vượt trội so với các vật liệu đế giữa truyền thống, giúp vận động viên giảm thiểu tổn thất năng lượng trong quá trình tập luyện');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (389, 'goodminton/products/giay-cau-long-lining-ayzv001-3-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157497/goodminton/products/giay-cau-long-lining-ayzv001-3-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 92, 0, NOW());
@@ -4946,7 +4944,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytv015-3-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (904, 93, 1, 1, 'VNB026793-ONESIZE-Default', 1440000, 1200000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (904, 93, NULL, NULL, 'VNB026793-ONESIZE-Default', 1440000, 1200000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (393, 'goodminton/products/giay-cau-long-lining-aytv015-3-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157489/goodminton/products/giay-cau-long-lining-aytv015-3-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 93, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (394, 'goodminton/products/giay-cau-long-lining-aytv015-3-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157490/goodminton/products/giay-cau-long-lining-aytv015-3-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 93, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (395, 'goodminton/products/giay-cau-long-lining-aytv015-3-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157489/goodminton/products/giay-cau-long-lining-aytv015-3-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 93, 2, NOW());
@@ -4978,7 +4976,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytu001-9-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (905, 94, 1, 1, 'VNB026792-ONESIZE-Default', 1440000, 1200000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (905, 94, NULL, NULL, 'VNB026792-ONESIZE-Default', 1440000, 1200000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (398, 'goodminton/products/giay-cau-long-lining-aytu001-9-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157486/goodminton/products/giay-cau-long-lining-aytu001-9-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 94, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (399, 'goodminton/products/giay-cau-long-lining-aytu001-9-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157486/goodminton/products/giay-cau-long-lining-aytu001-9-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 94, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (400, 'goodminton/products/giay-cau-long-lining-aytu001-9-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157486/goodminton/products/giay-cau-long-lining-aytu001-9-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 94, 2, NOW());
@@ -5009,7 +5007,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytt001-7-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (906, 95, 1, 1, 'VNB026791-ONESIZE-Default', 1440000, 1200000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (906, 95, NULL, NULL, 'VNB026791-ONESIZE-Default', 1440000, 1200000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (263, 95, 'PROBAR LOC', 'Đây là công nghệ được đặt trong vòm của đế giữa và được kết nối với bàn chân trước và gót chân, có thể giúp vòm bàn chân được hỗ trợ và bảo vệ đúng cách trong mỗi bước tập luyện, đồng thời cải thiện độ ổn định');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (264, 95, 'LI-NING CLOUD', 'Công nghệ hấp thụ sốc độc quyền trên giày cầu lông Li-Ning với đế giữa của toàn bộ lòng bàn chân được làm bằng công thức vật liệu polyme, có thể tích lũy hiệu quả lực tác động trong quá trình đệm và chuyển hóa thành năng lượng trong quá trình phục hồi để ');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (265, 95, 'TUFF TIP', 'là vật liệu chống mài mòn ở mũi giày được áp dụng cho phần mũi giày để ngăn phần trên bị mòn sớm, do đó kéo dài tuổi thọ của giày');
@@ -5045,7 +5043,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytu001-8-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (907, 96, 1, 1, 'VNB026790-ONESIZE-Default', 1440000, 1200000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (907, 96, NULL, NULL, 'VNB026790-ONESIZE-Default', 1440000, 1200000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (408, 'goodminton/products/giay-cau-long-lining-aytu001-8-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157486/goodminton/products/giay-cau-long-lining-aytu001-8-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 96, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (409, 'goodminton/products/giay-cau-long-lining-aytu001-8-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157485/goodminton/products/giay-cau-long-lining-aytu001-8-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 96, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (410, 'goodminton/products/giay-cau-long-lining-aytu001-8-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157485/goodminton/products/giay-cau-long-lining-aytu001-8-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 96, 2, NOW());
@@ -5077,7 +5075,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytv027-1-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (908, 97, 1, 1, 'VNB026760-ONESIZE-Default', 1462800, 1219000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (908, 97, NULL, NULL, 'VNB026760-ONESIZE-Default', 1462800, 1219000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (413, 'goodminton/products/giay-cau-long-lining-aytv027-1-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157492/goodminton/products/giay-cau-long-lining-aytv027-1-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 97, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (414, 'goodminton/products/giay-cau-long-lining-aytv027-1-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157492/goodminton/products/giay-cau-long-lining-aytv027-1-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 97, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (415, 'goodminton/products/giay-cau-long-lining-aytv027-1-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157492/goodminton/products/giay-cau-long-lining-aytv027-1-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 97, 2, NOW());
@@ -5109,7 +5107,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytv029-1-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (909, 98, 1, 1, 'VNB026761-ONESIZE-Default', 1356000, 1130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (909, 98, NULL, NULL, 'VNB026761-ONESIZE-Default', 1356000, 1130000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (266, 98, 'TUFF TIP', 'Là vật liệu chống mài mòn được ứng dụng trên mũi của mũ giày nhằm giảm sự mài mòn và kéo dài tuổi thọ của giày Lining. Một vật liệu chống mài mòn cao được sử dụng cho khu vực ngón chân trên của toàn bộ trên. Khả năng chống mài mòn cao hơn 10 lần so với vậ');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (417, 'goodminton/products/giay-cau-long-lining-aytv029-1-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157494/goodminton/products/giay-cau-long-lining-aytv029-1-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 98, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (418, 'goodminton/products/giay-cau-long-lining-aytv029-1-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157493/goodminton/products/giay-cau-long-lining-aytv029-1-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 98, 1, NOW());
@@ -5138,7 +5136,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytu025-1-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (910, 99, 1, 1, 'VNB025072-ONESIZE-Default', 1590000, 1325000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (910, 99, NULL, NULL, 'VNB025072-ONESIZE-Default', 1590000, 1325000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (267, 99, 'TUFFTIP', 'Một vật liệu chống mài mòn cao được sử dụng cho khu vực ngón chân trên của toàn bộ trên. Khả năng chống mài mòn cao hơn 10 lần so với vật liệu thông thường. Chất liệu này có thể ngăn ngừa sự mòn sớm của toàn bộ phần trên của giày và kéo dài tuổi thọ của g');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (421, 'goodminton/products/giay-cau-long-lining-aytu025-1-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157487/goodminton/products/giay-cau-long-lining-aytu025-1-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 99, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (422, 'goodminton/products/giay-cau-long-lining-aytu025-1-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157487/goodminton/products/giay-cau-long-lining-aytu025-1-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 99, 1, NOW());
@@ -5172,7 +5170,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-lining-aytu001-7-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (911, 100, 1, 1, 'VNB025073-ONESIZE-Default', 1440000, 1200000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (911, 100, NULL, NULL, 'VNB025073-ONESIZE-Default', 1440000, 1200000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (268, 100, 'Công nghệ Multi-Flex', 'cho phép đế giày linh hoạt và dễ dàng thích ứng với các chuyển động đa hướng trên sân cầu lông, giúp bảo vệ chân, tránh tối đa tình trạng lật cổ chân');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (424, 'goodminton/products/giay-cau-long-lining-aytu001-7-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157485/goodminton/products/giay-cau-long-lining-aytu001-7-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 100, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (425, 'goodminton/products/giay-cau-long-lining-aytu001-7-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157484/goodminton/products/giay-cau-long-lining-aytu001-7-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 100, 1, NOW());
@@ -5204,7 +5202,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-as-17-w-cr-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (912, 101, 1, 1, 'VNB028417-ONESIZE-Default', 1366800, 1139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (912, 101, NULL, NULL, 'VNB028417-ONESIZE-Default', 1366800, 1139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (427, 'goodminton/products/giay-cau-long-victor-as-17-w-cr-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157505/goodminton/products/giay-cau-long-victor-as-17-w-cr-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 101, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (428, 'goodminton/products/giay-cau-long-victor-as-17-w-cr-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157504/goodminton/products/giay-cau-long-victor-as-17-w-cr-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 101, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (102, 2, 3, 'Giày cầu lông Victor AS-17 W/BX chính hãng', '<div class="rte product_getcontent">
@@ -5234,7 +5232,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-as-17-w-bx-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (913, 102, 1, 1, 'VNB028416-ONESIZE-Default', 1366800, 1139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (913, 102, NULL, NULL, 'VNB028416-ONESIZE-Default', 1366800, 1139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (429, 'goodminton/products/giay-cau-long-victor-as-17-w-bx-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157504/goodminton/products/giay-cau-long-victor-as-17-w-bx-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 102, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (430, 'goodminton/products/giay-cau-long-victor-as-17-w-bx-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157504/goodminton/products/giay-cau-long-victor-as-17-w-bx-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 102, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (103, 2, 3, 'Giày cầu lông Victor AS-10 W/CX chính hãng', '<div class="rte product_getcontent">
@@ -5266,7 +5264,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-as-10-w-cx-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (914, 103, 1, 1, 'VNB028415-ONESIZE-Default', 1246800, 1039000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (914, 103, NULL, NULL, 'VNB028415-ONESIZE-Default', 1246800, 1039000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (431, 'goodminton/products/giay-cau-long-victor-as-10-w-cx-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157504/goodminton/products/giay-cau-long-victor-as-10-w-cx-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 103, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (432, 'goodminton/products/giay-cau-long-victor-as-10-w-cx-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157503/goodminton/products/giay-cau-long-victor-as-10-w-cx-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 103, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (104, 2, 3, 'Giày cầu lông Victor AS-10 W/BF chính hãng', '<div class="rte product_getcontent">
@@ -5298,7 +5296,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-as-10-w-bf-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (915, 104, 1, 1, 'VNB028414-ONESIZE-Default', 1246800, 1039000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (915, 104, NULL, NULL, 'VNB028414-ONESIZE-Default', 1246800, 1039000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (433, 'goodminton/products/giay-cau-long-victor-as-10-w-bf-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157503/goodminton/products/giay-cau-long-victor-as-10-w-bf-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 104, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (434, 'goodminton/products/giay-cau-long-victor-as-10-w-bf-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157503/goodminton/products/giay-cau-long-victor-as-10-w-bf-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 104, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (105, 2, 3, 'Giày cầu lông Victor P8500 NitroLite ZSW/DX chính hãng', '<div class="rte product_getcontent">
@@ -5327,7 +5325,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-p8500-nitrolite-zsw-dx-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (916, 105, 1, 1, 'VNB027518-ONESIZE-Default', 3216000, 2680000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (916, 105, NULL, NULL, 'VNB027518-ONESIZE-Default', 3216000, 2680000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (269, 105, 'LS-S', 'Mặt ngoài của bàn chân trước được thiết kế bằng TPU có độ bền cao. Điều này giúp tăng cường đáng kể độ ổn định bên trong quá trình chuyển hướng nhanh và mạnh khi chơi cầu. Thiết kế ba móng vuốt ngang cổ điển của Victor P8500Nlite AT được nâng cấp thêm tro');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (435, 'goodminton/products/giay-cau-long-victor-p8500-nitrolite-zsw-dx-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157507/goodminton/products/giay-cau-long-victor-p8500-nitrolite-zsw-dx-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 105, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (436, 'goodminton/products/giay-cau-long-victor-p8500-nitrolite-zsw-dx-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157507/goodminton/products/giay-cau-long-victor-p8500-nitrolite-zsw-dx-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 105, 1, NOW());
@@ -5358,7 +5356,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a362-lt-ac-trang-den-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (917, 106, 1, 1, 'VNB027180-ONESIZE-Default', 1500000, 1250000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (917, 106, NULL, NULL, 'VNB027180-ONESIZE-Default', 1500000, 1250000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (270, 106, 'ENERGY MAX3.0', 'là công nghệ đệm được tích hợp lên giày cầu lông Victor làm tăng khả năng đàn hồi, tăng khả năng phục hồi tức thời, hấp thụ sốc và giảm chấn khi tiếp đất');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (438, 'goodminton/products/giay-cau-long-victor-a362-lt-ac-trang-den-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157499/goodminton/products/giay-cau-long-victor-a362-lt-ac-trang-den-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 106, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (439, 'goodminton/products/giay-cau-long-victor-a362-lt-ac-trang-den-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157498/goodminton/products/giay-cau-long-victor-a362-lt-ac-trang-den-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 106, 1, NOW());
@@ -5393,7 +5391,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a770-a-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (918, 107, 1, 1, 'VNB027516-ONESIZE-Default', 2076000, 1730000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (918, 107, NULL, NULL, 'VNB027516-ONESIZE-Default', 2076000, 1730000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (271, 107, 'ENERGYMAX3.0', 'Thế hệ mới của vật liệu có độ đàn hồi cao, với khả năng phục hồi tăng 22%. Độ hấp thụ sốc tăng 6%, có thể tăng cường đáng kể khả năng phục hồi tức thì, hấp thụ sốc và hiệu ứng đệm cho các cú sốc khi sử dụng đôi Giày cầu lông Victor A770 A');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (272, 107, 'BREATHING', 'Một lớp lưới thở độc đáo được sử dụng để tăng thông gió. Nó tạo điều kiện cho tản nhiệt. Điều này tạo ra một môi trường thoải mái hơn cho bàn chân');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (273, 107, 'VSR ANTI-SLIP RUBBER', 'Cao su đế ngoài được nâng cấp, hiệu suất chống trơn trượt tăng 21% trên sàn PU khô');
@@ -5430,7 +5428,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a770-v-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (919, 108, 1, 1, 'VNB027517-ONESIZE-Default', 2076000, 1730000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (919, 108, NULL, NULL, 'VNB027517-ONESIZE-Default', 2076000, 1730000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (274, 108, 'ENERGYMAX3.0', 'Thế hệ mới của vật liệu có độ đàn hồi cao, với khả năng phục hồi tăng 22%. Độ hấp thụ sốc tăng 6%, có thể tăng cường đáng kể khả năng phục hồi tức thì, hấp thụ sốc và hiệu ứng đệm cho các cú sốc khi sử dụng đôi Giày cầu lông Victor A770 V');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (275, 108, 'BREATHING', 'Một lớp lưới thở độc đáo được sử dụng để tăng thông gió. Nó tạo điều kiện cho tản nhiệt. Điều này tạo ra một môi trường thoải mái hơn cho bàn chân');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (276, 108, 'VSR ANTI-SLIP RUBBER', 'Cao su đế ngoài được nâng cấp, hiệu suất chống trơn trượt tăng 21% trên sàn PU khô');
@@ -5460,7 +5458,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a550-ls-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (920, 109, 1, 1, 'VNB026970-ONESIZE-Default', 1776000, 1480000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (920, 109, NULL, NULL, 'VNB026970-ONESIZE-Default', 1776000, 1480000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (447, 'goodminton/products/giay-cau-long-victor-a550-ls-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157500/goodminton/products/giay-cau-long-victor-a550-ls-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 109, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (448, 'goodminton/products/giay-cau-long-victor-a550-ls-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157499/goodminton/products/giay-cau-long-victor-a550-ls-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 109, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (449, 'goodminton/products/giay-cau-long-victor-a550-ls-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157500/goodminton/products/giay-cau-long-victor-a550-ls-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 109, 2, NOW());
@@ -5490,7 +5488,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a170-ii-lr-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (921, 110, 1, 1, 'VNB026968-ONESIZE-Default', 1296000, 1080000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (921, 110, NULL, NULL, 'VNB026968-ONESIZE-Default', 1296000, 1080000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (277, 110, 'ENERGY MAX3.0', 'Giày cầu lông');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (278, 110, 'BREATHING', 'Một lớp thoáng khí độc đáo sử dụng để tăng khả năng thông gió. Nó tạo điều kiện cho việc tản nhiệt. Điều này tạo ra một không gian thoải mái hơn cho bàn chân');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (279, 110, 'Radiation', 'Là công nghệ của hãng Victor được tích hợp lên đế giày cầu lông A170 II-B Xanh. Với hình dạng tam giác đối xứng nhau qua hình tròn ở giữa, tăng độ bám khi di chuyển, vững chãi hơn trong những bước di chuyển ngang và dọc. Đây cũng là công nghệ góp phần giả');
@@ -5524,7 +5522,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a970-cadv-b-xanh-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (922, 111, 1, 1, 'VNB027179-ONESIZE-Default', 3084000, 2570000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (922, 111, NULL, NULL, 'VNB027179-ONESIZE-Default', 3084000, 2570000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (280, 111, 'LS-S', 'Mặt ngoài của bàn chân trước được thiết kế bằng TPU có độ bền cao. Điều này giúp tăng cường đáng kể độ ổn định bên trong quá trình chuyển hướng nhanh và mạnh khi chơi cầu. Thiết kế ba móng 3D có lớp hoàn thiện sơn mài vàng chắc chắn sẽ thu hút sự chú ý tr');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (453, 'goodminton/products/giay-cau-long-victor-a970-cadv-b-xanh-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157503/goodminton/products/giay-cau-long-victor-a970-cadv-b-xanh-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 111, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (454, 'goodminton/products/giay-cau-long-victor-a970-cadv-b-xanh-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157502/goodminton/products/giay-cau-long-victor-a970-cadv-b-xanh-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 111, 1, NOW());
@@ -5556,7 +5554,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a170-ii-ag-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (923, 112, 1, 1, 'VNB026967-ONESIZE-Default', 1296000, 1080000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (923, 112, NULL, NULL, 'VNB026967-ONESIZE-Default', 1296000, 1080000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (281, 112, 'ENERGY MAX3.0', 'Giày cầu lông');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (282, 112, 'BREATHING', 'Một lớp thoáng khí độc đáo sử dụng để tăng khả năng thông gió. Nó tạo điều kiện cho việc tản nhiệt. Điều này tạo ra một không gian thoải mái hơn cho bàn chân');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (283, 112, 'Radiation', 'Là công nghệ của hãng Victor được tích hợp lên đế giày cầu lông A170 II-B Xanh. Với hình dạng tam giác đối xứng nhau qua hình tròn ở giữa, tăng độ bám khi di chuyển, vững chãi hơn trong những bước di chuyển ngang và dọc. Đây cũng là công nghệ góp phần giả');
@@ -5586,7 +5584,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a370-ac-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (924, 113, 1, 1, 'VNB026625-ONESIZE-Default', 1776000, 1480000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (924, 113, NULL, NULL, 'VNB026625-ONESIZE-Default', 1776000, 1480000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (284, 113, 'HYPEREVA', 'Victor A370 AC là mẫu giày đầu tiên mở rộng việc sử dụng HYPEREVA. Giờ đây, không chỉ đế giữa mà cả đệm gót chân cũng được làm bằng HYPEREVA để người mang có thể tận hưởng sự nhẹ nhàng, mềm mại và đàn hồi của nó mỗi khi tiếp đất');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (285, 113, 'ENERGY MAX3.0', 'Victor A370 AC sử dụng vật liệu có độ đàn hồi cao, tăng khả năng đàn hồi và hấp thụ sốc, có thể tăng cường đáng kể khả năng phục hồi tức thời, hấp thu sốc và tác dụng đệm giảm bớt chấn động khi tiếp đất');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (459, 'goodminton/products/giay-cau-long-victor-a370-ac-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157499/goodminton/products/giay-cau-long-victor-a370-ac-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 113, 0, NOW());
@@ -5614,7 +5612,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a370-ah-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (925, 114, 1, 1, 'VNB026624-ONESIZE-Default', 1776000, 1480000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (925, 114, NULL, NULL, 'VNB026624-ONESIZE-Default', 1776000, 1480000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (286, 114, 'HYPEREVA', 'Victor A370 AH là mẫu giày đầu tiên mở rộng việc sử dụng HYPEREVA. Giờ đây, không chỉ đế giữa mà cả đệm gót chân cũng được làm bằng HYPEREVA để người mang có thể tận hưởng sự nhẹ nhàng, mềm mại và đàn hồi của nó mỗi khi tiếp đất');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (287, 114, 'ENERGY MAX3.0', 'Victor A370 LI sử dụng vật liệu có độ đàn hồi cao, tăng khả năng đàn hồi và hấp thụ sốc, có thể tăng cường đáng kể khả năng phục hồi tức thời, hấp thu sốc và tác dụng đệm giảm bớt chấn động khi tiếp đất');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (460, 'goodminton/products/giay-cau-long-victor-a370-ah-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157499/goodminton/products/giay-cau-long-victor-a370-ah-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 114, 0, NOW());
@@ -5642,7 +5640,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-c90-hp-am-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (926, 115, 1, 1, 'VNB026616-ONESIZE-Default', 2016000, 1680000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (926, 115, NULL, NULL, 'VNB026616-ONESIZE-Default', 2016000, 1680000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (288, 115, 'ENERGY MAX3.0', 'Victor sử dụng vật liệu có độ đàn hồi cao, tăng khả năng đàn hồi và hấp thụ sốc, có thể tăng cường đáng kể khả năng phục hồi tức thời, hấp thu sốc và tác dụng đệm giảm bớt chấn động khi tiếp đất');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (461, 'goodminton/products/giay-cau-long-victor-c90-hp-am-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157506/goodminton/products/giay-cau-long-victor-c90-hp-am-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 115, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (462, 'goodminton/products/giay-cau-long-victor-c90-hp-am-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157506/goodminton/products/giay-cau-long-victor-c90-hp-am-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 115, 1, NOW());
@@ -5671,7 +5669,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-c90-hp-ac-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (927, 116, 1, 1, 'VNB026615-ONESIZE-Default', 2016000, 1680000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (927, 116, NULL, NULL, 'VNB026615-ONESIZE-Default', 2016000, 1680000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (289, 116, 'ENERGY MAX3.0', 'Victor sử dụng vật liệu có độ đàn hồi cao, tăng khả năng đàn hồi và hấp thụ sốc, có thể tăng cường đáng kể khả năng phục hồi tức thời, hấp thu sốc và tác dụng đệm giảm bớt chấn động khi tiếp đất');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (464, 'goodminton/products/giay-cau-long-victor-c90-hp-ac-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157506/goodminton/products/giay-cau-long-victor-c90-hp-ac-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 116, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (465, 'goodminton/products/giay-cau-long-victor-c90-hp-ac-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157505/goodminton/products/giay-cau-long-victor-c90-hp-ac-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 116, 1, NOW());
@@ -5701,7 +5699,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a370-li-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (928, 117, 1, 1, 'VNB026614-ONESIZE-Default', 1776000, 1480000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (928, 117, NULL, NULL, 'VNB026614-ONESIZE-Default', 1776000, 1480000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (290, 117, 'HYPEREVA', 'Victor A370 LI là mẫu giày đầu tiên mở rộng việc sử dụng HYPEREVA. Giờ đây, không chỉ đế giữa mà cả đệm gót chân cũng được làm bằng HYPEREVA để người mang có thể tận hưởng sự nhẹ nhàng, mềm mại và đàn hồi của nó mỗi khi tiếp đất');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (291, 117, 'ENERGY MAX3.0', 'Victor A370 LI sử dụng vật liệu có độ đàn hồi cao, tăng khả năng đàn hồi và hấp thụ sốc, có thể tăng cường đáng kể khả năng phục hồi tức thời, hấp thu sốc và tác dụng đệm giảm bớt chấn động khi tiếp đất');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (468, 'goodminton/products/giay-cau-long-victor-a370-li-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157500/goodminton/products/giay-cau-long-victor-a370-li-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 117, 0, NOW());
@@ -5732,7 +5730,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-p8500-cls-ag-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (929, 118, 1, 1, 'VNB026597-ONESIZE-Default', 1380000, 1150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (929, 118, NULL, NULL, 'VNB026597-ONESIZE-Default', 1380000, 1150000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (292, 118, 'HYPEREVA', 'Victor P8500 CLS AG là mẫu giày đầu tiên mở rộng việc sử dụng HYPEREVA. Giờ đây, không chỉ đế giữa mà cả đệm gót chân cũng được làm bằng HYPEREVA để người mang có thể tận hưởng sự nhẹ nhàng, mềm mại và đàn hồi của nó mỗi khi tiếp đất');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (293, 118, 'ENERGY MAX3.0', 'Giày Cầu Lông Victor P8500 CLS AG sử dụng vật liệu có độ đàn hồi cao, tăng khả năng đàn hồi và hấp thụ sốc, có thể tăng cường đáng kể khả năng phục hồi tức thời, hấp thu sốc và tác dụng đệm giảm bớt chấn động khi tiếp đất');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (469, 'goodminton/products/giay-cau-long-victor-p8500-cls-ag-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157507/goodminton/products/giay-cau-long-victor-p8500-cls-ag-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 118, 0, NOW());
@@ -5772,7 +5770,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a311-c-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (930, 119, 1, 1, 'VNB026583-ONESIZE-Default', 1476000, 1230000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (930, 119, NULL, NULL, 'VNB026583-ONESIZE-Default', 1476000, 1230000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (294, 119, 'ENERGYMAX3.0', 'Thế hệ mới của vật liệu có độ đàn hồi cao, với khả năng phục hồi tăng 22%. Độ hấp thụ sốc tăng 6%, có thể tăng cường đáng kể khả năng phục hồi tức thì, hấp thụ sốc và hiệu ứng đệm cho các cú sốc khi sử dụng đôi Giày cầu lông Victor A311 C');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (295, 119, 'V-DURABLE', 'Các ngón chân bên trong sử dụng các kỹ thuật đặc biệt để cung cấp sức mạnh và độ bền tốt hơn');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (296, 119, 'U-SHAPE TOE', 'U-SHAPE cuối cùng tạo ra sự phản ứng thoải mái và chắc chắn hơn đối với ngón chân kiểu Ai Cập mà ngón chân đầu tiên của nó dài nhất và bàn chân trước trông tròn hơn, đồng thời rút ngắn chiều cao ở giữa bàn chân và chiều rộng ở mắt cá chân');
@@ -5808,7 +5806,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'giay-cau-long-victor-a830-nl-cg-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (931, 120, 1, 1, 'VNB026584-ONESIZE-Default', 2496000, 2080000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (931, 120, NULL, NULL, 'VNB026584-ONESIZE-Default', 2496000, 2080000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (299, 120, 'ENERGYMAX3.0', 'Thế hệ mới của vật liệu có độ đàn hồi cao, với khả năng phục hồi tăng 22%. Độ hấp thụ sốc tăng 6%, có thể tăng cường đáng kể khả năng phục hồi tức thì, hấp thụ sốc và hiệu ứng đệm cho các cú sốc khi sử dụng đôi Giày cầu lông Victor A830 NL/CG');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (300, 120, 'BREATHING', 'Một lớp lưới thở độc đáo được sử dụng để tăng thông gió. Nó tạo điều kiện cho tản nhiệt. Điều này tạo ra một môi trường thoải mái hơn cho bàn chân');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (301, 120, 'VSR ANTI-SLIP RUBBER', 'Cao su đế ngoài được nâng cấp, hiệu suất chống trơn trượt tăng 21% trên sàn PU khô');
@@ -5864,7 +5862,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-tpm2899-oatmeal-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (932, 121, 1, 1, 'VNB026046-ONESIZE-Default', 226800, 189000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (932, 121, NULL, NULL, 'VNB026046-ONESIZE-Default', 226800, 189000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (478, 'goodminton/products/ao-cau-long-yonex-tpm2899-oatmeal-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157465/goodminton/products/ao-cau-long-yonex-tpm2899-oatmeal-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 121, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (122, 3, 1, 'Áo cầu lông Yonex TPM2899 - Aqua Foam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -5915,7 +5913,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-tpm2899-aqua-foam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (933, 122, 1, 1, 'VNB026043-ONESIZE-Default', 226800, 189000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (933, 122, NULL, NULL, 'VNB026043-ONESIZE-Default', 226800, 189000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (479, 'goodminton/products/ao-cau-long-yonex-tpm2899-aqua-foam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157465/goodminton/products/ao-cau-long-yonex-tpm2899-aqua-foam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 122, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (123, 3, 1, 'Áo cầu lông Yonex TPM2736 - Cerise chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -5966,7 +5964,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-tpm2736-cerise-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (934, 123, 1, 1, 'VNB024817-ONESIZE-Default', 394800, 329000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (934, 123, NULL, NULL, 'VNB024817-ONESIZE-Default', 394800, 329000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (480, 'goodminton/products/ao-cau-long-yonex-tpm2736-cerise-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157464/goodminton/products/ao-cau-long-yonex-tpm2736-cerise-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 123, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (124, 3, 1, 'Áo Nỉ Lót Bông Tay Dài Yonex YY22-6 Tím', '<div class="rte product_getcontent">
 <div id="content">
@@ -6024,7 +6022,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-ni-lot-bong-tay-dai-yonex-yy22-6-tim', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (935, 124, 1, 1, 'VNB024572-ONESIZE-Default', 420000, 350000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (935, 124, NULL, NULL, 'VNB024572-ONESIZE-Default', 420000, 350000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (481, 'goodminton/products/ao-ni-lot-bong-tay-dai-yonex-yy22-6-tim-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157471/goodminton/products/ao-ni-lot-bong-tay-dai-yonex-yy22-6-tim-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 124, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (482, 'goodminton/products/ao-ni-lot-bong-tay-dai-yonex-yy22-6-tim-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157471/goodminton/products/ao-ni-lot-bong-tay-dai-yonex-yy22-6-tim-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 124, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (125, 3, 1, 'Áo cầu lông Yonex TPM3243 - White chính hãng', '<div class="rte product_getcontent">
@@ -6077,7 +6075,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-tpm3243-white-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (936, 125, 1, 1, 'VNB028584-ONESIZE-Default', 202800, 169000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (936, 125, NULL, NULL, 'VNB028584-ONESIZE-Default', 202800, 169000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (483, 'goodminton/products/ao-cau-long-yonex-tpm3243-white-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157466/goodminton/products/ao-cau-long-yonex-tpm3243-white-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 125, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (484, 'goodminton/products/ao-cau-long-yonex-tpm3243-white-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157466/goodminton/products/ao-cau-long-yonex-tpm3243-white-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 125, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (126, 3, 1, 'Áo cầu lông Yonex TPM3243 - Jet Black chính hãng', '<div class="rte product_getcontent">
@@ -6130,7 +6128,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-tpm3243-jet-black-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (937, 126, 1, 1, 'VNB028582-ONESIZE-Default', 202800, 169000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (937, 126, NULL, NULL, 'VNB028582-ONESIZE-Default', 202800, 169000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (485, 'goodminton/products/ao-cau-long-yonex-tpm3243-jet-black-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157465/goodminton/products/ao-cau-long-yonex-tpm3243-jet-black-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 126, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (486, 'goodminton/products/ao-cau-long-yonex-tpm3243-jet-black-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157465/goodminton/products/ao-cau-long-yonex-tpm3243-jet-black-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 126, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (127, 3, 1, 'Áo cầu lông Yonex TRM3240 - Trooper chính hãng', '<div class="rte product_getcontent">
@@ -6183,7 +6181,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm3240-trooper-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (938, 127, 1, 1, 'VNB028581-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (938, 127, NULL, NULL, 'VNB028581-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (487, 'goodminton/products/ao-cau-long-yonex-trm3240-trooper-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157470/goodminton/products/ao-cau-long-yonex-trm3240-trooper-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 127, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (488, 'goodminton/products/ao-cau-long-yonex-trm3240-trooper-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157470/goodminton/products/ao-cau-long-yonex-trm3240-trooper-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 127, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (128, 3, 1, 'Áo cầu lông Yonex TRM3240 - Alesan chính hãng', '<div class="rte product_getcontent">
@@ -6236,7 +6234,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm3240-alesan-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (939, 128, 1, 1, 'VNB028580-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (939, 128, NULL, NULL, 'VNB028580-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (489, 'goodminton/products/ao-cau-long-yonex-trm3240-alesan-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157468/goodminton/products/ao-cau-long-yonex-trm3240-alesan-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 128, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (490, 'goodminton/products/ao-cau-long-yonex-trm3240-alesan-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157468/goodminton/products/ao-cau-long-yonex-trm3240-alesan-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 128, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (129, 3, 1, 'Áo cầu lông Yonex TRM3240 - Jet Black chính hãng', '<div class="rte product_getcontent">
@@ -6289,7 +6287,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm3240-jet-black-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (940, 129, 1, 1, 'VNB028579-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (940, 129, NULL, NULL, 'VNB028579-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (491, 'goodminton/products/ao-cau-long-yonex-trm3240-jet-black-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157469/goodminton/products/ao-cau-long-yonex-trm3240-jet-black-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 129, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (492, 'goodminton/products/ao-cau-long-yonex-trm3240-jet-black-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157469/goodminton/products/ao-cau-long-yonex-trm3240-jet-black-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 129, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (130, 3, 1, 'Áo cầu lông Yonex TRM3240 - Blue Depths chính hãng', '<div class="rte product_getcontent">
@@ -6342,7 +6340,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm3240-blue-depths-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (941, 130, 1, 1, 'VNB028578-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (941, 130, NULL, NULL, 'VNB028578-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (493, 'goodminton/products/ao-cau-long-yonex-trm3240-blue-depths-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157469/goodminton/products/ao-cau-long-yonex-trm3240-blue-depths-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 130, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (494, 'goodminton/products/ao-cau-long-yonex-trm3240-blue-depths-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157468/goodminton/products/ao-cau-long-yonex-trm3240-blue-depths-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 130, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (131, 3, 1, 'Áo cầu lông Yonex TRM3222 - Cornflower Blue chính hãng', '<div class="rte product_getcontent">
@@ -6395,7 +6393,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm3222-cornflower-blue-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (942, 131, 1, 1, 'VNB028576-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (942, 131, NULL, NULL, 'VNB028576-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (495, 'goodminton/products/ao-cau-long-yonex-trm3222-cornflower-blue-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157469/goodminton/products/ao-cau-long-yonex-trm3222-cornflower-blue-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 131, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (496, 'goodminton/products/ao-cau-long-yonex-trm3222-cornflower-blue-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157468/goodminton/products/ao-cau-long-yonex-trm3222-cornflower-blue-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 131, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (132, 3, 1, 'Áo cầu lông Yonex TRM3222 - Brook Green chính hãng', '<div class="rte product_getcontent">
@@ -6448,7 +6446,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm3222-brook-green-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (943, 132, 1, 1, 'VNB028577-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (943, 132, NULL, NULL, 'VNB028577-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (497, 'goodminton/products/ao-cau-long-yonex-trm3222-brook-green-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157468/goodminton/products/ao-cau-long-yonex-trm3222-brook-green-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 132, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (498, 'goodminton/products/ao-cau-long-yonex-trm3222-brook-green-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157467/goodminton/products/ao-cau-long-yonex-trm3222-brook-green-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 132, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (133, 3, 1, 'Áo cầu lông Yonex TRM3221 - Jet Black chính hãng', '<div class="rte product_getcontent">
@@ -6501,7 +6499,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm3221-jet-black-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (944, 133, 1, 1, 'VNB028572-ONESIZE-Default', 154800, 129000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (944, 133, NULL, NULL, 'VNB028572-ONESIZE-Default', 154800, 129000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (499, 'goodminton/products/ao-cau-long-yonex-trm3221-jet-black-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157467/goodminton/products/ao-cau-long-yonex-trm3221-jet-black-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 133, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (500, 'goodminton/products/ao-cau-long-yonex-trm3221-jet-black-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157467/goodminton/products/ao-cau-long-yonex-trm3221-jet-black-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 133, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (134, 3, 1, 'Áo cầu lông Yonex TRMYM0050 - Smoke Pink chính hãng', '<div class="rte product_getcontent">
@@ -6553,7 +6551,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trmym0050-smoke-pink-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (945, 134, 1, 1, 'VNB028016-ONESIZE-Default', 1198800, 999000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (945, 134, NULL, NULL, 'VNB028016-ONESIZE-Default', 1198800, 999000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (501, 'goodminton/products/ao-cau-long-yonex-trmym0050-smoke-pink-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157470/goodminton/products/ao-cau-long-yonex-trmym0050-smoke-pink-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 134, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (135, 3, 1, 'Áo cầu lông Yonex TPM3005 - Jet Black chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -6604,7 +6602,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-tpm3005-jet-black-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (946, 135, 1, 1, 'VNB027495-ONESIZE-Default', 346800, 289000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (946, 135, NULL, NULL, 'VNB027495-ONESIZE-Default', 346800, 289000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (502, 'goodminton/products/ao-cau-long-yonex-tpm3005-jet-black-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157465/goodminton/products/ao-cau-long-yonex-tpm3005-jet-black-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 135, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (136, 3, 1, 'Áo cầu lông Yonex TRLYW0037 - Soft Yellow chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -6655,7 +6653,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trlyw0037-soft-yellow-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (947, 136, 1, 1, 'VNB028014-ONESIZE-Default', 1438800, 1199000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (947, 136, NULL, NULL, 'VNB028014-ONESIZE-Default', 1438800, 1199000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (503, 'goodminton/products/ao-cau-long-yonex-trlyw0037-soft-yellow-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157466/goodminton/products/ao-cau-long-yonex-trlyw0037-soft-yellow-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 136, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (137, 3, 1, 'Áo cầu lông Yonex TPM3003 - Night Sky chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -6706,7 +6704,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-tpm3003-night-sky-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (948, 137, 1, 1, 'VNB027494-ONESIZE-Default', 346800, 289000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (948, 137, NULL, NULL, 'VNB027494-ONESIZE-Default', 346800, 289000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (504, 'goodminton/products/ao-cau-long-yonex-tpm3003-night-sky-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157465/goodminton/products/ao-cau-long-yonex-tpm3003-night-sky-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 137, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (138, 3, 1, 'Áo cầu lông Yonex TRM2994 -  Georgia Peach chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -6757,7 +6755,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm2994-georgia-peach-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (949, 138, 1, 1, 'VNB027493-ONESIZE-Default', 274800, 229000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (949, 138, NULL, NULL, 'VNB027493-ONESIZE-Default', 274800, 229000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (505, 'goodminton/products/ao-cau-long-yonex-trm2994-georgia-peach-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157466/goodminton/products/ao-cau-long-yonex-trm2994-georgia-peach-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 138, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (139, 3, 1, 'Áo cầu lông Yonex TRM2994 -  Skipper Blue chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -6808,7 +6806,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm2994-skipper-blue-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (950, 139, 1, 1, 'VNB027492-ONESIZE-Default', 274800, 229000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (950, 139, NULL, NULL, 'VNB027492-ONESIZE-Default', 274800, 229000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (506, 'goodminton/products/ao-cau-long-yonex-trm2994-skipper-blue-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157467/goodminton/products/ao-cau-long-yonex-trm2994-skipper-blue-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 139, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (140, 3, 1, 'Áo cầu lông Yonex TRM2994 - Snap Dragon chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -6859,7 +6857,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-yonex-trm2994-snap-dragon-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (951, 140, 1, 1, 'VNB027491-ONESIZE-Default', 274800, 229000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (951, 140, NULL, NULL, 'VNB027491-ONESIZE-Default', 274800, 229000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (507, 'goodminton/products/ao-cau-long-yonex-trm2994-snap-dragon-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157466/goodminton/products/ao-cau-long-yonex-trm2994-snap-dragon-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 140, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (141, 3, 2, 'Áo cầu lông Lining P-ATSU493-4 nam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -6910,7 +6908,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-atsu493-4-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (952, 141, 1, 1, 'VNB027722-ONESIZE-Default', 354000, 295000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (952, 141, NULL, NULL, 'VNB027722-ONESIZE-Default', 354000, 295000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (508, 'goodminton/products/ao-cau-long-lining-p-atsu493-4-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157460/goodminton/products/ao-cau-long-lining-p-atsu493-4-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 141, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (142, 3, 2, 'Áo cầu lông Lining P-APLR125-7 nam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -6962,7 +6960,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-aplr125-7-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (953, 142, 1, 1, 'VNB027682-ONESIZE-Default', 694800, 579000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (953, 142, NULL, NULL, 'VNB027682-ONESIZE-Default', 694800, 579000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (509, 'goodminton/products/ao-cau-long-lining-p-aplr125-7-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157457/goodminton/products/ao-cau-long-lining-p-aplr125-7-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 142, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (510, 'goodminton/products/ao-cau-long-lining-p-aplr125-7-nam-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157456/goodminton/products/ao-cau-long-lining-p-aplr125-7-nam-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 142, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (143, 3, 2, 'Áo cầu lông Lining P-APLR125-8 nam chính hãng', '<div class="rte product_getcontent">
@@ -7016,7 +7014,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-aplr125-8-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (954, 143, 1, 1, 'VNB027680-ONESIZE-Default', 694800, 579000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (954, 143, NULL, NULL, 'VNB027680-ONESIZE-Default', 694800, 579000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (511, 'goodminton/products/ao-cau-long-lining-p-aplr125-8-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157458/goodminton/products/ao-cau-long-lining-p-aplr125-8-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 143, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (512, 'goodminton/products/ao-cau-long-lining-p-aplr125-8-nam-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157457/goodminton/products/ao-cau-long-lining-p-aplr125-8-nam-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 143, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (513, 'goodminton/products/ao-cau-long-lining-p-aplr125-8-nam-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157458/goodminton/products/ao-cau-long-lining-p-aplr125-8-nam-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 143, 2, NOW());
@@ -7070,7 +7068,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-astu493-2-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (955, 144, 1, 1, 'VNB027681-ONESIZE-Default', 354000, 295000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (955, 144, NULL, NULL, 'VNB027681-ONESIZE-Default', 354000, 295000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (514, 'goodminton/products/ao-cau-long-lining-p-astu493-2-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157460/goodminton/products/ao-cau-long-lining-p-astu493-2-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 144, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (515, 'goodminton/products/ao-cau-long-lining-p-astu493-2-nam-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157459/goodminton/products/ao-cau-long-lining-p-astu493-2-nam-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 144, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (145, 3, 2, 'Áo cầu lông Lining P-ATSUB12-1 nữ chính hãng', '<div class="rte product_getcontent">
@@ -7122,7 +7120,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-atsub12-1-nu-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (956, 145, 1, 1, 'VNB027191-ONESIZE-Default', 516000, 430000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (956, 145, NULL, NULL, 'VNB027191-ONESIZE-Default', 516000, 430000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (516, 'goodminton/products/ao-cau-long-lining-p-atsub12-1-nu-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157461/goodminton/products/ao-cau-long-lining-p-atsub12-1-nu-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 145, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (146, 3, 2, 'Áo cầu lông Lining P-ATSUB07-1 nam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7173,7 +7171,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-atsub07-1-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (957, 146, 1, 1, 'VNB027190-ONESIZE-Default', 564000, 470000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (957, 146, NULL, NULL, 'VNB027190-ONESIZE-Default', 564000, 470000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (517, 'goodminton/products/ao-cau-long-lining-p-atsub07-1-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157461/goodminton/products/ao-cau-long-lining-p-atsub07-1-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 146, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (147, 3, 2, 'Áo cầu lông Lining P-ATSUB11-1 nam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7224,7 +7222,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-atsub11-1-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (958, 147, 1, 1, 'VNB027189-ONESIZE-Default', 540000, 450000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (958, 147, NULL, NULL, 'VNB027189-ONESIZE-Default', 540000, 450000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (518, 'goodminton/products/ao-cau-long-lining-p-atsub11-1-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157461/goodminton/products/ao-cau-long-lining-p-atsub11-1-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 147, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (148, 3, 2, 'Áo cầu lông Lining P-ATSUB09-1 nam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7275,7 +7273,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-atsub09-1-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (959, 148, 1, 1, 'VNB027188-ONESIZE-Default', 540000, 450000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (959, 148, NULL, NULL, 'VNB027188-ONESIZE-Default', 540000, 450000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (519, 'goodminton/products/ao-cau-long-lining-p-atsub09-1-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157460/goodminton/products/ao-cau-long-lining-p-atsub09-1-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 148, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (149, 3, 2, 'Áo cầu lông Lining P-ATSUB07-2 nam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7326,7 +7324,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-atsub07-2-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (960, 149, 1, 1, 'VNB027187-ONESIZE-Default', 564000, 470000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (960, 149, NULL, NULL, 'VNB027187-ONESIZE-Default', 564000, 470000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (520, 'goodminton/products/ao-cau-long-lining-p-atsub07-2-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157461/goodminton/products/ao-cau-long-lining-p-atsub07-2-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 149, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (150, 3, 2, 'Áo cầu lông Lining P-ATSUA37-1 nam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7377,7 +7375,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-atsua37-1-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (961, 150, 1, 1, 'VNB027186-ONESIZE-Default', 540000, 450000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (961, 150, NULL, NULL, 'VNB027186-ONESIZE-Default', 540000, 450000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (521, 'goodminton/products/ao-cau-long-lining-p-atsua37-1-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157461/goodminton/products/ao-cau-long-lining-p-atsua37-1-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 150, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (151, 3, 2, 'Áo cầu lông Lining P-APLUA47-1 nam chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7430,7 +7428,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-aplua47-1-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (962, 151, 1, 1, 'VNB027185-ONESIZE-Default', 718800, 599000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (962, 151, NULL, NULL, 'VNB027185-ONESIZE-Default', 718800, 599000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (522, 'goodminton/products/ao-cau-long-lining-p-aplua47-1-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157459/goodminton/products/ao-cau-long-lining-p-aplua47-1-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 151, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (523, 'goodminton/products/ao-cau-long-lining-p-aplua47-1-nam-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157459/goodminton/products/ao-cau-long-lining-p-aplua47-1-nam-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 151, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (524, 'goodminton/products/ao-cau-long-lining-p-aplua47-1-nam-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157459/goodminton/products/ao-cau-long-lining-p-aplua47-1-nam-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 151, 2, NOW());
@@ -7485,7 +7483,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-aplua45-1-nam-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (963, 152, 1, 1, 'VNB027184-ONESIZE-Default', 718800, 599000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (963, 152, NULL, NULL, 'VNB027184-ONESIZE-Default', 718800, 599000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (525, 'goodminton/products/ao-cau-long-lining-p-aplua45-1-nam-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157459/goodminton/products/ao-cau-long-lining-p-aplua45-1-nam-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 152, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (526, 'goodminton/products/ao-cau-long-lining-p-aplua45-1-nam-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157458/goodminton/products/ao-cau-long-lining-p-aplua45-1-nam-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 152, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (527, 'goodminton/products/ao-cau-long-lining-p-aplua45-1-nam-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157459/goodminton/products/ao-cau-long-lining-p-aplua45-1-nam-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 152, 2, NOW());
@@ -7538,7 +7536,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-p-ahst347-3-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (964, 153, 1, 1, 'VNB025517-ONESIZE-Default', 348000, 290000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (964, 153, NULL, NULL, 'VNB025517-ONESIZE-Default', 348000, 290000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (528, 'goodminton/products/ao-cau-long-lining-p-ahst347-3-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157456/goodminton/products/ao-cau-long-lining-p-ahst347-3-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 153, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (154, 3, 2, 'Áo cầu lông Lining 25005 nữ - Đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -7590,7 +7588,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-25005-nu-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (965, 154, 1, 1, 'VNB025426-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (965, 154, NULL, NULL, 'VNB025426-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (529, 'goodminton/products/ao-cau-long-lining-25005-nu-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157443/goodminton/products/ao-cau-long-lining-25005-nu-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 154, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (155, 3, 2, 'Áo cầu lông Lining 6613 nữ - Trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7642,7 +7640,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-6613-nu-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (966, 155, 1, 1, 'VNB025424-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (966, 155, NULL, NULL, 'VNB025424-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (530, 'goodminton/products/ao-cau-long-lining-6613-nu-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157456/goodminton/products/ao-cau-long-lining-6613-nu-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 155, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (156, 3, 2, 'Áo cầu lông Lining 3175 nữ - Trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7694,7 +7692,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-3175-nu-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (967, 156, 1, 1, 'VNB025422-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (967, 156, NULL, NULL, 'VNB025422-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (531, 'goodminton/products/ao-cau-long-lining-3175-nu-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157455/goodminton/products/ao-cau-long-lining-3175-nu-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 156, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (157, 3, 2, 'Áo cầu lông Lining 3175 nữ - Đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -7746,7 +7744,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-3175-nu-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (968, 157, 1, 1, 'VNB025420-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (968, 157, NULL, NULL, 'VNB025420-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (532, 'goodminton/products/ao-cau-long-lining-3175-nu-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157456/goodminton/products/ao-cau-long-lining-3175-nu-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 157, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (158, 3, 2, 'Áo cầu lông Lining 3173 nữ - Trắng hồng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7798,7 +7796,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-3173-nu-trang-hong', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (969, 158, 1, 1, 'VNB025416-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (969, 158, NULL, NULL, 'VNB025416-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (533, 'goodminton/products/ao-cau-long-lining-3173-nu-trang-hong-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157455/goodminton/products/ao-cau-long-lining-3173-nu-trang-hong-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 158, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (159, 3, 2, 'Áo cầu lông Lining 25001 nam - Tím hồng', '<div class="rte product_getcontent">
 <div id="content">
@@ -7850,7 +7848,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-2501-nam-tim-hong', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (970, 159, 1, 1, 'VNB025417-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (970, 159, NULL, NULL, 'VNB025417-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (534, 'goodminton/products/ao-cau-long-lining-2501-nam-tim-hong-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157445/goodminton/products/ao-cau-long-lining-2501-nam-tim-hong-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 159, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (160, 3, 2, 'Áo cầu lông Lining 3173 nữ - Trắng xanh', '<div class="rte product_getcontent">
 <div id="content">
@@ -7902,7 +7900,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-lining-3173-nu-trang-xanh', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (971, 160, 1, 1, 'VNB025414-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (971, 160, NULL, NULL, 'VNB025414-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (535, 'goodminton/products/ao-cau-long-lining-3173-nu-trang-xanh-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157455/goodminton/products/ao-cau-long-lining-3173-nu-trang-xanh-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 160, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (161, 3, 3, 'Áo cầu lông Victor 2115 Nữ - Tím', '<div class="rte product_getcontent">
 <div id="content">
@@ -7954,7 +7952,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-2115-nu-tim', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (972, 161, 1, 1, 'VNB025475-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (972, 161, NULL, NULL, 'VNB025475-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (536, 'goodminton/products/ao-cau-long-victor-2115-nu-tim-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157461/goodminton/products/ao-cau-long-victor-2115-nu-tim-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 161, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (162, 3, 3, 'Áo cầu lông Victor 2117 Nữ - Tím', '<div class="rte product_getcontent">
 <div id="content">
@@ -8006,7 +8004,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-2117-nu-tim', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (973, 162, 1, 1, 'VNB025470-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (973, 162, NULL, NULL, 'VNB025470-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (537, 'goodminton/products/ao-cau-long-victor-2117-nu-tim-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157462/goodminton/products/ao-cau-long-victor-2117-nu-tim-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 162, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (163, 3, 3, 'Áo Nỉ Lót Bông Tay Dài Victor Vic06 - Hồng', '<div class="rte product_getcontent">
 <div id="content">
@@ -8063,7 +8061,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-ni-lot-bong-tay-dai-victor-vic06-hong', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (974, 163, 1, 1, 'VNB024789-ONESIZE-Default', 420000, 350000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (974, 163, NULL, NULL, 'VNB024789-ONESIZE-Default', 420000, 350000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (538, 'goodminton/products/ao-ni-lot-bong-tay-dai-victor-vic06-hong-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157471/goodminton/products/ao-ni-lot-bong-tay-dai-victor-vic06-hong-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 163, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (164, 3, 3, 'Áo hoodie lót bông Victor Vic02 - Xanh Than', '<div class="rte product_getcontent">
 <div id="content">
@@ -8120,7 +8118,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-hoodie-lot-bong-victor-vic02-xanh-than', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (975, 164, 1, 1, 'VNB024783-ONESIZE-Default', 420000, 350000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (975, 164, NULL, NULL, 'VNB024783-ONESIZE-Default', 420000, 350000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (539, 'goodminton/products/ao-hoodie-lot-bong-victor-vic02-xanh-than-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157470/goodminton/products/ao-hoodie-lot-bong-victor-vic02-xanh-than-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 164, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (165, 3, 3, 'Áo cầu lông Victor AT-6038C - Đen đỏ chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -8171,7 +8169,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-at-6038c-den-do-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (976, 165, 1, 1, 'VNB028314-ONESIZE-Default', 300000, 250000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (976, 165, NULL, NULL, 'VNB028314-ONESIZE-Default', 300000, 250000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (540, 'goodminton/products/ao-cau-long-victor-at-6038c-den-do-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157464/goodminton/products/ao-cau-long-victor-at-6038c-den-do-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 165, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (166, 3, 3, 'Áo cầu lông Victor 846 Nam - Trắng đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -8223,7 +8221,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-846-nam-trang-xanh', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (977, 166, 1, 1, 'VNB025483-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (977, 166, NULL, NULL, 'VNB025483-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (541, 'goodminton/products/ao-cau-long-victor-846-nam-trang-xanh-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157463/goodminton/products/ao-cau-long-victor-846-nam-trang-xanh-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 166, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (167, 3, 3, 'Áo cầu lông Victor 846 Nam - Tím đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -8275,7 +8273,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-846-nam-tim-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (978, 167, 1, 1, 'VNB025481-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (978, 167, NULL, NULL, 'VNB025481-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (542, 'goodminton/products/ao-cau-long-victor-846-nam-tim-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157463/goodminton/products/ao-cau-long-victor-846-nam-tim-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 167, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (168, 3, 3, 'Áo cầu lông Victor 2117 Nữ - Trắng xanh', '<div class="rte product_getcontent">
 <div id="content">
@@ -8327,7 +8325,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-2117-nu-trang-xanh', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (979, 168, 1, 1, 'VNB025472-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (979, 168, NULL, NULL, 'VNB025472-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (543, 'goodminton/products/ao-cau-long-victor-2117-nu-trang-xanh-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157462/goodminton/products/ao-cau-long-victor-2117-nu-trang-xanh-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 168, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (169, 3, 3, 'Áo cầu lông Victor 846 Nam - Xanh đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -8379,7 +8377,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-846-nam-xanh-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (980, 169, 1, 1, 'VNB025465-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (980, 169, NULL, NULL, 'VNB025465-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (544, 'goodminton/products/ao-cau-long-victor-846-nam-xanh-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157463/goodminton/products/ao-cau-long-victor-846-nam-xanh-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 169, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (170, 3, 3, 'Áo cầu lông Victor 2118 Nữ - Trắng đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -8431,7 +8429,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-2118-nu-trang-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (981, 170, 1, 1, 'VNB025462-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (981, 170, NULL, NULL, 'VNB025462-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (545, 'goodminton/products/ao-cau-long-victor-2118-nu-trang-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157462/goodminton/products/ao-cau-long-victor-2118-nu-trang-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 170, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (171, 3, 3, 'Áo cầu lông Victor 2118 Nam - Tím đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -8483,7 +8481,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-2118-nam-tim-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (982, 171, 1, 1, 'VNB025461-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (982, 171, NULL, NULL, 'VNB025461-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (546, 'goodminton/products/ao-cau-long-victor-2118-nam-tim-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157462/goodminton/products/ao-cau-long-victor-2118-nam-tim-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 171, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (172, 3, 3, 'Áo cầu lông Victor 2118 Nữ - Tím đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -8535,7 +8533,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-2118-nu-tim-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (983, 172, 1, 1, 'VNB025460-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (983, 172, NULL, NULL, 'VNB025460-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (547, 'goodminton/products/ao-cau-long-victor-2118-nu-tim-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157462/goodminton/products/ao-cau-long-victor-2118-nu-tim-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 172, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (173, 3, 3, 'Áo cầu lông Victor 2118 Nữ - Xanh đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -8587,7 +8585,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-2118-nu-xanh-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (984, 173, 1, 1, 'VNB025458-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (984, 173, NULL, NULL, 'VNB025458-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (548, 'goodminton/products/ao-cau-long-victor-2118-nu-xanh-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157463/goodminton/products/ao-cau-long-victor-2118-nu-xanh-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 173, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (174, 3, 3, 'Áo cầu lông Victor 2118 Nữ - Trắng xanh', '<div class="rte product_getcontent">
 <div id="content">
@@ -8639,7 +8637,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-2118-nu-trang-xanh', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (985, 174, 1, 1, 'VNB025456-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (985, 174, NULL, NULL, 'VNB025456-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (549, 'goodminton/products/ao-cau-long-victor-2118-nu-trang-xanh-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157462/goodminton/products/ao-cau-long-victor-2118-nu-trang-xanh-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 174, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (175, 3, 3, 'Áo cầu lông Victor T-39013B chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -8690,7 +8688,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-t-39013b-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (986, 175, 1, 1, 'VNB025392-ONESIZE-Default', 300000, 250000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (986, 175, NULL, NULL, 'VNB025392-ONESIZE-Default', 300000, 250000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (550, 'goodminton/products/ao-cau-long-victor-t-39013b-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157464/goodminton/products/ao-cau-long-victor-t-39013b-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 175, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (176, 3, 3, 'Áo cầu lông Victor T-40009D - Đỏ chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -8741,7 +8739,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-cau-long-victor-t-40009d-do-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (987, 176, 1, 1, 'VNB025330-ONESIZE-Default', 300000, 250000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (987, 176, NULL, NULL, 'VNB025330-ONESIZE-Default', 300000, 250000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (551, 'goodminton/products/ao-cau-long-victor-t-40009d-do-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157464/goodminton/products/ao-cau-long-victor-t-40009d-do-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 176, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (177, 3, 3, 'Áo Nỉ Lót Bông Tay Dài Victor Vic02 - Hồng', '<div class="rte product_getcontent">
 <div id="content">
@@ -8798,7 +8796,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-ni-lot-bong-tay-dai-victor-vic02-hong', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (988, 177, 1, 1, 'VNB024788-ONESIZE-Default', 420000, 350000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (988, 177, NULL, NULL, 'VNB024788-ONESIZE-Default', 420000, 350000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (552, 'goodminton/products/ao-ni-lot-bong-tay-dai-victor-vic02-hong-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157471/goodminton/products/ao-ni-lot-bong-tay-dai-victor-vic02-hong-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 177, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (178, 3, 3, 'Áo hoodie lót bông Victor Vic07 - Đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -8855,7 +8853,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-hoodie-lot-bong-victor-vic07-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (989, 178, 1, 1, 'VNB024782-ONESIZE-Default', 420000, 350000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (989, 178, NULL, NULL, 'VNB024782-ONESIZE-Default', 420000, 350000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (553, 'goodminton/products/ao-hoodie-lot-bong-victor-vic07-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157470/goodminton/products/ao-hoodie-lot-bong-victor-vic07-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 178, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (179, 3, 3, 'Áo hoodie lót bông Victor Vic01 - Xanh dương', '<div class="rte product_getcontent">
 <div id="content">
@@ -8912,7 +8910,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-hoodie-lot-bong-victor-vic01-xanh-duong', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (990, 179, 1, 1, 'VNB024600-ONESIZE-Default', 420000, 350000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (990, 179, NULL, NULL, 'VNB024600-ONESIZE-Default', 420000, 350000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (554, 'goodminton/products/ao-hoodie-lot-bong-victor-vic01-xanh-duong-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157470/goodminton/products/ao-hoodie-lot-bong-victor-vic01-xanh-duong-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 179, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (180, 3, 3, 'Áo hoodie lót bông Victor Vic01 - Xanh lá', '<div class="rte product_getcontent">
 <div id="content">
@@ -8969,7 +8967,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'ao-hoodie-lot-bong-victor-vic01-xanh-la', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (991, 180, 1, 1, 'VNB024599-ONESIZE-Default', 420000, 350000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (991, 180, NULL, NULL, 'VNB024599-ONESIZE-Default', 420000, 350000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (555, 'goodminton/products/ao-hoodie-lot-bong-victor-vic01-xanh-la-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157470/goodminton/products/ao-hoodie-lot-bong-victor-vic01-xanh-la-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 180, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (181, 4, 1, 'Quần cầu lông Victor 628 - Xanh biển', '<div class="rte product_getcontent">
 <div id="content">
@@ -9021,7 +9019,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-628-xanh-bien', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (992, 181, 1, 1, 'VNB025690-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (992, 181, NULL, NULL, 'VNB025690-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (556, 'goodminton/products/quan-cau-long-victor-628-xanh-bien-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-628-xanh-bien-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 181, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (182, 4, 1, 'Quần cầu lông Yonex SM 2421 - Grape wine chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9073,7 +9071,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-sm-2421-grape-wine-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (993, 182, 1, 1, 'VNB017656-ONESIZE-Default', 336000, 280000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (993, 182, NULL, NULL, 'VNB017656-ONESIZE-Default', 336000, 280000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (557, 'goodminton/products/quan-cau-long-yonex-sm-2421-grape-wine-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157534/goodminton/products/quan-cau-long-yonex-sm-2421-grape-wine-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 182, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (183, 4, 1, 'Quần Cầu Lông Yonex QY2301 Nữ - Đen Logo Đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -9125,7 +9123,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-qy2301-nu-den-logo-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (994, 183, 1, 1, 'VNB016825-ONESIZE-Default', 144000, 120000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (994, 183, NULL, NULL, 'VNB016825-ONESIZE-Default', 144000, 120000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (558, 'goodminton/products/quan-cau-long-yonex-qy2301-nu-den-logo-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157534/goodminton/products/quan-cau-long-yonex-qy2301-nu-den-logo-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 183, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (184, 4, 1, 'Quần Cầu Lông Yonex QY2301 Nam - Đen Logo Đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -9177,7 +9175,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-qy2301-nam-den-logo-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (995, 184, 1, 1, 'VNB016824-ONESIZE-Default', 144000, 120000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (995, 184, NULL, NULL, 'VNB016824-ONESIZE-Default', 144000, 120000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (559, 'goodminton/products/quan-cau-long-yonex-qy2301-nam-den-logo-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157533/goodminton/products/quan-cau-long-yonex-qy2301-nam-den-logo-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 184, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (185, 4, 1, 'Quần cầu lông Yonex TSM3250 - Blue Depths chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9229,7 +9227,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3250-blue-depths-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (996, 185, 1, 1, 'VNB028599-ONESIZE-Default', 178800, 149000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (996, 185, NULL, NULL, 'VNB028599-ONESIZE-Default', 178800, 149000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (560, 'goodminton/products/quan-cau-long-yonex-tsm3250-blue-depths-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157538/goodminton/products/quan-cau-long-yonex-tsm3250-blue-depths-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 185, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (186, 4, 1, 'Quần cầu lông Yonex TSM3250 - Jet Black chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9281,7 +9279,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3250-jet-black-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (997, 186, 1, 1, 'VNB028598-ONESIZE-Default', 178800, 149000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (997, 186, NULL, NULL, 'VNB028598-ONESIZE-Default', 178800, 149000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (561, 'goodminton/products/quan-cau-long-yonex-tsm3250-jet-black-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157537/goodminton/products/quan-cau-long-yonex-tsm3250-jet-black-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 186, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (187, 4, 1, 'Quần cầu lông Yonex TSM3249 - Trooper chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9333,7 +9331,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3249-trooper-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (998, 187, 1, 1, 'VNB028597-ONESIZE-Default', 190800, 159000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (998, 187, NULL, NULL, 'VNB028597-ONESIZE-Default', 190800, 159000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (562, 'goodminton/products/quan-cau-long-yonex-tsm3249-trooper-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157537/goodminton/products/quan-cau-long-yonex-tsm3249-trooper-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 187, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (188, 4, 1, 'Quần cầu lông Yonex TSM3249 - Dress Blues chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9385,7 +9383,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3249-dress-blues-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (999, 188, 1, 1, 'VNB028596-ONESIZE-Default', 190800, 159000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (999, 188, NULL, NULL, 'VNB028596-ONESIZE-Default', 190800, 159000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (563, 'goodminton/products/quan-cau-long-yonex-tsm3249-dress-blues-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157538/goodminton/products/quan-cau-long-yonex-tsm3249-dress-blues-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 188, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (189, 4, 1, 'Quần cầu lông Yonex TSM3249 - Jet Black chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9437,7 +9435,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3249-jet-black-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1000, 189, 1, 1, 'VNB028595-ONESIZE-Default', 190800, 159000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1000, 189, NULL, NULL, 'VNB028595-ONESIZE-Default', 190800, 159000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (564, 'goodminton/products/quan-cau-long-yonex-tsm3249-jet-black-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157536/goodminton/products/quan-cau-long-yonex-tsm3249-jet-black-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 189, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (190, 4, 1, 'Quần cầu lông Yonex TSM3248 - Blue Shadow chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9489,7 +9487,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3248-blue-shadow-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1001, 190, 1, 1, 'VNB028594-ONESIZE-Default', 190800, 159000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1001, 190, NULL, NULL, 'VNB028594-ONESIZE-Default', 190800, 159000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (565, 'goodminton/products/quan-cau-long-yonex-tsm3248-blue-shadow-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157536/goodminton/products/quan-cau-long-yonex-tsm3248-blue-shadow-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 190, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (191, 4, 1, 'Quần cầu lông Yonex TSM3248 - Dress Blues chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9541,7 +9539,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3248-dress-blues-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1002, 191, 1, 1, 'VNB028593-ONESIZE-Default', 190800, 159000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1002, 191, NULL, NULL, 'VNB028593-ONESIZE-Default', 190800, 159000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (566, 'goodminton/products/quan-cau-long-yonex-tsm3248-dress-blues-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157536/goodminton/products/quan-cau-long-yonex-tsm3248-dress-blues-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 191, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (192, 4, 1, 'Quần cầu lông Yonex TSM3248 - Jet Black chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9593,7 +9591,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3248-jet-black-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1003, 192, 1, 1, 'VNB028592-ONESIZE-Default', 190800, 159000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1003, 192, NULL, NULL, 'VNB028592-ONESIZE-Default', 190800, 159000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (567, 'goodminton/products/quan-cau-long-yonex-tsm3248-jet-black-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157537/goodminton/products/quan-cau-long-yonex-tsm3248-jet-black-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 192, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (193, 4, 1, 'Quần cầu lông Yonex TSM3086 - Light Taupe chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9645,7 +9643,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3086-light-taupe-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1004, 193, 1, 1, 'VNB027173-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1004, 193, NULL, NULL, 'VNB027173-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (568, 'goodminton/products/quan-cau-long-yonex-tsm3086-light-taupe-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157535/goodminton/products/quan-cau-long-yonex-tsm3086-light-taupe-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 193, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (194, 4, 1, 'Quần cầu lông Yonex TSM3064 - Poppy Seed chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9697,7 +9695,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3064-poppy-seed-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1005, 194, 1, 1, 'VNB027172-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1005, 194, NULL, NULL, 'VNB027172-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (569, 'goodminton/products/quan-cau-long-yonex-tsm3064-poppy-seed-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157534/goodminton/products/quan-cau-long-yonex-tsm3064-poppy-seed-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 194, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (195, 4, 1, 'Quần cầu lông Yonex TSM3064 - Skipper Blue chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9749,7 +9747,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3064-skipper-blue-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1006, 195, 1, 1, 'VNB027171-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1006, 195, NULL, NULL, 'VNB027171-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (570, 'goodminton/products/quan-cau-long-yonex-tsm3064-skipper-blue-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157535/goodminton/products/quan-cau-long-yonex-tsm3064-skipper-blue-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 195, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (196, 4, 1, 'Quần cầu lông Yonex TSM3085 - Jet Black chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9801,7 +9799,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3085-jet-black-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1007, 196, 1, 1, 'VNB026884-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1007, 196, NULL, NULL, 'VNB026884-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (571, 'goodminton/products/quan-cau-long-yonex-tsm3085-jet-black-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157535/goodminton/products/quan-cau-long-yonex-tsm3085-jet-black-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 196, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (197, 4, 1, 'Quần cầu lông Yonex TSM3085 - Poppy Seed chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9853,7 +9851,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3085-poppy-seed-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1008, 197, 1, 1, 'VNB026883-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1008, 197, NULL, NULL, 'VNB026883-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (572, 'goodminton/products/quan-cau-long-yonex-tsm3085-poppy-seed-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157535/goodminton/products/quan-cau-long-yonex-tsm3085-poppy-seed-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 197, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (198, 4, 1, 'Quần cầu lông Yonex TSM3085 - White chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9905,7 +9903,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm3085-white-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1009, 198, 1, 1, 'VNB026882-ONESIZE-Default', 166800, 139000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1009, 198, NULL, NULL, 'VNB026882-ONESIZE-Default', 166800, 139000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (573, 'goodminton/products/quan-cau-long-yonex-tsm3085-white-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157535/goodminton/products/quan-cau-long-yonex-tsm3085-white-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 198, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (199, 4, 1, 'Quần cầu lông Yonex TSM2909 - Blue Berry chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -9957,7 +9955,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm2909-blue-berry-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1010, 199, 1, 1, 'VNB026289-ONESIZE-Default', 178800, 149000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1010, 199, NULL, NULL, 'VNB026289-ONESIZE-Default', 178800, 149000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (574, 'goodminton/products/quan-cau-long-yonex-tsm2909-blue-berry-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157534/goodminton/products/quan-cau-long-yonex-tsm2909-blue-berry-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 199, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (200, 4, 1, 'Quần cầu lông Yonex TSM2844 - Hemlock chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -10009,7 +10007,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-tsm2844-hemlock-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1011, 200, 1, 1, 'VNB026242-ONESIZE-Default', 262800, 219000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1011, 200, NULL, NULL, 'VNB026242-ONESIZE-Default', 262800, 219000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (575, 'goodminton/products/quan-cau-long-yonex-tsm2844-hemlock-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157534/goodminton/products/quan-cau-long-yonex-tsm2844-hemlock-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 200, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (201, 4, 2, 'Quần cầu lông Lining 967 - Xanh navy', '<div class="rte product_getcontent">
 <div id="content">
@@ -10061,7 +10059,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-967-xanh-navy', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1012, 201, 1, 1, 'VNB025641-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1012, 201, NULL, NULL, 'VNB025641-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (576, 'goodminton/products/quan-cau-long-lining-967-xanh-navy-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157527/goodminton/products/quan-cau-long-lining-967-xanh-navy-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 201, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (202, 4, 2, 'Quần cầu lông Lining 967 - Trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -10113,7 +10111,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-967-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1013, 202, 1, 1, 'VNB025640-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1013, 202, NULL, NULL, 'VNB025640-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (577, 'goodminton/products/quan-cau-long-lining-967-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157527/goodminton/products/quan-cau-long-lining-967-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 202, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (203, 4, 2, 'Quần cầu lông Lining Q21 nam - Trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -10165,7 +10163,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-q21-nam-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1014, 203, 1, 1, 'VNB019193-ONESIZE-Default', 132000, 110000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1014, 203, NULL, NULL, 'VNB019193-ONESIZE-Default', 132000, 110000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (578, 'goodminton/products/quan-cau-long-lining-q21-nam-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157529/goodminton/products/quan-cau-long-lining-q21-nam-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 203, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (204, 4, 2, 'Quần cầu lông Lining 967 - Đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -10217,7 +10215,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-967-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1015, 204, 1, 1, 'VNB025639-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1015, 204, NULL, NULL, 'VNB025639-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (579, 'goodminton/products/quan-cau-long-lining-967-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157528/goodminton/products/quan-cau-long-lining-967-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 204, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (205, 4, 2, 'Quần cầu lông Lining 92009 - Xanh ngọc', '<div class="rte product_getcontent">
 <div id="content">
@@ -10270,7 +10268,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-92009-xanh-ngoc', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1016, 205, 1, 1, 'VNB015140-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1016, 205, NULL, NULL, 'VNB015140-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (580, 'goodminton/products/quan-cau-long-lining-92009-xanh-ngoc-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157527/goodminton/products/quan-cau-long-lining-92009-xanh-ngoc-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 205, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (581, 'goodminton/products/quan-cau-long-lining-92009-xanh-ngoc-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157526/goodminton/products/quan-cau-long-lining-92009-xanh-ngoc-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 205, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (206, 4, 2, 'Quần cầu lông Lining nam trắng - mã 425', '<div class="rte product_getcontent">
@@ -10323,7 +10321,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-nam-trang-ma-425', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1017, 206, 1, 1, 'VNB012053-ONESIZE-Default', 148800, 124000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1017, 206, NULL, NULL, 'VNB012053-ONESIZE-Default', 148800, 124000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (207, 4, 2, 'Quần cầu lông Lining 7037 - Đỏ', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -10374,7 +10372,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-7037-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1018, 207, 1, 1, 'VNB008745-ONESIZE-Default', 144000, 120000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1018, 207, NULL, NULL, 'VNB008745-ONESIZE-Default', 144000, 120000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (208, 4, 2, 'Quần Cầu Lông Lining Q34 Nam - Xanh', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -10425,7 +10423,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-q34-nam-xanh', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1019, 208, 1, 1, 'VNB023305-ONESIZE-Default', 132000, 110000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1019, 208, NULL, NULL, 'VNB023305-ONESIZE-Default', 132000, 110000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (582, 'goodminton/products/quan-cau-long-lining-q34-nam-xanh-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157530/goodminton/products/quan-cau-long-lining-q34-nam-xanh-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 208, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (209, 4, 2, 'Quần cầu lông Lining Q37 nam - Đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -10477,7 +10475,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-q37-nam-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1020, 209, 1, 1, 'VNB019196-ONESIZE-Default', 132000, 110000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1020, 209, NULL, NULL, 'VNB019196-ONESIZE-Default', 132000, 110000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (583, 'goodminton/products/quan-cau-long-lining-q37-nam-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157530/goodminton/products/quan-cau-long-lining-q37-nam-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 209, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (210, 4, 2, 'Quần cầu lông Lining Q23 nam - Đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -10529,7 +10527,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-q23-nam-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1021, 210, 1, 1, 'VNB019194-ONESIZE-Default', 132000, 110000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1021, 210, NULL, NULL, 'VNB019194-ONESIZE-Default', 132000, 110000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (584, 'goodminton/products/quan-cau-long-lining-q23-nam-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157530/goodminton/products/quan-cau-long-lining-q23-nam-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 210, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (211, 4, 2, 'Quần cầu lông Lining Q20 nam - Đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -10581,7 +10579,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-q20-nam-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1022, 211, 1, 1, 'VNB019192-ONESIZE-Default', 132000, 110000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1022, 211, NULL, NULL, 'VNB019192-ONESIZE-Default', 132000, 110000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (585, 'goodminton/products/quan-cau-long-lining-q20-nam-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157529/goodminton/products/quan-cau-long-lining-q20-nam-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 211, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (212, 4, 2, 'Quần cầu lông Lining K222 - Đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -10633,7 +10631,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-k222-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1023, 212, 1, 1, 'VNB016657-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1023, 212, NULL, NULL, 'VNB016657-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (586, 'goodminton/products/quan-cau-long-lining-k222-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157529/goodminton/products/quan-cau-long-lining-k222-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 212, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (213, 4, 2, 'Quần cầu lông Lining AAYN775-5 - Xanh vàng', '<div class="rte product_getcontent">
 <div id="content">
@@ -10685,7 +10683,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-aayn775-5-xanh-vang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1024, 213, 1, 1, 'VNB016653-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1024, 213, NULL, NULL, 'VNB016653-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (587, 'goodminton/products/quan-cau-long-lining-aayn775-5-xanh-vang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157530/goodminton/products/quan-cau-long-lining-aayn775-5-xanh-vang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 213, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (214, 4, 2, 'Quần cầu lông Lining 9215 - Đen trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -10737,7 +10735,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-9215-den-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1025, 214, 1, 1, 'VNB016647-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1025, 214, NULL, NULL, 'VNB016647-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (588, 'goodminton/products/quan-cau-long-lining-9215-den-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157527/goodminton/products/quan-cau-long-lining-9215-den-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 214, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (215, 4, 2, 'Quần cầu lông Lining 9209 - Cam trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -10789,7 +10787,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-9209-cam-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1026, 215, 1, 1, 'VNB015199-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1026, 215, NULL, NULL, 'VNB015199-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (589, 'goodminton/products/quan-cau-long-lining-9209-cam-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157527/goodminton/products/quan-cau-long-lining-9209-cam-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 215, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (216, 4, 2, 'Quần cầu lông Lining 9655 - Đen đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -10841,7 +10839,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-9655-den-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1027, 216, 1, 1, 'VNB015148-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1027, 216, NULL, NULL, 'VNB015148-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (590, 'goodminton/products/quan-cau-long-lining-9655-den-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157528/goodminton/products/quan-cau-long-lining-9655-den-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 216, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (217, 4, 2, 'Quần cầu lông Lining 9682 - Đen đỏ', '<div class="rte product_getcontent">
 <div id="content">
@@ -10893,7 +10891,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-9682-den-do', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1028, 217, 1, 1, 'VNB015147-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1028, 217, NULL, NULL, 'VNB015147-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (591, 'goodminton/products/quan-cau-long-lining-9682-den-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157528/goodminton/products/quan-cau-long-lining-9682-den-do-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 217, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (218, 4, 2, 'Quần cầu lông Lining 9682 - Đen vàng', '<div class="rte product_getcontent">
 <div id="content">
@@ -10945,7 +10943,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-9682-den-vang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1029, 218, 1, 1, 'VNB015146-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1029, 218, NULL, NULL, 'VNB015146-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (592, 'goodminton/products/quan-cau-long-lining-9682-den-vang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157529/goodminton/products/quan-cau-long-lining-9682-den-vang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 218, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (219, 4, 2, 'Quần cầu lông Lining 9682 - Đen xanh ngọc', '<div class="rte product_getcontent">
 <div id="content">
@@ -10997,7 +10995,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-9682-den-xanh-ngoc', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1030, 219, 1, 1, 'VNB015145-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1030, 219, NULL, NULL, 'VNB015145-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (593, 'goodminton/products/quan-cau-long-lining-9682-den-xanh-ngoc-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157529/goodminton/products/quan-cau-long-lining-9682-den-xanh-ngoc-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 219, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (220, 4, 2, 'Quần cầu lông Lining 92001 - Đen trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -11049,7 +11047,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-lining-92001-den-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1031, 220, 1, 1, 'VNB015144-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1031, 220, NULL, NULL, 'VNB015144-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (594, 'goodminton/products/quan-cau-long-lining-92001-den-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157526/goodminton/products/quan-cau-long-lining-92001-den-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 220, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (221, 4, 3, 'Quần cầu lông Victor 901 - Trắng kem', '<div class="rte product_getcontent">
 <div id="content">
@@ -11101,7 +11099,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-901-trang-kem', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1032, 221, 1, 1, 'VNB025688-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1032, 221, NULL, NULL, 'VNB025688-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (595, 'goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 221, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (222, 4, 3, 'Quần cầu lông Victor 621 - Trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -11153,7 +11151,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-621-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1033, 222, 1, 1, 'VNB025687-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1033, 222, NULL, NULL, 'VNB025687-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (596, 'goodminton/products/quan-cau-long-victor-621-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-621-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 222, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (223, 4, 3, 'Quần cầu lông Victor 960 - Trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -11205,7 +11203,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-960-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1034, 223, 1, 1, 'VNB020201-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1034, 223, NULL, NULL, 'VNB020201-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (597, 'goodminton/products/quan-cau-long-victor-960-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157533/goodminton/products/quan-cau-long-victor-960-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 223, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (224, 4, 3, 'Quần cầu lông Victor 960 - Xanh than', '<div class="rte product_getcontent">
 <div id="content">
@@ -11257,7 +11255,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-960-xanh-than', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1035, 224, 1, 1, 'VNB020190-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1035, 224, NULL, NULL, 'VNB020190-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (598, 'goodminton/products/quan-cau-long-victor-960-xanh-than-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157532/goodminton/products/quan-cau-long-victor-960-xanh-than-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 224, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (225, 4, 3, 'Quần cầu lông Victor 225 - Hồng', '<div class="rte product_getcontent">
 <div id="content">
@@ -11309,7 +11307,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-225-hong', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1036, 225, 1, 1, 'VNB025689-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1036, 225, NULL, NULL, 'VNB025689-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (599, 'goodminton/products/quan-cau-long-victor-225-hong-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-225-hong-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 225, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (226, 4, 3, 'Quần cầu lông Victor 621 - Đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -11361,7 +11359,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-mizuno-621-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1037, 226, 1, 1, 'VNB025654-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1037, 226, NULL, NULL, 'VNB025654-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (600, 'goodminton/products/quan-cau-long-mizuno-621-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157530/goodminton/products/quan-cau-long-mizuno-621-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 226, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (227, 4, 3, 'Quần cầu lông Victor 961 - Trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -11413,7 +11411,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-961-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1038, 227, 1, 1, 'VNB020189-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1038, 227, NULL, NULL, 'VNB020189-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (601, 'goodminton/products/quan-cau-long-victor-961-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157532/goodminton/products/quan-cau-long-victor-961-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 227, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (228, 4, 3, 'Quần cầu lông Victor Q32 nam - Trắng', '<div class="rte product_getcontent">
 <div id="content">
@@ -11465,7 +11463,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-q32-nam-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1039, 228, 1, 1, 'VNB019191-ONESIZE-Default', 132000, 110000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1039, 228, NULL, NULL, 'VNB019191-ONESIZE-Default', 132000, 110000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (602, 'goodminton/products/quan-cau-long-victor-q32-nam-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157533/goodminton/products/quan-cau-long-victor-q32-nam-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 228, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (229, 4, 3, 'Quần cầu lông Yonex nữ Đen - mã 390', '<div class="rte product_getcontent">
 <div id="content">
@@ -11517,7 +11515,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-yonex-nu-den-ma-390', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1040, 229, 1, 1, 'VNB012193-ONESIZE-Default', 148800, 124000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1040, 229, NULL, NULL, 'VNB012193-ONESIZE-Default', 148800, 124000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (230, 4, 3, 'Quần cầu lông Victor Q24 nam - Đen', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -11568,7 +11566,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-q24-nam-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1041, 230, 1, 1, 'VNB019190-ONESIZE-Default', 132000, 110000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1041, 230, NULL, NULL, 'VNB019190-ONESIZE-Default', 132000, 110000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (603, 'goodminton/products/quan-cau-long-victor-q24-nam-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157534/goodminton/products/quan-cau-long-victor-q24-nam-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 230, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (231, 4, 3, 'Quần cầu lông Victor nữ trắng - mã 435', '<div class="rte product_getcontent">
 <div id="content">
@@ -11620,7 +11618,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-nu-trang-ma-435', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1042, 231, 1, 1, 'VNB012067-ONESIZE-Default', 148800, 124000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1042, 231, NULL, NULL, 'VNB012067-ONESIZE-Default', 148800, 124000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (232, 4, 3, 'Quần cầu lông Victor nữ trắng - mã 434', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -11671,7 +11669,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-nu-trang-ma-434', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1043, 232, 1, 1, 'VNB012064-ONESIZE-Default', 148800, 124000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1043, 232, NULL, NULL, 'VNB012064-ONESIZE-Default', 148800, 124000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (233, 4, 3, 'Quần cầu lông Victor nữ đen - Mã 380', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -11722,7 +11720,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-nu-den-ma-380', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1044, 233, 1, 1, 'VNB009512-ONESIZE-Default', 148800, 124000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1044, 233, NULL, NULL, 'VNB009512-ONESIZE-Default', 148800, 124000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (234, 4, 3, 'Quần cầu lông Victor nam đen - Mã 096', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -11773,7 +11771,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-nam-den-ma-096', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1045, 234, 1, 1, 'VNB006977-ONESIZE-Default', 148800, 124000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1045, 234, NULL, NULL, 'VNB006977-ONESIZE-Default', 148800, 124000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (235, 4, 3, 'Quần cầu lông Victor nữ đen logo nhũ vàng - Mã 034', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -11824,7 +11822,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-nu-den-logo-nhu-vang-ma-034', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1046, 235, 1, 1, 'VNB006809-ONESIZE-Default', 148800, 124000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1046, 235, NULL, NULL, 'VNB006809-ONESIZE-Default', 148800, 124000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (236, 4, 3, 'Quần cầu lông Victor 901 - Trắng', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -11875,7 +11873,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-901-trang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1047, 236, 1, 1, 'VNB006065-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1047, 236, NULL, NULL, 'VNB006065-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (604, 'goodminton/products/quan-cau-long-victor-901-trang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 236, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (237, 4, 3, 'Quần cầu lông Victor 9609 - Đen', '<div class="rte product_getcontent">
 <div id="content">
@@ -11927,7 +11925,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-9609-den', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1048, 237, 1, 1, 'VNB004864-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1048, 237, NULL, NULL, 'VNB004864-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (605, 'goodminton/products/quan-cau-long-victor-9609-den-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157532/goodminton/products/quan-cau-long-victor-9609-den-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 237, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (238, 4, 3, 'Quần cầu lông Victor 9601 - Vàng', '<div class="rte product_getcontent">
 <div id="content">
@@ -11979,7 +11977,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-9601-vang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1049, 238, 1, 1, 'VNB004116-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1049, 238, NULL, NULL, 'VNB004116-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (606, 'goodminton/products/quan-cau-long-victor-9601-vang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157532/goodminton/products/quan-cau-long-victor-9601-vang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 238, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (239, 4, 3, 'Quần cầu lông Victor 9028 - Xanh tím', '<div class="rte product_getcontent">
 <div id="content">
@@ -12031,7 +12029,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-9028-xanh-tim', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1050, 239, 1, 1, 'VNB003819-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1050, 239, NULL, NULL, 'VNB003819-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (607, 'goodminton/products/quan-cau-long-victor-9028-xanh-tim-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-9028-xanh-tim-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 239, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (240, 4, 3, 'Quần Cầu Lông Victor 001 Xám Trơn', '<div class="rte product_getcontent">
 <div id="content">
@@ -12083,7 +12081,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'quan-cau-long-victor-001-xam-tron', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1051, 240, 1, 1, 'VNB001815-ONESIZE-Default', 132000, 110000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1051, 240, NULL, NULL, 'VNB001815-ONESIZE-Default', 132000, 110000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (241, 5, 2, 'Dây cước căng vợt Lining LT66', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -12114,7 +12112,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-lt66', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1052, 241, 1, 1, 'VNB025975-ONESIZE-Default', 204000, 170000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1052, 241, NULL, NULL, 'VNB025975-ONESIZE-Default', 204000, 170000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (302, 241, 'Li-Ning 3D KINT', 'Sự kết hợp của các vật liệu vải cường độ cao, chịu nhiệt làm cho dây bền hơn rất nhiều');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (608, 'goodminton/products/day-cuoc-cang-vot-lining-lt66-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157474/goodminton/products/day-cuoc-cang-vot-lining-lt66-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 241, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (242, 5, 2, 'Dây cước căng vợt Lining L64', '<div class="rte product_getcontent">
@@ -12149,7 +12147,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-l64', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1053, 242, 1, 1, 'VNB025974-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1053, 242, NULL, NULL, 'VNB025974-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (303, 242, 'Li-Ning 3D KINT', 'Sự kết hợp của các vật liệu vải cường độ cao, chịu nhiệt làm cho dây bền hơn rất nhiều');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (304, 242, 'Lõi', 'Heat Resistant, High Intensity Nano Braided Multi-Filament');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (609, 'goodminton/products/day-cuoc-cang-vot-lining-l64-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l64-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 242, 0, NOW());
@@ -12190,7 +12188,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-cau-long-lining-n68', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1054, 243, 1, 1, 'VNB021492-ONESIZE-Default', 180000, 150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1054, 243, NULL, NULL, 'VNB021492-ONESIZE-Default', 180000, 150000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (305, 243, 'Khám phá thêm', 'Nhiều sản phẩm');
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (244, 5, 2, 'Dây cước căng vợt Lining L9', '<div class="rte product_getcontent">
 <div id="content">
@@ -12222,7 +12220,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-l9', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1055, 244, 1, 1, 'VNB021327-ONESIZE-Default', 72000, 60000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1055, 244, NULL, NULL, 'VNB021327-ONESIZE-Default', 72000, 60000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (611, 'goodminton/products/day-cuoc-cang-vot-lining-l9-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157473/goodminton/products/day-cuoc-cang-vot-lining-l9-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 244, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (245, 5, 2, 'Dây cước căng vợt Lining N9', '<div class="rte product_getcontent">
 <div id="content">
@@ -12255,7 +12253,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-n9', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1056, 245, 1, 1, 'VNB021337-ONESIZE-Default', 72000, 60000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1056, 245, NULL, NULL, 'VNB021337-ONESIZE-Default', 72000, 60000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (612, 'goodminton/products/day-cuoc-cang-vot-lining-n9-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157474/goodminton/products/day-cuoc-cang-vot-lining-n9-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 245, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (246, 5, 2, 'Dây cước căng vợt Lining N58', '<div class="rte product_getcontent">
 <div id="content">
@@ -12297,7 +12295,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-n58', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1057, 246, 1, 1, 'VNB021340-ONESIZE-Default', 228000, 190000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1057, 246, NULL, NULL, 'VNB021340-ONESIZE-Default', 228000, 190000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (306, 246, 'Khám phá thêm', 'Nhiều sản phẩm');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (613, 'goodminton/products/day-cuoc-cang-vot-lining-n58-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157474/goodminton/products/day-cuoc-cang-vot-lining-n58-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 246, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (614, 'goodminton/products/day-cuoc-cang-vot-lining-n58-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157473/goodminton/products/day-cuoc-cang-vot-lining-n58-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 246, 1, NOW());
@@ -12334,7 +12332,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-no-1-cuon', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1058, 247, 1, 1, 'VNB017228-ONESIZE-Default', 2880000, 2400000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1058, 247, NULL, NULL, 'VNB017228-ONESIZE-Default', 2880000, 2400000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (615, 'goodminton/products/day-cuoc-cang-vot-lining-no-1-cuon-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157474/goodminton/products/day-cuoc-cang-vot-lining-no-1-cuon-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 247, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (248, 5, 2, 'Dây cước căng vợt Lining L67', '<div class="rte product_getcontent">
 <div id="content">
@@ -12375,7 +12373,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-l67', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1059, 248, 1, 1, 'VNB021341-ONESIZE-Default', 144000, 120000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1059, 248, NULL, NULL, 'VNB021341-ONESIZE-Default', 144000, 120000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (307, 248, 'Khám phá thêm', 'Nhiều sản phẩm');
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (616, 'goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 248, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (617, 'goodminton/products/day-cuoc-cang-vot-lining-l67-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 248, 1, NOW());
@@ -12408,7 +12406,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-n63', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1060, 249, 1, 1, 'VNB021485-ONESIZE-Default', 204000, 170000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1060, 249, NULL, NULL, 'VNB021485-ONESIZE-Default', 204000, 170000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (250, 5, 2, 'Dây cước căng vợt Lining N61', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -12439,7 +12437,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-n61', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1061, 250, 1, 1, 'VNB021486-ONESIZE-Default', 216000, 180000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1061, 250, NULL, NULL, 'VNB021486-ONESIZE-Default', 216000, 180000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (251, 5, 2, 'Dây cước căng vợt cầu lông Lining N70', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -12470,7 +12468,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-cau-long-lining-n70', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1062, 251, 1, 1, 'VNB021490-ONESIZE-Default', 180000, 150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1062, 251, NULL, NULL, 'VNB021490-ONESIZE-Default', 180000, 150000, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (252, 5, 2, 'Dây cước căng vợt Lining N69', '<div class="rte product_getcontent">
 <div id="content">
 <div class="well product-well expanded">
@@ -12508,7 +12506,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-n69', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1063, 252, 1, 1, 'VNB021495-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1063, 252, NULL, NULL, 'VNB021495-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (308, 252, 'Multifilament', 'Là công nghệ được tích hợp trên dây cước với đường kính siêu mịn cho độ bền cao và cảm giác mềm mại khi va chạm');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (309, 252, 'Titanium Hybrid', 'Lớp phủ phức hợp nằm ở phần vỏ dây cước vợt cầu lông Nội Địa Lining N69 tăng cường khả năng chống mài mòn dây');
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (253, 5, 2, 'Dây cước căng vợt Lining N65', '<div class="rte product_getcontent">
@@ -12572,7 +12570,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-n65', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1064, 253, 1, 1, 'VNB021496-ONESIZE-Default', 180000, 150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1064, 253, NULL, NULL, 'VNB021496-ONESIZE-Default', 180000, 150000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (310, 253, 'Li-Ning 3D KINT', 'Sự kết hợp của các vật liệu vải cường độ cao, chịu nhiệt làm cho dây bền hơn rất nhiều');
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (254, 5, 2, 'Dây cước căng vợt Lining No.5', '<div class="rte product_getcontent">
 <div id="content">
@@ -12611,7 +12609,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-no-5', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1065, 254, 1, 1, 'VNB021497-ONESIZE-Default', 168000, 140000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1065, 254, NULL, NULL, 'VNB021497-ONESIZE-Default', 168000, 140000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (311, 254, 'Multifilament', 'Là công nghệ được tích hợp trên dây cước với đường kính siêu mịn cho độ bền cao và cảm giác mềm mại khi va chạm');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (312, 254, 'Titanium Hybrid', 'Lớp phủ phức hợp nằm ở phần vỏ dây cước vợt cầu lông Nội Địa Lining No.5 tăng cường khả năng chống mài mòn dây');
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (255, 5, 2, 'Dây cước căng vợt Lining N70 cuộn', '<div class="rte product_getcontent">
@@ -12644,7 +12642,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-n70-cuon', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1066, 255, 1, 1, 'VNB021476-ONESIZE-Default', 0, 0, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1066, 255, NULL, NULL, 'VNB021476-ONESIZE-Default', 0, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (619, 'goodminton/products/day-cuoc-cang-vot-lining-n70-cuon-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157474/goodminton/products/day-cuoc-cang-vot-lining-n70-cuon-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 255, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (620, 'goodminton/products/day-cuoc-cang-vot-lining-n70-cuon-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157474/goodminton/products/day-cuoc-cang-vot-lining-n70-cuon-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 255, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (256, 5, 2, 'Dây cước căng vợt Lining No.7', '<div class="rte product_getcontent">
@@ -12682,7 +12680,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-no-7', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1067, 256, 1, 1, 'VNB021499-ONESIZE-Default', 144000, 120000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1067, 256, NULL, NULL, 'VNB021499-ONESIZE-Default', 144000, 120000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (313, 256, 'Multi filament', 'Được tích hợp trên cước căng vợt cầu lông Lining No.7');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (314, 256, 'Cup-Stack Carbon Nanotube', 'Hợp chất Cup-Stack Carbon Nanotube có độ đàn hồi gấp bốn lần so với ống nano carbon, kết hợp với lớp phủ ống nano có độ bền cao, giảm thiểu việc không bị đứt dây ở các điểm giao nhau. Cấu trúc này mang lại độ bền cao và sức đẩy cao');
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (257, 5, 2, 'Dây đan vợt Lining NS95', '<div class="rte product_getcontent">
@@ -12707,7 +12705,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-dan-vot-lining-ns95', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1068, 257, 1, 1, 'VNB007596-ONESIZE-Default', 120000, 100000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1068, 257, NULL, NULL, 'VNB007596-ONESIZE-Default', 120000, 100000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (621, 'goodminton/products/day-dan-vot-lining-ns95-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157479/goodminton/products/day-dan-vot-lining-ns95-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 257, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (622, 'goodminton/products/day-dan-vot-lining-ns95-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157479/goodminton/products/day-dan-vot-lining-ns95-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 257, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (258, 5, 2, 'Dây cước căng vợt Lining No.1', '<div class="rte product_getcontent">
@@ -12743,7 +12741,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-lining-no-1', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1069, 258, 1, 1, 'VNB021500-ONESIZE-Default', 168000, 140000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1069, 258, NULL, NULL, 'VNB021500-ONESIZE-Default', 168000, 140000, NOW());
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (315, 258, 'Li-Ning 3D KINT', 'Sự kết hợp của các vật liệu vải cường độ cao, chịu nhiệt làm cho dây bền hơn rất nhiều');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (316, 258, 'Lõi', 'Heat-Resistant, High Intensity Nylon Multifilament');
 INSERT INTO product_specifications (id, product_id, name, value) VALUES (317, 258, 'Vỏ', 'Sợi nylon cường độ cao chống nhiệt');
@@ -12769,7 +12767,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vs-100', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1070, 259, 1, 1, 'VNB026607-ONESIZE-Default', 72000, 60000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1070, 259, NULL, NULL, 'VNB026607-ONESIZE-Default', 72000, 60000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (623, 'goodminton/products/day-cuoc-cang-vot-victor-vs-100-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157478/goodminton/products/day-cuoc-cang-vot-victor-vs-100-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 259, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (624, 'goodminton/products/day-cuoc-cang-vot-victor-vs-100-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157477/goodminton/products/day-cuoc-cang-vot-victor-vs-100-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 259, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (260, 5, 3, 'Dây cước căng vợt cầu lông Victor VBS-70 Power cuộn', '<div class="rte product_getcontent">
@@ -12798,7 +12796,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-cau-long-victor-vbs-70-power-cuon', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1071, 260, 1, 1, 'VNB026567-ONESIZE-Default', 0, 0, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1071, 260, NULL, NULL, 'VNB026567-ONESIZE-Default', 0, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (625, 'goodminton/products/day-cuoc-cang-vot-cau-long-victor-vbs-70-power-cuon-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-cau-long-victor-vbs-70-power-cuon-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 260, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (261, 5, 3, 'Dây cước căng vợt Victor VBS-70', '<div class="rte product_getcontent">
 <div id="content">
@@ -12828,7 +12826,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vbs-70', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1072, 261, 1, 1, 'VNB025944-ONESIZE-Default', 156000, 130000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1072, 261, NULL, NULL, 'VNB025944-ONESIZE-Default', 156000, 130000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (626, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-70-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157477/goodminton/products/day-cuoc-cang-vot-victor-vbs-70-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 261, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (627, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-70-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157476/goodminton/products/day-cuoc-cang-vot-victor-vbs-70-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 261, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (262, 5, 3, 'Dây cước căng vợt Victor VBS-70 Power', '<div class="rte product_getcontent">
@@ -12857,7 +12855,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vbs-70-power', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1073, 262, 1, 1, 'VNB025943-ONESIZE-Default', 150000, 125000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1073, 262, NULL, NULL, 'VNB025943-ONESIZE-Default', 150000, 125000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (628, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-70-power-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157477/goodminton/products/day-cuoc-cang-vot-victor-vbs-70-power-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 262, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (629, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-70-power-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157477/goodminton/products/day-cuoc-cang-vot-victor-vbs-70-power-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 262, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (263, 5, 3, 'Dây cước căng vợt Victor VBS-69N', '<div class="rte product_getcontent">
@@ -12886,7 +12884,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vbs-69n', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1074, 263, 1, 1, 'VNB025942-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1074, 263, NULL, NULL, 'VNB025942-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (630, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-69n-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157477/goodminton/products/day-cuoc-cang-vot-victor-vbs-69n-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 263, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (631, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-69n-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157477/goodminton/products/day-cuoc-cang-vot-victor-vbs-69n-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 263, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (264, 5, 3, 'Dây cước căng vợt Victor VBS-61', '<div class="rte product_getcontent">
@@ -12916,7 +12914,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vbs-61', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1075, 264, 1, 1, 'VNB025940-ONESIZE-Default', 210000, 175000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1075, 264, NULL, NULL, 'VNB025940-ONESIZE-Default', 210000, 175000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (632, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-61-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157475/goodminton/products/day-cuoc-cang-vot-victor-vbs-61-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 264, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (633, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-61-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157475/goodminton/products/day-cuoc-cang-vot-victor-vbs-61-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 264, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (265, 5, 3, 'Dây cước căng vợt Victor VBS-68 Power', '<div class="rte product_getcontent">
@@ -12946,7 +12944,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vbs-68-power', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1076, 265, 1, 1, 'VNB025941-ONESIZE-Default', 192000, 160000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1076, 265, NULL, NULL, 'VNB025941-ONESIZE-Default', 192000, 160000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (634, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-68-power-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157476/goodminton/products/day-cuoc-cang-vot-victor-vbs-68-power-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 265, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (635, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-68-power-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157476/goodminton/products/day-cuoc-cang-vot-victor-vbs-68-power-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 265, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (266, 5, 3, 'Dây cước căng vợt Victor VBS-58', '<div class="rte product_getcontent">
@@ -12976,7 +12974,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vbs-58', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1077, 266, 1, 1, 'VNB025939-ONESIZE-Default', 234000, 195000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1077, 266, NULL, NULL, 'VNB025939-ONESIZE-Default', 234000, 195000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (636, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-58-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157475/goodminton/products/day-cuoc-cang-vot-victor-vbs-58-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 266, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (637, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-58-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157475/goodminton/products/day-cuoc-cang-vot-victor-vbs-58-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 266, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (267, 5, 3, 'Dây cước căng vợt Victor VS-63CS AM', '<div class="rte product_getcontent">
@@ -13003,7 +13001,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vs-63cs-am', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1078, 267, 1, 1, 'VNB018693-ONESIZE-Default', 180000, 150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1078, 267, NULL, NULL, 'VNB018693-ONESIZE-Default', 180000, 150000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (638, 'goodminton/products/day-cuoc-cang-vot-victor-vs-63cs-am-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157478/goodminton/products/day-cuoc-cang-vot-victor-vs-63cs-am-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 267, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (268, 5, 3, 'Dây cước căng vợt Victor  VS-63DRM FM Xanh', '<div class="rte product_getcontent">
 <div id="content">
@@ -13029,7 +13027,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vs-63drm-fm-xanh', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1079, 268, 1, 1, 'VNB024505-ONESIZE-Default', 216000, 180000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1079, 268, NULL, NULL, 'VNB024505-ONESIZE-Default', 216000, 180000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (639, 'goodminton/products/day-cuoc-cang-vot-victor-vs-63drm-fm-xanh-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157479/goodminton/products/day-cuoc-cang-vot-victor-vs-63drm-fm-xanh-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 268, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (640, 'goodminton/products/day-cuoc-cang-vot-victor-vs-63drm-fm-xanh-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157479/goodminton/products/day-cuoc-cang-vot-victor-vs-63drm-fm-xanh-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 268, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (269, 5, 3, 'Dây cước căng vợt Victor  VS-63DRM EI Vàng', '<div class="rte product_getcontent">
@@ -13056,7 +13054,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vs-63drm-ei-vang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1080, 269, 1, 1, 'VNB024504-ONESIZE-Default', 216000, 180000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1080, 269, NULL, NULL, 'VNB024504-ONESIZE-Default', 216000, 180000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (641, 'goodminton/products/day-cuoc-cang-vot-victor-vs-63drm-ei-vang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157480/goodminton/products/day-cuoc-cang-vot-victor-vs-63drm-ei-vang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 269, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (642, 'goodminton/products/day-cuoc-cang-vot-victor-vs-63drm-ei-vang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157478/goodminton/products/day-cuoc-cang-vot-victor-vs-63drm-ei-vang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 269, 1, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (270, 5, 3, 'Dây cước căng vợt Victor VS-63CS AE', '<div class="rte product_getcontent">
@@ -13083,7 +13081,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vs-63cs-ae', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1081, 270, 1, 1, 'VNB018692-ONESIZE-Default', 180000, 150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1081, 270, NULL, NULL, 'VNB018692-ONESIZE-Default', 180000, 150000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (643, 'goodminton/products/day-cuoc-cang-vot-victor-vs-63cs-ae-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157478/goodminton/products/day-cuoc-cang-vot-victor-vs-63cs-ae-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 270, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (271, 5, 3, 'Dây cước căng vợt Victor VS-63CS DE', '<div class="rte product_getcontent">
 <div id="content">
@@ -13109,7 +13107,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vs-63cs-de', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1082, 271, 1, 1, 'VNB018691-ONESIZE-Default', 180000, 150000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1082, 271, NULL, NULL, 'VNB018691-ONESIZE-Default', 180000, 150000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (644, 'goodminton/products/day-cuoc-cang-vot-victor-vs-63cs-de-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157478/goodminton/products/day-cuoc-cang-vot-victor-vs-63cs-de-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 271, 0, NOW());
 INSERT INTO products (id, category_id, brand_id, name, description, slug, is_visible, created_at, updated_at) VALUES (272, 5, 3, 'Dây cước căng vợt Victor VBS-66N chính hãng', '<div class="rte product_getcontent">
 <div id="content">
@@ -13147,7 +13145,7 @@ INSERT INTO products (id, category_id, brand_id, name, description, slug, is_vis
 </div>
 </div>
 </div>', 'day-cuoc-cang-vot-victor-vbs-66n-chinh-hang', TRUE, NOW(), NOW());
-INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1083, 272, 1, 1, 'VNB015721-ONESIZE-Default', 168000, 140000, NOW());
+INSERT INTO product_variants (id, product_id, color_id, size_id, sku_code, price, sale_price, updated_at) VALUES (1083, 272, NULL, NULL, 'VNB015721-ONESIZE-Default', 168000, 140000, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (645, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-66n-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157476/goodminton/products/day-cuoc-cang-vot-victor-vbs-66n-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 272, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (646, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-66n-chinh-hang-1', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157475/goodminton/products/day-cuoc-cang-vot-victor-vbs-66n-chinh-hang-1.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 272, 1, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (647, 'goodminton/products/day-cuoc-cang-vot-victor-vbs-66n-chinh-hang-2', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157475/goodminton/products/day-cuoc-cang-vot-victor-vbs-66n-chinh-hang-2.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 272, 2, NOW());
