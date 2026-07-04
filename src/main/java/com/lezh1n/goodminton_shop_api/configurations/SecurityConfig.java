@@ -58,7 +58,7 @@ public class SecurityConfig {
             "/api/search/products", "/api/search/products/suggest",
             "/api/search/categories", "/api/search/brands",
 
-            "/api/vnpay/callback", "/api/vnpay/ipn",
+            "/api/vnpay/ipn",
 
             "/v3/api-docs", "/v3/api-docs/**", "/v3/api-docs.yaml",
             "/swagger-ui.html", "/swagger-ui/**",

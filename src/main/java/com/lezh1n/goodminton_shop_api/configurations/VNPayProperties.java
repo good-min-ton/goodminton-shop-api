@@ -14,6 +14,5 @@ public class VNPayProperties {
     private String payUrl;
     private String apiUrl;
     private String returnUrl;
-    private String frontendReturnUrl;
     private int paymentTimeoutMinutes = 15;
 }

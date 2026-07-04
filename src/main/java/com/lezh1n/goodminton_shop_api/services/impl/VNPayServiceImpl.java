@@ -100,20 +100,6 @@ public class VNPayServiceImpl implements VNPayService {
     }
 
     @Override
-    public CallbackResult verifyCallback(Map<String, String> params) {
-        String receivedHash = params.get("vnp_SecureHash");
-        boolean validSignature = VNPaySignatureUtil.verify(props.getHashSecret(), params, receivedHash);
-
-        String responseCode = params.get("vnp_ResponseCode");
-        String transactionStatus = params.get("vnp_TransactionStatus");
-        boolean success = validSignature
-                && SUCCESS_CODE.equals(responseCode)
-                && SUCCESS_CODE.equals(transactionStatus);
-
-        return new CallbackResult(validSignature, success, parseOrderId(params.get("vnp_TxnRef")), responseCode);
-    }
-
-    @Override
     @Transactional
     public IpnResult processIpn(Map<String, String> params) {
         String receivedHash = params.get("vnp_SecureHash");
@@ -162,15 +148,4 @@ public class VNPayServiceImpl implements VNPayService {
         return new IpnResult(SUCCESS_CODE, "Confirm Success");
     }
 
-    private Integer parseOrderId(String txnRef) {
-        if (txnRef == null) {
-            return null;
-        }
-        int dash = txnRef.indexOf('-');
-        try {
-            return Integer.parseInt(dash > 0 ? txnRef.substring(0, dash) : txnRef);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
 }

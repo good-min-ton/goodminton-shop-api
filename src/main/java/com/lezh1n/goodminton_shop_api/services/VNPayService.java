@@ -6,14 +6,9 @@ public interface VNPayService {
 
     CreatePaymentUrlResult createPaymentUrl(Integer orderId, String ipAddress);
 
-    CallbackResult verifyCallback(Map<String, String> params);
-
     IpnResult processIpn(Map<String, String> params);
 
     record CreatePaymentUrlResult(String paymentUrl, String txnRef) {
-    }
-
-    record CallbackResult(boolean validSignature, boolean success, Integer orderId, String responseCode) {
     }
 
     record IpnResult(String rspCode, String message) {
