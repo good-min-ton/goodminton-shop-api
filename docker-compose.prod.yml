@@ -48,6 +48,12 @@ services:
       OLLAMA_KEEP_ALIVE: 24h
     volumes:
       - ollama_data:/root/.ollama
+    healthcheck:
+      test: [ "CMD", "ollama", "list" ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
     # GPU passthrough — host needs NVIDIA driver + nvidia-container-toolkit
     deploy:
       resources:
@@ -56,6 +62,19 @@ services:
             - driver: nvidia
               count: all
               capabilities: [ gpu ]
+
+  # One-shot: pull models into the ollama volume. No-op when models already exist.
+  ollama-init:
+    image: ollama/ollama:latest
+    container_name: goodminton-ollama-init
+    restart: "no"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: [ "/bin/sh", "-c" ]
+    command: [ "ollama pull bge-m3 && ollama pull qwen2.5:14b-instruct-q4_K_M" ]
 
   shop-api:
     image: ${DOCKER_USERNAME}/goodminton-shop-api:latest
@@ -117,6 +136,30 @@ services:
       RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
       SHOP_API_URL: http://shop-api:8080
       INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+
+  # One-shot: repopulate kb_chunks after a volume wipe. Skips when data exists.
+  rag-init:
+    image: ${DOCKER_USERNAME}/goodminton-rag-service:latest
+    container_name: goodminton-rag-init
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      shop-api:
+        condition: service_healthy
+      ollama-init:
+        condition: service_completed_successfully
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      OLLAMA_URL: http://ollama:11434
+      EMBEDDING_MODEL: bge-m3
+      SHOP_API_URL: http://shop-api:8080
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+    command: [ "uv", "run", "python", "scripts/bootstrap.py" ]
 
 volumes:
   postgres_data:
