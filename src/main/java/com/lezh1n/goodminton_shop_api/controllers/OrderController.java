@@ -132,7 +132,7 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
-    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'STORE_ADMIN')")
     public ApiResponse<OrderResponse> getOrderById(@PathVariable Integer orderId) {
         return ApiResponse.<OrderResponse>builder()
                 .result(orderService.getOrderById(orderId))

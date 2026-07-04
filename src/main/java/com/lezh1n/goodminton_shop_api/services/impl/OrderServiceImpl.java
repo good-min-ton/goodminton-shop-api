@@ -27,6 +27,7 @@ import com.lezh1n.goodminton_shop_api.enums.OrderStatus;
 import com.lezh1n.goodminton_shop_api.enums.OrderType;
 import com.lezh1n.goodminton_shop_api.enums.PaymentMethod;
 import com.lezh1n.goodminton_shop_api.enums.PaymentStatus;
+import com.lezh1n.goodminton_shop_api.enums.UserRole;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.mappers.OrderMapper;
@@ -213,7 +214,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderResponse getOrderById(Integer orderId) {
-        return orderMapper.toOrderResponse(loadOrder(orderId));
+        Order order = loadOrder(orderId);
+        Account current = currentAccountProvider.getCurrentAccount();
+        if (current.getRole() == UserRole.STORE_ADMIN) {
+            ensureStoreAdminOwns(order);
+        }
+        return orderMapper.toOrderResponse(order);
     }
 
     @Override
