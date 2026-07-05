@@ -32,16 +32,16 @@ public class EmailServiceImpl implements EmailService {
 
             helper.setFrom(sourceEmail);
             helper.setTo(recieveEmail);
-            helper.setSubject("Đặt lại mật khẩu");
+            helper.setSubject("Reset your password");
 
             String resetUrl = frontendUrl + "/reset-password?token=" + token;
 
             String htmlContent = "<!DOCTYPE html>\n" +
-                    "<html lang=\"vi\">\n" +
+                    "<html lang=\"en\">\n" +
                     "<head>\n" +
                     "    <meta charset=\"UTF-8\">\n" +
                     "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                    "    <title>Đặt lại mật khẩu</title>\n" +
+                    "    <title>Reset your password</title>\n" +
                     "    <style>\n" +
                     "        body {\n" +
                     "            font-family: Arial, Helvetica, sans-serif;\n" +
@@ -96,31 +96,28 @@ public class EmailServiceImpl implements EmailService {
                     "</head>\n" +
                     "<body>\n" +
                     "    <div class=\"header\">\n" +
-                    "        <h1>Đặt Lại Mật Khẩu</h1>\n" +
+                    "        <h1>Reset Your Password</h1>\n" +
                     "    </div>\n" +
                     "    <div class=\"content\">\n" +
-                    "        <p>Chào bạn, Chúng tôi nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn trên hệ thống Parking Management.</p>\n"
-                    +
-                    "        <p>Vui lòng nhấn vào nút dưới đây để đặt lại mật khẩu:</p>\n" +
+                    "        <p>Hi, we received a request to reset the password for your Goodminton Shop account.</p>\n" +
+                    "        <p>Click the button below to reset your password:</p>\n" +
                     "        \n" +
                     "        <div style=\"text-align: center;\">\n" +
-                    "            <a href=\"" + resetUrl + "\" class=\"button\">Đặt Lại Mật Khẩu</a>\n" +
+                    "            <a href=\"" + resetUrl + "\" class=\"button\">Reset Password</a>\n" +
                     "        </div>\n" +
                     "        \n" +
                     "        <div class=\"info\">\n" +
-                    "            <p><strong>Lưu ý quan trọng:</strong> Đường dẫn này sẽ hết hạn sau 15 phút.</p>\n" +
+                    "            <p><strong>Important:</strong> This link expires in 15 minutes.</p>\n" +
                     "        </div>\n" +
                     "        \n" +
-                    "        <p>Nếu nút không hoạt động, bạn có thể sao chép và dán đường dẫn sau vào trình duyệt:</p>\n"
-                    +
+                    "        <p>If the button does not work, copy and paste the URL below into your browser:</p>\n" +
                     "        <p style=\"word-break: break-all;\">" + resetUrl + "</p>\n" +
                     "        \n" +
-                    "        <p>Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này hoặc liên hệ với quản trị viên hệ thống.</p>\n"
-                    +
+                    "        <p>If you did not request a password reset, please ignore this email or contact the system administrator.</p>\n" +
                     "    </div>\n" +
                     "    <div class=\"footer\">\n" +
-                    "        <p>Email này được gửi tự động, vui lòng không trả lời.</p>\n" +
-                    "        <p>© 2025 Parking Management System. All rights reserved.</p>\n" +
+                    "        <p>This email was sent automatically, please do not reply.</p>\n" +
+                    "        <p>&copy; 2026 Goodminton Shop. All rights reserved.</p>\n" +
                     "    </div>\n" +
                     "</body>\n" +
                     "</html>";

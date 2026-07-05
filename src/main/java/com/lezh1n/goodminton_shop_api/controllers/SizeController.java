@@ -55,10 +55,8 @@ public class SizeController {
     }
 
     @DeleteMapping("/{sizeId}")
-    public ApiResponse<String> deleteSize(@PathVariable Integer sizeId) {
+    public ApiResponse<Void> deleteSize(@PathVariable Integer sizeId) {
         sizeService.deleteSize(sizeId);
-        return ApiResponse.<String>builder()
-                .result("Xoá size thành công")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 }

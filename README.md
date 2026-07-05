@@ -1,380 +1,357 @@
 # Goodminton Shop API
 
-A comprehensive e-commerce REST API for badminton equipment built with Spring Boot, providing complete product management, user authentication, and order processing capabilities.
+E-commerce backend for a badminton equipment store. Spring Boot 3 · PostgreSQL · Redis · RabbitMQ · RAG chatbot.
 
-## Technologies Used
+---
 
-### Backend Framework
+## Tech Stack
 
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
-![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=for-the-badge&logo=spring-security&logoColor=white)
-![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+| Layer              | Choice                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------- |
+| Runtime            | Java 21, Spring Boot 3.5                                                              |
+| Persistence        | PostgreSQL 15, Flyway, Spring Data JPA (Hibernate 6)                                  |
+| Cache & session    | Redis (Spring Cache, JWT blacklist, chatbot memory)                                   |
+| Auth               | JWT (Nimbus JOSE), Spring Security, OAuth2 Resource Server                            |
+| Messaging          | RabbitMQ (product/order events for RAG sync)                                          |
+| Search             | Postgres FTS (`unaccent` + `pg_trgm`), GIN indexes                                    |
+| Payment            | PayOS (primary), VNPay (fallback)                                                     |
+| Media              | Cloudinary (product images, category thumbnails, review media)                        |
+| AI / chatbot       | RAG service (separate Python), Ollama (`bge-m3` embed, `qwen2.5:14b` LLM), pgvector   |
+| Ops                | Docker Compose, Cloudflare / Tailscale Funnel, GitHub Actions CI/CD                   |
 
-### Database & Caching
+---
 
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
-![Flyway](https://img.shields.io/badge/Flyway-CC0200?style=for-the-badge&logo=flyway&logoColor=white)
+## System Architecture
 
-### Authentication & Security
+```mermaid
+flowchart LR
+    FE[Frontend<br/>Next.js on Vercel] -->|HTTPS| API[Shop API<br/>Spring Boot]
+    FE -.->|chat| RAG[RAG Service<br/>Python + Ollama]
 
-![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
-![OAuth 2.0](https://img.shields.io/badge/OAuth%202.0-3C5BBA?style=for-the-badge&logo=oauth&logoColor=white)
+    API --> PG[(PostgreSQL<br/>pgvector)]
+    API --> REDIS[(Redis)]
+    API --> MQ{{RabbitMQ}}
+    API --> CLOUD[Cloudinary]
+    API --> PAYOS[PayOS API]
 
-### Cloud Services
+    MQ --> RAG
+    RAG --> PG
+    RAG --> OLLAMA[Ollama<br/>bge-m3, qwen2.5]
 
-![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
-
-### Development Tools
-
-![Java](https://img.shields.io/badge/Java%2017-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
-![Lombok](https://img.shields.io/badge/Lombok-BC4C00?style=for-the-badge&logo=lombok&logoColor=white)
-
-### API Documentation & Validation
-
-![Hibernate Validator](https://img.shields.io/badge/Hibernate%20Validator-59666C?style=for-the-badge&logo=hibernate&logoColor=white)
-
-## Project Overview
-
-The Goodminton Shop API is a robust e-commerce backend system specifically designed for badminton equipment stores. It provides comprehensive functionality for managing products, handling user authentication, processing orders, and maintaining inventory across multiple store locations.
-
-### Key Features
-
-- **Multi-Role Authentication System** (Super Admin, Store Admin, Customer)
-- **Complete Product Management** with variants, specifications, and images
-- **Inventory Management** across multiple store locations
-- **Order Processing** with payment integration
-- **Review & Rating System**
-- **Multi-Store Support**
-- **Redis Caching** for performance optimization
-- **Cloud Image Storage** with Cloudinary
-
-## Project Structure
-
-```
-src/
-├── main/
-│ ├── java/com/lezh1n/goodminton_shop_api/
-│ │ ├── configurations/ # Security, Redis, Cloudinary configs
-│ │ ├── controllers/ # REST API endpoints
-│ │ ├── dtos/ # Request/Response DTOs
-│ │ │ ├── request/ # API request models
-│ │ │ └── response/ # API response models
-│ │ ├── entities/ # JPA entities
-│ │ ├── enums/ # Application enums
-│ │ ├── exceptions/ # Custom exceptions & error handling
-│ │ ├── mappers/ # Entity-DTO mappers
-│ │ ├── repositories/ # Data access layer
-│ │ └── services/ # Business logic layer
-│ └── resources/
-│ ├── application.yaml # Configuration
-│ └── db/migration/ # Flyway database migrations
-└── test/ # Test files
+    PAYOS -.->|webhook| API
 ```
 
-## Database Schema
+- **Shop API** is the transactional core (products, orders, payment, auth).
+- **RAG Service** is a separate service that consumes product/order events, updates `kb_chunks` in Postgres, and serves the chat endpoint.
+- **RabbitMQ** decouples the two: shop-api publishes, rag-service consumes, so the main request path is never blocked by embedding work.
+- **Ollama** is self-hosted on the VPS GPU. No dependency on OpenAI or paid inference APIs.
 
-### Core Entities
+---
 
-#### User Management
+## Data Model (ERD)
 
-- **Account** - User accounts with role-based access
-- **Store** - Physical store locations with admin assignments
+```mermaid
+erDiagram
+    accounts ||--o{ orders : places
+    accounts ||--o| stores : "manages (STORE_ADMIN)"
+    accounts ||--o{ reviews : writes
 
-#### Product Catalog
+    stores ||--o{ inventory : holds
+    stores ||--o{ orders : fulfills
 
-- **Product** - Main product information
-- **Category** - Product categories
-- **Brand** - Product brands
-- **ProductSpecification** - Technical specifications
-- **ProductVariant** - Product variants (color, version)
-- **Size** - Available sizes (Racket, Costume, Footwear)
-- **VariantSize** - Size-specific pricing
-- **VariantImage** - Product images
+    categories ||--o{ products : contains
+    brands ||--o{ products : contains
+    products ||--o{ product_variants : has
+    products ||--o{ product_specifications : has
+    products ||--o{ products : "related (self-ref)"
+    products ||--o{ reviews : reviewed_by
 
-#### Inventory & Orders
+    product_variants ||--o{ inventory : "stocked in"
+    product_variants ||--o{ order_items : "sold via"
+    colors ||--o{ product_variants : "color of"
+    sizes ||--o{ product_variants : "size of"
 
-- **Inventory** - Stock levels per store
-- **Order** - Customer orders
-- **OrderItem** - Individual order items
-- **Payment** - Payment transactions
-- **Review** - Product reviews and ratings
+    orders ||--o{ order_items : contains
+    orders ||--o{ payments : has
 
-### Enums
-
-- **UserRole**: `SUPER_ADMIN`, `STORE_ADMIN`, `CUSTOMER`
-- **OrderStatus**: `NEW`, `PAID`, `SHIPPED`, `COMPLETED`, `CANCEL`
-- **PaymentMethod**: `COD`, `BANKING`, `VNPAY`
-- **SizeType**: `RACKET`, `COSTUME`, `FOOTWEAR`
-
-## API Endpoints
-
-Below is the current list of REST endpoints derived directly from the controller source code. Query parameters for pagination & sorting use (page=1, size=10, sortBy=field, sortDir=asc|desc) unless noted. IDs are integers unless specified. Authentication / authorization (roles) are enforced via Spring Security configuration (not all role constraints are shown here).
-
-### Authentication
-
-- `POST /api/auth/register` – Customer registration
-- `POST /api/auth/login` – Login (returns access & refresh tokens)
-- `POST /api/auth/refresh` – Refresh access token
-- `POST /api/auth/logout` – Logout & blacklist tokens
-
-### Accounts
-
-- `GET /api/accounts` – List accounts (paginated) `?page=&size=&sortBy=&sortDir=`
-- `GET /api/accounts/{id}` – Get account by ID
-- `POST /api/accounts/store-admin` – Create a Store Admin account
-- `GET /api/accounts/my-info` – Get current authenticated account profile
-- `PUT /api/accounts/my-info` – Update current account profile
-- `PATCH /api/accounts/change-password` – Change current account password
-
-### Stores
-
-- `POST /api/stores` – Create store
-- `GET /api/stores` – List stores
-- `GET /api/stores/{id}` – Get store by ID
-- `GET /api/stores/available-admins` – List admins not yet assigned to a store
-- `PATCH /api/stores/{storeId}/update-admin/{adminId}` – Assign / change store admin
-- `DELETE /api/stores/{storeId}` – Delete store
-
-### Catalog: Brands
-
-- `POST /api/brands` – Create brand
-- `GET /api/brands` – List brands
-- `GET /api/brands/{brandId}` – Get brand
-- `PUT /api/brands/{brandId}` – Update brand
-- `DELETE /api/brands/{brandId}` – Delete brand
-
-### Catalog: Categories
-
-- `POST /api/categories` – Create category
-- `GET /api/categories` – List categories
-- `GET /api/categories/{categoryId}` – Get category
-- `PUT /api/categories/{categoryId}` – Update category
-- `DELETE /api/categories/{categoryId}` – Delete category
-
-### Catalog: Colors
-
-- `POST /api/colors` – Create color
-- `GET /api/colors` – List colors
-- `GET /api/colors/{colorId}` – Get color
-- `PUT /api/colors/{colorId}` – Update color
-- `DELETE /api/colors/{colorId}` – Delete color
-
-### Catalog: Sizes
-
-- `POST /api/sizes` – Create size
-- `GET /api/sizes` – List sizes
-- `GET /api/sizes/{sizeId}` – Get size
-- `PUT /api/sizes/{sizeId}` – Update size
-- `DELETE /api/sizes/{sizeId}` – Delete size
-
-### Catalog: Versions
-
-- `POST /api/versions` – Create version
-- `GET /api/versions` – List versions
-- `GET /api/versions/{versionId}` – Get version
-- `PUT /api/versions/{versionId}` – Update version
-- `DELETE /api/versions/{versionId}` – Delete version
-
-### Products
-
-- `POST /api/products` – Create product
-- `GET /api/products` – List products (paginated) `?page=&size=&sortBy=&sortDir=`
-- `GET /api/products/{productId}` – Get product by ID
-- `PUT /api/products/{productId}` – Update product
-- `DELETE /api/products/{productId}` – Delete product
-
-#### � Product Specifications
-
-- `POST /api/products/{productId}/specifications` – Add specification to product
-- `DELETE /api/products/{productId}/specifications/{specId}` – Delete specification
-
-#### Product Variants & Attributes
-
-- `POST /api/products/{productId}/variants` – Add variant (includes color/version/sizes/images as per request body)
-- `DELETE /api/products/{productId}/variants/{variantId}` – Delete variant
-- `GET /api/products/{productId}/variants?versionId=&colorId=&sizeId=` – Resolve product variant & size-specific details by attributes
-
-#### Discounts
-
-- `POST /api/products/discount/{variantSizeId}` – Create discount for a specific variant size
-
-#### Reviews
-
-- `POST /api/products/{productId}/reviews` – Create review
-- `GET /api/products/{productId}/reviews` – List reviews (paginated) `?page=&size=&sortBy=&sortDir=`
-
-### Inventory
-
-- `POST /api/inventories` – Create inventory record (store + variant size)
-- `PUT /api/inventories/{inventoryId}` – Update inventory
-- `DELETE /api/inventories/{inventoryId}` – Delete inventory
-- `GET /api/inventories/{storeId}` – List inventories for store (paginated) `?page=&size=&sortBy=&sortDir=`
-
-### Orders & Cart
-
-- `POST /api/orders` – Create customer order
-- `POST /api/orders/store?storeId=` – Create store-specific order (admin flow)
-- `POST /api/orders/allocate/{orderId}` – Allocate order to stores / inventory
-- `PUT /api/orders/{orderId}/cancel` – Cancel order
-- `GET /api/orders/{orderId}` – Get order by ID
-- `GET /api/orders/status/{status}` – List orders by status
-- `POST /api/orders/cart?accountId=` – Add item to cart (in Redis) for account
-- `GET /api/orders/cart?accountId=` – Get cart for account
-
-### Uploads
-
-- `POST /api/uploads/images` – Upload single image (multipart form field `file`, optional `folder` param; default folder=products)
-
-### Notes
-
-- All responses are wrapped in the unified ApiResponse structure.
-- Date/time fields use ISO-8601 format.
-- Validation errors and business rule violations return standardized error codes (see ErrorCode enum).
-- Authentication required for protected endpoints; role requirements enforced via security configuration.
-
-## Configuration
-
-### Environment Variables
-
-Create a .env file in the root directory:
-
-```env
-# Database Configuration
-POSTGRES_PORT=db_port
-POSTGRES_USERNAME=your_username
-POSTGRES_PASSWORD=your_password
-
-# Redis Configuration
-REDIS_HOST=localhost
-REDIS_PORT=6379
-
-# JWT Configuration
-JWT_SECRET_KEY=your_jwt_secret_key
-JWT_ISSUER=goodminton-api
-JWT_ACCESS_TOKEN_EXPIRATION=3600000
-JWT_REFRESH_TOKEN_EXPIRATION=86400000
-
-# Cloudinary Configuration
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+    resources }o..o{ products : "polymorphic (owner_type)"
+    resources }o..o{ categories : "polymorphic"
+    resources }o..o{ product_variants : "polymorphic"
+    resources }o..o{ reviews : "polymorphic"
 ```
 
-### Application Configuration
+**Notable design choices:**
 
-The application uses `application.yaml` for configuration with environment variable substitution.
+- `resources` is polymorphic (`owner_type` + `owner_id`, no FK) — one table serves product thumbnails, variant images, category thumbnails, and review media.
+- `products.related_product_id` is a self-reference that links color/size siblings back to the root product.
+- `orders.customer_id` is **nullable** so walk-in POS orders do not require a user account.
+- `product_variants.color_id` and `size_id` are nullable for products with no meaningful color/size (shuttlecocks, bags).
 
-## Security Features
+Full schema: [db/migration/V1__init_schema.sql](src/main/resources/db/migration/V1__init_schema.sql)
 
-### Authentication & Authorization
+---
 
-- **JWT-based authentication** with access and refresh tokens
-- **Role-based access control** (RBAC)
-- **Token blacklisting** using Redis
-- **Password encryption** with BCrypt
+## Core Flows
 
-### API Security
+### 1. Online order and PayOS payment (happy path)
 
-- **CORS configuration** for cross-origin requests
-- **Input validation** with Bean Validation
-- **Custom exception handling** with standardized error responses
-- **Method-level security** with `@PreAuthorize`
+```mermaid
+sequenceDiagram
+    autonumber
+    participant FE
+    participant API as Shop API
+    participant PG as Postgres
+    participant PayOS
+    participant Bank
 
-## Business Logic Highlights
+    FE->>API: POST /api/orders (paymentMethod=PAYOS)
+    API->>PG: Order(PENDING), assign central store, deduct stock (atomic)
+    API-->>FE: OrderResponse
 
-### Product Management
+    FE->>API: POST /api/payos/create-payment-url
+    API->>PayOS: create payment link (SDK)
+    PayOS-->>API: {checkoutUrl, orderCode}
+    API->>PG: Payment(PENDING, orderCode, linkId)
+    API-->>FE: {paymentUrl}
 
-- **Complex product variants** with size-specific pricing
-- **Image management** with Cloudinary integration
-- **Specification system** for technical details
-- **Category and brand organization**
-
-### Inventory System
-
-- **Multi-store inventory tracking**
-- **Real-time stock updates**
-- **Discount management** with time-based pricing
-
-### Order Processing
-
-- **Complete order lifecycle management**
-- **Multiple payment methods** support
-- **Customer information handling**
-- **Order status tracking**
-
-## Getting Started
-
-### Prerequisites
-
-- Java 17+
-- PostgreSQL 12+
-- Redis 6+
-- Maven 3.6+
-
-### Installation
-
-1. **Clone the repository**
-
-```bash
-git clone https://github.com/hoanglong1208/goodminton-shop-api.git
-cd goodminton-shop-api
+    FE->>PayOS: window.location = paymentUrl
+    Bank->>PayOS: user pays via QR
+    par Server-to-server
+        PayOS->>API: POST /api/payos/webhook
+        API->>API: SDK.verify signature
+        API->>PG: Payment=PAID, Order=CONFIRMED
+        API-->>PayOS: 200 OK
+    and Browser redirect
+        PayOS->>FE: redirect returnUrl?code=00
+        FE->>API: GET /api/orders/my/{id} (poll)
+    end
 ```
 
-2. **Set up environment variables**
+### 2. RAG chatbot query
 
-```bash
-cp .env.example .env
-# Edit .env with your configuration
+```mermaid
+sequenceDiagram
+    autonumber
+    participant FE
+    participant RAG as RAG Service
+    participant PG as Postgres<br/>(pgvector)
+    participant Ollama
+
+    FE->>RAG: POST /chat { message, sessionId }
+    RAG->>Ollama: embed(message) -> vector
+    RAG->>PG: SELECT kb_chunks ORDER BY vector <-> :q LIMIT 5
+    PG-->>RAG: top-5 context chunks
+    RAG->>Ollama: LLM(system + context + history + question)
+    Ollama-->>RAG: answer
+    RAG-->>FE: { answer, sources }
 ```
 
-3. **Start dependencies**
+### 3. Product sync (shop-api to rag-service via RabbitMQ)
 
-```bash
-# Start PostgreSQL and Redis
-docker-compose up -d postgres redis
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Admin
+    participant API as Shop API
+    participant PG as Postgres
+    participant MQ as RabbitMQ
+    participant RAG as RAG Service
+    participant Ollama
+
+    Admin->>API: PUT /api/products/{id}
+    API->>PG: update product (transactional)
+    API->>API: publishAfterCommit(ProductChangedEvent)
+    Note over API: publish only after the tx commits,<br/>otherwise a rollback would leave<br/>an orphan message downstream
+    API->>MQ: publish product.updated
+
+    MQ->>RAG: deliver (with retry + DLQ)
+    RAG->>API: GET /api/products/{id} (fetch full data)
+    API-->>RAG: ProductResponse
+    RAG->>Ollama: embed(name + description + specs)
+    Ollama-->>RAG: vector
+    RAG->>PG: UPSERT kb_chunks WHERE source_type='product' AND source_id=:id
 ```
 
-4. **Run the application**
+---
 
-```bash
-mvn spring-boot:run
+## Real cases
+
+### A. Payment race condition (webhook vs browser redirect)
+
+**Problem.** After the user pays, PayOS fires two events in parallel:
+1. Server-to-server webhook to the backend, updating the DB.
+2. Browser redirect to the frontend result page.
+
+The webhook usually arrives first, but that ordering is not guaranteed.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant FE
+    participant API
+    participant PayOS
+
+    Note over User,PayOS: User completes payment
+    par Race
+        PayOS->>API: webhook (~500ms)
+        API->>API: Payment=PAID
+    and
+        PayOS->>User: 302 redirect (~2s)
+        User->>FE: /payment/result?code=00
+        FE->>API: GET /api/orders/my/{id}
+    end
+    Note over FE: If the API still returns PENDING<br/>(webhook not yet processed)<br/>the FE polls every 2s
+    loop until CONFIRMED or 10s
+        FE->>API: GET /api/orders/my/{id}
+        API-->>FE: status
+    end
 ```
 
-The API will be available at `http://localhost:8080`
+**Solution.** The FE polls `/api/orders/my/{id}` every 2 seconds, up to 10 seconds.
 
-## Database Migration
+### B. Webhook idempotency (PayOS retry)
 
-The project uses Flyway for database versioning:
+**Problem.** PayOS retries the webhook until it receives `200 OK`, so the same payment may be delivered 2 or 3 times.
 
-- V1\_\_init_schema.sql - Initial database schema
-- `V2__init_super_admin.sql` - Default super admin user
+```mermaid
+flowchart TD
+    A[Webhook incoming] --> B{Signature valid?}
+    B -->|No| E[return 200 + Invalid signature]
+    B -->|Yes| C{Payment exists?}
+    C -->|No| F[return 200 + Order not found]
+    C -->|Yes| D{status == PENDING?}
+    D -->|No, already PAID| G[return 200 + already processed]
+    D -->|Yes| H[Amount match?]
+    H -->|No| I[return 200 + Invalid amount]
+    H -->|Yes| J[Update PAID, flip Order CONFIRMED]
+    J --> K[return 200 + Confirmed]
+```
 
-Migrations run automatically on application startup.
+**Key rule.** Always respond with 200 so PayOS stops retrying. Guarding on `status != PENDING` before updating makes the handler idempotent — repeated deliveries hit the "already processed" branch.
 
-## API Response Format
+Code: [PayOSServiceImpl.processWebhook](src/main/java/com/lezh1n/goodminton_shop_api/services/impl/PayOSServiceImpl.java)
 
-All API responses follow a consistent format:
+### C. Atomic stock decrement (concurrent purchase race)
 
-```json
-{
-  "code": 1000,
-  "message": "Success",
-  "result": {
-    // Response data
-  }
+**Problem.** Two customers click "Buy" when only one unit is left. Both requests read `quantity = 1`, both think stock is available, both write `quantity = 0` — double sell.
+
+Naive approach (broken):
+
+```java
+Inventory inv = repo.findByStoreAndVariant(sid, vid);
+if (inv.getQuantity() >= qty) {          // race condition here
+    inv.setQuantity(inv.getQuantity() - qty);
+    repo.save(inv);
 }
 ```
 
-Error responses include appropriate HTTP status codes and error messages.
+Correct approach — a single atomic `UPDATE ... WHERE quantity >= :qty` at the DB level:
 
-## Contributing
+```mermaid
+flowchart LR
+    A[deduct request] --> B["UPDATE inventory<br/>SET quantity = quantity - :qty<br/>WHERE store=:sid AND variant=:vid<br/>AND quantity >= :qty"]
+    B --> C{updated<br/>rows?}
+    C -->|1| D[Success]
+    C -->|0| E{"inventory row<br/>exists?"}
+    E -->|Yes| F[INSUFFICIENT_STOCK]
+    E -->|No| G[NOT_FOUND]
+```
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Postgres serialises the `UPDATE ... WHERE` with a row-level lock, so concurrent updates cannot both succeed.
+
+Code: [InventoryRepository.decrementIfAvailable](src/main/java/com/lezh1n/goodminton_shop_api/repositories/InventoryRepository.java)
+
+### D. Order expiration (VNPay / PayOS pending without payment)
+
+**Problem.** The user creates an order, chooses PAYOS, then abandons the checkout. The order stays PENDING forever and the deducted stock is never released.
+
+```mermaid
+flowchart LR
+    A[User creates order<br/>Stock deducted] --> B[Payment PENDING]
+    B --> C{Within 15 min}
+    C -->|Paid| D[Webhook -> CONFIRMED]
+    C -->|No payment| E[Scheduler<br/>every 5 min]
+    E --> F[Payment=FAILED<br/>Order=CANCELLED<br/>Stock restocked]
+```
+
+`cancelExpiredProviderPaymentOrders` runs every 5 minutes and covers both VNPay and PayOS. Timeout is configurable per provider via `payment-timeout-minutes`.
+
+Code: [OrderScheduler](src/main/java/com/lezh1n/goodminton_shop_api/services/impl/OrderScheduler.java)
+
+### E. Recommendation cache eviction
+
+Recommendations are `@Cacheable` with a 2h TTL. A few events must invalidate the cache immediately:
+
+```mermaid
+flowchart LR
+    A[Order COMPLETED] --> B["@CacheEvict<br/>(RECOMMENDATIONS, allEntries=true)"]
+    C[Product updated] --> B
+    D[Auto-complete<br/>scheduler] --> B
+```
+
+Trade-off: `allEntries=true` flushes the whole cache rather than a per-product entry — with ~1k products, this is simpler than selective eviction and the recompute cost is negligible.
+
+### F. Rate limiter (not implemented, recommended)
+
+Not currently implemented. Recommended for sensitive endpoints:
+
+```mermaid
+flowchart LR
+    R[Request] --> RL{Rate limiter<br/>Bucket4j + Redis}
+    RL -->|OK| API[Endpoint]
+    RL -->|Exceeded| RESP[429 Too Many]
+
+    subgraph Suggested limits
+        L1[/api/auth/login<br/>5 req / 5 min / IP]
+        L2[/api/vnpay/webhook<br/>100 req / min / IP]
+        L3[/api/search<br/>60 req / min / user]
+    end
+```
+
+Suggested library: `bucket4j-spring-boot-starter` with Redis-backed distributed state.
+
+### G. Related patterns
+
+| Pattern                                                             | Where                              | Purpose                                                       |
+| ------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------- |
+| Envelope `ApiResponse<T>`                                           | every endpoint                     | Unified error/success handler on the FE                       |
+| `@ControllerAdvice` GlobalExceptionHandler                          | exceptions                         | Maps `AppException` to HTTP status + business code            |
+| Ownership check at the service layer                                | inventory, order, review           | STORE_ADMIN can only touch orders/inventory of its own store  |
+| Cloudinary cleanup via `TransactionSynchronization.afterCommit`     | resource upload                    | Never delete a cloud file if the transaction rolls back       |
+| `@BatchSize(50)` on Order collections                               | orderItems, payments               | Avoids `MultipleBagFetchException` and N+1 loads              |
+| Polymorphic resources                                               | resources table                    | One table serves many owner types                             |
+
 
 ---
+
+## Getting started
+
+### Prerequisites
+- Docker + Docker Compose
+- 8GB RAM minimum (Ollama `qwen2.5:14b` needs roughly 10GB VRAM/RAM)
+
+### Setup
+
+```bash
+cp .env.example .env
+# Fill in credentials: PAYOS_*, CLOUDINARY_*, POSTGRES_*, JWT_SECRET
+
+docker compose -f docker-compose.dev.yml up -d --build
+```
+
+Endpoints:
+- API: http://localhost:8080
+- Swagger UI: http://localhost:8080/swagger-ui.html
+- Health: http://localhost:8080/actuator/health
+
+### Migrations
+Flyway runs automatically on startup. Files live in `src/main/resources/db/migration/V*.sql`.
+
+### Documentation
+Runtime API docs are available at Swagger UI once the server is up (`/swagger-ui.html`). Additional integration notes are kept out of the public repository.
+
+---
+
+## License
+
+Private project — for portfolio and educational purposes.

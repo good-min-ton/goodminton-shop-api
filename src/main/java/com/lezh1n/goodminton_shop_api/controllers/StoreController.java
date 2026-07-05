@@ -65,10 +65,8 @@ public class StoreController {
     }
 
     @DeleteMapping("/{storeId}")
-    public ApiResponse<String> deleteStore(@PathVariable Integer storeId) {
+    public ApiResponse<Void> deleteStore(@PathVariable Integer storeId) {
         storeService.deleteStore(storeId);
-        return ApiResponse.<String>builder()
-                .result("Xoá cửa hàng thành công")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 }

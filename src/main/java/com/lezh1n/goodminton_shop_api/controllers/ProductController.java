@@ -67,12 +67,10 @@ public class ProductController {
     }
 
     @DeleteMapping("/{productId}")
-    public ApiResponse<String> deleteProduct(
+    public ApiResponse<Void> deleteProduct(
             @PathVariable @Min(value = 1, message = "Product ID must be greater than 0") Integer productId) {
         productService.deleteProduct(productId);
-        return ApiResponse.<String>builder()
-                .result("Xóa sản phẩm thành công")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 
     @PostMapping("/{productId}/images")
@@ -84,10 +82,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/images/{imageId}")
-    public ApiResponse<String> deleteProductImage(@PathVariable Integer imageId) {
+    public ApiResponse<Void> deleteProductImage(@PathVariable Integer imageId) {
         productService.deleteProductImage(imageId);
-        return ApiResponse.<String>builder()
-                .result("Xoá ảnh thành công")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 }

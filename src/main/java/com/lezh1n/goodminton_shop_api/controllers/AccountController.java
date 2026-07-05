@@ -79,35 +79,27 @@ public class AccountController {
     }
 
     @PatchMapping("/change-password")
-    public ApiResponse<String> changePassword(@Valid @RequestBody ChangePasswordRequest request) {
+    public ApiResponse<Void> changePassword(@Valid @RequestBody ChangePasswordRequest request) {
         accountService.changePassword(request);
-        return ApiResponse.<String>builder()
-                .result("Mật khẩu đã được thay đổi thành công")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 
     @PatchMapping("/{accountId}/status/{status}")
-    public ApiResponse<String> changeAccountStatus(@PathVariable Integer accountId,
+    public ApiResponse<Void> changeAccountStatus(@PathVariable Integer accountId,
             @PathVariable AccountStatus status) {
         accountService.changeAccountStatus(accountId, status);
-        return ApiResponse.<String>builder()
-                .result("Thay đổi trạng thái tài khoản thành công")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 
     @PostMapping("/forgot-password")
-    public ApiResponse<String> forgotPassword(@RequestBody @Valid ForgotPasswordRequest request) {
+    public ApiResponse<Void> forgotPassword(@RequestBody @Valid ForgotPasswordRequest request) {
         accountService.forgotPassword(request);
-        return ApiResponse.<String>builder()
-                .result("Password reset instructions have been sent to your email")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 
     @PostMapping("/reset-password")
-    public ApiResponse<String> resetPassword(@RequestBody @Valid ResetPasswordRequest request) {
+    public ApiResponse<Void> resetPassword(@RequestBody @Valid ResetPasswordRequest request) {
         accountService.resetPassword(request);
-        return ApiResponse.<String>builder()
-                .result("Password has been reset successfully")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 }

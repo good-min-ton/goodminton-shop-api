@@ -57,10 +57,8 @@ public class ColorController {
     }
 
     @DeleteMapping("/{colorId}")
-    public ApiResponse<String> deleteColor(@PathVariable Integer colorId) {
+    public ApiResponse<Void> deleteColor(@PathVariable Integer colorId) {
         colorService.deleteColor(colorId);
-        return ApiResponse.<String>builder()
-                .result("Xoá màu thành công")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 }

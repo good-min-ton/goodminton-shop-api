@@ -56,10 +56,8 @@ public class BrandController {
     }
 
     @DeleteMapping("/{brandId}")
-    public ApiResponse<String> deleteBrand(@PathVariable Integer brandId) {
+    public ApiResponse<Void> deleteBrand(@PathVariable Integer brandId) {
         brandService.deleteBrand(brandId);
-        return ApiResponse.<String>builder()
-                .result("Xoá thương hiệu thành công")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 }

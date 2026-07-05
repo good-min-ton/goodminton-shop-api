@@ -9,22 +9,22 @@ import com.lezh1n.goodminton_shop_api.entities.Store;
 
 public interface InventoryService {
 
-    /** Trừ tồn kho — fail nếu không đủ. Atomic. */
+    /** Deduct stock atomically; fails when the on-hand quantity is insufficient. */
     void deduct(Integer storeId, Integer variantId, int quantity);
 
-    /** Hoàn tồn kho khi cancel order. */
+    /** Restock when an order is cancelled. */
     void restock(Integer storeId, Integer variantId, int quantity);
 
-    /** Tìm kho trung tâm (is_central = true) — dùng cho fulfill đơn ONLINE. */
+    /** Return the central store (is_central = true) used to fulfil ONLINE orders. */
     Store findCentralStore();
 
-    /** Set quantity tuyệt đối. Tạo mới nếu chưa có inventory cho (store, variant). */
+    /** Set the absolute quantity; creates a new inventory row if (store, variant) has none. */
     InventoryResponse setQuantity(SetInventoryRequest request);
 
     InventoryResponse getById(Integer inventoryId);
 
     Page<InventoryResponse> listByStore(Integer storeId, Pageable pageable);
 
-    /** Lấy inventory của store mà current user (STORE_ADMIN) đang quản lý. */
+    /** List inventory of the store the current STORE_ADMIN manages. */
     Page<InventoryResponse> listMyStore(Pageable pageable);
 }

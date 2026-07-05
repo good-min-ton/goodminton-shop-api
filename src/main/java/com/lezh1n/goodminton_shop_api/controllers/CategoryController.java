@@ -61,10 +61,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{categoryId}")
-    public ApiResponse<String> deleteCategory(@PathVariable Integer categoryId) {
+    public ApiResponse<Void> deleteCategory(@PathVariable Integer categoryId) {
         categoryService.deleteCategory(categoryId);
-        return ApiResponse.<String>builder()
-                .result("Đã xoá thành công danh mục")
-                .build();
+        return ApiResponse.<Void>builder().build();
     }
 }
