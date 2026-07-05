@@ -43,6 +43,7 @@ public class SecurityConfig {
             "/api/auth/**",
             "/api/accounts/forgot-password",
             "/api/accounts/reset-password",
+            "/api/payos/webhook",
     };
 
     private static final String[] GET_PUBLIC_ENDPOINTS = {

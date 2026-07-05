@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.lezh1n.goodminton_shop_api.configurations.CacheConfig;
 import com.lezh1n.goodminton_shop_api.configurations.OrderProperties;
+import com.lezh1n.goodminton_shop_api.configurations.PayOSProperties;
 import com.lezh1n.goodminton_shop_api.configurations.VNPayProperties;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateInStoreOrderRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateOnlineOrderRequest;
@@ -58,6 +59,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderProperties orderProperties;
     private final VNPayProperties vnpayProperties;
+    private final PayOSProperties payOSProperties;
 
     // ---------- Customer ----------
 
@@ -89,9 +91,10 @@ public class OrderServiceImpl implements OrderService {
         // Save order before payment so FK is valid.
         Order saved = orderRepository.save(order);
 
-        // For VNPAY, payment record is created later via /api/vnpay/create-payment-url.
-        if (request.getPaymentMethod() != PaymentMethod.VNPAY) {
-            paymentRepository.save(buildPendingPayment(saved, request.getPaymentMethod(), total, now));
+        // For VNPAY / PAYOS, payment record is created later via the provider's create-payment-url endpoint.
+        PaymentMethod method = request.getPaymentMethod();
+        if (method != PaymentMethod.VNPAY && method != PaymentMethod.PAYOS) {
+            paymentRepository.save(buildPendingPayment(saved, method, total, now));
         }
 
         return orderMapper.toOrderResponse(reload(saved.getId()));
@@ -247,16 +250,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int cancelExpiredVNPayOrders() {
-        LocalDateTime threshold = LocalDateTime.now().minusMinutes(vnpayProperties.getPaymentTimeoutMinutes());
-        List<Order> expired = orderRepository.findExpiredVNPayPending(
-                OrderStatus.PENDING, PaymentMethod.VNPAY,
+    public int cancelExpiredProviderPaymentOrders() {
+        int timeoutMinutes = Math.max(
+                vnpayProperties.getPaymentTimeoutMinutes(),
+                payOSProperties.getPaymentTimeoutMinutes());
+        LocalDateTime threshold = LocalDateTime.now().minusMinutes(timeoutMinutes);
+        List<PaymentMethod> providerMethods = List.of(PaymentMethod.VNPAY, PaymentMethod.PAYOS);
+        List<Order> expired = orderRepository.findExpiredProviderPayment(
+                OrderStatus.PENDING, providerMethods,
                 PaymentStatus.PENDING, PaymentStatus.PAID, threshold);
 
         for (Order order : expired) {
             restockItems(order);
             order.getPayments().stream()
-                    .filter(p -> p.getMethod() == PaymentMethod.VNPAY && p.getStatus() == PaymentStatus.PENDING)
+                    .filter(p -> providerMethods.contains(p.getMethod()) && p.getStatus() == PaymentStatus.PENDING)
                     .forEach(p -> p.setStatus(PaymentStatus.FAILED));
             order.setStatus(OrderStatus.CANCELLED);
         }

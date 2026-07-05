@@ -43,5 +43,5 @@ public interface OrderService {
     // Scheduled jobs
     int autoCompleteDeliveredOrders();
 
-    int cancelExpiredVNPayOrders();
+    int cancelExpiredProviderPaymentOrders();
 }

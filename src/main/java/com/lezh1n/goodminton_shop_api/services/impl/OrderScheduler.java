@@ -28,16 +28,16 @@ public class OrderScheduler {
         }
     }
 
-    // Every 5 minutes — cancel expired VNPay pending orders and restock.
+    // Every 5 minutes — cancel expired external-provider (VNPay / PayOS) pending orders and restock.
     @Scheduled(fixedDelay = 5 * 60 * 1000L, initialDelay = 30 * 1000L)
-    public void cancelExpiredVNPayOrders() {
+    public void cancelExpiredProviderPaymentOrders() {
         try {
-            int count = orderService.cancelExpiredVNPayOrders();
+            int count = orderService.cancelExpiredProviderPaymentOrders();
             if (count > 0) {
-                log.info("Cancelled {} expired VNPay orders", count);
+                log.info("Cancelled {} expired provider-payment orders", count);
             }
         } catch (Exception e) {
-            log.error("cancelExpiredVNPayOrders failed: {}", e.getMessage(), e);
+            log.error("cancelExpiredProviderPaymentOrders failed: {}", e.getMessage(), e);
         }
     }
 }

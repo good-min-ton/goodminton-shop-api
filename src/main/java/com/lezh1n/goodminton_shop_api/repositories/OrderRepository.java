@@ -123,15 +123,16 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             @Param("threshold") LocalDateTime threshold);
 
     /**
-     * PENDING orders with VNPay payment older than threshold and no PAID payment —
-     * expired. Fetch only orderItems (single collection); payments lazy-loaded inside @Transactional.
+     * PENDING orders whose external-provider payment (VNPay / PayOS) is older than
+     * threshold and no PAID payment exists — considered expired. Fetch only orderItems
+     * (single collection); payments lazy-loaded inside @Transactional.
      */
     @EntityGraph(attributePaths = { "orderItems", "orderItems.variant", "store" })
     @Query("""
             SELECT DISTINCT o FROM Order o
             JOIN o.payments p
             WHERE o.status = :pendingStatus
-              AND p.method = :vnpayMethod
+              AND p.method IN :providerMethods
               AND p.status = :pendingPaymentStatus
               AND p.createdAt < :threshold
               AND NOT EXISTS (
@@ -139,9 +140,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
                   WHERE p2.order = o AND p2.status = :paidPaymentStatus
               )
             """)
-    List<Order> findExpiredVNPayPending(
+    List<Order> findExpiredProviderPayment(
             @Param("pendingStatus") OrderStatus pendingStatus,
-            @Param("vnpayMethod") PaymentMethod vnpayMethod,
+            @Param("providerMethods") java.util.Collection<PaymentMethod> providerMethods,
             @Param("pendingPaymentStatus") PaymentStatus pendingPaymentStatus,
             @Param("paidPaymentStatus") PaymentStatus paidPaymentStatus,
             @Param("threshold") LocalDateTime threshold);

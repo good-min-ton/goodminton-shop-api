@@ -61,6 +61,15 @@ public class Payment {
     @Column(name = "vnpay_response_code")
     private String vnpayResponseCode;
 
+    @Column(name = "payos_order_code")
+    private Long payosOrderCode;
+
+    @Column(name = "payos_payment_link_id")
+    private String payosPaymentLinkId;
+
+    @Column(name = "payos_reference")
+    private String payosReference;
+
     @Column(name = "paid_at")
     private LocalDateTime paidAt;
 

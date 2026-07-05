@@ -102,6 +102,14 @@ vnpay:
   return-url: ${VNP_RETURN_URL}
   payment-timeout-minutes: 15
 
+payos:
+  client-id: ${PAYOS_CLIENT_ID}
+  api-key: ${PAYOS_API_KEY}
+  checksum-key: ${PAYOS_CHECKSUM_KEY}
+  return-url: ${PAYOS_RETURN_URL}
+  cancel-url: ${PAYOS_CANCEL_URL}
+  payment-timeout-minutes: 15
+
 app:
   frontend-url: ${FRONTEND_URL}
   internal-api-key: ${INTERNAL_API_KEY}
