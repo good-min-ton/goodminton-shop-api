@@ -352,6 +352,43 @@ Runtime API docs are available at Swagger UI once the server is up (`/swagger-ui
 
 ---
 
+## CI/CD Pipeline
+
+Two GitHub Actions workflows, both defined under `.github/workflows/`.
+
+```mermaid
+flowchart LR
+    PR[Pull request] --> CI
+    PUSH[Push to main] --> CI
+    PUSH --> CD
+
+    subgraph CI[ci.yml - Build and Test]
+        direction TB
+        CI1[Checkout] --> CI2[Setup JDK 21]
+        CI2 --> CI3[Start Postgres pgvector service]
+        CI3 --> CI4[mvn verify]
+    end
+
+    subgraph CD[cd.yml - Build and Deploy]
+        direction TB
+        B1[Checkout] --> B2[Setup JDK 21 + Maven cache]
+        B2 --> B3[mvn clean package -DskipTests]
+        B3 --> B4[Docker build]
+        B4 --> B5[Push image:latest and image:sha to Docker Hub]
+        B5 --> D1[self-hosted runner on VPS]
+        D1 --> D2[docker compose pull shop-api]
+        D2 --> D3[docker compose up -d --no-deps shop-api]
+        D3 --> D4[docker image prune -f]
+    end
+```
+
+- **CI** (`ci.yml`) runs on every PR and every push to `main`. It boots a `pgvector/pgvector:pg15` service container so integration tests can hit a real Postgres instance.
+- **CD** (`cd.yml`) runs only on push to `main`. The `build` job packages the app, builds a Docker image tagged with both `latest` and the commit SHA, and pushes to Docker Hub. The `deploy` job runs on a self-hosted runner living on the production VPS — it pulls the new image and restarts only the `shop-api` service, leaving Postgres, Redis, RabbitMQ, Ollama, and RAG containers untouched.
+- **Rollback** — every image is tagged with its commit SHA, so a rollback is `docker compose … pull shop-api@sha256:… && up -d`. In practice, redeploy the previous SHA tag.
+- **Secrets** — `DOCKER_USERNAME`, `DOCKER_PASSWORD` configured at the repo level. VPS credentials live on the self-hosted runner, not in GitHub.
+
+---
+
 ## License
 
 Private project — for portfolio and educational purposes.
