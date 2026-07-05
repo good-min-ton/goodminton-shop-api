@@ -50,34 +50,102 @@ flowchart LR
 
 ## Data Model (ERD)
 
+A single ER diagram covering 15+ tables is unreadable, so it is split into three domain-focused sub-diagrams. The `resources` table is polymorphic (`owner_type` + `owner_id`, no FK) and attaches to products, product_variants, categories, and reviews — omitted from the diagrams for clarity.
+
+### Identity and Stores
+
 ```mermaid
 erDiagram
-    accounts ||--o{ orders : places
     accounts ||--o| stores : "manages (STORE_ADMIN)"
+    accounts ||--o{ orders : places
     accounts ||--o{ reviews : writes
 
-    stores ||--o{ inventory : holds
-    stores ||--o{ orders : fulfills
+    accounts {
+        int id PK
+        string full_name
+        string email UK
+        string phone UK
+        enum role "SUPER_ADMIN | STORE_ADMIN | CUSTOMER"
+        enum status "ACTIVE | INACTIVE"
+    }
 
+    stores {
+        int id PK
+        int admin_id FK
+        string name
+        string address
+        bool is_central
+    }
+```
+
+### Catalog
+
+```mermaid
+erDiagram
     categories ||--o{ products : contains
     brands ||--o{ products : contains
-    products ||--o{ product_variants : has
-    products ||--o{ product_specifications : has
     products ||--o{ products : "related (self-ref)"
-    products ||--o{ reviews : reviewed_by
-
-    product_variants ||--o{ inventory : "stocked in"
-    product_variants ||--o{ order_items : "sold via"
+    products ||--o{ product_specifications : has
+    products ||--o{ product_variants : has
     colors ||--o{ product_variants : "color of"
     sizes ||--o{ product_variants : "size of"
 
+    products {
+        int id PK
+        int category_id FK
+        int brand_id FK
+        int related_product_id FK "self-ref, nullable"
+        string name
+        string slug UK
+        bool is_visible
+    }
+
+    product_variants {
+        int id PK
+        int product_id FK
+        int color_id FK "nullable"
+        int size_id FK "nullable"
+        string sku_code UK
+        decimal price
+        decimal sale_price "nullable"
+    }
+```
+
+### Commerce (orders, payments, inventory, reviews)
+
+```mermaid
+erDiagram
+    stores ||--o{ inventory : holds
+    product_variants ||--o{ inventory : "stocked in"
+
+    accounts ||--o{ orders : places
+    stores ||--o{ orders : fulfills
     orders ||--o{ order_items : contains
     orders ||--o{ payments : has
+    product_variants ||--o{ order_items : "sold via"
 
-    resources }o..o{ products : "polymorphic (owner_type)"
-    resources }o..o{ categories : "polymorphic"
-    resources }o..o{ product_variants : "polymorphic"
-    resources }o..o{ reviews : "polymorphic"
+    accounts ||--o{ reviews : writes
+    products ||--o{ reviews : reviewed_by
+    order_items ||--o| reviews : "reviewed once"
+
+    orders {
+        int id PK
+        int customer_id FK "nullable (walk-in)"
+        int store_id FK
+        enum order_type "ONLINE | IN_STORE"
+        enum status "PENDING | CONFIRMED | PREPARING | SHIPPING | DELIVERED | COMPLETED | CANCELLED"
+        decimal total_amount
+    }
+
+    payments {
+        int id PK
+        int order_id FK
+        enum method "COD | BANKING | VNPAY | PAYOS"
+        enum status "PENDING | PAID | FAILED"
+        decimal amount
+        bigint payos_order_code "PayOS reference"
+        string vnpay_txn_ref "VNPay reference"
+    }
 ```
 
 **Notable design choices:**
@@ -302,9 +370,9 @@ flowchart LR
     RL -->|Exceeded| RESP[429 Too Many]
 
     subgraph Suggested limits
-        L1[/api/auth/login<br/>5 req / 5 min / IP]
-        L2[/api/vnpay/webhook<br/>100 req / min / IP]
-        L3[/api/search<br/>60 req / min / user]
+        L1["/api/auth/login<br/>5 req / 5 min / IP"]
+        L2["/api/vnpay/webhook<br/>100 req / min / IP"]
+        L3["/api/search<br/>60 req / min / user"]
     end
 ```
 
