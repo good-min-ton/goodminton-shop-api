@@ -16,8 +16,10 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Pageable;
 
 import com.lezh1n.goodminton_shop_api.client.RagCandidate;
 import com.lezh1n.goodminton_shop_api.client.RagClient;
@@ -218,6 +220,78 @@ class RecommendationServiceImplTest {
         assertThat(service.getRecommendations(3))
                 .extracting(ProductListItemResponse::getId)
                 .containsExactly(10, 11, 12, 20, 21, 22, 23, 24);
+    }
+
+    @Test
+    void rerank_onSaleBoostOvertakesNearTie_notLargeGapLeader() {
+        stubCurrent();
+        when(ragClient.similar(3, 20)).thenReturn(List.of(
+                new RagCandidate(10, 0.90),   // leader
+                new RagCandidate(11, 0.89),   // near-tie, on-sale -> 0.91
+                new RagCandidate(12, 0.70))); // large gap, on-sale -> 0.72
+        when(productRepository.findVisibleByIdInWithVariants(any()))
+                .thenReturn(List.of(product(10), product(11), product(12)));
+        when(productRepository.findIdsOnSaleIn(any())).thenReturn(List.of(11, 12));
+        when(orderItemRepository.findBestSellerProductIds(eq(OrderStatus.COMPLETED), any(), any(), any()))
+                .thenReturn(List.of());
+
+        // 11 (0.89 + 0.02 = 0.91) overtakes leader 10 (0.90);
+        // 12 (0.70 + 0.02 = 0.72) still ranks below 10 (0.90) -> boost is small/semantic-dominant.
+        assertThat(service.getRecommendations(3))
+                .extracting(ProductListItemResponse::getId)
+                .containsExactly(11, 10, 12);
+    }
+
+    @Test
+    void rerank_bestsellerAndOnSaleBoostsStack_appliesSum() {
+        stubCurrent();
+        when(ragClient.similar(3, 20)).thenReturn(List.of(
+                new RagCandidate(10, 0.90),   // leader
+                new RagCandidate(11, 0.86),   // both bestseller + on-sale -> 0.86 + 0.05 = 0.91
+                new RagCandidate(12, 0.70))); // no signals
+        when(productRepository.findVisibleByIdInWithVariants(any()))
+                .thenReturn(List.of(product(10), product(11), product(12)));
+        when(productRepository.findIdsOnSaleIn(any())).thenReturn(List.of(11));
+        when(orderItemRepository.findBestSellerProductIds(eq(OrderStatus.COMPLETED), any(), any(), any()))
+                .thenReturn(List.of(11));
+
+        // Only the STACKED +0.05 (0.03 + 0.02) lifts 11 to 0.91 past leader 10 (0.90);
+        // either boost alone (0.86 + 0.03 = 0.89 or 0.86 + 0.02 = 0.88) would stay below 0.90.
+        assertThat(service.getRecommendations(3))
+                .extracting(ProductListItemResponse::getId)
+                .containsExactly(11, 10, 12);
+    }
+
+    @Test
+    void fillCategoryBrand_isBoundedByRemaining_andCapsAtEight() {
+        stubCurrent();
+        // Semantic stage yields exactly 6 (no business signals) -> remaining == 2 for the fill.
+        List<RagCandidate> six = new ArrayList<>();
+        List<Product> sixProducts = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            six.add(new RagCandidate(10 + i, 0.99 - i * 0.01));
+            sixProducts.add(product(10 + i));
+        }
+        when(ragClient.similar(3, 20)).thenReturn(six);
+        when(productRepository.findVisibleByIdInWithVariants(any())).thenReturn(sixProducts);
+        when(productRepository.findIdsOnSaleIn(any())).thenReturn(List.of());
+        when(orderItemRepository.findBestSellerProductIds(eq(OrderStatus.COMPLETED), any(), any(), any()))
+                .thenReturn(List.of());
+        // Fill source returns MORE than remaining (5): three already-picked dups + two new ids.
+        when(productRepository.findSimilar(eq(100), eq(200), any(), any()))
+                .thenReturn(List.of(product(10), product(11), product(12), product(20), product(21)));
+
+        assertThat(service.getRecommendations(3))
+                .extracting(ProductListItemResponse::getId)
+                // dups (10,11,12) dropped, only 20 & 21 added -> exactly 8, no duplicates.
+                .containsExactly(10, 11, 12, 13, 14, 15, 20, 21);
+
+        // The Math.min(CATEGORY_BRAND_LIMIT=5, remaining=2) guard must request only 2 from the DB,
+        // not the unconditional 5 -> this page-size is the guard's sole observable effect (the mock
+        // ignores paging, so a broken guard would silently over-fetch in production).
+        ArgumentCaptor<Pageable> pageable = ArgumentCaptor.forClass(Pageable.class);
+        verify(productRepository).findSimilar(eq(100), eq(200), any(), pageable.capture());
+        assertThat(pageable.getValue().getPageSize()).isEqualTo(2);
     }
 
     @Test
