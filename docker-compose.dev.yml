@@ -60,6 +60,9 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       JAVA_TOOL_OPTIONS: "-Djava.net.preferIPv4Stack=true"
+      RAG_URL: ${RAG_URL:-http://host.docker.internal:8000}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   postgres_data:

@@ -110,6 +110,15 @@ payos:
   cancel-url: ${PAYOS_CANCEL_URL}
   payment-timeout-minutes: 15
 
+rag:
+  base-url: ${RAG_URL:http://rag-service:8000}
+  timeout-ms: ${RAG_TIMEOUT_MS:2000}
+  retrieve-k: ${RAG_RETRIEVE_K:20}
+
+recommendations:
+  boost-bestseller: ${REC_BOOST_BESTSELLER:0.03}
+  boost-sale: ${REC_BOOST_SALE:0.02}
+
 app:
   frontend-url: ${FRONTEND_URL}
   internal-api-key: ${INTERNAL_API_KEY}
