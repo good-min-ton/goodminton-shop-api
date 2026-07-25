@@ -75,6 +75,21 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM Product p WHERE p.id IN :ids")
     List<Product> findAllByIdInWithVariants(@Param("ids") Collection<Integer> ids);
 
+    @Query("""
+            SELECT p.id FROM Product p
+            WHERE p.id IN :ids
+              AND p.isVisible = true
+              AND EXISTS (
+                  SELECT 1 FROM ProductVariant pv
+                  WHERE pv.product = p AND pv.salePrice IS NOT NULL
+              )
+            """)
+    List<Integer> findIdsOnSaleIn(@Param("ids") Collection<Integer> ids);
+
+    @EntityGraph(attributePaths = { "variants" })
+    @Query("SELECT p FROM Product p WHERE p.id IN :ids AND p.isVisible = true")
+    List<Product> findVisibleByIdInWithVariants(@Param("ids") Collection<Integer> ids);
+
     @Query(value = """
             SELECT * FROM products p
             WHERE p.is_visible = true
