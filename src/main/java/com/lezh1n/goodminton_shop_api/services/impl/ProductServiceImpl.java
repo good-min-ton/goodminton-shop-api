@@ -29,6 +29,7 @@ import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
+import com.lezh1n.goodminton_shop_api.entities.Resources;
 import com.lezh1n.goodminton_shop_api.enums.ResourceOwner;
 import com.lezh1n.goodminton_shop_api.events.ProductChangedEvent;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
@@ -155,12 +156,22 @@ public class ProductServiceImpl implements ProductService {
         if (!productRepository.existsById(productId)) {
             throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
         }
-        return resourceService.upload(ResourceOwner.PRODUCT_THUMBNAIL, productId, file);
+        ResourceResponse uploaded = resourceService.upload(ResourceOwner.PRODUCT_THUMBNAIL, productId, file);
+        // Re-index marker for RAG image search (decision #4). "images" is the consumer contract.
+        events.publishEvent(ProductChangedEvent.updated(productId, Set.of("images")));
+        return uploaded;
     }
 
     @Override
     public void deleteProductImage(Integer imageId) {
+        Resources resource = resourceRepository.findById(imageId)
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         resourceService.delete(imageId);
+        // Guard: only PRODUCT_THUMBNAIL resources map to a product. A variant/review
+        // resource id would carry a non-product ownerId and re-index the wrong product.
+        if (resource.getOwnerType() == ResourceOwner.PRODUCT_THUMBNAIL) {
+            events.publishEvent(ProductChangedEvent.updated(resource.getOwnerId(), Set.of("images")));
+        }
     }
 
     @Override
