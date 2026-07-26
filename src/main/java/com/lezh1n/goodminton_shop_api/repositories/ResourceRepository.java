@@ -1,5 +1,6 @@
 package com.lezh1n.goodminton_shop_api.repositories;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,9 @@ import com.lezh1n.goodminton_shop_api.enums.ResourceOwner;
 public interface ResourceRepository extends JpaRepository<Resources, Integer> {
 
     List<Resources> findByOwnerTypeAndOwnerIdOrderBySortOrderAsc(ResourceOwner ownerType, Integer ownerId);
+
+    List<Resources> findByOwnerTypeAndOwnerIdInOrderBySortOrderAsc(
+            ResourceOwner ownerType, Collection<Integer> ownerIds);
 
     Optional<Resources> findFirstByOwnerTypeAndOwnerIdOrderBySortOrderAsc(ResourceOwner ownerType, Integer ownerId);
 

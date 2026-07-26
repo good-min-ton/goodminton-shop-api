@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -23,6 +24,7 @@ import com.lezh1n.goodminton_shop_api.configurations.CacheConfig;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductListItemResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Product;
@@ -39,6 +41,7 @@ import com.lezh1n.goodminton_shop_api.repositories.OrderItemRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
+import com.lezh1n.goodminton_shop_api.repositories.ResourceRepository;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 import com.lezh1n.goodminton_shop_api.services.ResourceService;
 
@@ -59,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
     private final ResourceService resourceService;
+    private final ResourceRepository resourceRepository;
     private final ApplicationEventPublisher events;
 
     @Override
@@ -157,6 +161,32 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProductImage(Integer imageId) {
         resourceService.delete(imageId);
+    }
+
+    @Override
+    public List<ProductListItemResponse> listItemsByIds(List<Integer> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+        // H8: findVisibleByIdInWithVariants filters is_visible server-side + eager-loads variants.
+        List<Product> visible = productRepository.findVisibleByIdInWithVariants(ids);
+        if (visible.isEmpty()) {
+            return List.of();
+        }
+        List<Integer> visibleIds = visible.stream().map(Product::getId).toList();
+        // Batch thumbnail lookup (avoid N+1): one query; first row per owner (sort_order asc) = thumbnail.
+        Map<Integer, String> thumbByProduct = new HashMap<>();
+        resourceRepository
+                .findByOwnerTypeAndOwnerIdInOrderBySortOrderAsc(ResourceOwner.PRODUCT_THUMBNAIL, visibleIds)
+                .forEach(r -> thumbByProduct.putIfAbsent(r.getOwnerId(), r.getUrl()));
+        Map<Integer, Product> byId = new LinkedHashMap<>();
+        visible.forEach(p -> byId.put(p.getId(), p));
+        // Preserve the requested id order; drop ids that were hidden/missing.
+        return ids.stream()
+                .map(byId::get)
+                .filter(Objects::nonNull)
+                .map(p -> productMapper.toListItemResponse(p, thumbByProduct.get(p.getId())))
+                .toList();
     }
 
     private ProductResponse buildProductResponse(Product product) {

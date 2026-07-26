@@ -55,6 +55,7 @@ public class SecurityConfig {
             "/api/sizes", "/api/sizes/{sizeId}",
             "api/colors", "api/colors/{colorId}",
             "api/products", "api/products/{productId}",
+            "api/products/list-items",
             "api/products/{productId}/recommendations",
             "/api/reviews/{productId}",
             "/api/search/products", "/api/search/products/suggest",
