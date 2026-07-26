@@ -1,7 +1,9 @@
 package com.lezh1n.goodminton_shop_api.services.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -64,5 +66,17 @@ class ProductServiceImageEventTest {
         assertThat(captor.getValue().action()).isEqualTo("updated");
         assertThat(captor.getValue().productId()).isEqualTo(42);
         assertThat(captor.getValue().fieldsChanged()).containsExactly("images");
+    }
+
+    @Test
+    void deleteProductImage_nonThumbnailResource_doesNotPublishEvent() {
+        lenient().when(resourceRepository.findById(99)).thenReturn(Optional.of(
+                Resources.builder().id(99).ownerId(42)
+                        .ownerType(ResourceOwner.VARIANT_IMAGE).build()));
+
+        service.deleteProductImage(99);
+
+        verify(resourceService).delete(99);
+        verify(events, never()).publishEvent(any());
     }
 }
