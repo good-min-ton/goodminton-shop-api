@@ -1,9 +1,12 @@
 package com.lezh1n.goodminton_shop_api.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductListItemResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 
@@ -22,4 +25,6 @@ public interface ProductService {
     ResourceResponse uploadProductImage(Integer productId, MultipartFile file);
 
     void deleteProductImage(Integer imageId);
+
+    List<ProductListItemResponse> listItemsByIds(List<Integer> ids);
 }

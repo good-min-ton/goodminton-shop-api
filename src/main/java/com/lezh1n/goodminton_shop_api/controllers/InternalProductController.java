@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductForRagResponse;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductImageResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductPricingResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.VariantPricingResponse;
 import com.lezh1n.goodminton_shop_api.entities.Product;
+import com.lezh1n.goodminton_shop_api.enums.ResourceOwner;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
 import com.lezh1n.goodminton_shop_api.exceptions.ErrorCode;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
+import com.lezh1n.goodminton_shop_api.services.ResourceService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class InternalProductController {
 
     private final ProductRepository productRepository;
+    private final ResourceService resourceService;
 
     @GetMapping("/{id}")
     public ProductForRagResponse getForRag(@PathVariable Integer id) {
@@ -60,5 +64,14 @@ public class InternalProductController {
                 .toList();
 
         return new ProductPricingResponse(p.getId(), p.getName(), variants);
+    }
+
+    // Read-only image list for RAG's ImageIndexer. RAW list (no ApiResponse wrapper),
+    // guarded by X-Internal-Key via InternalAuthFilter.
+    @GetMapping("/{id}/images")
+    public List<ProductImageResponse> getImages(@PathVariable Integer id) {
+        return resourceService.listByOwner(ResourceOwner.PRODUCT_THUMBNAIL, id).stream()
+                .map(r -> new ProductImageResponse(r.getId(), r.getUrl(), r.getSortOrder()))
+                .toList();
     }
 }

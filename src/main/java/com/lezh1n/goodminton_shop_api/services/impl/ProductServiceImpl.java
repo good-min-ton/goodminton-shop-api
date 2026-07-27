@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -23,10 +24,12 @@ import com.lezh1n.goodminton_shop_api.configurations.CacheConfig;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductSpecificationRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductVariantRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductListItemResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.entities.Product;
 import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
+import com.lezh1n.goodminton_shop_api.entities.Resources;
 import com.lezh1n.goodminton_shop_api.enums.ResourceOwner;
 import com.lezh1n.goodminton_shop_api.events.ProductChangedEvent;
 import com.lezh1n.goodminton_shop_api.exceptions.AppException;
@@ -39,6 +42,7 @@ import com.lezh1n.goodminton_shop_api.repositories.OrderItemRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductSpecificationRepository;
 import com.lezh1n.goodminton_shop_api.repositories.ProductVariantRepository;
+import com.lezh1n.goodminton_shop_api.repositories.ResourceRepository;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
 import com.lezh1n.goodminton_shop_api.services.ResourceService;
 
@@ -59,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductVariantMapper productVariantMapper;
     private final ProductSpecificationMapper productSpecificationMapper;
     private final ResourceService resourceService;
+    private final ResourceRepository resourceRepository;
     private final ApplicationEventPublisher events;
 
     @Override
@@ -151,12 +156,48 @@ public class ProductServiceImpl implements ProductService {
         if (!productRepository.existsById(productId)) {
             throw new AppException(ErrorCode.PRODUCT_NOT_FOUND);
         }
-        return resourceService.upload(ResourceOwner.PRODUCT_THUMBNAIL, productId, file);
+        ResourceResponse uploaded = resourceService.upload(ResourceOwner.PRODUCT_THUMBNAIL, productId, file);
+        // Re-index marker for RAG image search (decision #4). "images" is the consumer contract.
+        events.publishEvent(ProductChangedEvent.updated(productId, Set.of("images")));
+        return uploaded;
     }
 
     @Override
     public void deleteProductImage(Integer imageId) {
+        Resources resource = resourceRepository.findById(imageId)
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         resourceService.delete(imageId);
+        // Guard: only PRODUCT_THUMBNAIL resources map to a product. A variant/review
+        // resource id would carry a non-product ownerId and re-index the wrong product.
+        if (resource.getOwnerType() == ResourceOwner.PRODUCT_THUMBNAIL) {
+            events.publishEvent(ProductChangedEvent.updated(resource.getOwnerId(), Set.of("images")));
+        }
+    }
+
+    @Override
+    public List<ProductListItemResponse> listItemsByIds(List<Integer> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+        // H8: findVisibleByIdInWithVariants filters is_visible server-side + eager-loads variants.
+        List<Product> visible = productRepository.findVisibleByIdInWithVariants(ids);
+        if (visible.isEmpty()) {
+            return List.of();
+        }
+        List<Integer> visibleIds = visible.stream().map(Product::getId).toList();
+        // Batch thumbnail lookup (avoid N+1): one query; first row per owner (sort_order asc) = thumbnail.
+        Map<Integer, String> thumbByProduct = new HashMap<>();
+        resourceRepository
+                .findByOwnerTypeAndOwnerIdInOrderBySortOrderAsc(ResourceOwner.PRODUCT_THUMBNAIL, visibleIds)
+                .forEach(r -> thumbByProduct.putIfAbsent(r.getOwnerId(), r.getUrl()));
+        Map<Integer, Product> byId = new LinkedHashMap<>();
+        visible.forEach(p -> byId.put(p.getId(), p));
+        // Preserve the requested id order; drop ids that were hidden/missing.
+        return ids.stream()
+                .map(byId::get)
+                .filter(Objects::nonNull)
+                .map(p -> productMapper.toListItemResponse(p, thumbByProduct.get(p.getId())))
+                .toList();
     }
 
     private ProductResponse buildProductResponse(Product product) {

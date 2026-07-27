@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.controllers;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lezh1n.goodminton_shop_api.common.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.ProductRequest;
+import com.lezh1n.goodminton_shop_api.dtos.response.ProductListItemResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ProductResponse;
 import com.lezh1n.goodminton_shop_api.dtos.response.ResourceResponse;
 import com.lezh1n.goodminton_shop_api.services.ProductService;
@@ -53,6 +56,13 @@ public class ProductController {
             @RequestParam(defaultValue = "desc") String sortDir) {
         return ApiResponse.<Page<ProductResponse>>builder()
                 .result(productService.getAllProducts(page, size, sortBy, sortDir))
+                .build();
+    }
+
+    @GetMapping("/list-items")
+    public ApiResponse<List<ProductListItemResponse>> listItemsByIds(@RequestParam("ids") List<Integer> ids) {
+        return ApiResponse.<List<ProductListItemResponse>>builder()
+                .result(productService.listItemsByIds(ids))
                 .build();
     }
 
