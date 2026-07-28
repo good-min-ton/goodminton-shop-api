@@ -53,9 +53,15 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Pull & Restart container
+      - name: Checkout latest code
+        uses: actions/checkout@v4
+
+      - name: Sync compose file to prod dir
+        run: cp docker-compose.prod.yml ~/projects/goodminton/
+
+      - name: Pull image + restart
         run: |
           cd ~/projects/goodminton
-          docker compose -f docker-compose.prod.yml pull shop-api
-          docker compose -f docker-compose.prod.yml up -d --no-deps shop-api
+          docker compose -f docker-compose.prod.yml pull
+          docker compose -f docker-compose.prod.yml up -d --remove-orphans
           docker image prune -f
