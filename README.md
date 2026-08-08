@@ -452,6 +452,7 @@ flowchart LR
 
 - **CI** (`ci.yml`) runs on every PR and every push to `main`. It boots a `pgvector/pgvector:pg15` service container so integration tests can hit a real Postgres instance.
 - **CD** (`cd.yml`) runs only on push to `main`. The `build` job packages the app, builds a Docker image tagged with both `latest` and the commit SHA, and pushes to Docker Hub. The `deploy` job runs on a self-hosted runner living on the production VPS — it pulls the new image and restarts only the `shop-api` service, leaving Postgres, Redis, RabbitMQ, Ollama, and RAG containers untouched.
+- **Compose file** — `docker-compose.prod.yml` describes the whole stack and lives in the [`goodminton-infra`](https://github.com/good-min-ton/goodminton-infra) repository, which owns applying it to the VPS. This repo only swaps its own image, so an environment or topology change has to ship from there. `docker-compose.dev.yml` in this repo is for local development and is unaffected.
 - **Rollback** — every image is tagged with its commit SHA, so a rollback is `docker compose … pull shop-api@sha256:… && up -d`. In practice, redeploy the previous SHA tag.
 - **Secrets** — `DOCKER_USERNAME`, `DOCKER_PASSWORD` configured at the repo level. VPS credentials live on the self-hosted runner, not in GitHub.
 
