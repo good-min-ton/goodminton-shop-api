@@ -12,10 +12,12 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
+@Profile("!dev")
 @Slf4j
 public class RabbitMQConfig {
 

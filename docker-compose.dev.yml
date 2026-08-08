@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:15
+    image: pgvector/pgvector:pg15 # postgres:15 + pgvector extension built-in
     container_name: goodminton-postgres
     restart: unless-stopped
     environment:
