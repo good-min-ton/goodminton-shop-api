@@ -47,21 +47,19 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
+  # Swaps this service's image only. docker-compose.prod.yml lives in the
+  # goodminton-infra repo and is applied by its own workflow, so no checkout is
+  # needed here and a backend release no longer touches Postgres, Redis,
+  # RabbitMQ or Ollama.
   deploy:
     name: Deploy to VPS
     needs: build
     runs-on: self-hosted
 
     steps:
-      - name: Checkout latest code
-        uses: actions/checkout@v4
-
-      - name: Sync compose file to prod dir
-        run: cp docker-compose.prod.yml ~/projects/goodminton/
-
       - name: Pull image + restart
         run: |
           cd ~/projects/goodminton
-          docker compose -f docker-compose.prod.yml pull
-          docker compose -f docker-compose.prod.yml up -d --remove-orphans
+          docker compose -f docker-compose.prod.yml pull shop-api
+          docker compose -f docker-compose.prod.yml up -d --no-deps shop-api
           docker image prune -f
