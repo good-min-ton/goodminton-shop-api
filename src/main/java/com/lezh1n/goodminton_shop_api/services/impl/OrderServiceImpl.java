@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.lezh1n.goodminton_shop_api.configurations.CacheConfig;
 import com.lezh1n.goodminton_shop_api.configurations.OrderProperties;
 import com.lezh1n.goodminton_shop_api.configurations.PayOSProperties;
-import com.lezh1n.goodminton_shop_api.configurations.VNPayProperties;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateInStoreOrderRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateOnlineOrderRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.OrderItemRequest;
@@ -61,7 +60,6 @@ public class OrderServiceImpl implements OrderService {
     private final ApplicationEventPublisher events;
 
     private final OrderProperties orderProperties;
-    private final VNPayProperties vnpayProperties;
     private final PayOSProperties payOSProperties;
 
     // ---------- Customer ----------
@@ -99,9 +97,10 @@ public class OrderServiceImpl implements OrderService {
         // This is the handoff that used to go unnoticed for days.
         events.publishEvent(new OrderStatusChangedEvent(saved.getId(), OrderStatus.PENDING));
 
-        // For VNPAY / PAYOS, payment record is created later via the provider's create-payment-url endpoint.
+        // For PAYOS the payment record is created later, when the provider's
+        // create-payment-link endpoint is called.
         PaymentMethod method = request.getPaymentMethod();
-        if (method != PaymentMethod.VNPAY && method != PaymentMethod.PAYOS) {
+        if (method != PaymentMethod.PAYOS) {
             paymentRepository.save(buildPendingPayment(saved, method, total, now));
         }
 
@@ -287,11 +286,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int cancelExpiredProviderPaymentOrders() {
-        int timeoutMinutes = Math.max(
-                vnpayProperties.getPaymentTimeoutMinutes(),
-                payOSProperties.getPaymentTimeoutMinutes());
+        int timeoutMinutes = payOSProperties.getPaymentTimeoutMinutes();
         LocalDateTime threshold = LocalDateTime.now().minusMinutes(timeoutMinutes);
-        List<PaymentMethod> providerMethods = List.of(PaymentMethod.VNPAY, PaymentMethod.PAYOS);
+        List<PaymentMethod> providerMethods = List.of(PaymentMethod.PAYOS);
         List<Order> expired = orderRepository.findExpiredProviderPayment(
                 OrderStatus.PENDING, providerMethods,
                 PaymentStatus.PENDING, PaymentStatus.PAID, threshold);

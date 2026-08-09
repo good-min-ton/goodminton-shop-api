@@ -22,8 +22,6 @@ public class PaymentResponse {
     private PaymentMethod method;
     private PaymentStatus status;
     private BigDecimal amount;
-    private String vnpayTxnRef;
-    private String vnpayTransactionNo;
     private LocalDateTime paidAt;
     private LocalDateTime createdAt;
 }

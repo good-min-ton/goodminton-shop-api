@@ -94,14 +94,6 @@ springdoc:
 order:
   auto-complete-days: ${ORDER_AUTO_COMPLETE_DAYS:7}
 
-vnpay:
-  tmn-code: ${VNP_TMN_CODE}
-  hash-secret: ${VNP_HASH_SECRET}
-  pay-url: ${VNP_PAY_URL:https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
-  api-url: ${VNP_API_URL:https://sandbox.vnpayment.vn/merchant_webapi/api/transaction}
-  return-url: ${VNP_RETURN_URL}
-  payment-timeout-minutes: 15
-
 payos:
   client-id: ${PAYOS_CLIENT_ID}
   api-key: ${PAYOS_API_KEY}
