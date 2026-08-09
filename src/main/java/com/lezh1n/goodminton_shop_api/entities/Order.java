@@ -81,6 +81,16 @@ public class Order {
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
 
+    /**
+     * When {@link #status} last changed. Separate from {@link #orderDate}, which
+     * only ever answers "when was this placed": without this, "which orders have
+     * been sitting in PREPARING for two days" is unanswerable, and those are
+     * exactly the orders that get missed.
+     */
+    @Builder.Default
+    @Column(name = "status_changed_at", nullable = false)
+    private LocalDateTime statusChangedAt = LocalDateTime.now();
+
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @BatchSize(size = 50)
     @Builder.Default
