@@ -198,6 +198,34 @@ public class OrderServiceImpl implements OrderService {
         return transitionByStoreAdmin(orderId, OrderStatus.SHIPPING, OrderStatus.DELIVERED, null);
     }
 
+    /**
+     * Scoped by role: a STORE_ADMIN searches only their own store, everyone else
+     * with access searches everything. Doing the scoping here rather than in the
+     * controller keeps it impossible to add a caller that forgets it.
+     */
+    @Override
+    public Page<OrderResponse> searchOrders(String query, Pageable pageable) {
+        String q = query == null ? "" : query.trim();
+        if (q.isEmpty()) {
+            return Page.empty(pageable);
+        }
+        Account current = currentAccountProvider.getCurrentAccount();
+        Integer storeId = null;
+        if (current.getRole() == UserRole.STORE_ADMIN) {
+            storeId = storeRepository.findByAdmin_Id(current.getId())
+                    .orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND))
+                    .getId();
+        }
+        // Only treat the term as an id when it really is one; "0912345678" is a
+        // phone number that would overflow Integer, not an order.
+        Integer orderId = null;
+        if (q.matches("\\d{1,9}")) {
+            orderId = Integer.valueOf(q);
+        }
+        return orderRepository.search(q, orderId, storeId, pageable)
+                .map(orderMapper::toOrderResponse);
+    }
+
     @Override
     public Page<OrderResponse> getStoreOrders(Pageable pageable) {
         Account admin = currentAccountProvider.getCurrentAccount();
