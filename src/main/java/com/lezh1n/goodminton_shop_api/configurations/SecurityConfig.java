@@ -1,5 +1,7 @@
 package com.lezh1n.goodminton_shop_api.configurations;
 
+import java.util.Arrays;
+
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -72,12 +74,29 @@ public class SecurityConfig {
     @Value("${spring.jwt.secret}")
     private String jwtSecret;
 
+    @Value("${app.cors-allowed-origins:*}")
+    private String corsAllowedOrigins;
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");
+
+        // Origin *patterns*, not plain origins: an entry may carry a "*" so that
+        // Vercel preview deployments, whose subdomain changes per branch, are
+        // covered without listing each one. Defaults to "*" so an unset value
+        // behaves exactly as before rather than locking the frontend out.
+        configuration.setAllowedOriginPatterns(Arrays.stream(corsAllowedOrigins.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList());
+
         configuration.addAllowedMethod("*");
+        // Left open: the frontend sends Authorization, and
+        // ngrok-skip-browser-warning to get past the tunnel's interstitial.
         configuration.addAllowedHeader("*");
+        // Auth is a bearer token the frontend attaches itself, never a cookie, so
+        // no credentialed request is made. Enabling this would also make the "*"
+        // default illegal - browsers reject that combination.
         configuration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
