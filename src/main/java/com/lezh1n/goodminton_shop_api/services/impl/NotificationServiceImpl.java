@@ -87,16 +87,23 @@ public class NotificationServiceImpl implements NotificationService {
                     "Đơn hàng #%d đã giao. Bạn xác nhận đã nhận hàng giúp shop nhé"
                             .formatted(orderId)));
 
-            // Closes the loop for the store: the order is off their queue.
+            // Only the store: the customer just confirmed receipt themselves, so
+            // telling them what they did is noise. It is what clears the order
+            // off the store's queue.
             case COMPLETED -> raised.addAll(forStoreAdmin(order, NotificationType.ORDER_COMPLETED,
                     "Đơn hàng #%d đã hoàn tất".formatted(orderId)));
 
-            // Both sides of the shop need this: stock has just gone back.
+            // Both sides of the shop need this: stock has just gone back. So
+            // does the customer - an order can be cancelled without them asking,
+            // by the payment-timeout scheduler, and being told is the whole
+            // point of a notification.
             case CANCELLED -> {
                 raised.addAll(forEachSuperAdmin(order, NotificationType.ORDER_CANCELLED,
                         "Đơn hàng #%d đã bị huỷ".formatted(orderId)));
                 raised.addAll(forStoreAdmin(order, NotificationType.ORDER_CANCELLED,
                         "Đơn hàng #%d đã bị huỷ".formatted(orderId)));
+                raised.addAll(forCustomer(order, NotificationType.ORDER_CANCELLED,
+                        "Đơn hàng #%d của bạn đã bị huỷ".formatted(orderId)));
             }
 
             default -> {
