@@ -121,6 +121,11 @@ public enum ErrorCode {
     ORDER_CANNOT_CANCEL(2304, "Order cannot be cancelled in its current status", HttpStatus.BAD_REQUEST),
     ORDER_FORBIDDEN(2305, "Not allowed to access this order", HttpStatus.FORBIDDEN),
     ORDER_ITEMS_REQUIRED(2306, "Order must have at least one item", HttpStatus.BAD_REQUEST),
+
+    // Also returned when a notification exists but belongs to someone else:
+    // ids are sequential, and confirming existence would let anyone enumerate
+    // another account's bell.
+    NOTIFICATION_NOT_FOUND(2401, "Notification not found", HttpStatus.NOT_FOUND),
     ORDER_RECIPIENT_NAME_REQUIRED(2307, "Recipient name is required", HttpStatus.BAD_REQUEST),
     ORDER_RECIPIENT_PHONE_REQUIRED(2308, "Recipient phone is required", HttpStatus.BAD_REQUEST),
     ORDER_RECIPIENT_ADDRESS_REQUIRED(2309, "Recipient address is required", HttpStatus.BAD_REQUEST),

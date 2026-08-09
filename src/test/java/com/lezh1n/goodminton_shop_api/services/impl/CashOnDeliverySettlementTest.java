@@ -2,6 +2,7 @@ package com.lezh1n.goodminton_shop_api.services.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
+import org.springframework.context.ApplicationEventPublisher;
 import org.junit.jupiter.api.Test;
 
 import com.lezh1n.goodminton_shop_api.entities.Order;
@@ -29,9 +31,31 @@ import com.lezh1n.goodminton_shop_api.enums.PaymentStatus;
  */
 class CashOnDeliverySettlementTest {
 
-    // 10 collaborators, all unused by the two helpers under test.
-    private final OrderServiceImpl service = new OrderServiceImpl(
-            null, null, null, null, null, null, null, null, null, null);
+    private final OrderServiceImpl service = newService();
+
+    /**
+     * Built reflectively so adding a collaborator to OrderServiceImpl does not
+     * break this file - counting nulls by hand already did once. Everything is
+     * null except the event publisher, which moveTo actually calls.
+     */
+    private static OrderServiceImpl newService() {
+        try {
+            Constructor<?> ctor = OrderServiceImpl.class.getDeclaredConstructors()[0];
+            Class<?>[] types = ctor.getParameterTypes();
+            Object[] args = new Object[types.length];
+            for (int i = 0; i < types.length; i++) {
+                if (types[i] == ApplicationEventPublisher.class) {
+                    args[i] = (ApplicationEventPublisher) event -> {
+                        // Notifications are covered separately; here they are noise.
+                    };
+                }
+            }
+            ctor.setAccessible(true);
+            return (OrderServiceImpl) ctor.newInstance(args);
+        } catch (Exception e) {
+            throw new IllegalStateException("could not build OrderServiceImpl", e);
+        }
+    }
 
     private void settle(Order order) throws Exception {
         Method m = OrderServiceImpl.class.getDeclaredMethod("settleCashOnDelivery", Order.class);

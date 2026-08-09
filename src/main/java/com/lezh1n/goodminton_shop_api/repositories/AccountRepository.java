@@ -29,6 +29,9 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     Page<Account> findByRole(UserRole role, Pageable pageable);
 
+    /** Unpaged: used to notify every super admin, of whom there are a handful. */
+    List<Account> findByRole(UserRole role);
+
     @Query(value = """
             SELECT EXISTS (SELECT 1
                 FROM accounts

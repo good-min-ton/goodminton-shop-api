@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
 import com.lezh1n.goodminton_shop_api.entities.Store;
 import com.lezh1n.goodminton_shop_api.enums.OrderStatus;
 import com.lezh1n.goodminton_shop_api.enums.OrderType;
+import com.lezh1n.goodminton_shop_api.events.OrderStatusChangedEvent;
 import com.lezh1n.goodminton_shop_api.enums.PaymentMethod;
 import com.lezh1n.goodminton_shop_api.enums.PaymentStatus;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
@@ -56,6 +58,7 @@ public class OrderServiceImpl implements OrderService {
     private final InventoryService inventoryService;
     private final CurrentAccountProvider currentAccountProvider;
     private final OrderMapper orderMapper;
+    private final ApplicationEventPublisher events;
 
     private final OrderProperties orderProperties;
     private final VNPayProperties vnpayProperties;
@@ -90,6 +93,11 @@ public class OrderServiceImpl implements OrderService {
 
         // Save order before payment so FK is valid.
         Order saved = orderRepository.save(order);
+
+        // A new order starts PENDING through the builder rather than moveTo, so
+        // the "waiting for a super admin" notification has to be raised here.
+        // This is the handoff that used to go unnoticed for days.
+        events.publishEvent(new OrderStatusChangedEvent(saved.getId(), OrderStatus.PENDING));
 
         // For VNPAY / PAYOS, payment record is created later via the provider's create-payment-url endpoint.
         PaymentMethod method = request.getPaymentMethod();
@@ -332,11 +340,19 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toOrderResponse(orderRepository.save(order));
     }
 
-    /** Single place a status changes, so the clock behind the "stuck orders"
-     *  queues can never be updated in one path and forgotten in another. */
+    /**
+     * Single place a status changes, so neither the clock behind the "stuck
+     * orders" queues nor the notification can be updated in one path and
+     * forgotten in another.
+     *
+     * <p>The event is published, not delivered: OrderNotificationListener picks
+     * it up after commit, so a rolled-back transaction never tells anyone about
+     * a state the database does not hold.
+     */
     private void moveTo(Order order, OrderStatus status) {
         order.setStatus(status);
         order.setStatusChangedAt(LocalDateTime.now());
+        events.publishEvent(new OrderStatusChangedEvent(order.getId(), status));
     }
 
     /**
