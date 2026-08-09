@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import com.lezh1n.goodminton_shop_api.entities.ProductVariant;
 import com.lezh1n.goodminton_shop_api.entities.Store;
 import com.lezh1n.goodminton_shop_api.enums.OrderStatus;
 import com.lezh1n.goodminton_shop_api.enums.OrderType;
+import com.lezh1n.goodminton_shop_api.events.OrderStatusChangedEvent;
 import com.lezh1n.goodminton_shop_api.enums.PaymentMethod;
 import com.lezh1n.goodminton_shop_api.enums.PaymentStatus;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
@@ -56,6 +58,7 @@ public class OrderServiceImpl implements OrderService {
     private final InventoryService inventoryService;
     private final CurrentAccountProvider currentAccountProvider;
     private final OrderMapper orderMapper;
+    private final ApplicationEventPublisher events;
 
     private final OrderProperties orderProperties;
     private final VNPayProperties vnpayProperties;
@@ -91,6 +94,11 @@ public class OrderServiceImpl implements OrderService {
         // Save order before payment so FK is valid.
         Order saved = orderRepository.save(order);
 
+        // A new order starts PENDING through the builder rather than moveTo, so
+        // the "waiting for a super admin" notification has to be raised here.
+        // This is the handoff that used to go unnoticed for days.
+        events.publishEvent(new OrderStatusChangedEvent(saved.getId(), OrderStatus.PENDING));
+
         // For VNPAY / PAYOS, payment record is created later via the provider's create-payment-url endpoint.
         PaymentMethod method = request.getPaymentMethod();
         if (method != PaymentMethod.VNPAY && method != PaymentMethod.PAYOS) {
@@ -124,7 +132,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         restockItems(order);
-        order.setStatus(OrderStatus.CANCELLED);
+        moveTo(order, OrderStatus.CANCELLED);
         return orderMapper.toOrderResponse(orderRepository.save(order));
     }
 
@@ -134,7 +142,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = loadOrder(orderId);
         ensureOwner(order);
         requireStatus(order, OrderStatus.DELIVERED);
-        order.setStatus(OrderStatus.COMPLETED);
+        moveTo(order, OrderStatus.COMPLETED);
         return orderMapper.toOrderResponse(orderRepository.save(order));
     }
 
@@ -190,6 +198,34 @@ public class OrderServiceImpl implements OrderService {
         return transitionByStoreAdmin(orderId, OrderStatus.SHIPPING, OrderStatus.DELIVERED, null);
     }
 
+    /**
+     * Scoped by role: a STORE_ADMIN searches only their own store, everyone else
+     * with access searches everything. Doing the scoping here rather than in the
+     * controller keeps it impossible to add a caller that forgets it.
+     */
+    @Override
+    public Page<OrderResponse> searchOrders(String query, Pageable pageable) {
+        String q = query == null ? "" : query.trim();
+        if (q.isEmpty()) {
+            return Page.empty(pageable);
+        }
+        Account current = currentAccountProvider.getCurrentAccount();
+        Integer storeId = null;
+        if (current.getRole() == UserRole.STORE_ADMIN) {
+            storeId = storeRepository.findByAdmin_Id(current.getId())
+                    .orElseThrow(() -> new AppException(ErrorCode.STORE_NOT_FOUND))
+                    .getId();
+        }
+        // Only treat the term as an id when it really is one; "0912345678" is a
+        // phone number that would overflow Integer, not an order.
+        Integer orderId = null;
+        if (q.matches("\\d{1,9}")) {
+            orderId = Integer.valueOf(q);
+        }
+        return orderRepository.search(q, orderId, storeId, pageable)
+                .map(orderMapper::toOrderResponse);
+    }
+
     @Override
     public Page<OrderResponse> getStoreOrders(Pageable pageable) {
         Account admin = currentAccountProvider.getCurrentAccount();
@@ -209,7 +245,7 @@ public class OrderServiceImpl implements OrderService {
         if (order.getStore() == null) {
             order.setStore(inventoryService.findCentralStore());
         }
-        order.setStatus(OrderStatus.CONFIRMED);
+        moveTo(order, OrderStatus.CONFIRMED);
         return orderMapper.toOrderResponse(orderRepository.save(order));
     }
 
@@ -244,7 +280,7 @@ public class OrderServiceImpl implements OrderService {
         LocalDateTime threshold = LocalDateTime.now().minusDays(orderProperties.getAutoCompleteDays());
         List<Order> eligible = orderRepository.findEligibleForAutoComplete(
                 OrderStatus.DELIVERED, OrderType.ONLINE, threshold);
-        eligible.forEach(o -> o.setStatus(OrderStatus.COMPLETED));
+        eligible.forEach(o -> moveTo(o, OrderStatus.COMPLETED));
         orderRepository.saveAll(eligible);
         return eligible.size();
     }
@@ -265,7 +301,7 @@ public class OrderServiceImpl implements OrderService {
             order.getPayments().stream()
                     .filter(p -> providerMethods.contains(p.getMethod()) && p.getStatus() == PaymentStatus.PENDING)
                     .forEach(p -> p.setStatus(PaymentStatus.FAILED));
-            order.setStatus(OrderStatus.CANCELLED);
+            moveTo(order, OrderStatus.CANCELLED);
         }
         orderRepository.saveAll(expired);
         return expired.size();
@@ -322,11 +358,60 @@ public class OrderServiceImpl implements OrderService {
         Order order = loadOrder(orderId);
         ensureStoreAdminOwns(order);
         requireStatus(order, from);
-        order.setStatus(to);
+        moveTo(order, to);
         if (shippingCode != null) {
             order.setShippingCode(shippingCode);
         }
+        if (to == OrderStatus.DELIVERED) {
+            settleCashOnDelivery(order);
+        }
         return orderMapper.toOrderResponse(orderRepository.save(order));
+    }
+
+    /**
+     * Single place a status changes, so neither the clock behind the "stuck
+     * orders" queues nor the notification can be updated in one path and
+     * forgotten in another.
+     *
+     * <p>The event is published, not delivered: OrderNotificationListener picks
+     * it up after commit, so a rolled-back transaction never tells anyone about
+     * a state the database does not hold.
+     */
+    private void moveTo(Order order, OrderStatus status) {
+        order.setStatus(status);
+        order.setStatusChangedAt(LocalDateTime.now());
+        events.publishEvent(new OrderStatusChangedEvent(order.getId(), status));
+    }
+
+    /**
+     * Settles a cash-on-delivery payment at the moment of delivery.
+     *
+     * <p>COD had no path to PAID at all: card and PayOS settle from their
+     * webhooks and in-store sales are marked paid at the counter, but a COD
+     * order stayed PENDING for ever. A completed order reading "chưa thanh toán"
+     * is the visible half; the other half is that paid_at never recorded when
+     * the money actually arrived.
+     *
+     * <p>Delivery, not the customer's confirm-received, is the truthful moment:
+     * the carrier collects the cash on handover, and this is the shop's own
+     * record that the handover happened. Tying it to the customer's
+     * acknowledgement instead would leave money already in hand looking unpaid
+     * whenever a customer never gets round to confirming - which is common
+     * enough that autoCompleteDeliveredOrders exists to cover it.
+     *
+     * <p>BANKING is deliberately not settled here. A transfer arrives before
+     * dispatch and is verified by a human, so marking it paid on delivery would
+     * assert something nobody checked.
+     */
+    private void settleCashOnDelivery(Order order) {
+        LocalDateTime now = LocalDateTime.now();
+        order.getPayments().stream()
+                .filter(p -> p.getMethod() == PaymentMethod.COD)
+                .filter(p -> p.getStatus() == PaymentStatus.PENDING)
+                .forEach(p -> {
+                    p.setStatus(PaymentStatus.PAID);
+                    p.setPaidAt(now);
+                });
     }
 
     private Order loadOrder(Integer orderId) {

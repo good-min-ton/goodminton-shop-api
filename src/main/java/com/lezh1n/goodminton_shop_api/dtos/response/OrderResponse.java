@@ -28,6 +28,11 @@ public class OrderResponse {
     private OrderStatus status;
     private BigDecimal totalAmount;
     private String shippingCode;
+
+    /** When the status last changed - lets a queue show how long an order has
+     *  been waiting, which is the difference between noticing a stuck order and
+     *  not. */
+    private LocalDateTime statusChangedAt;
     private String recipientName;
     private String recipientPhone;
     private String recipientAddress;

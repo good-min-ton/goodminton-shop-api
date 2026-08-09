@@ -25,6 +25,7 @@ public class OrderMapper {
                 .status(order.getStatus())
                 .totalAmount(order.getTotalAmount())
                 .shippingCode(order.getShippingCode())
+                .statusChangedAt(order.getStatusChangedAt())
                 .recipientName(order.getRecipientName())
                 .recipientPhone(order.getRecipientPhone())
                 .recipientAddress(order.getRecipientAddress())

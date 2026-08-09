@@ -29,6 +29,9 @@ public interface OrderService {
 
     OrderResponse markShipping(Integer orderId, String shippingCode);
 
+    /** Look up orders by tracking code, recipient phone or order id. */
+    Page<OrderResponse> searchOrders(String query, Pageable pageable);
+
     OrderResponse markDelivered(Integer orderId);
 
     Page<OrderResponse> getStoreOrders(Pageable pageable);

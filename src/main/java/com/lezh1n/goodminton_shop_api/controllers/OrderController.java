@@ -123,6 +123,23 @@ public class OrderController {
 
     // ---------- Super admin ----------
 
+    /**
+     * A customer calls quoting a tracking code and nothing else could find their
+     * order. Open to both admin roles; the service scopes a STORE_ADMIN to their
+     * own store.
+     */
+    @GetMapping("/search")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'STORE_ADMIN')")
+    public ApiResponse<Page<OrderResponse>> searchOrders(
+            @RequestParam String q,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(Math.max(page - 1, 0), Math.min(size, 50));
+        return ApiResponse.<Page<OrderResponse>>builder()
+                .result(orderService.searchOrders(q, pageable))
+                .build();
+    }
+
     @PostMapping("/{orderId}/confirm")
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ApiResponse<OrderResponse> confirmOrder(@PathVariable Integer orderId) {

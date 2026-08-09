@@ -44,6 +44,34 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     Page<Order> findByOrderTypeAndStatus(OrderType orderType, OrderStatus status, Pageable pageable);
 
+    /**
+     * Find the order a customer is calling about.
+     *
+     * <p>Matches a tracking code, a recipient phone number or an order id -
+     * whichever of the three the caller happens to have. All exact: a shipping
+     * code fragment would match half the day's dispatches, and a partial phone
+     * number is worse than no answer.
+     *
+     * <p>Codes are compared case-insensitively because a customer reading one
+     * back over the phone types it however it sounds. A null storeId means an
+     * unrestricted search (SUPER_ADMIN); a STORE_ADMIN passes their own store so
+     * the query cannot reach another branch's orders.
+     */
+    @Query("""
+            SELECT o FROM Order o
+            WHERE (:storeId IS NULL OR o.store.id = :storeId)
+              AND (
+                UPPER(o.shippingCode) = UPPER(:q)
+                OR o.recipientPhone = :q
+                OR (:orderId IS NOT NULL AND o.id = :orderId)
+              )
+            ORDER BY o.orderDate DESC
+            """)
+    Page<Order> search(@Param("q") String q,
+            @Param("orderId") Integer orderId,
+            @Param("storeId") Integer storeId,
+            Pageable pageable);
+
     // ---------- Dashboard aggregates ----------
 
     @Query("""
