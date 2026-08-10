@@ -59,6 +59,11 @@ services:
     # Container-internal hostnames (compose service DNS) — not user-configurable.
     environment:
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-dev}
+      # Ghim cổng ứng dụng: env_file nạp .env vào container và Spring Boot tự map
+      # SERVER_PORT sang server.port, mà biến môi trường thắng application.yaml.
+      # Dòng này chặn một SERVER_PORT còn sót trong .env (trước đây nó là cổng
+      # host) làm ứng dụng nghe sai cổng và healthcheck 8080 hỏng theo.
+      SERVER_PORT: 8080
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       REDIS_HOST: redis
