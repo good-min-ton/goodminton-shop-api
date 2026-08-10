@@ -14,8 +14,6 @@ public class PaymentMapper {
                 .method(payment.getMethod())
                 .status(payment.getStatus())
                 .amount(payment.getAmount())
-                .vnpayTxnRef(payment.getVnpayTxnRef())
-                .vnpayTransactionNo(payment.getVnpayTransactionNo())
                 .paidAt(payment.getPaidAt())
                 .createdAt(payment.getCreatedAt())
                 .build();

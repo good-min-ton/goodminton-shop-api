@@ -76,10 +76,6 @@ jobs:
       CLOUDINARY_API_KEY: dummy
       CLOUDINARY_API_SECRET: dummy
 
-      VNP_TMN_CODE: DUMMY
-      VNP_HASH_SECRET: dummy-hash-secret
-      VNP_RETURN_URL: http://localhost:8080/api/vnpay/callback
-      VNP_FRONTEND_RETURN_URL: http://localhost:3000/payment/result
 
       FRONTEND_URL: http://localhost:3000
       ADMIN_EMAIL: ci-admin@example.com

@@ -151,7 +151,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             @Param("threshold") LocalDateTime threshold);
 
     /**
-     * PENDING orders whose external-provider payment (VNPay / PayOS) is older than
+     * PENDING orders whose PayOS payment is older than
      * threshold and no PAID payment exists — considered expired. Fetch only orderItems
      * (single collection); payments lazy-loaded inside @Transactional.
      */

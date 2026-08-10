@@ -28,7 +28,7 @@ public class OrderScheduler {
         }
     }
 
-    // Every 5 minutes — cancel expired external-provider (VNPay / PayOS) pending orders and restock.
+    // Every 5 minutes — cancel expired PayOS pending orders and restock.
     @Scheduled(fixedDelay = 5 * 60 * 1000L, initialDelay = 30 * 1000L)
     public void cancelExpiredProviderPaymentOrders() {
         try {

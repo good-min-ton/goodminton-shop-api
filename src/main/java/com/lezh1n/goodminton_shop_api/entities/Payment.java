@@ -49,18 +49,6 @@ public class Payment {
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;
 
-    @Column(name = "vnpay_txn_ref")
-    private String vnpayTxnRef;
-
-    @Column(name = "vnpay_transaction_no")
-    private String vnpayTransactionNo;
-
-    @Column(name = "vnpay_bank_code")
-    private String vnpayBankCode;
-
-    @Column(name = "vnpay_response_code")
-    private String vnpayResponseCode;
-
     @Column(name = "payos_order_code")
     private Long payosOrderCode;
 
