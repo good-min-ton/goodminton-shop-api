@@ -1,5 +1,13 @@
 server:
-  port: ${SERVER_PORT:8080}
+  # Cố định, không lấy từ biến môi trường. Cổng ứng dụng lắng nghe là chi tiết
+  # bên trong container: người triển khai chỉ cần biết ánh xạ ra cổng host nào,
+  # việc đó do docker-compose quyết định.
+  #
+  # Trước đây dòng này là ${SERVER_PORT:8080}, mà SERVER_PORT lại đang được dùng
+  # làm cổng HOST trong compose. Một tên mang hai nghĩa, nên compose phải ghim
+  # thêm SERVER_PORT: 8080 vào container để chặn xung đột. Đặt hằng số ở đây thì
+  # bỏ được cái ghim đó.
+  port: 8080
 
 spring:
   application:
