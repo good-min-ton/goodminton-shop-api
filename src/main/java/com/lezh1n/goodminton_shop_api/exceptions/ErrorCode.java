@@ -96,6 +96,9 @@ public enum ErrorCode {
     VARIANT_IN_USE(1908,
             "Cannot delete a variant that has inventory or orders; remove the related inventory first",
             HttpStatus.CONFLICT),
+    VARIANT_SALE_PRICE_NOT_BELOW_PRICE(1909,
+            "Sale price must be lower than the original price",
+            HttpStatus.BAD_REQUEST),
 
     // Product specification (2001 - 2100)
     SPEC_NAME_REQUIRED(2001, "Specification name is required", HttpStatus.BAD_REQUEST),
