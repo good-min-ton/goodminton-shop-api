@@ -22,6 +22,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -91,13 +92,20 @@ public class Order {
     @Column(name = "status_changed_at", nullable = false)
     private LocalDateTime statusChangedAt = LocalDateTime.now();
 
+    // Ordered for the same reason as Product.variants: an unordered child select
+    // reshuffles after any UPDATE, and an invoice whose line items change places
+    // between two page loads looks like a data error to the customer.
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @BatchSize(size = 50)
+    @OrderBy("id ASC")
     @Builder.Default
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    // Payments are read newest-last so retry attempts stay in chronological
+    // order; PayOSServiceImpl looks the row up by orderCode, not by position.
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @BatchSize(size = 50)
+    @OrderBy("id ASC")
     @Builder.Default
     private List<Payment> payments = new ArrayList<>();
 }
