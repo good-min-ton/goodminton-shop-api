@@ -13161,3 +13161,57 @@ INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_orde
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (651, 'quan-cau-long_qg0msc', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778319700/quan-cau-long_qg0msc.webp', 'IMAGE', 'CATEGORY_THUMBNAIL', 4, 0, NOW());
 INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (652, 'cuoc-cau-long_ipjabu', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778319701/cuoc-cau-long_ipjabu.jpg',  'IMAGE', 'CATEGORY_THUMBNAIL', 5, 0, NOW());
 SELECT setval('resources_id_seq', 652);
+-- === ảnh thay thế do tools/kiem_tra_seed.py sinh ra ===
+-- Những sản phẩm này về từ nguồn mà không kèm ảnh. Trang danh sách để lại
+-- một ô trống, trông như tải hỏng chứ không như sản phẩm chưa có ảnh.
+--
+-- Ảnh mượn từ một sản phẩm CÙNG danh mục và CÙNG thương hiệu, nên vẫn là
+-- đúng loại hàng của đúng hãng. public_id đặt theo slug của chính sản phẩm
+-- này chứ không lặp lại public_id của sản phẩm cho mượn: cột đó UNIQUE, và
+-- quan trọng hơn là nếu admin xoá ảnh ở đây thì Cloudinary chỉ báo
+-- "not found" (CloudinaryServiceImpl.deleteFile nuốt lỗi) chứ không xoá mất
+-- ảnh thật của sản phẩm cho mượn.
+--
+-- Sinh bởi tools/kiem_tra_seed.py --fix. Đừng sửa tay: chạy lại tool.
+-- #34 Vợt cầu lông Lining Aeronaut 6000  (mượn của #21)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (653, 'goodminton/products/vot-cau-long-lining-aeronaut-6000-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157550/goodminton/products/vot-cau-long-lining-axforce-cannon-pro-limited-2026-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 34, 0, NOW());
+-- #41 Vợt cầu lông Victor ARS 30H  (mượn của #42)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (654, 'goodminton/products/vot-cau-long-victor-ars-30h-chinh-hang-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157571/goodminton/products/vot-cau-long-victor-thruster-ryuga-muse-f-chinh-hang-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 41, 0, NOW());
+-- #206 Quần cầu lông Lining nam trắng - mã 425  (mượn của #205)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (655, 'goodminton/products/quan-cau-long-lining-nam-trang-ma-425-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157527/goodminton/products/quan-cau-long-lining-92009-xanh-ngoc-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 206, 0, NOW());
+-- #207 Quần cầu lông Lining 7037 - Đỏ  (mượn của #205)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (656, 'goodminton/products/quan-cau-long-lining-7037-do-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157527/goodminton/products/quan-cau-long-lining-92009-xanh-ngoc-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 207, 0, NOW());
+-- #229 Quần cầu lông Yonex nữ Đen - mã 390  (mượn của #221)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (657, 'goodminton/products/quan-cau-long-yonex-nu-den-ma-390-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 229, 0, NOW());
+-- #231 Quần cầu lông Victor nữ trắng - mã 435  (mượn của #221)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (658, 'goodminton/products/quan-cau-long-victor-nu-trang-ma-435-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 231, 0, NOW());
+-- #232 Quần cầu lông Victor nữ trắng - mã 434  (mượn của #221)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (659, 'goodminton/products/quan-cau-long-victor-nu-trang-ma-434-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 232, 0, NOW());
+-- #233 Quần cầu lông Victor nữ đen - Mã 380  (mượn của #221)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (660, 'goodminton/products/quan-cau-long-victor-nu-den-ma-380-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 233, 0, NOW());
+-- #234 Quần cầu lông Victor nam đen - Mã 096  (mượn của #221)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (661, 'goodminton/products/quan-cau-long-victor-nam-den-ma-096-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 234, 0, NOW());
+-- #235 Quần cầu lông Victor nữ đen logo nhũ vàng - Mã 034  (mượn của #221)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (662, 'goodminton/products/quan-cau-long-victor-nu-den-logo-nhu-vang-ma-034-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 235, 0, NOW());
+-- #240 Quần Cầu Lông Victor 001 Xám Trơn  (mượn của #221)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (663, 'goodminton/products/quan-cau-long-victor-001-xam-tron-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157531/goodminton/products/quan-cau-long-victor-901-trang-kem-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 240, 0, NOW());
+-- #243 Dây cước căng vợt cầu lông Lining N68  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (664, 'goodminton/products/day-cuoc-cang-vot-cau-long-lining-n68-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 243, 0, NOW());
+-- #249 Dây cước căng vợt Lining N63  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (665, 'goodminton/products/day-cuoc-cang-vot-lining-n63-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 249, 0, NOW());
+-- #250 Dây cước căng vợt Lining N61  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (666, 'goodminton/products/day-cuoc-cang-vot-lining-n61-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 250, 0, NOW());
+-- #251 Dây cước căng vợt cầu lông Lining N70  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (667, 'goodminton/products/day-cuoc-cang-vot-cau-long-lining-n70-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 251, 0, NOW());
+-- #252 Dây cước căng vợt Lining N69  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (668, 'goodminton/products/day-cuoc-cang-vot-lining-n69-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 252, 0, NOW());
+-- #253 Dây cước căng vợt Lining N65  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (669, 'goodminton/products/day-cuoc-cang-vot-lining-n65-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 253, 0, NOW());
+-- #254 Dây cước căng vợt Lining No.5  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (670, 'goodminton/products/day-cuoc-cang-vot-lining-no-5-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 254, 0, NOW());
+-- #256 Dây cước căng vợt Lining No.7  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (671, 'goodminton/products/day-cuoc-cang-vot-lining-no-7-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 256, 0, NOW());
+-- #258 Dây cước căng vợt Lining No.1  (mượn của #248)
+INSERT INTO resources (id, public_id, url, type, owner_type, owner_id, sort_order, created_at) VALUES (672, 'goodminton/products/day-cuoc-cang-vot-lining-no-1-thumbnail', 'https://res.cloudinary.com/dyrppweev/image/upload/v1778157472/goodminton/products/day-cuoc-cang-vot-lining-l67-thumbnail.webp', 'IMAGE', 'PRODUCT_THUMBNAIL', 258, 0, NOW());
+SELECT setval('resources_id_seq', 672);
+-- === hết khối ảnh thay thế ===
