@@ -72,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
         if (productRepository.existsBySlug(request.getSlug())) {
             throw new AppException(ErrorCode.PRODUCT_SLUG_EXISTED);
         }
+        validateVariants(request.getVariants());
 
         Product product = productMapper.toProduct(request);
         Product saved = productRepository.save(product);
@@ -116,6 +117,8 @@ public class ProductServiceImpl implements ProductService {
         if (!product.getSlug().equals(request.getSlug()) && productRepository.existsBySlug(request.getSlug())) {
             throw new AppException(ErrorCode.PRODUCT_SLUG_EXISTED);
         }
+
+        validateVariants(request.getVariants());
 
         productMapper.updateProduct(product, request);
         updateSpecifications(product, request.getSpecifications());
@@ -224,6 +227,40 @@ public class ProductServiceImpl implements ProductService {
         }
         requests.forEach(r -> product.getSpecifications()
                 .add(productSpecificationMapper.toProductSpecification(product, r)));
+    }
+
+    /**
+     * Guards that neither Bean Validation nor the database can express.
+     *
+     * A sale price above the original price is not caught by @Positive, and the
+     * consequence is a charge the customer never saw: checkout bills salePrice
+     * whenever it is set, while the storefront only renders a struck-through
+     * price when salePrice is BELOW price - so the page shows one number and the
+     * order takes another.
+     *
+     * Duplicate colour/size pairs are caught by uq_variant only when both axes
+     * are non-null. PostgreSQL treats NULLs as distinct in a UNIQUE constraint,
+     * so two "no colour, no size" variants of the same product slip straight
+     * through - and with two indistinguishable variants the storefront picks
+     * whichever comes first.
+     */
+    private void validateVariants(List<ProductVariantRequest> requests) {
+        if (requests == null) {
+            return;
+        }
+        Set<String> seen = new HashSet<>();
+        for (ProductVariantRequest r : requests) {
+            if (r.getSalePrice() != null && r.getSalePrice().compareTo(r.getPrice()) >= 0) {
+                throw new AppException(ErrorCode.VARIANT_SALE_PRICE_NOT_BELOW_PRICE);
+            }
+            // Null axis folded to a sentinel so "no colour" collides with
+            // "no colour" - the case the database constraint cannot see.
+            String key = (r.getColorId() == null ? "-" : r.getColorId().toString())
+                    + "/" + (r.getSizeId() == null ? "-" : r.getSizeId().toString());
+            if (!seen.add(key)) {
+                throw new AppException(ErrorCode.VARIANT_DUPLICATE_COMBINATION);
+            }
+        }
     }
 
     /**
