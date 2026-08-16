@@ -37,6 +37,9 @@ public class AccountMapper {
                 .role(account.getRole())
                 .createdAt(account.getCreatedAt())
                 .status(account.getStatus())
+                .provider(account.getProvider())
+                .avatarUrl(account.getAvatarUrl())
+                .hasPassword(account.getPassword() != null)
                 .build();
     }
 }

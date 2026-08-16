@@ -1,6 +1,7 @@
 package com.lezh1n.goodminton_shop_api.services;
 
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.GoogleLoginRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.LoginRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.LogoutRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.RefreshTokenRequest;
@@ -12,6 +13,8 @@ public interface AuthService {
     AccountResponse register(CreateAccountRequest request, UserRole role);
 
     AuthenticationResponse login(LoginRequest request);
+
+    AuthenticationResponse loginWithGoogle(GoogleLoginRequest request);
 
     AuthenticationResponse refreshToken(RefreshTokenRequest request);
 

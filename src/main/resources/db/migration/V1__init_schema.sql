@@ -9,6 +9,10 @@ CREATE TYPE user_role AS ENUM ('SUPER_ADMIN', 'STORE_ADMIN', 'CUSTOMER');
 
 CREATE TYPE account_status AS ENUM ('ACTIVE', 'INACTIVE');
 
+-- How the account proves who it is. LOCAL owns a bcrypt password; GOOGLE is
+-- vouched for by a Google ID token and has no password of its own.
+CREATE TYPE auth_provider AS ENUM ('LOCAL', 'GOOGLE');
+
 CREATE TYPE order_status AS ENUM (
     'PENDING',
     'CONFIRMED',
@@ -43,14 +47,44 @@ CREATE TYPE resource_owner AS ENUM (
 CREATE TABLE
     accounts (
         id SERIAL PRIMARY KEY,
-        full_name VARCHAR(50) NOT NULL,
-        phone VARCHAR(20) NOT NULL UNIQUE,
-        email VARCHAR(50) NOT NULL UNIQUE,
-        password VARCHAR(255) NOT NULL,
+        -- 100 chứ không phải 50: tên Google trả về là tên hiển thị người dùng tự
+        -- đặt, không có giới hạn nào bắt nó ngắn.
+        full_name VARCHAR(100) NOT NULL,
+        -- Cho phép NULL: Google không cấp số điện thoại. UNIQUE vẫn giữ được vì
+        -- PostgreSQL coi các NULL là khác nhau, nên nhiều tài khoản Google cùng
+        -- bỏ trống số điện thoại vẫn chèn được - đúng điều mong muốn ở đây, ngược
+        -- với ràng buộc uq_variant nơi NULL cần va vào nhau.
+        phone VARCHAR(20) UNIQUE,
+        -- 255 chứ không phải 50: RFC 5321 cho phép địa chỉ dài tới 254 ký tự, và
+        -- email Google thật hoàn toàn có thể vượt 50.
+        email VARCHAR(255) NOT NULL UNIQUE,
+        -- Cho phép NULL: tài khoản đăng nhập bằng Google không có mật khẩu nào để
+        -- lưu. Ràng buộc chk_local_has_password bên dưới giữ cho tài khoản LOCAL
+        -- vẫn buộc phải có.
+        password VARCHAR(255),
+        provider auth_provider NOT NULL DEFAULT 'LOCAL',
+        -- Định danh ổn định do nhà cung cấp cấp (với Google là claim "sub"). Không
+        -- dùng email làm khoá: người dùng đổi được email, còn sub thì không.
+        provider_id VARCHAR(255),
+        avatar_url VARCHAR(500),
         role user_role NOT NULL,
         status account_status NOT NULL DEFAULT 'ACTIVE',
         created_at TIMESTAMP NOT NULL DEFAULT NOW (),
-        updated_at TIMESTAMP NOT NULL DEFAULT NOW ()
+        updated_at TIMESTAMP NOT NULL DEFAULT NOW (),
+        -- Một tài khoản Google chỉ được gắn với đúng một account. Cặp NULL/NULL
+        -- của các tài khoản LOCAL không va nhau vì UNIQUE mặc định coi NULL là
+        -- khác biệt, nên ràng buộc này chỉ ràng đúng nhóm có provider_id.
+        CONSTRAINT uq_accounts_provider UNIQUE (provider, provider_id),
+        -- Chặn ngay tại lược đồ trường hợp tài khoản LOCAL không có mật khẩu:
+        -- nếu lọt qua thì không cách nào đăng nhập được vào chính nó.
+        CONSTRAINT chk_local_has_password CHECK (
+            provider <> 'LOCAL'
+            OR password IS NOT NULL
+        ),
+        CONSTRAINT chk_external_has_provider_id CHECK (
+            provider = 'LOCAL'
+            OR provider_id IS NOT NULL
+        )
     );
 
 -- ------------------------------------------------------------

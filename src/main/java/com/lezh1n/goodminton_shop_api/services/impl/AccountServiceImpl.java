@@ -89,6 +89,14 @@ public class AccountServiceImpl implements AccountService {
     public void changePassword(ChangePasswordRequest request) {
         Account account = currentAccountProvider.getCurrentAccount();
 
+        // A Google account has no password. Without this the encoder simply
+        // reports "no match" against a null hash and the customer is told their
+        // old password is wrong - which is not what happened, and leaves them
+        // guessing at a password that never existed.
+        if (account.getPassword() == null) {
+            throw new AppException(ErrorCode.ACCOUNT_HAS_NO_PASSWORD);
+        }
+
         if (!passwordEncoder.matches(request.getOldPassword(), account.getPassword())) {
             throw new AppException(ErrorCode.ACCOUNT_OLD_PASSWORD_NOT_MATCH);
         }
