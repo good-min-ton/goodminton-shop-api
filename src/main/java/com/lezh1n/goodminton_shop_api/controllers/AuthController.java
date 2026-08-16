@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lezh1n.goodminton_shop_api.common.ApiResponse;
 import com.lezh1n.goodminton_shop_api.dtos.request.CreateAccountRequest;
+import com.lezh1n.goodminton_shop_api.dtos.request.GoogleLoginRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.LoginRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.LogoutRequest;
 import com.lezh1n.goodminton_shop_api.dtos.request.RefreshTokenRequest;
@@ -35,6 +36,22 @@ public class AuthController {
     public ApiResponse<AuthenticationResponse> login(@RequestBody LoginRequest request) {
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(authService.login(request))
+                .build();
+    }
+
+    /**
+     * Exchange a Google ID token for this application's own tokens.
+     *
+     * The browser obtains the ID token from Google directly, so no redirect URI
+     * is involved — which matters here because the API is reached through a
+     * tunnel whose hostname changes. Google only needs the frontend's origin on
+     * its authorised-origins list.
+     */
+    @PostMapping("/google")
+    public ApiResponse<AuthenticationResponse> loginWithGoogle(
+            @Valid @RequestBody GoogleLoginRequest request) {
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(authService.loginWithGoogle(request))
                 .build();
     }
 

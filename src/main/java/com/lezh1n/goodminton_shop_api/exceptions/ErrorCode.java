@@ -20,6 +20,14 @@ public enum ErrorCode {
     AUTH_EMAIL_BLANK(1009, "Email is required", HttpStatus.BAD_REQUEST),
     AUTH_INVALID_EMAIL(1010, "Invalid email format", HttpStatus.BAD_REQUEST),
     AUTH_ACCOUNT_INACTIVE(1011, "Account is locked", HttpStatus.FORBIDDEN),
+    AUTH_GOOGLE_TOKEN_INVALID(1012, "Google sign-in could not be verified", HttpStatus.UNAUTHORIZED),
+    AUTH_GOOGLE_EMAIL_UNVERIFIED(1013,
+            "This Google account has no verified email address",
+            HttpStatus.FORBIDDEN),
+    AUTH_GOOGLE_NOT_FOR_STAFF(1014,
+            "Staff accounts must sign in with a password",
+            HttpStatus.FORBIDDEN),
+    AUTH_GOOGLE_DISABLED(1015, "Google sign-in is not configured", HttpStatus.SERVICE_UNAVAILABLE),
 
     // JWT & Security (1101 - 1200)
     JWT_GENERATION_ERROR(1101, "JWT generation failed", HttpStatus.INTERNAL_SERVER_ERROR),
@@ -36,6 +44,9 @@ public enum ErrorCode {
     ACCOUNT_RESET_TOKEN_INVALID(1206, "Reset link is invalid or has expired", HttpStatus.BAD_REQUEST),
     ACCOUNT_PASSWORD_SAME_AS_OLD(1207, "New password must differ from the old password", HttpStatus.BAD_REQUEST),
     ACCOUNT_CANT_BE_LOCKED(1208, "Super admin account cannot be locked", HttpStatus.BAD_REQUEST),
+    ACCOUNT_HAS_NO_PASSWORD(1209,
+            "This account signs in with Google and has no password to change; use \"forgot password\" to set one",
+            HttpStatus.BAD_REQUEST),
 
     // Store (1301 - 1400)
     STORE_NOT_FOUND(1301, "Store not found", HttpStatus.NOT_FOUND),

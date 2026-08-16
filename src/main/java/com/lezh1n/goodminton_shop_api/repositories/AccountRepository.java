@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.lezh1n.goodminton_shop_api.entities.Account;
+import com.lezh1n.goodminton_shop_api.enums.AuthProvider;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 
 @Repository
@@ -47,13 +48,17 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             """, nativeQuery = true)
     List<Account> findAdminsNotAssigned();
 
+    // COALESCE on phone is load-bearing: it is nullable now that Google accounts
+    // exist, and `x || NULL` is NULL in SQL. Without it the whole haystack
+    // collapses to NULL for those rows and they disappear from admin search
+    // entirely - not ranked lower, absent.
     @Query(value = """
             SELECT * FROM accounts a
-            WHERE immutable_unaccent(lower(a.full_name || ' ' || a.email || ' ' || a.phone))
+            WHERE immutable_unaccent(lower(a.full_name || ' ' || a.email || ' ' || COALESCE(a.phone, '')))
                   % immutable_unaccent(lower(:query))
                OR immutable_unaccent(lower(a.full_name)) LIKE '%' || immutable_unaccent(lower(:query)) || '%'
                OR a.email LIKE '%' || lower(:query) || '%'
-               OR a.phone LIKE '%' || :query || '%'
+               OR COALESCE(a.phone, '') LIKE '%' || :query || '%'
             ORDER BY similarity(
                 immutable_unaccent(lower(a.full_name || ' ' || a.email)),
                 immutable_unaccent(lower(:query))
@@ -62,12 +67,14 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
             """,
             countQuery = """
             SELECT COUNT(*) FROM accounts a
-            WHERE immutable_unaccent(lower(a.full_name || ' ' || a.email || ' ' || a.phone))
+            WHERE immutable_unaccent(lower(a.full_name || ' ' || a.email || ' ' || COALESCE(a.phone, '')))
                   % immutable_unaccent(lower(:query))
                OR immutable_unaccent(lower(a.full_name)) LIKE '%' || immutable_unaccent(lower(:query)) || '%'
                OR a.email LIKE '%' || lower(:query) || '%'
-               OR a.phone LIKE '%' || :query || '%'
+               OR COALESCE(a.phone, '') LIKE '%' || :query || '%'
             """,
             nativeQuery = true)
     Page<Account> searchAccounts(@Param("query") String query, Pageable pageable);
+
+    Optional<Account> findByProviderAndProviderId(AuthProvider provider, String providerId);
 }

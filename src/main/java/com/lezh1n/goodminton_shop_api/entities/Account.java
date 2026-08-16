@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.lezh1n.goodminton_shop_api.enums.AccountStatus;
+import com.lezh1n.goodminton_shop_api.enums.AuthProvider;
 import com.lezh1n.goodminton_shop_api.enums.UserRole;
 
 import jakarta.persistence.Column;
@@ -39,17 +40,31 @@ public class Account implements UserDetails {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "full_name", length = 50, nullable = false)
+    @Column(name = "full_name", length = 100, nullable = false)
     private String fullName;
 
-    @Column(name = "phone", length = 20, nullable = false, unique = true)
+    /** Null for accounts created through Google — it does not supply a phone. */
+    @Column(name = "phone", length = 20, unique = true)
     private String phone;
 
-    @Column(name = "email", length = 50, nullable = false, unique = true)
+    @Column(name = "email", length = 255, nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", length = 255, nullable = false)
+    /** Null for external providers; the database CHECK keeps LOCAL ones honest. */
+    @Column(name = "password", length = 255)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "provider", nullable = false)
+    @Builder.Default
+    private AuthProvider provider = AuthProvider.LOCAL;
+
+    /** The provider's own stable id — Google's {@code sub}. Null when LOCAL. */
+    @Column(name = "provider_id", length = 255)
+    private String providerId;
+
+    @Column(name = "avatar_url", length = 500)
+    private String avatarUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
